@@ -44,7 +44,7 @@
    - TypeScript
 
    ```bash
-   npm i typescript vuex vue-router sass-loader node-sass
+   npm i typescript vuex router sass-loader node-sass
    vue add vue-router vuex @vue/typescript
    ```
 
