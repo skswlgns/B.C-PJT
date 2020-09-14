@@ -31,17 +31,41 @@
 
      - 번역 혹은 통역가의 등급을 높여 많은 알을 받아가세요!
 
-3. 개발 언어 :page_with_curl: 
+3. 개발 언어 :page_with_curl:  및 Setting 
+
+   > **1. 이미 로컬에 환경구축되어있다면 설치 x**
+   >
+   > **2. Front, Back 다 npm를 사용하므로 Pull 받고 npm 설치해주기**
 
    **frontend**
 
    - vue.js
    - SCSS
+   - TypeScript
+
+   ```bash
+   npm i typescript vuex router sass-loader node-sass
+   vue add vue-router vuex @vue/typescript
+   ```
 
    **backend**
 
    - express
+
    - mongoDB
+
+   ```bash
+   npm init
+   npm i --save express typescript ts-node cors body-parser
+   npm i mongodb
+   npm i mongoose
+   
+   npm i @types/node @types/express nodemon
+   npm i @types/mongodb
+   npm i @types/mongoose
+   ```
+
+   
 
    **+**
 
@@ -52,4 +76,6 @@
    - web3.js
    - socketio - webrtc
 
-   
+
+
+
