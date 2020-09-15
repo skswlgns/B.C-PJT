@@ -1,47 +1,46 @@
 <template>
-  <div class="login-wrap">
-    <div class="login-html">
-      <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">사용자 로그인</label>
-      <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">통역가 로그인</label>
-      <div class="login-form">
-        <div class="sign-in-htm">
-          <div class="group">
-            <label for="user" class="label">아이디</label>
-            <input id="user" type="text" class="input">
+  <div>
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+        <form action="#">
+          <h1>회원가입</h1>
+          <!-- <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div> -->
+          <input type="email" placeholder="이메일" />
+          <input type="password" placeholder="비밀번호" />
+          <input type="password" placeholder="비밀번호 확인" />
+          <input type="text" placeholder="닉네임" />
+          <input type="text" placeholder="전화번호" />
+          <button>회원가입</button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="#">
+          <h1>LOGIN</h1>
+          <!-- <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div> -->
+          <input type="email" placeholder="Email" />
+          <input type="password" placeholder="Password" />
+          <a href="#">Forgot your password?</a>
+          <button>Login</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome MAMAGO!</h1>
+            <button class="ghost" id="signIn">Login</button>
           </div>
-          <div class="group">
-            <label for="pass" class="label">비밀번호</label>
-            <input id="pass" type="password" class="input" data-type="password">
+          <div class="overlay-panel overlay-right">
+            <h1>안녕, 마마고에 온 걸 환영해!</h1>
+            <button class="ghost" id="signUp">회원가입</button>
           </div>
-          <div class="group">
-            <input type="submit" class="button" value="Sign In">
-          </div>
-          <div class="hr"></div>
-          <div class="foot-lnk">
-            <a href="#forgot">Forgot Password?</a>
-          </div>
-        </div>
-        <div class="sign-up-htm">
-          <div class="group">
-            <label for="user" class="label">Username</label>
-            <input id="user" type="text" class="input">
-          </div>
-          <div class="group">
-            <label for="pass" class="label">Password</label>
-            <input id="pass" type="password" class="input" data-type="password">
-          </div>
-          <div class="group">
-            <label for="pass" class="label">Repeat Password</label>
-            <input id="pass" type="password" class="input" data-type="password">
-          </div>
-          <div class="group">
-            <label for="pass" class="label">Email Address</label>
-            <input id="pass" type="text" class="input">
-          </div>
-          <div class="group">
-            <input type="submit" class="button" value="Sign Up">
-          </div>
-          <div class="hr"></div>
         </div>
       </div>
     </div>
@@ -49,18 +48,27 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Vue } from 'vue-property-decorator';
+  import '@/assets/scss/login.scss'
+  @Component({
+    components: {
+    },
+    mounted() {
+      const signUpButton = document.getElementById('signUp')!;
+      const signInButton = document.getElementById('signIn')!;
+      const container = document.getElementById('container')!;
 
-@Component({
-  components: {
-
-  },
-})
-
-
-export default class Login extends Vue {}
+      if (signUpButton) {
+          signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+          });
+      }
+      if (signInButton) {
+        signInButton.addEventListener('click', () => {
+          container.classList.remove("right-panel-active");
+        });
+      }
+    }
+  })
+  export default class Login extends Vue {}
 </script>
-
-<style lang="scss" scoped>
-
-</style>
