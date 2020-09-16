@@ -24,7 +24,7 @@ body {
 }
 h1 {
 	font-weight: bold;
-	margin: 0;
+	margin: 1rem 0;
 }
 h2 {
 	text-align: center;
@@ -46,15 +46,16 @@ a {
 	margin: 15px 0;
 }
 button {
-	border-radius: 20px;
+	border-radius: 30px;
 	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
 	color: #FFFFFF;
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: bold;
-	padding: 12px 45px;
+	padding: 20px 60px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+	margin-top: 1rem;
 	transition: transform 80ms ease-in;
 	&:active {
 		transform: scale(0.95);
@@ -64,6 +65,7 @@ button {
 	}
 }
 button.ghost {
+	margin-top: 2rem;
 	background-color: transparent;
 	border-color: #FFFFFF;
 }
@@ -82,7 +84,7 @@ input {
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
-	width: 100%;
+	width: 80%;
 }
 .container {
 	background-color: #fff;
@@ -90,9 +92,9 @@ input {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
+	width: 80vw;
 	max-width: 100%;
-	min-height: 480px;
+	min-height: 80vh;
 }
 .form-container {
 	position: absolute;
@@ -191,26 +193,5 @@ input {
 		margin: 0 5px;
 		height: 40px;
 		width: 40px;
-	}
-}
-footer {
-	background-color: #222;
-	color: #fff;
-	font-size: 14px;
-	bottom: 0;
-	position: fixed;
-	left: 0;
-	right: 0;
-	text-align: center;
-	z-index: 999;
-	p {
-		margin: 10px 0;
-	}
-	i {
-		color: red;
-	}
-	a {
-		color: #3c97bf;
-		text-decoration: none;
 	}
 }
