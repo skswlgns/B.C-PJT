@@ -16,6 +16,7 @@ export default class Home extends VuexModule {
   public increment(delta: number) {
     console.log(`increment mutation: ${delta}`);
     this.count += delta;
+    console.log(this.count);
   }
 
   // actions
