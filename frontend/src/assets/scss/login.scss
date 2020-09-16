@@ -195,3 +195,14 @@ input {
 		width: 40px;
 	}
 }
+
+select{
+	width: 80%;
+	padding: 12px 15px;
+	margin: 8px 0;
+	font-size: 0.8rem;
+
+	option{
+		font-size: 1rem;
+	}
+}
