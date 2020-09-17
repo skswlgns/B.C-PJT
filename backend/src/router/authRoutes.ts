@@ -3,18 +3,18 @@ import { UserModel } from "../model/UserModel"
 
 const authRoutes = express.Router()
 const crypto = require("crypto")
-// const nodemailer = require("nodemailer")
-// const smtpTransporter = require("nodemailer-smtp-transport")
-// const fileUpload = require("express-fileupload")
+
+// jwt
+const jwt = require("jsonwebtoken")
+const secretObj = require("../config/jwt")
 
 // jwt middleware
 const verificationMiddleware = require("../middleware/verification")
 const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
-// jwt
-const jwt = require("jsonwebtoken")
-const secretObj = require("../config/jwt")
-// const { rejects } = require("assert")
+/*
+계정 인증을 위한 router
+*/
 
 // 비밀번호 암호화 함수
 const hashPassword = (password: string) => {
@@ -80,6 +80,8 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_email = req.body.user_email
     const user_pwd = req.body.user_pwd
     const user_nickname = req.body.user_nickname
+    const user_lang = req.body.user_lang
+    const user_phone = req.body.user_phone
 
     // 빈 아이딩 및 비밀번호 검증
     if (user_email !== "" && user_pwd !== "" && user_email !== undefined && user_pwd !== undefined) {
@@ -94,6 +96,8 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
             user_email: user_email,
             user_pwd: hashPassword(user_pwd),
             user_nickname: user_nickname,
+            user_lang: user_lang,
+            user_phone: user_phone,
           })
           await item.save()
           res.status(200).send({
