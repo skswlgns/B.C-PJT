@@ -23,6 +23,7 @@ export default class Home extends VuexModule {
   @Action({ commit: 'increment' })
   public incr(delta: number) {
     console.log(`increment action: ${delta}`);
+    delta ++;
     return delta;
   }
 
