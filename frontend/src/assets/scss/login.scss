@@ -195,7 +195,6 @@ input {
 		width: 40px;
 	}
 }
-
 select{
 	width: 80%;
 	padding: 12px 15px;
@@ -205,4 +204,8 @@ select{
 	option{
 		font-size: 1rem;
 	}
+}
+
+.check {
+	color: red;
 }

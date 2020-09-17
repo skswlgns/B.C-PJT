@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    {{ user_email }}
     <p>{{count}} * 2 = {{doubledCount}}</p>
     <button @click="incr(1)">incr</button>
   </div>
