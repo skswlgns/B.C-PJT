@@ -1,6 +1,8 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import Vue from 'vue'
 import axios from 'axios'
 import router from '@/router'
+import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+
 const SERVER_URL = 'http://localhost:5000'
 
 @Module({namespaced: true})
@@ -35,7 +37,8 @@ export default class Login extends VuexModule  {
   @Action({commit : "getToken"})
   public async login (loginData: any){
     const res = await axios.post(`${SERVER_URL}/auth/signin`, loginData)
-    this.$cookies.set('auth-token', res.data.token)
+    Vue.cookies.set('auth-token', res.data.token)
+    console.log(this)
     router.push({name: "Home"})
     return res.data.token
   }

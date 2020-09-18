@@ -18,6 +18,7 @@ new Vue({
 
 
 // Vue.cookies.config({expires: '7d'})
+
 // export default {
 //   install(_Vue: typeof Vue) {
 //     const vueCookies = new cookies();
