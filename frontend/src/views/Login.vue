@@ -10,8 +10,9 @@
             <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
           </div> -->
           <input v-model="signupData.user_email" type="email" placeholder="이메일" />
-          <input v-model="signupData.user_pwd" type="password" placeholder="비밀번호" />
-          <input v-model="conf_pwd" type="password" placeholder="비밀번호 확인" />
+          <input @change="pwd_check()" v-model="signupData.user_pwd" type="password" placeholder="비밀번호" />
+          <input @change="pwd_check()" v-model="conf_pwd" type="password" placeholder="비밀번호 확인" />
+          <span class="check" v-if="this.pwd_bool">비밀번호가 일치하지 않습니다.</span>
           <input v-model="signupData.user_nickname" type="text" placeholder="닉네임" />
           <input v-model="signupData.user_phone" type="text" placeholder="전화번호" />
           <select v-model="signupData.user_lang" name="pets" id="pet-select">
@@ -173,13 +174,14 @@
       <div class="form-container sign-in-container">
         <form action="#">
           <h1>LOGIN</h1>
+          <h3>{{ user_token }}</h3>
           <!-- <div class="social-container">
             <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
             <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
           </div> -->
-          <input v-model="loginData.username" placeholder="Email" />
-          <input v-model="loginData.password" type="password" placeholder="Password" />
+          <input v-model="loginData.user_email" type="email" placeholder="Email" />
+          <input v-model="loginData.user_pwd" type="password" placeholder="Password" />
           <a href="#">Forgot your password?</a>
           <button @click="login(loginData)">Login</button>
         </form>
@@ -202,13 +204,13 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import '@/assets/scss/login.scss'
+  import '@/assets/scss/login.scss';
   import { namespace } from 'vuex-class';
+  // import { privateDecrypt } from 'crypto';
 
   const LoginModule = namespace('Login');
 
   @Component({
-
     components: {
     },
     mounted() {
@@ -230,33 +232,40 @@
 
   export default class Login extends Vue {
     // 데이터 영역 
-    private signupData : object = {
+    private signupData : any = {
       user_email : "",
       user_nickname: "",
       user_pwd: "",
       user_phone: "",
       user_lang: "모국어",
     }
-    private conf_pwd : string = ""
+    private conf_pwd: string = ""
+    private pwd_bool: boolean = false
 
     private loginData : any = {
-      username: "",
-      password: "",
+      user_email: "",
+      user_pwd: "",
     }
+
     // 메소드 영역
-    // SignUp() {
-    //   console.log(this.signupData);
-    // }
+    pwd_check() {
+      if (this.signupData.user_pwd === this.conf_pwd){
+        this.pwd_bool = false
+      }
+      else {
+        this.pwd_bool = true
+      }
+    }
 
     // vuex 영역
     @LoginModule.State('user_token')
     private user_token!: string;
 
-    // @LoginModule.Action('signup')
-    // private signup!: (signupData: object) => void;
+    @LoginModule.Action('signup')
+    private signup!: (signupData: object) => void;
 
     @LoginModule.Action('login')
-    private login!: (loginData: object) => void;
+    private login!: (loginData: any) => void;
     
   }
 </script>
