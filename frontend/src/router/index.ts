@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
-import Login from '@/views/Login.vue'
 import Home2 from '@/views/Home2.vue'
+import Home from '@/views/Home.vue'
+import Login from '@/views/Login.vue'
+import NotFound from '@/views/NotFound.vue'
+import MyPage from '@/views/MyPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home
-  // },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
   {
     path: '/login',
     name: 'Login',
@@ -21,7 +24,22 @@ const routes = [
     path: '/',
     name: 'Home2',
     component: Home2
-  }
+  },
+  // 지훈
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/404',
+    name: 'NotFound',
+    component: NotFound
+  },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    component: MyPage
+  },
 ]
 
 const router = new VueRouter({

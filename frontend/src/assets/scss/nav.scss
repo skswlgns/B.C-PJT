@@ -1,0 +1,28 @@
+.flex_pure {
+  display: flex;
+  margin-bottom: 20px;
+
+  .center_pure {
+    margin: 20px auto 0;
+
+    .img_logo {
+        width: 10vw;
+    }
+  }
+
+  .right {
+    margin: 5vh 0;
+  }
+
+  span {
+    margin: 0 0.5rem;
+  }
+}
+
+body {
+	justify-content: center;
+	align-items: center;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: 0 10vw;
+}
