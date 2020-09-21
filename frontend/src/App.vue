@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <!-- <div>
+  <v-app id="app">
+    <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link>
     </div> -->
@@ -18,11 +18,10 @@
         <span>로그아웃</span>
       </div>
     </div>
-    <router-view/>  
-  </div>
+    <router-view/>
+  </v-app>
 </template>
 
 <style lang="scss">
-  @import '@/assets/scss/reset.scss';
-  @import '@/assets/scss/nav.scss';
+  @import '@/assets/scss/app.scss';
 </style>
