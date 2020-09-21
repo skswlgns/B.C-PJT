@@ -40,10 +40,13 @@
 	}	
 
 	.cardList {
+		margin: 2rem 1rem;
+		list-style: none;
 		.card {
 			width: 80%;
-			height: 50px;
+			height: 25vh;
 			border: 1px solid lightgray;
+			margin: 1rem 0;
 		}
 	}
 }

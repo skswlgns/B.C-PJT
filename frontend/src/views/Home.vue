@@ -345,9 +345,13 @@
     </div>
 
     <div class="cardList">
-      <div class="card">  
-        
-      </div>
+      <li v-for="list in ListData" :key="list.user_id">
+        <div class="card">  
+          <p>{{ list.user_id }}</p>
+          <h1>{{ list.title }}</h1>
+          <p>{{ list.content }}</p>
+        </div>
+      </li>
     </div>
 
   </div>
@@ -380,6 +384,29 @@
     private time_picker = ""
     private menu2 = false
     private modal2 = false
+
+    private ListData : any = [
+      {
+        user_id: 'dlekdls0213',
+        title: '비즈니스 대화가 있는데 도와주실 분 구합니다 : ) ',
+        content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
+        point: '200P',
+        date: '2020-09-22',
+        lang_1: '한국어',
+        lang_2: 'English',
+        apply_num: 3,
+      },
+      {
+        user_id: 'dlekdls0213',
+        title: '비즈니스 대화가 있는데 도와주실 분 구합니다 : ) ',
+        content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
+        point: '200P',
+        date: '2020-09-22',
+        lang_1: '한국어',
+        lang_2: 'English',
+        apply_num: 3,
+      }
+    ]
   }
 </script>
 
