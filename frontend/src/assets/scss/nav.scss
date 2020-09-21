@@ -1,0 +1,20 @@
+.flex {
+    display: flex;
+    margin-bottom: 20px;
+
+    .center {
+        margin: 20px auto 0;
+
+        .img_logo {
+            width: 20vh;
+        }
+    }
+
+    .right {
+        margin: 20px 0;
+    }
+
+    span {
+        margin: 0 0.5rem;
+    }
+}

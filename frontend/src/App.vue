@@ -1,32 +1,28 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div>
+    <!-- <div>
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link>
+    </div> -->
+    <div class="flex">
+      <div class="center">
+        <img src="@/assets/images/logo.png" alt="로고" class="img_logo">
+      </div>
+      <div class="right">
+        <span>
+          <i class="fas fa-user-circle fa-2x"></i>
+        </span>
+        <span>
+          <i class="far fa-bell fa-2x"></i>
+        </span>
+        <span>로그아웃</span>
+      </div>
     </div>
-    <router-view/>
+    <router-view/>  
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+  @import '@/assets/scss/reset.scss';
+  @import '@/assets/scss/nav.scss';
 </style>
