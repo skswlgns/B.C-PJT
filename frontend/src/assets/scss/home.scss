@@ -1,0 +1,35 @@
+
+
+.selection{
+	border : 1px solid lightgrey;
+	background-color: white;
+	margin-bottom : 2px;
+
+	.selection_lang {
+		border : 1px solid lightgrey;
+		padding: 15px 0;
+		display: inline;
+
+		select{
+			width: 30%;
+			font-size: 0.8rem;
+			padding: 15px 0;
+
+			option{
+				font-size: 1rem;
+			}
+		}
+	}
+	.selection_date {
+		display: inline;
+		width: 30%;
+		font-size: 0.8rem;
+		border : 1px solid lightgrey;
+		padding: 15px 0;
+
+		input {
+			background-color: white;
+		}
+	}
+}
+
