@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <h1>통역 신청 리스트</h1>
+    <h1>통역 리스트</h1>
     <div class="selection">
       <div class="selection_lang">
         <select v-model="transData.lang_1" name="lang_1" id="lang_1">
@@ -156,6 +156,7 @@
       <option>ខ្មែរ</option>
       <option>ᏣᎳᎩ</option>
         </select>
+        <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
         <select v-model="transData.lang_2" name="lang_2" id="lang_2">
           <option>{{ transData.lang_2 }}</option>
           <option>한국어</option>
@@ -310,7 +311,6 @@
           <option>ᏣᎳᎩ</option>
         </select>
       </div>
-
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <input v-model="date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
@@ -319,25 +319,18 @@
           <v-date-picker v-model="date_picker" color="green lighten-1"></v-date-picker>
         </v-list>
       </v-menu>
-
-      <v-col cols="11" sm="5">
       <v-menu
         ref="menu"
         v-model="menu2"
         :close-on-content-click="false"
-        :nudge-right="40"
-        :return-value.sync="time"
         transition="scale-transition"
         offset-y
-        max-width="290px"
-        min-width="290px"
-        class="selection_time"
       >
         <template v-slot:activator="{ on, attrs }">
           <input
             v-model="time_picker"
+            class="selection_time"
             placeholder="통역 시간"
-            readonly
             v-bind="attrs"
             v-on="on"
           />
@@ -349,8 +342,14 @@
           @click:minute="$refs.menu.save(time)"
         ></v-time-picker>
       </v-menu>
-    </v-col>
     </div>
+
+    <div class="cardList">
+      <div class="card">  
+        
+      </div>
+    </div>
+
   </div>
 </template>
 
