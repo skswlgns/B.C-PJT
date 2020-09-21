@@ -310,23 +310,46 @@
           <option>ᏣᎳᎩ</option>
         </select>
       </div>
-      <!-- <input v-model="picker2" type="text" class="selection_date"> -->
 
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="selection_date"
-            color=""
-            v-bind="attrs"
-            v-on="on"
-          >
-            <input v-model="picker2" type="text" class="selection_date">
-          </v-btn>
+          <input v-model="date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
         </template>
         <v-list>
-          <v-date-picker v-model="picker2" color="green lighten-1"></v-date-picker>
+          <v-date-picker v-model="date_picker" color="green lighten-1"></v-date-picker>
         </v-list>
       </v-menu>
+
+      <v-col cols="11" sm="5">
+      <v-menu
+        ref="menu"
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        :return-value.sync="time"
+        transition="scale-transition"
+        offset-y
+        max-width="290px"
+        min-width="290px"
+        class="selection_time"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <input
+            v-model="time_picker"
+            placeholder="통역 시간"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          />
+        </template>
+        <v-time-picker
+          v-if="menu2"
+          v-model="time_picker"
+          full-width
+          @click:minute="$refs.menu.save(time)"
+        ></v-time-picker>
+      </v-menu>
+    </v-col>
     </div>
   </div>
 </template>
@@ -354,7 +377,10 @@
       time : "",
     }
 
-    private picker2 = ""
+    private date_picker = ""
+    private time_picker = ""
+    private menu2 = false
+    private modal2 = false
   }
 </script>
 

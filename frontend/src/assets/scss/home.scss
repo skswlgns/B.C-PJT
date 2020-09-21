@@ -22,13 +22,24 @@
 	}
 	.selection_date {
 		display: inline;
-		width: 30%;
 		font-size: 0.8rem;
 		border : 1px solid lightgrey;
 		padding: 15px 0;
-
+		width: 30%;
 		input {
 			background-color: white;
+			width: 30%;
+		}
+	}
+	.selection_time {
+		display: inline;
+		font-size: 0.8rem;
+		border : 1px solid lightgrey;
+		padding: 15px 0;
+		width: 30%;
+		input {
+			background-color: white;
+			width: 30%;
 		}
 	}
 }
