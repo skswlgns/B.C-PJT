@@ -7,7 +7,7 @@ import vuetify from './plugins/vuetify';
 
 Vue.config.productionTip = false
 Vue.use(VueCookies)
-
+    
 
 new Vue({
   router,
