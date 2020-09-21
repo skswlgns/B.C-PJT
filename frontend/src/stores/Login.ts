@@ -10,9 +10,6 @@ export default class Login extends VuexModule  {
   
   // states
   public user_token: string = ""
-  // get doubledCount() {
-  //   return this.count * 2;
-  // }
 
   // mutations
   @Mutation

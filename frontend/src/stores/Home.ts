@@ -2,7 +2,7 @@ import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 
 @Module({namespaced: true})
 export default class Home extends VuexModule {
-
+  
   // states
   public count: number = 0;
 
