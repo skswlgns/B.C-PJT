@@ -85,13 +85,13 @@
    $ git checkout develop
    
    2. 최신 작업파일들로 패치해준다.
-   $ git pull develop master
+   $ git pull origin develop
    
    3. 충돌이 났던 가지로 간다.
    $ git checkout [브랜치명]
    
    4. 머지를 해서 충돌이 난 부분을 고쳐준다.
-   $ git merge master
+   $ git merge develop
    
    그리고 나서 다시 git add, commit, push, pull request를 하면 해결
    
