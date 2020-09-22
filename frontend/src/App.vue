@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app >
     <div class="flex_pure">
       <div class="center_pure">
         <img src="@/assets/images/logo.png" alt="로고" class="img_logo">
