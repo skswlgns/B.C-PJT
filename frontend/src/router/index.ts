@@ -4,12 +4,14 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
+import TransDetail from '@/views/TransDetail.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  // 다인
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -17,6 +19,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/transdetail',
+    name: 'TransDetail',
+    component: TransDetail
   },
 
   // 지훈

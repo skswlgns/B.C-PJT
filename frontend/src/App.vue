@@ -60,7 +60,7 @@
       },
 
       goHome() {
-        this.$router.push('/').catch(()=>{})
+        this.$router.push('/home').catch(()=>{})
       }
     }
   })
