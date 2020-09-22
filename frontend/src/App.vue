@@ -1,12 +1,12 @@
 <template>
-  <v-app>
+  <v-app id="bg">
     <div class="flex_pure">
       <div class="center_pure">
-        <img src="@/assets/images/logo.png" alt="로고" class="img_logo">
+        <img src="@/assets/images/logo.png" alt="로고" class="img_logo curs" @click="goHome()">
       </div>
       <div class="right">
         <!-- 마이페이지 -->
-        <span>
+        <span class="curs">
           <i class="fas fa-user-circle fa-2x" @click="goMypage()"></i>
         </span>
         <!-- 알림 -->
@@ -33,7 +33,11 @@
 
     methods: {
       goMypage() {
-        this.$router.push('/mypage')
+        this.$router.push('/mypage').catch(()=>{})
+      },
+
+      goHome() {
+        this.$router.push('/').catch(()=>{})
       }
     }
   })
