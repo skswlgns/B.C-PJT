@@ -5,8 +5,12 @@
   .center_pure {
     margin: 20px auto 0;
 
-    .img_logo {
-        width: 10vw;
+    .img_logo_1000 {
+      width: 10vw;
+    }
+
+    .img_logo_600 {
+      width: 20vw;
     }
   }
 
@@ -24,5 +28,29 @@ body {
 	align-items: center;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: 0 10vw;
+  background-color: #fafafa;
+}
+
+#bg {
+  background-color: #fafafa;
+}
+
+.curs {
+  cursor: pointer;
+}
+
+.img_mobile {
+  width: 30%;
+}
+
+.cont10 {
+  margin: 0 10vw;
+}
+
+.cont1 {
+  margin: 1vw 2vw;
+}
+
+.bg-white {
+  background-color: #FFFFFF;
 }

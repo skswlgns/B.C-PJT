@@ -1,12 +1,15 @@
 <template>
-  <v-app >
-    <div class="flex_pure">
+  <v-app id="bg" :class="[{ 'cont10': windowWidth > 375} ]" >
+    <!-- 웹용 -->
+    <div class="flex_pure" v-if="windowWidth > 375">
       <div class="center_pure">
-        <img src="@/assets/images/logo.png" alt="로고" class="img_logo">
+        <img src="@/assets/images/logo.png" alt="로고" :class="[ {'img_logo_1000 curs': windowWidth >= 1000,
+        'img_logo_600 curs': windowWidth < 1000}]" @click="goHome()">
       </div>
+      <!-- 로그인 되어 있을 경우 -->
       <div class="right">
         <!-- 마이페이지 -->
-        <span>
+        <span class="curs">
           <i class="fas fa-user-circle fa-2x" @click="goMypage()"></i>
         </span>
         <!-- 알림 -->
@@ -17,6 +20,26 @@
         <span>
           <i class="fas fa-sign-out-alt fa-2x"></i>
         </span>
+      </div>
+    </div>
+
+    <!-- 모바일버전 -->
+    <div v-else class="bg-white">
+      <div class="d-flex my-4">
+        <div class="ml-2">
+          <img src="@/assets/images/logo_mobile.png" alt="로고!" class="img_mobile" @click="goHome()">
+        </div>
+        <div class="mr-2">
+          <i class="fas fa-user-circle fa-2x" @click="goMypage()"></i>
+        </div>
+        <!-- 알림 -->
+        <div class="mr-2">
+          <i class="far fa-bell fa-2x"></i>
+        </div>
+        <!-- 로구아웃 -->
+        <div class="mr-2">
+          <i class="fas fa-sign-out-alt fa-2x"></i>
+        </div>
       </div>
     </div>
     <router-view/>
@@ -33,7 +56,11 @@
 
     methods: {
       goMypage() {
-        this.$router.push('/mypage')
+        this.$router.push('/mypage').catch(()=>{})
+      },
+
+      goHome() {
+        this.$router.push('/').catch(()=>{})
       }
     }
   })

@@ -1010,13 +1010,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jquery@^3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.1.tgz#cebb057acf5071c40e439f30e840c57a30d406c3"
-  integrity sha512-Tyctjh56U7eX2b9udu3wG853ASYP0uagChJcQJXLUXEU6C/JiW5qt5dl8ao01VRj1i5pgXPAf8f1mq4+FDLRQg==
-  dependencies:
-    "@types/sizzle" "*"
-
 "@types/json-schema@^7.0.3", "@types/json-schema@^7.0.4", "@types/json-schema@^7.0.5":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -1081,11 +1074,6 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
-
-"@types/sizzle@*":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
-  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/source-list-map@*":
   version "0.1.2"
@@ -8958,6 +8946,13 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
+vue-window-size@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/vue-window-size/-/vue-window-size-0.6.1.tgz#0240a6d0b44d8f6c1f0dfc870ca74873a457fa77"
+  integrity sha512-oFgxit6DtgIMiPQOysrPc25gxqtMsIJ9pQCuOonUCOL4v2HAmLNmM6us+ZRBzEUVQuWJNv9kA4O6mjo3jFU8kg==
+  dependencies:
+    window-resize-subject "^1.4.2"
+
 vue@^2.6.11:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
@@ -9198,6 +9193,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+window-resize-subject@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/window-resize-subject/-/window-resize-subject-1.4.2.tgz#a9aab072a3299b04acc89d179b12147482e5993f"
+  integrity sha512-MO4o0jv0/NSaOI0RfYhjNktyXeQjoPVeObkRuglvuH0qoNfQpxUY8QvHcw9XYwmEL9rpMQy6qNvbz6wyad0Zyg==
 
 word-wrap@~1.2.3:
   version "1.2.3"
