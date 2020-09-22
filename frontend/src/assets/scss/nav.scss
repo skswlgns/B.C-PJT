@@ -1,0 +1,56 @@
+.flex_pure {
+  display: flex;
+  margin-bottom: 20px;
+
+  .center_pure {
+    margin: 20px auto 0;
+
+    .img_logo_1000 {
+      width: 10vw;
+    }
+
+    .img_logo_600 {
+      width: 20vw;
+    }
+  }
+
+  .right {
+    margin: 5vh 0;
+  }
+
+  span {
+    margin: 0 0.5rem;
+  }
+}
+
+body {
+	justify-content: center;
+	align-items: center;
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+  background-color: #fafafa;
+}
+
+#bg {
+  background-color: #fafafa;
+}
+
+.curs {
+  cursor: pointer;
+}
+
+.img_mobile {
+  width: 30%;
+}
+
+.cont10 {
+  margin: 0 10vw;
+}
+
+.cont1 {
+  margin: 1vw 2vw;
+}
+
+.bg-white {
+  background-color: #FFFFFF;
+}

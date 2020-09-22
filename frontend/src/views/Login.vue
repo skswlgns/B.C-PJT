@@ -204,9 +204,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  import '@/assets/scss/login.scss';
   import { namespace } from 'vuex-class';
-  // import { privateDecrypt } from 'crypto';
 
   const LoginModule = namespace('Login');
 
@@ -269,3 +267,7 @@
     
   }
 </script>
+
+<style lang="scss" scoped>
+  @import '@/assets/scss/login.scss';
+</style>
