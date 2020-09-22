@@ -1,133 +1,275 @@
 #home {
-	.trans_h1 {
-		margin: 2rem 1rem;
-	}
-
-	.selection{
-		margin: 0 1rem;
+	#WEB {
+		.trans_h1 {
+			margin: 2rem 1rem;
+		}
 	
-		.selection_lang {
-			display: inline;
-			margin: 0 auto;
-
-			.swap_icon {
-				margin: 0 0.5rem;
+		.selection{
+			margin: 0 1rem;
+		
+			.selection_lang {
+				display: inline;
+				margin: 0 auto;
+	
+				.swap_icon {
+					margin: 0 0.5rem;
+				}
+				select{
+					width: 22%;
+					font-size: 1.5rem;
+					padding: 1.5rem 1rem;
+					border : 1px solid lightgrey;
+					background-color: white;
+					option{
+						font-size: 1.3rem;
+					}
+					&:hover { 
+						cursor: pointer;
+					}
+				}
 			}
-			select{
+			.selection_date {
+				display: inline;
+				border : 1px solid lightgrey;
+				background-color: white;
+				padding: 1.5rem 1rem;
 				width: 22%;
 				font-size: 1.5rem;
-				padding: 1.5rem 1rem;
+				margin: 0 2.5rem;
+			}
+			.selection_time {
+				display: inline;
 				border : 1px solid lightgrey;
+				background-color: white;
+				padding: 1.5rem 1rem;
+				width: 22%;
+				font-size: 1.5rem;
+				margin: 0 0.5rem;
+			}
+		}	
 	
-				option{
-					font-size: 1.3rem;
+		.home_main{
+			.cardList {
+				margin: 2rem 1rem;
+				list-style: none;
+				.card {
+					background-color: white;
+					width: 100%;
+					height: 27vh;
+					border: 1px solid lightgray;
+					margin: 1.5rem 0;
+					padding: 1.5rem 2rem;
+					.profile {
+						display: flex;
+						.profile_image {
+							width: 8%;
+							height: 8%;
+							border-radius: 5rem;
+						}
+						.center {
+							margin-top: 3%;
+							font-size: 1.2rem;
+							margin-left: 2%;
+						}
+					}
+					.card_content{
+						margin: 2rem 0;
+					}
+					.inline {
+						display: inline;
+						font-size: 1.2rem;
+						margin: 1rem 0.5rem;
+					}
+					.point {
+						border: 1px solid lightgray;
+						border-radius: 1rem;
+						padding: 0.6rem;
+						background-color: white;
+						margin-right: 0.5rem;
+						font-weight: bold;
+						.egg_icon{
+							color: #FFAB00;
+						}
+					}
+					&:hover {
+						cursor : pointer;
+					}
+				} 
+				
+			}
+	
+			.applyTrans{
+				border: 1px solid lightgray;
+				margin-top: 2rem;
+				margin-right: 4rem;
+				height: 400px;
+				padding: 2rem 0;
+				background-color: white;
+				.btns {
+					margin-bottom: 3rem;
+					.btn_blue {
+						background-color: #FF5252;
+						padding: 1.7rem 0;
+						color: white;
+						width: 70%;
+						justify-content: center;
+						font-size: 1.2rem;
+						font-weight: bold;
+						margin: 1rem 15%;
+					}
+					.btn {
+						border: 2px solid #FF5252;
+						padding: 1.7rem 0;
+						color: #FF5252;
+						width: 70%;
+						background-color: white;
+						font-size: 1.2rem;
+						font-weight: bold;
+						margin: 0 15%;
+					}
+				}
+	
+				.lately_trans{
+					margin: 1rem 5%;
+	
+					.profile_img {
+						margin: 1rem 0;
+						width: 25%;
+						height: 25%;
+						border-radius: 5rem;
+					}
 				}
 			}
 		}
-		.selection_date {
-			display: inline;
-			border : 1px solid lightgrey;
-			padding: 1.5rem 1rem;
-			width: 22%;
-			font-size: 1.5rem;
-			margin: 0 2.5rem;
+	}
+	
+	#Mobile {
+		.trans_h3 {
+			margin: 1rem;
 		}
-		.selection_time {
-			display: inline;
-			border : 1px solid lightgrey;
-			padding: 1.5rem 1rem;
-			width: 22%;
-			font-size: 1.5rem;
-			margin: 0 0.5rem;
-		}
-	}	
 
-	.home_main{
+		.selection{
+			margin: 1rem;
+			.selection_lang {
+				display: inline;
+				.swap_icon {
+					margin: 0 0.5rem;
+				}
+				select{
+					width: 150px;
+					font-size: 1rem;
+					padding: 0.8rem;
+					border : 1px solid lightgrey;
+					background-color: white;
+					option{
+						font-size: 1.3rem;
+					}
+					&:hover { 
+						cursor: pointer;
+					}
+				}
+			}
+			.selection_date {
+				display: inline;
+				border : 1px solid lightgrey;
+				background-color: white;
+				padding: 0.8rem;
+				width: 150px;
+				font-size: 1rem;
+				margin-top: 1rem;
+				margin-right: 2.5rem;
+			}
+			.selection_time {
+				display: inline;
+				border : 1px solid lightgrey;
+				background-color: white;
+				padding: 0.8rem;
+				width: 150px;
+				font-size: 1rem;
+				margin-top: 1rem;
+			}
+		}
+
+		
 		.cardList {
 			margin: 2rem 1rem;
 			list-style: none;
 			.card {
+				background-color: white;
 				width: 100%;
-				height: 27vh;
+				height: 20vh;
 				border: 1px solid lightgray;
 				margin: 1.5rem 0;
-				padding: 1.5rem 2rem;
+				padding: 1rem;
+				.swap_icon{
+					font-size: 1rem;
+				}
 				.profile {
 					display: flex;
 					.profile_image {
-						width: 8%;
-						height: 8%;
+						width: 15%;
+						height: 15%;
 						border-radius: 5rem;
 					}
 					.center {
 						margin-top: 3%;
-						font-size: 1.2rem;
+						font-size: 0.9rem;
 						margin-left: 2%;
 					}
 				}
 				.card_content{
-					margin: 2rem 0;
+					margin: 1rem 0;
 				}
 				.inline {
 					display: inline;
-					font-size: 1.2rem;
-					margin: 1rem 0.5rem;
+					margin: 1rem 0;
+					font-size: 0.8rem;
+				}
+				.inline2 {
+					margin-top: 1rem;
 				}
 				.point {
 					border: 1px solid lightgray;
 					border-radius: 1rem;
-					padding: 0.6rem;
+					padding: 0.3rem;
 					background-color: white;
-					margin-right: 0.5rem;
+					margin-right: 0.2rem;
 					font-weight: bold;
 					.egg_icon{
 						color: #FFAB00;
+						font-size: 1rem;
 					}
 				}
+				&:hover { 
+						cursor: pointer;
+					}
 			}
 		}
 
 		.applyTrans{
-			border: 1px solid lightgray;
-			margin-top: 2rem;
-			margin-right: 4rem;
-			height: 400px;
-			padding: 2rem 0;
 			.btns {
-				margin-bottom: 3rem;
+				display: inline;
 				.btn_blue {
 					background-color: #FF5252;
-					padding: 1.7rem 0;
+					padding: 1.4rem 0;
 					color: white;
-					width: 70%;
+					width: 40%;
 					justify-content: center;
-					font-size: 1.2rem;
+					font-size: 0.8rem;
 					font-weight: bold;
-					margin: 1rem 15%;
+					margin: 1rem 5%;
 				}
 				.btn {
 					border: 2px solid #FF5252;
-					padding: 1.7rem 0;
+					padding: 1.3rem 0;
 					color: #FF5252;
-					width: 70%;
+					width: 40%;
 					background-color: white;
-					font-size: 1.2rem;
+					font-size: 0.8rem;
 					font-weight: bold;
-					margin: 0 15%;
+					margin: 0.5rem 5%;
 				}
 			}
-
-			.lately_trans{
-				margin: 1rem 5%;
-
-				.profile_img {
-					margin: 1rem 0;
-					width: 25%;
-					height: 25%;
-					border-radius: 5rem;
-				}
-			}
-
 		}
 	}
 }
