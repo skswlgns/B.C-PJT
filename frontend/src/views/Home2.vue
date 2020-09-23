@@ -47,7 +47,7 @@
                 <tr class="space"></tr>
                 <tr>
                   <td>
-                    <a href='#'>빠르게 번역하기</a>
+                    <a href='/home'>빠르게 통역하기</a>
                   </td>
                   <td></td>
                   <td>
