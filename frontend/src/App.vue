@@ -15,8 +15,8 @@
         </span>
         <!-- 로구아웃 -->
         <span>
-          <i class="fas fa-sign-out-alt fa-2x"></i>
-        </span>
+          <i class="fas fa-sign-out-alt fa-2x"></i> 
+        </span> 
       </div>
     </div>
     <router-view/>
