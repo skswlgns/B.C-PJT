@@ -1,95 +1,124 @@
-.detail_body {
-  border: 1px solid lightgrey;
-  background-color: white;
-  padding: 2rem;
-  margin-bottom: 3rem;
-  .profile {
-    display: flex;
-    .profile_image {
-      width: 6%;
-      height: 6%;
-      border-radius: 5rem;
-    }
-    .center {
-      margin-top: 2%;
-      font-size: 1.2rem;
-      margin-left: 2%;
-    }
-  }
-  .title {
-    border-bottom: 1px solid lightgrey;
-    margin-top: 4rem ;
-    .detail_title{
-      margin: 1.5rem 2rem;
-    }
-  }
-  .content{
-    margin: 2rem;
-    margin-bottom: 5rem;
-  }
-  .requests{
-    margin: 2rem;
-    .check_icon {
-      font-size: 2rem;
-      margin-right: 1rem;
-      margin-bottom: 7px;
-      color: #FF5252;
-    }
-    .check {
-      display: inline;
-      font-size: 1.3rem;
-      line-height: 1.5rem
-    }
-    .request {
-      margin: 1rem 3rem;
-      .inline{
-        display: inline;
-        font-size: large;
+#WEB {
+  .detail_body {
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    .profile {
+      display: flex;
+      .profile_image {
+        width: 6%;
+        height: 6%;
+        border-radius: 5rem;
       }
-      .egg_icon{
-        color: #FFAB00;
-        font-size: x-large;
+      .center {
+        margin-top: 2%;
+        font-size: 1.2rem;
+        margin-left: 2%;
       }
     }
-    .large{
-      font-size: large;
-      .swap_icon { 
+    .title {
+      border-bottom: 1px solid lightgrey;
+      margin-top: 4rem ;
+      .detail_title{
+        margin: 1.5rem 2rem;
+      }
+    }
+    .content{
+      margin: 2rem;
+      margin-bottom: 5rem;
+    }
+    .requests{
+      margin: 2rem;
+      .check_icon {
         font-size: 2rem;
-        margin: 0 1.5rem;
+        margin-right: 1rem;
+        margin-bottom: 7px;
+        color: #FF5252;
+      }
+      .check {
+        display: inline;
+        font-size: 1.3rem;
+        line-height: 1.5rem
+      }
+      .request {
+        margin: 1rem 3rem;
+        .inline{
+          display: inline;
+          font-size: large;
+        }
+        .egg_icon{
+          color: #FFAB00;
+          font-size: x-large;
+        }
+      }
+      .large{
+        font-size: large;
+        .swap_icon { 
+          font-size: 2rem;
+          margin: 0 1.5rem;
+        }
+      }
+    }
+  }
+  
+  .apply{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    .row{
+      .applybox {
+        border: 1px solid lightgrey;
+        padding: 1rem;
+        width: 85%;
+        margin: 1rem;
+        height: 100px;
+      }
+    
+      .applybtn {
+        background-color: #FF5252 !important;
+        padding: 1.5rem ;
+        color: white;
+        width: 8%; 
+        font-size: 1rem;
+        font-weight: bold;
+        margin-top: 3%;
+        margin-left: 1.5rem;
+      }
+    }
+  }
+  
+  .applyList{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    list-style: none;
+    .applyCard{
+      border: 1px solid lightgray;
+      padding: 1rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      
+      .profile {
+        display: flex;
+        .profile_image {
+          width: 6%;
+          height: 6%;
+          border-radius: 5rem;
+        }
+        .center {
+          margin-top: 1.5%;
+          font-size: 1rem;
+          margin-left: 2%;
+        }
       }
     }
   }
 }
 
-.apply{
-  border: 1px solid lightgrey;
-  background-color: white;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  .row{
-    .applybox {
-      border: 1px solid lightgrey;
-      padding: 2rem;
-      width: 85%;
-      margin: 1rem;
-    }
-  
-    .applybtn {
-      background-color: #FF5252 !important;
-      padding: 1.5rem ;
-      color: white;
-      width: 8%; 
-      font-size: 1rem;
-      font-weight: bold;
-      margin-top: 2.5%;
-      margin-left: 1.5rem;
-    }
-  }
-}
 
-.applyList{
-  border: 1px solid lightgrey;
-  background-color: white;
-  padding: 2rem;
-  margin-bottom: 2rem;
+#Mobile {
+
 }
