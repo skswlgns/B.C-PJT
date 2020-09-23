@@ -13,7 +13,7 @@
 
 1. 팀원 :grin: 
 
-   강민석, 김용욱, 김지훈(팀장), 이다인, 임도희, 정용원
+   ![image-20200921121329085](README.assets/image-20200921121329085.png)
 
 2. 서비스 소개 :computer: 
 
@@ -77,5 +77,27 @@
    - socketio - webrtc
 
 
+
+4. git 충돌해결
+
+   ```bash
+   1. 내가 작업하고 있는 브랜치의 상위 브랜치(기본 브랜치)로 간다.
+   $ git checkout develop
+   
+   2. 최신 작업파일들로 패치해준다.
+   $ git pull origin develop
+   
+   3. 충돌이 났던 가지로 간다.
+   $ git checkout [브랜치명]
+   
+   4. 머지를 해서 충돌이 난 부분을 고쳐준다.
+   $ git merge develop
+   
+   그리고 나서 다시 git add, commit, push, pull request를 하면 해결
+   
+   해결을 다해서 pull request를 하기 전에 다른 사람이 올린게 새로 업데이트되서 master가 변경된다면 다시 충돌
+```
+   
+   
 
 
