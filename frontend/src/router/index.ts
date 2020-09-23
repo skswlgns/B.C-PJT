@@ -7,6 +7,8 @@ import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
 import TransDetail from '@/views/TransDetail.vue'
+import UserPage from '@/views/UserPage.vue'
+import RegistTrans from '@/views/RegistTrans.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +44,16 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPage
+  },
+  {
+    path: '/userpage',
+    name: 'UserPage',
+    component: UserPage,
+  },
+  {
+    path: '/registtrans',
+    name: "RegistTrans",
+    component: RegistTrans
   },
   // 도희
   {
