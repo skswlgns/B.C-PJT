@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import Home from '../views/Home.vue'
+import Home2 from '@/views/Home2.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -40,6 +42,12 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPage
+  },
+  // 도희
+  {
+    path: '/',
+    name: 'Home2',
+    component: Home2
   },
 ]
 

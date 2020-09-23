@@ -748,7 +748,6 @@
     </div>
   </div>
 </template>
-
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   // import { namespace } from 'vuex-class';
