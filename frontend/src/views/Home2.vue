@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="frame">
   <div class="top">
     <div class="top-border">
       <div class="top-main">
