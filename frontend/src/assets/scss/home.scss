@@ -3,7 +3,6 @@
 		.trans_h1 {
 			margin: 2rem 1rem;
 		}
-	
 		.selection{
 			margin: 0 1rem;
 		
@@ -16,12 +15,12 @@
 				}
 				select{
 					width: 22%;
-					font-size: 1.5rem;
+					font-size: 1rem;
 					padding: 1rem;
 					border : 1px solid lightgrey;
 					background-color: white;
 					option{
-						font-size: 1.3rem;
+						font-size: 1rem;
 					}
 					&:hover { 
 						cursor: pointer;
@@ -34,7 +33,7 @@
 				background-color: white;
 				padding: 1rem;
 				width: 22%;
-				font-size: 1.5rem;
+				font-size: 1rem;
 				margin: 0 2.5rem;
 			}
 			.selection_time {
@@ -43,7 +42,7 @@
 				background-color: white;
 				padding: 1rem;
 				width: 22%;
-				font-size: 1.5rem;
+				font-size: 1rem;
 				margin: 0 0.5rem;
 			}
 		}	
@@ -71,6 +70,18 @@
 							font-size: 1.2rem;
 							margin-left: 2%;
 						}
+						.point {
+							border: 1px solid lightgray;
+							border-radius: 1rem;
+							padding: 0.3rem 0.5rem;
+							background-color: white;
+							margin-right: 0.5rem;
+							font-weight: bold;
+							height: 6%;
+							.egg_icon{
+								color: #FFAB00;
+							}
+						}
 					}
 					.card_content{
 						margin: 2rem 0;
@@ -79,17 +90,6 @@
 						display: inline;
 						font-size: 1rem;
 						margin: 1rem 0.5rem;
-					}
-					.point {
-						border: 1px solid lightgray;
-						border-radius: 1rem;
-						padding: 0.5rem;
-						background-color: white;
-						margin-right: 0.5rem;
-						font-weight: bold;
-						.egg_icon{
-							color: #FFAB00;
-						}
 					}
 					&:hover {
 						cursor : pointer;
@@ -197,7 +197,7 @@
 			.card {
 				background-color: white;
 				width: 100%;
-				height: 20vh;
+				height: 23vh;
 				border: 1px solid lightgray;
 				margin: 1.5rem 0;
 				padding: 1rem;
@@ -216,6 +216,19 @@
 						font-size: 0.9rem;
 						margin-left: 2%;
 					}
+					.point {
+						border: 1px solid lightgray;
+						border-radius: 1rem;
+						padding: 0.3rem 0.5rem;
+						background-color: white;
+						margin-right: 0.2rem;
+						font-weight: bold;
+						height: 5%;
+						.egg_icon{
+							color: #FFAB00;
+							font-size: 1rem;
+						}
+					}
 				}
 				.card_content{
 					margin: 1rem 0;
@@ -227,18 +240,6 @@
 				}
 				.inline2 {
 					margin-top: 1rem;
-				}
-				.point {
-					border: 1px solid lightgray;
-					border-radius: 1rem;
-					padding: 0.2rem;
-					background-color: white;
-					margin-right: 0.2rem;
-					font-weight: bold;
-					.egg_icon{
-						color: #FFAB00;
-						font-size: 1rem;
-					}
 				}
 				&:hover { 
 						cursor: pointer;

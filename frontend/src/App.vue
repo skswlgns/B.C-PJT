@@ -18,7 +18,7 @@
         </span>
         <!-- 로구아웃 -->
         <span>
-          <i class="fas fa-sign-out-alt fa-2x"></i> 
+          <i class="fas fa-sign-out-alt fa-2x" @click="goLogin()"></i> 
         </span> 
       </div>
 
@@ -63,12 +63,14 @@
       goMypage() {
         this.$router.push('/mypage').catch(()=>{})
       },
-
       goHome() {
         this.$router.push('/home').catch(()=>{})
+      },
+      goLogin() {
+        this.$router.push('/login').catch(()=>{})
       }
     },
-
+  
     computed: {
       currentRouteName() {
         return this.$route.name;

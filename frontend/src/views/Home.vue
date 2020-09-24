@@ -354,10 +354,12 @@
                 <div class="profile">
                   <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                   <h6 class="center">{{ list.user_nickname }}</h6>
+                  <v-spacer></v-spacer>
+                  <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                 </div> 
                 <h2 class="card_content">{{ list.article_title }}</h2>
                 <div class="">
-                  <span class="point">{{list.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span> | <p class="inline">{{list.article_date}}</p> | <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline"> {{list.article_start}}</p>
+                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
                 </div>
               </div> 
             </li>
@@ -732,16 +734,19 @@
         </div>
       </div>
 
-      <div class="cardList">
+      <div class="cardList" @click="goDetail()">
         <li v-for="list in ListData" :key="list.user_id">
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <h6 class="center">{{ list.user_id }}</h6>
+              <h6 class="center">{{ list.user_nickname }}</h6>
+              <v-spacer></v-spacer>
+              <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
             </div> 
-            <h4 class="card_content">{{ list.article_title.slice(0, 20)}}...</h4>x
-            <span class="point inline">{{list.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span> | <p class="inline">{{list.article_date}}</p> |
-            <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline"> {{list.article_start}}</p>
+            <h4 class="card_content">{{ list.article_title.slice(0, 20)}}...</h4>
+            <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p>
+            <br>
+            <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
           </div> 
         </li>
       </div>
@@ -783,6 +788,8 @@
         article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
         article_egg: '200',
         article_date: '2020-09-22',
+        article_enddate: '2020-09-30',
+        article_end: '5:00 AM',
         article_from: '한국어',
         article_to: 'English',
         article_start: '1:00 AM',
@@ -792,6 +799,8 @@
         article_title: '독일어 가능하신 분 !! ',
         article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
         article_egg: '200',
+        article_enddate: '2020-09-30',
+        article_end: '5:00 AM',
         article_date: '2020-09-22',
         article_from: '한국어',
         article_to: 'English',
@@ -803,6 +812,8 @@
         article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
         article_egg: '200',
         article_date: '2020-09-22',
+        article_enddate: '2020-09-30',
+        article_end: '5:00 AM',
         article_from: '한국어',
         article_to: 'English',
         article_start: '1:00 AM',

@@ -149,9 +149,7 @@
           <v-icon class="check_icon">mdi-check-bold</v-icon>
           <h3 class="check">날짜 / 예상시간</h3>
           <div class="request">
-            <p class="inline mr-3">{{detailData.article_date}}</p> | 
-            <br>
-            <p class="inline">{{detailData.article_start}} ~ {{detailData.article_end}}</p>
+            <p class="inline">{{detailData.article_date}} {{detailData.article_start}}</p> ~ <p class="inline"> {{detailData.article_enddate}} {{detailData.article_end}} </p>
           </div>
         </div>
         <div class="requests"> 
@@ -242,6 +240,7 @@
       article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. 모르게따요 !!!!!!!!!!!!!!!!!!!! 난 오늘도 봉가 봉가 노래는 좋은가 봉가 안 좋은가 봉가 나도 모르겠다 봉가',
       article_egg: '200',
       article_date: '2020-09-22',
+      article_enddate: '2020-09-22',
       article_from: '한국어',
       article_to: 'English',
       article_start: '3:00 AM',
