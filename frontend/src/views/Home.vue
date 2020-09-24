@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <h1 class="trans_h1">통역 리스트</h1>
@@ -760,9 +761,10 @@
   const HomeModule = namespace('Home');
 
   @Component({
-    mounted() {
-
-    }
+    // mounted () {
+    //   // again, do any necessary error handling
+    //   console.log(this.$store)
+    // },
   })
   export default class Home extends Vue {
 
@@ -821,17 +823,20 @@
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
     }
-    
 
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
 
-    @HomeModule.Mutation('save_article')
+    @HomeModule.Action('get_article')
+    private get_article!: () => void;
     // private signup!: (signupData: object) => void;
 
-    @HomeModule.Action('get_article')
-    private mounted() { }
+
+    private mounted() {
+      this.get_article()
+      console.log('여기다', this.article)
+    }
   }
 </script>
 

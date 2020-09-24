@@ -75,6 +75,7 @@
         this.$cookies.remove('auth-token')
         this.$router.push('/home').catch(()=>{})
         location.reload()
+        alert('로그아웃 되었습니다.')
       }
     },
 
