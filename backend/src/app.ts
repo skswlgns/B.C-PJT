@@ -15,7 +15,7 @@ app.use("/auth", authRoutes)
 app.use("/articles", articleRoutes)
 
 // main
-app.get("/", (req: express.Request, res: express.Response) => {
+app.get("", (req: express.Request, res: express.Response) => {
   res.send(`start, ${req.statusCode}`)
 })
 
