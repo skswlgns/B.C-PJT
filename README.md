@@ -75,9 +75,13 @@
    - geth
    - web3.js
    - socketio - webrtc
-
-
-
+   
+   
+   
+   ### 기술스택
+   
+   ![image-20200924223815122](README.assets/image-20200924223815122.png)
+   
 4. git 충돌해결
 
    ```bash
@@ -97,5 +101,7 @@
    
    해결을 다해서 pull request를 하기 전에 다른 사람이 올린게 새로 업데이트되서 master가 변경된다면 다시 충돌
    ```
-   
-   
+
+5. 개발일정
+
+   ![image-20200924230052301](README.assets/image-20200924230052301.png)
