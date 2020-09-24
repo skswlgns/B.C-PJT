@@ -13,9 +13,9 @@
 
 1. 팀원 :grin: 
 
-   강민석, 김용욱, 김지훈(팀장), 이다인, 임도희, 정용원
+   ![image-20200921121329085](README.assets/image-20200921121329085.png)
 
-2. 서비스 소개 :computer: 
+2. 서비스 소개 :computer: (배포: http://j3b103.p.ssafy.io/)
 
    - 서비스명: 마마고 :baby_chick: 
 
@@ -96,8 +96,6 @@
    그리고 나서 다시 git add, commit, push, pull request를 하면 해결
    
    해결을 다해서 pull request를 하기 전에 다른 사람이 올린게 새로 업데이트되서 master가 변경된다면 다시 충돌
-```
+   ```
    
    
-
-

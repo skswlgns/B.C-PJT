@@ -1,0 +1,482 @@
+#WEB {
+  .detail_body {
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    .profile {
+      display: flex;
+      .profile_image {
+        width: 6%;
+        height: 6%;
+        border-radius: 5rem;
+      }
+      .center {
+        margin-top: 2%;
+        font-size: 1.2rem;
+        margin-left: 2%;
+      }
+      .ing{
+        margin-top: 1.5%;
+        border: 2px solid #FF5252;
+        height: 50%;
+        padding: 0.3rem 0.7rem;
+        color: #FF5252;
+        font-weight: bold;
+        border-radius: 3rem;
+      }
+    }
+    .title {
+      border-bottom: 1px solid lightgrey;
+      margin-top: 4rem ;
+      .detail_title{
+        margin: 1.5rem 2rem;
+      }
+    }
+    .content{
+      margin: 2rem;
+      margin-bottom: 5rem;
+    }
+    .requests{
+      margin: 2rem;
+      .check_icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+        margin-bottom: 7px;
+        color: #FF5252;
+      }
+      .check {
+        display: inline;
+        font-size: 1.3rem;
+        line-height: 1.5rem
+      }
+      .request {
+        margin: 1rem 3rem;
+        .inline{
+          display: inline;
+          font-size: large;
+        }
+        .egg_icon{
+          color: #FFAB00;
+          font-size: x-large;
+        }
+      }
+      .large{
+        font-size: large;
+        .swap_icon { 
+          font-size: 2rem;
+          margin: 0 1.5rem;
+        }
+      }
+    }
+  }
+  .apply{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    .row{
+      .applybox {
+        border: 1px solid lightgrey;
+        padding: 1rem;
+        width: 85%;
+        margin: 1rem;
+        height: 100px;
+      }
+    
+      .applybtn {
+        background-color: #FF5252 !important;
+        padding: 1.5rem ;
+        color: white;
+        width: 8%; 
+        font-size: 1rem;
+        font-weight: bold;
+        margin-top: 3%;
+        margin-left: 1.5rem;
+      }
+    }
+  }
+  
+  .applyList{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    list-style: none;
+    .applyCard_select{
+      border: 2px solid #FF5252;
+      padding: 1rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      
+      .profile {
+        display: flex;
+        .profile_image {
+          width: 6%;
+          height: 6%;
+          border-radius: 5rem;
+          margin-right: 1rem;
+        }
+        .applyUser{
+          margin-top: 1%;
+          display: flex;
+          width: 100%;
+          .center{
+            margin-top: 1%;
+          }
+          .native_lang{
+            margin: 0 0.8rem;
+            .user_lang{
+              font-size: 1rem;
+              font-weight: bold;
+              margin-bottom: 3px;
+            }
+            .badge{
+              background-color: #FF5252;
+              color: white;
+              border-radius: 3rem;
+              padding: 0.2rem;
+              font-size: 0.7rem;
+              font-weight: bold;
+              text-align: center;
+            }
+          }
+        }
+        .select{
+          .btn{
+            background-color: #FF5252;
+            color: white;
+            height: 6%;
+            font-weight: bold;
+            padding: 1rem;
+          }
+          .select_icon{
+            color: white;
+            margin-right: 10px;
+          }
+        }
+        .notselect{
+          .notbtn{
+            border: 1px solid #FF5252;
+            background-color: white;
+            color: #FF5252;
+            // width: 20%;
+            height: 6%;
+            font-weight: bold;
+            padding: 1rem;
+          }
+          .select_icon{
+            color: #FF5252;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .content{
+        margin-top: 0.8rem;
+        padding: 1rem;
+      }
+    }
+
+    .applyCard_notselect{
+      border: 1px solid lightgray;
+      padding: 1rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      
+      .profile {
+        display: flex;
+        .profile_image {
+          width: 6%;
+          height: 6%;
+          border-radius: 5rem;
+          margin-right: 1rem;
+        }
+        .applyUser{
+          margin-top: 1%;
+          display: flex;
+          width: 100%;
+          .center{
+            margin-top: 1%;
+          }
+          .native_lang{
+            margin: 0 0.8rem;
+            .user_lang{
+              font-size: 1rem;
+              font-weight: bold;
+              margin-bottom: 3px;
+            }
+            .badge{
+              background-color: #FF5252;
+              color: white;
+              border-radius: 3rem;
+              padding: 0.2rem;
+              font-size: 0.7rem;
+              font-weight: bold;
+              text-align: center;
+            }
+          }
+        }
+        .select{
+          .btn{
+            background-color: #FF5252;
+            color: white;
+            height: 6%;
+            font-weight: bold;
+            padding: 1rem;
+          }
+          .select_icon{
+            color: white;
+            margin-right: 10px;
+          }
+        }
+        .notselect{
+          .notbtn{
+            border: 1px solid #FF5252;
+            background-color: white;
+            color: #FF5252;
+            // width: 20%;
+            height: 6%;
+            font-weight: bold;
+            padding: 1rem;
+          }
+          .select_icon{
+            color: #FF5252;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .content{
+        margin-top: 0.8rem;
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+
+#Mobile {
+  .detail_body{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 1rem;
+    margin: 1rem;
+    
+    .profile {
+      display: flex;
+      margin-bottom: 1rem;
+      .profile_image {
+        width: 10%;
+        height: 10%;
+        border-radius: 5rem;
+      }
+      .center {
+        margin-top: 1%;
+        font-size: 1.2rem;
+        margin-left: 3%;
+      }
+      .ing{
+        margin-top: 1%;
+        border: 2px solid #FF5252;
+        height: 50%;
+        padding: 0.2rem 0.5rem;
+        color: #FF5252;
+        font-weight: bold;
+        border-radius: 3rem;
+      }
+    }
+    .title {
+      border-bottom: 1px solid lightgrey;
+      margin-top: 2rem ;
+      .detail_title{
+        margin: 1.5rem 2rem;
+      }
+    }
+    .content{
+      margin: 2rem;
+      margin-bottom: 3rem;
+    }
+    .requests{
+      margin: 1rem;
+      .check_icon {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+        margin-bottom: 5px;
+        color: #FF5252;
+      }
+      .check {
+        display: inline;
+        font-size: 1rem;
+        // line-height: 1.5rem
+      }
+      .request {
+        margin: 0 3rem;
+        .inline{
+          display: inline;
+          // font-size: large;
+        }
+        .egg_icon{
+          color: #FFAB00;
+          font-size: x-large;
+        }
+        .swap_icon { 
+          font-size: 2rem;
+          margin: 0 1rem;
+        }
+      }
+    }
+  }
+  .apply{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 0.8rem 0.5rem;
+    margin: 1rem;
+    .applybox {
+      border: 1px solid lightgrey;
+      padding: 1rem;
+      width: 90%;
+      margin: 1rem;
+      height: 100px;
+    }
+    .applybtn {
+      background-color: #FF5252 !important;
+      padding: 0.5rem 1rem ;
+      color: white;
+      width: 8%; 
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-right: 1.8rem;
+    }
+  }
+  .applyList{
+    border: 1px solid lightgrey;
+    background-color: white;
+    padding: 1rem;
+    margin: 1rem;
+    list-style: none;
+
+    .applyCard_select{
+      border: 2px solid #FF5252;
+      padding: 0.3rem 0.5rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      .select_btns{
+        .select{
+          background-color: #FF5252;
+          color: white;
+          margin: 0.5rem;
+          height: 4%;
+          font-size: 0.7rem;
+          font-weight: bold;
+          padding: 0.3rem;
+          .select_icon{
+            color: white;
+            margin-right: 5px;
+            font-size: small;
+          }
+        }
+      }
+      .content{
+        padding: 0.5rem;
+      }
+      .profile {
+        margin-top: 5px;
+        display: flex;
+        .profile_image {
+          width: 15%;
+          height: 15%;
+          border-radius: 5rem;
+          margin-right: 0.5rem;
+        }
+        .applyUser{
+          margin-top: 1%;
+          display: flex;
+          width: 100%;
+          .center{
+            padding: 0.5rem;
+          }
+          .native_lang{
+            margin: 0 0.8rem;
+            .user_lang{
+              font-size: 1rem;
+              font-weight: bold;
+              margin-bottom: 3px;
+            }
+            .badge{
+              background-color: #FF5252;
+              color: white;
+              border-radius: 3rem;
+              padding: 0.2rem;
+              font-size: 0.7rem;
+              font-weight: bold;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    .applyCard_notselect{
+      border: 1px solid lightgray;
+      padding: 0.3rem 0.5rem;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      .select_btns{
+        .notselect{
+          border: 1px solid #FF5252;
+          background-color: white;
+          color: #FF5252;
+          margin: 0.5rem;
+          height: 4%;
+          font-size: 0.7rem;
+          font-weight: bold;
+          padding: 0.3rem;
+          .select_icon{
+            color: #FF5252;
+            margin-right: 5px;
+            font-size: small;
+          }
+        }
+      }
+      .profile {
+        margin-top: 5px;
+        display: flex;
+        .profile_image {
+          width: 15%;
+          height: 15%;
+          border-radius: 5rem;
+          margin-right: 0.5rem;
+        }
+        .applyUser{
+          margin-top: 1%;
+          display: flex;
+          width: 100%;
+          .center{
+            padding: 0.5rem;
+          }
+          .native_lang{
+            margin: 0 0.8rem;
+            .user_lang{
+              font-size: 1rem;
+              font-weight: bold;
+              margin-bottom: 3px;
+            }
+            .badge{
+              background-color: #FF5252;
+              color: white;
+              border-radius: 3rem;
+              padding: 0.2rem;
+              font-size: 0.7rem;
+              font-weight: bold;
+              text-align: center;
+            }
+          }
+        }
+      }
+      .content{
+        padding: 0.5rem;
+      }
+    }
+  }
+}

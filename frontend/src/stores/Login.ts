@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 import router from '@/router'
+// import VueRouter from 'vue-router'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 
-const SERVER_URL = 'http://localhost:5000'
+const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 
 @Module({namespaced: true})
 export default class Login extends VuexModule  {
@@ -13,8 +14,9 @@ export default class Login extends VuexModule  {
 
   // mutations
   @Mutation
-  public SET_TOKEN(temp_token: string) {
-    // this.$cookies.set('auth-token', temp_token)
+  public async SET_TOKEN() {
+    router.push('/home')
+    location.reload()
   }
 
   // actions
@@ -31,12 +33,13 @@ export default class Login extends VuexModule  {
     })
   }
 
-  @Action({commit : "getToken"})
+  @Action({ commit: 'SET_TOKEN' })
   public async login (loginData: any){
-    const res = await axios.post(`${SERVER_URL}/auth/signin`, loginData)
-    Vue.cookies.set('auth-token', res.data.token)
-    console.log(this)
-    router.push({name: "Home"})
-    return res.data.token
+    await axios.post(`${SERVER_URL}/auth/signin`, loginData)
+    .then(res => {
+      console.log(res)
+      Vue.cookies.set('auth-token', res.data.token)
+    })
+
   }
 }

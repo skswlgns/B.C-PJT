@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import Home from '../views/Home.vue'
+import Home2 from '@/views/Home2.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
+import TransDetail from '@/views/TransDetail.vue'
+import UserPage from '@/views/UserPage.vue'
+import RegistTrans from '@/views/RegistTrans.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  // 다인
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -17,6 +23,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/transdetail',
+    name: 'TransDetail',
+    component: TransDetail
   },
 
   // 지훈
@@ -33,6 +44,22 @@ const routes = [
     path: '/mypage',
     name: 'MyPage',
     component: MyPage
+  },
+  {
+    path: '/userpage',
+    name: 'UserPage',
+    component: UserPage,
+  },
+  {
+    path: '/registtrans',
+    name: "RegistTrans",
+    component: RegistTrans
+  },
+  // 도희
+  {
+    path: '/',
+    name: 'Home2',
+    component: Home2
   },
 ]
 
