@@ -191,31 +191,26 @@
         </div>
       </div>
     </div>
-
     <div id="Mobile"  v-if="windowWidth <= 380">
-      <div class="login">
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-panel overlay-left">
-              <h1>Welcome MAMAGO!</h1>
-              <button class="ghost" id="signIn">Login</button>
-            </div>
-            <div class="overlay_box overlay-panel overlay-right">
-              <h2>안녕,<br> 마마고에 온 걸 환영해!</h2>
-              <button class="ghost" id="signUp">회원가입</button>
-            </div>
+      <div class="form-structor">
+        <div id="signup_body" class="signup slide-up">
+          <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+          <div class="form-holder">
+            <input type="text" class="input" placeholder="Name" />
+            <input type="email" class="input" placeholder="Email" />
+            <input type="password" class="input" placeholder="Password" />
           </div>
-        </div>   
-        <div class="sign-in-container">
-          <h1>LOGIN</h1>
-          <div class="inputs">
-            <input v-model="loginData.user_email" type="email" placeholder="Email" />
-            <input v-model="loginData.user_pwd" type="password" placeholder="Password" />
+          <button class="submit-btn">Sign up</button>
+        </div>
+        <div id="login_body" class="login ">
+          <div class="center">
+            <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+            <div class="form-holder">
+              <input type="email" class="input" placeholder="Email" />
+              <input type="password" class="input" placeholder="Password" />
+            </div>
+            <button class="submit-btn">Log in</button>
           </div>
-
-          <a href="#">Forgot your password?</a>
-          <br>
-          <button @click="login(loginData)">Login</button>
         </div>
       </div>
     </div>
@@ -223,6 +218,7 @@
 </template>
 
 <script lang="ts">
+  // import { Socket } from 'net';
   import { Component, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
 
@@ -245,6 +241,21 @@
           container.classList.remove("right-panel-active");
         });
       }
+
+      const loginBtn = document.getElementById('login')!;
+      const signupBtn = document.getElementById('signup')!;
+      const loginBody = document.getElementById('login_body')!;
+      const signupBody = document.getElementById('signup_body')!;
+
+      loginBtn.addEventListener('click', () => {
+        signupBody.classList.add('slide-up')
+        loginBody.classList.remove('slide-up') 
+      });
+
+      signupBtn.addEventListener('click', () => {
+        loginBody.classList.add('slide-up')
+        signupBody.classList.remove('slide-up')
+      });
     },
   })
 
