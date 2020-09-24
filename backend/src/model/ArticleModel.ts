@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose"
 
 const ArticleSchema = new mongoose.Schema({
+  article_title: { type: String, required: true },
   article_content: { type: String, required: true },
   article_from: { type: String, required: true },
   article_to: { type: String, required: true },
