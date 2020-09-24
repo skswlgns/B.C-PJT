@@ -11,8 +11,8 @@ app.use(express.json())
 app.use(requestLogger)
 
 // routes
-app.use("/auth", authRoutes)
-app.use("/articles", articleRoutes)
+app.use("auth", authRoutes)
+app.use("articles", articleRoutes)
 
 // main
 app.get("", (req: express.Request, res: express.Response) => {
