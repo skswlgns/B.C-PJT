@@ -755,19 +755,16 @@
 </template>
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-  // import { namespace } from 'vuex-class';
-  // const CountStoreModule = namespace('Home');
+  import { namespace } from 'vuex-class';
 
-  @Component
+  const HomeModule = namespace('Home');
+
+  @Component({
+    mounted() {
+
+    }
+  })
   export default class Home extends Vue {
-    // @CountStoreModule.State('count')
-    // private count!: number;
-
-    // @CountStoreModule.Getter('doubledCount')
-    // private doubledCount!: number;
-
-    // @CountStoreModule.Action('incr')
-    // private incr!: (delta: number) => void;
 
     private transData : any = {
       lang_1 : "통역 할 언어",
@@ -824,6 +821,17 @@
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
     }
+    
+
+    // vuex 영역
+    @HomeModule.State('article')
+    private article!: any;
+
+    @HomeModule.Mutation('save_article')
+    // private signup!: (signupData: object) => void;
+
+    @HomeModule.Action('get_article')
+    private mounted() { }
   }
 </script>
 
