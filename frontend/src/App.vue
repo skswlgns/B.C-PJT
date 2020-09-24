@@ -23,7 +23,7 @@
       </div>
 
       <!-- 로그인이 안되어 있을 경우 -->
-      <div v-else>
+      <div v-else class="right">
         <span>
           <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i> 
         </span>
@@ -73,8 +73,8 @@
       },
       goLogout() {
         this.$cookies.remove('auth-token')
-        this.$router.push('/home')
-        location.reload();
+        this.$router.push('/home').catch(()=>{})
+        location.reload()
       }
     },
 

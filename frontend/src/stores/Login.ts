@@ -14,9 +14,9 @@ export default class Login extends VuexModule  {
 
   // mutations
   @Mutation
-  public SET_TOKEN() {
+  public async SET_TOKEN() {
     router.push('/home')
-    location.reload();
+    location.reload()
   }
 
   // actions

@@ -3,7 +3,7 @@
     <div id="WEB" v-if="windowWidth > 380">
       <div class="container" id="container">
         <div class="form-container sign-up-container">
-          <form action="#">
+          <div class="form_pure">
             <h1>회원가입</h1>
             <input v-model="signupData.user_email" type="email" placeholder="이메일" />
             <input @change="pwd_check()" v-model="signupData.user_pwd" type="password" placeholder="비밀번호" />
@@ -165,16 +165,17 @@
                 <option>ᏣᎳᎩ</option>
             </select>
             <button @click="signup(signupData)">회원가입</button>
-          </form>
+          </div>
         </div>
         <div class="form-container sign-in-container">
-          <form action="#">
+          <div class="form_pure">
             <h1>LOGIN</h1>
+            <h3>{{ user_token }}</h3>
             <input v-model="loginData.user_email" type="email" placeholder="Email" />
             <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)"/>
             <a href="#">Forgot your password?</a>
             <button @click="login(loginData)">Login</button>
-          </form>
+          </div>
         </div>
         <div class="overlay-container">
           <div class="overlay">
