@@ -4,20 +4,6 @@ $color-bg: #EBECF0;
 $color-shadow: #BABECC;
 $color-white: #FFF;
 
-body, html {
-  background-color:$color-bg;
-}
-
-body, p, input, select, textarea, button {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: -0.2px;
-    font-size: $ruler;
-}
-
-div, p {
-  color: $color-shadow;
-  text-shadow: 1px 1px 1px $color-white;
-}
 
 
 form {
@@ -31,7 +17,7 @@ form {
   text-align: center;
 }
 
-button, input {
+button, input, textarea {
   border: 0;
   outline: 0;
   font-size: $ruler;
@@ -47,7 +33,7 @@ label {
   width: 100%;
 }
 
-input {
+input, textarea {
   margin-right: $ruler/2;
   box-shadow:  inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
   width: 100%;
@@ -113,4 +99,40 @@ button {
     margin: 0;
     flex: 1;
   }
+}
+
+@charset "UTF-8";
+.custom-select {
+	margin-right: $ruler/2;
+  box-shadow:  inset 2px 2px 5px $color-shadow, inset -5px -5px 10px $color-white;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  outline: 0;
+  font-size: $ruler;
+  border-radius: $ruler*20;
+  padding: $ruler;
+  background-color:$color-bg;
+  text-shadow: 1px 1px 0 $color-white;
+
+  &:focus {
+    box-shadow:  inset 1px 1px 2px $color-shadow, inset -1px -1px 2px $color-white;
+  }
+	&:after {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 50px;
+		height: 100%;
+		line-height: 38px;
+		content: "∨";
+		text-align: center;
+		color: #714BB9;
+		font-size: 24px;
+		border-left: 1px solid #3C1C78;
+		z-index: -1;
+	}
 }
