@@ -13,23 +13,331 @@
         <label>
           <input type="text" placeholder="실명"/>
         </label>
-        <label>
-          <input type="password" placeholder="성별"/>
+        <label class="custom-select" for="styledSelect1">
+          <select id="styledSelect1" name="options">
+            <option value="">성별</option>
+            <option value="남">남자</option>
+            <option value="여">여자</option>
+          </select>
         </label>
-        <button class="red" type="button"><i class="icon ion-md-lock"></i> Log in</button>
-        
-        <div class="segment">
-          <button class="unit" type="button"><i class="icon ion-md-arrow-back"></i></button>
-          <button class="unit" type="button"><i class="icon ion-md-bookmark"></i></button>
-          <button class="unit" type="button"><i class="icon ion-md-settings"></i></button>
-        </div>
-        
-        <div class="input-group">
-          <label>
-            <input type="text" placeholder="Email Address"/>
-          </label>
-          <button class="unit" type="button"><i class="icon ion-md-search"></i></button>
-        </div>        
+        <label class="custom-select" for="styledSelect1">
+          <select id="styledSelect1" name="options">
+            <option value="">모국어</option>
+            <option>한국어</option>
+            <option>English</option>
+            <option>Deutsch</option>
+            <option>español</option>
+            <option>español (Latinoamérica)</option>
+            <option>français</option>
+            <option>hrvatski</option>
+            <option>italiano</option>
+            <option>Nederlands</option>
+            <option>polski</option>
+            <option>português (Brasil)</option>
+            <option>português (Portugal)</option>
+            <option>Tiếng Việt</option>
+            <option>Türkçe</option>
+            <option>русский</option>
+            <option>العربية</option>
+            <option>ไทย</option>
+            <option>中文 (简体)</option>
+            <option>中文 (繁體)</option>
+            <option>日本語</option>
+            <option>Acoli</option>
+            <option>Afrikaans</option>
+            <option>Akan</option>
+            <option>Asụsụ Igbo</option>
+            <option>azərbaycan</option>
+            <option>Balinese</option>
+            <option>Basa Sunda</option>
+            <option>Binisaya</option>
+            <option>Bork, bork, bork!</option>
+            <option>bosanski</option>
+            <option>brezhoneg</option>
+            <option>català</option>
+            <option>čeština</option>
+            <option>chiShona</option>
+            <option>Corsican</option>
+            <option>Cymraeg</option>
+            <option>dansk</option>
+            <option>Èdè Yorùbá</option>
+            <option>eesti</option>
+            <option>Elmer Fudd</option>
+            <option>esperanto</option>
+            <option>euskara</option>
+            <option>Eʋegbe</option>
+            <option>Filipino</option>
+            <option>Filipino</option>
+            <option>føroyskt</option>
+            <option>Frysk</option>
+            <option>Ga</option>
+            <option>Gaeilge</option>
+            <option>Gàidhlig</option>
+            <option>galego</option>
+            <option>Guarani</option>
+            <option>Hacker</option>
+            <option>Haitian Creole</option>
+            <option>Hausa</option>
+            <option>ʻŌlelo Hawaiʻi</option>
+            <option>Ichibemba</option>
+            <option>Ikirundi</option>
+            <option>Indonesia</option>
+            <option>interlingua</option>
+            <option>isiXhosa</option>
+            <option>isiZulu</option>
+            <option>íslenska</option>
+            <option>Jawa</option>
+            <option>Kinyarwanda</option>
+            <option>Kiswahili</option>
+            <option>Klingon</option>
+            <option>Kongo</option>
+            <option>kreol morisien</option>
+            <option>Krio (Sierra Leone)</option>
+            <option>Latin</option>
+            <option>latviešu</option>
+            <option>lea fakatonga</option>
+            <option>lietuvių</option>
+            <option>lingála</option>
+            <option>Lozi</option>
+            <option>Luba-Lulua</option>
+            <option>Luganda</option>
+            <option>magyar</option>
+            <option>Malagasy</option>
+            <option>Malti</option>
+            <option>Māori</option>
+            <option>Melayu</option>
+            <option>Nigerian Pidgin</option>
+            <option>norsk</option>
+            <option>Northern Sotho</option>
+            <option>Nyanja</option>
+            <option>nynorsk</option>
+            <option>ozbek</option>
+            <option>Occitan</option>
+            <option>Oromoo</option>
+            <option>Pirate</option>
+            <option>română</option>
+            <option>rumantsch</option>
+            <option>Runasimi</option>
+            <option>nRunyankore</option>
+            <option>Seychellois Creole</option>
+            <option>shqip</option>
+            <option>slovenčina</option>
+            <option>slovenščina</option>
+            <option>Soomaali</option>
+            <option>Southern Sotho</option>
+            <option>srpski (Crna Gora)</option>
+            <option>srpski (latinica)</option>
+            <option>suomi</option>
+            <option>svenska</option>
+            <option>Tswana</option>
+            <option>Tumbuka</option>
+            <option>türkmen dili</option>
+            <option>Twi</option>
+            <option>Wolof</option>
+            <option>Ελληνικά</option>
+            <option>беларуская</option>
+            <option>български</option>
+            <option>кыргызча</option>
+            <option>қазақ тілі</option>
+            <option>македонски</option>
+            <option>монгол</option>
+            <option>српски</option>
+            <option>татар</option>
+            <option>тоҷикӣ</option>
+            <option>українська</option>
+            <option>ქართული</option>
+            <option>հայերեն</option>
+            <option>ייִדיש</option>
+            <option>עברית</option>
+            <option>ئۇيغۇرچە</option>
+            <option>اردو</option>
+            <option>پښتو</option>
+            <option>سنڌي</option>
+            <option>فارسی</option>
+            <option>کوردیی ناوەندی</option>
+            <option>ትግርኛ</option>
+            <option>አማርኛ</option>
+            <option>नेपाली</option>
+            <option>मराठी</option>
+            <option>हिन्दी</option>
+            <option>বাংলা</option>
+            <option>ਪੰਜਾਬੀ</option>
+            <option>ગુજરાતી</option>
+            <option>ଓଡ଼ିଆ</option>
+            <option>தமிழ்</option>
+            <option>తెలుగు</option>
+            <option>ಕನ್ನಡ</option>
+            <option>മലയാളം</option>
+            <option>සිංහල</option>
+            <option>ລາວ</option>
+            <option>မြန်မာ</option>
+            <option>ខ្មែរ</option>
+            <option>ᏣᎳᎩ</option>
+          </select>
+        </label>
+
+        <label class="custom-select" for="styledSelect1">
+          <select id="styledSelect1" name="options">
+            <option value="">자신있는 언어</option>
+            <option>한국어</option>
+            <option>English</option>
+            <option>Deutsch</option>
+            <option>español</option>
+            <option>español (Latinoamérica)</option>
+            <option>français</option>
+            <option>hrvatski</option>
+            <option>italiano</option>
+            <option>Nederlands</option>
+            <option>polski</option>
+            <option>português (Brasil)</option>
+            <option>português (Portugal)</option>
+            <option>Tiếng Việt</option>
+            <option>Türkçe</option>
+            <option>русский</option>
+            <option>العربية</option>
+            <option>ไทย</option>
+            <option>中文 (简体)</option>
+            <option>中文 (繁體)</option>
+            <option>日本語</option>
+            <option>Acoli</option>
+            <option>Afrikaans</option>
+            <option>Akan</option>
+            <option>Asụsụ Igbo</option>
+            <option>azərbaycan</option>
+            <option>Balinese</option>
+            <option>Basa Sunda</option>
+            <option>Binisaya</option>
+            <option>Bork, bork, bork!</option>
+            <option>bosanski</option>
+            <option>brezhoneg</option>
+            <option>català</option>
+            <option>čeština</option>
+            <option>chiShona</option>
+            <option>Corsican</option>
+            <option>Cymraeg</option>
+            <option>dansk</option>
+            <option>Èdè Yorùbá</option>
+            <option>eesti</option>
+            <option>Elmer Fudd</option>
+            <option>esperanto</option>
+            <option>euskara</option>
+            <option>Eʋegbe</option>
+            <option>Filipino</option>
+            <option>Filipino</option>
+            <option>føroyskt</option>
+            <option>Frysk</option>
+            <option>Ga</option>
+            <option>Gaeilge</option>
+            <option>Gàidhlig</option>
+            <option>galego</option>
+            <option>Guarani</option>
+            <option>Hacker</option>
+            <option>Haitian Creole</option>
+            <option>Hausa</option>
+            <option>ʻŌlelo Hawaiʻi</option>
+            <option>Ichibemba</option>
+            <option>Ikirundi</option>
+            <option>Indonesia</option>
+            <option>interlingua</option>
+            <option>isiXhosa</option>
+            <option>isiZulu</option>
+            <option>íslenska</option>
+            <option>Jawa</option>
+            <option>Kinyarwanda</option>
+            <option>Kiswahili</option>
+            <option>Klingon</option>
+            <option>Kongo</option>
+            <option>kreol morisien</option>
+            <option>Krio (Sierra Leone)</option>
+            <option>Latin</option>
+            <option>latviešu</option>
+            <option>lea fakatonga</option>
+            <option>lietuvių</option>
+            <option>lingála</option>
+            <option>Lozi</option>
+            <option>Luba-Lulua</option>
+            <option>Luganda</option>
+            <option>magyar</option>
+            <option>Malagasy</option>
+            <option>Malti</option>
+            <option>Māori</option>
+            <option>Melayu</option>
+            <option>Nigerian Pidgin</option>
+            <option>norsk</option>
+            <option>Northern Sotho</option>
+            <option>Nyanja</option>
+            <option>nynorsk</option>
+            <option>ozbek</option>
+            <option>Occitan</option>
+            <option>Oromoo</option>
+            <option>Pirate</option>
+            <option>română</option>
+            <option>rumantsch</option>
+            <option>Runasimi</option>
+            <option>nRunyankore</option>
+            <option>Seychellois Creole</option>
+            <option>shqip</option>
+            <option>slovenčina</option>
+            <option>slovenščina</option>
+            <option>Soomaali</option>
+            <option>Southern Sotho</option>
+            <option>srpski (Crna Gora)</option>
+            <option>srpski (latinica)</option>
+            <option>suomi</option>
+            <option>svenska</option>
+            <option>Tswana</option>
+            <option>Tumbuka</option>
+            <option>türkmen dili</option>
+            <option>Twi</option>
+            <option>Wolof</option>
+            <option>Ελληνικά</option>
+            <option>беларуская</option>
+            <option>български</option>
+            <option>кыргызча</option>
+            <option>қазақ тілі</option>
+            <option>македонски</option>
+            <option>монгол</option>
+            <option>српски</option>
+            <option>татар</option>
+            <option>тоҷикӣ</option>
+            <option>українська</option>
+            <option>ქართული</option>
+            <option>հայերեն</option>
+            <option>ייִדיש</option>
+            <option>עברית</option>
+            <option>ئۇيغۇرچە</option>
+            <option>اردو</option>
+            <option>پښتو</option>
+            <option>سنڌي</option>
+            <option>فارسی</option>
+            <option>کوردیی ناوەندی</option>
+            <option>ትግርኛ</option>
+            <option>አማርኛ</option>
+            <option>नेपाली</option>
+            <option>मराठी</option>
+            <option>हिन्दी</option>
+            <option>বাংলা</option>
+            <option>ਪੰਜਾਬੀ</option>
+            <option>ગુજરાતી</option>
+            <option>ଓଡ଼ିଆ</option>
+            <option>தமிழ்</option>
+            <option>తెలుగు</option>
+            <option>ಕನ್ನಡ</option>
+            <option>മലയാളം</option>
+            <option>සිංහල</option>
+            <option>ລາວ</option>
+            <option>မြန်မာ</option>
+            <option>ខ្មែរ</option>
+            <option>ᏣᎳᎩ</option>
+          </select>
+        </label>
+        <label>
+          <textarea type="text" placeholder="자신을 소개해주세요"/>
+        </label>
+
+        <h4>경력증명</h4>
+        <input type="file">
+        <button class="red mt-3" type="button">신청하기</button>
       </form>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
-  <v-app id="bg" :class="[{ 'cont10': windowWidth > 375 && currentRouteName !== 'Home2'} ]" >
+  <v-app id="bg" :class="[{ 'cont10': windowWidth > 375 && currentRouteName !== 'Home2' && currentRouteName !== 'NotFound'} ]" >
     <!-- 웹용 -->
-    <div class="flex_pure" v-if="windowWidth > 375 && currentRouteName !== 'Home2'">
+    <div class="flex_pure" v-if="windowWidth > 375 && currentRouteName !== 'Home2' && currentRouteName !== 'NotFound'">
       <div class="center_pure">
         <img src="@/assets/images/logo.png" alt="로고" :class="[ {'img_logo_1000 curs': windowWidth >= 1000,
         'img_logo_600 curs': windowWidth < 1000}]" @click="goHome()">
