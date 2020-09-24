@@ -11,11 +11,11 @@ app.use(express.json())
 app.use(requestLogger)
 
 // routes
-app.use("/auth", authRoutes)
-app.use("/articles", articleRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/articles", articleRoutes)
 
 // main
-app.get("/", (req: express.Request, res: express.Response) => {
+app.get("/api/", (req: express.Request, res: express.Response) => {
   res.send(`start, ${req.statusCode}`)
 })
 
