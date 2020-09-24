@@ -5,6 +5,7 @@ const ArticleSchema = new mongoose.Schema({
   article_content: { type: String, required: true },
   article_from: { type: String, required: true },
   article_to: { type: String, required: true },
+  article_request: { type: Array, default: [] },
   article_start: { type: Date, required: true },
   article_end: { type: Date, required: true },
   article_egg: { type: Number, required: true },
