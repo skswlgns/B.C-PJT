@@ -7,7 +7,7 @@
         'img_logo_600 curs': windowWidth < 1000}]" @click="goHome()">
       </div>
       <!-- 로그인 되어 있을 경우 -->
-      <div class="right">
+      <div class="right" v-if="this.$cookies.isKey('auth-token')">
         <!-- 마이페이지 -->
         <span>
           <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
@@ -18,13 +18,15 @@
         </span>
         <!-- 로구아웃 -->
         <span>
-          <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i> 
-        </span> 
+          <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogout()"></i> 
+        </span>
       </div>
 
       <!-- 로그인이 안되어 있을 경우 -->
-      <div>
-        
+      <div v-else>
+        <span>
+          <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i> 
+        </span>
       </div>
     </div>
 
@@ -68,6 +70,11 @@
       },
       goLogin() {
         this.$router.push('/login').catch(()=>{})
+      },
+      goLogout() {
+        this.$cookies.remove('auth-token')
+        this.$router.push('/home')
+        location.reload();
       }
     },
 

@@ -3,6 +3,7 @@ import cors from "cors"
 import requestLogger from "./middleware/requestLogger"
 
 import { authRoutes } from "./router/authRoutes"
+import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
 
 const app = express()
@@ -12,6 +13,7 @@ app.use(requestLogger)
 
 // routes
 app.use("/api/auth", authRoutes)
+app.use("/api/users", userRoutes)
 app.use("/api/articles", articleRoutes)
 
 // main
