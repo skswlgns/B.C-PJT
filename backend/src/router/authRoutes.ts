@@ -116,7 +116,7 @@ authRoutes.put("/", verificationMiddleware)
 authRoutes.put("/", async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
@@ -135,7 +135,7 @@ authRoutes.delete("/", verificationMiddleware)
 authRoutes.delete("/", async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
