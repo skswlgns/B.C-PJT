@@ -6,8 +6,8 @@
       <h1 class="trans_h1">통역 리스트</h1>
       <div class="selection">
         <div class="selection_lang">
-          <select v-model="transData.lang_1" name="lang_1" id="lang_1">
-        <option>{{ transData.lang_1 }}</option>
+          <select v-model="serachData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
+        <option>{{ serachData.lang_1 }}</option>
         <option>한국어</option>
         <option>English</option>
         <option>Deutsch</option>
@@ -160,8 +160,8 @@
         <option>ᏣᎳᎩ</option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
-          <select v-model="transData.lang_2" name="lang_2" id="lang_2">
-            <option>{{ transData.lang_2 }}</option>
+          <select v-model="serachData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
+            <option>{{ serachData.lang_2 }}</option>
             <option>한국어</option>
             <option>English</option>
             <option>Deutsch</option>
@@ -316,10 +316,10 @@
         </div>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <input v-model="transData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+            <input v-model="serachData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
           </template>
           <v-list>
-            <v-date-picker v-model="transData.date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="serachData.date_picker" color="green lighten-1"></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -331,7 +331,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="transData.time_picker"
+              v-model="serachData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -340,29 +340,33 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="transData.time_picker"
+            v-model="serachData.time_picker"
             full-width
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
         </v-menu>
+        <v-icon @click="search(searchData)" class="mag_icon">mdi-magnify</v-icon>
       </div>
 
       <v-row class="home_main">
         <v-col lg="8">
-          <div class="cardList" @click="goDetail()">
+          <div class="cardList">
             <li v-for="list in article" :key="list.user_id">
-              <div class="card"> 
-                <div class="profile">
-                  <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                  <h6 class="center">{{ list.user_id.user_nickname }}</h6>
-                  <v-spacer></v-spacer>
-                  <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+              <router-link :to="{name: 'TransDetail', params : {id:list._id}}" class="router"> 
+                <div class="card"> 
+                  <div class="profile">
+                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                    <h6 class="center">{{ list.user_id.user_nickname }}</h6>
+                    <v-spacer></v-spacer>
+                    <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                  </div> 
+                  <h2 class="
+                  card_content">{{ list.article_title }}</h2>
+                  <div class="">
+                    <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
+                  </div>
                 </div> 
-                <h2 class="card_content">{{ list.article_title }}</h2>
-                <div class="">
-                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
-                </div>
-              </div> 
+              </router-link>
             </li>
           </div>
         </v-col>
@@ -387,8 +391,8 @@
       <h3 class="trans_h3">통역 신청 리스트</h3>
       <div class="selection">
         <div class="selection_lang">
-          <select v-model="transData.lang_1" name="lang_1" id="lang_1">
-        <option>{{ transData.lang_1 }}</option>
+          <select v-model="serachData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
+        <option>{{ serachData.lang_1 }}</option>
         <option>한국어</option>
         <option>English</option>
         <option>Deutsch</option>
@@ -541,8 +545,8 @@
         <option>ᏣᎳᎩ</option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
-          <select v-model="transData.lang_2" name="lang_2" id="lang_2">
-            <option>{{ transData.lang_2 }}</option>
+          <select v-model="serachData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
+            <option>{{ serachData.lang_2 }}</option>
             <option>한국어</option>
             <option>English</option>
             <option>Deutsch</option>
@@ -697,10 +701,10 @@
         </div>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <input v-model="date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+            <input v-model="serachData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
           </template>
           <v-list>
-            <v-date-picker v-model="date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="serachData.date_picker" color="green lighten-1"></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -712,7 +716,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="time_picker"
+              v-model="serachData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -721,7 +725,7 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="time_picker"
+            v-model="serachData.time_picker"
             full-width
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
@@ -765,60 +769,22 @@
   })
   export default class Home extends Vue {
 
-    private transData : any = {
-      lang_1 : "통역 할 언어",
-      lang_2 : "통역 될 언어",
+    private serachData : any = {
+      lang_1 : "requestBody.article_from",
+      lang_2 : "requestBody.article_to",
       date_picker : "",
       time_picker : "",
     }
-
-    private date_picker = ""
-    private time_picker = ""
     private menu2 = false
     private modal2 = false
-
-    private ListData : any = [
-      {
-        user_nickname: '단짠단짱',
-        article_title: '비즈니스 대화가 있는데 도와주실 분 구합니다 !!! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_date: '2020-09-22',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      },
-      {
-        user_nickname: '단짠단짱',
-        article_title: '독일어 가능하신 분 !! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_date: '2020-09-22',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      },
-      {
-        user_nickname: '단짠단짱',
-        article_title: '독일어 가능하신 분 !! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_date: '2020-09-22',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      }
-    ]
 
     // methods
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
+    }
+
+    search(){
+
     }
 
     // vuex 영역

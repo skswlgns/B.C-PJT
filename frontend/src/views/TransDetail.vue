@@ -1,5 +1,7 @@
 <template>
   <div>
+    {{ id }}
+    {{ article }}
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
@@ -227,13 +229,16 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { namespace } from 'vuex-class';
 
+  const TransDetailModule = namespace('TransDetail');
   @Component({
-    
-
   })
   export default class TransDetail extends Vue {
+    @Prop()
+      id !: String;
+    
     private detailData : any = {
       user_nickname: '단짠단짱',
       title: '비즈니스 대화가 있는데 도와주실 분 구합니다 : ) ',
@@ -278,9 +283,21 @@
     translator_select(list : any){
       list.select = true
     }
-
     translator_cancel(list : any){
       list.select = false
+    }
+
+    @TransDetailModule.State('article')
+    private article!: any;
+
+    @TransDetailModule.Mutation('save_article')
+    private save_article !: any;
+
+    @TransDetailModule.Action('get_article_1')
+    private get_article_1!: (id: String) => void;
+
+    async mounted() {
+      await this.get_article_1(this.id)
     }
   }
 </script>

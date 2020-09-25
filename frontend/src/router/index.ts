@@ -27,7 +27,8 @@ const routes = [
   {
     path: '/transdetail',
     name: 'TransDetail',
-    component: TransDetail
+    component: TransDetail,
+    props: true,
   },
 
   // 지훈
