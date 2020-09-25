@@ -15,7 +15,7 @@
 
    ![image-20200921121329085](README.assets/image-20200921121329085.png)
 
-2. 서비스 소개 :computer: 
+2. 서비스 소개 :computer: (배포: http://j3b103.p.ssafy.io/)
 
    - 서비스명: 마마고 :baby_chick: 
 
@@ -75,9 +75,13 @@
    - geth
    - web3.js
    - socketio - webrtc
-
-
-
+   
+   
+   
+   ### 기술스택
+   
+   ![image-20200924223815122](README.assets/image-20200924223815122.png)
+   
 4. git 충돌해결
 
    ```bash
@@ -96,8 +100,30 @@
    그리고 나서 다시 git add, commit, push, pull request를 하면 해결
    
    해결을 다해서 pull request를 하기 전에 다른 사람이 올린게 새로 업데이트되서 master가 변경된다면 다시 충돌
-```
-   
-   
+   ```
 
+5. 개발일정
 
+   ![image-20200924230052301](README.assets/image-20200924230052301.png)
+
+6. 홈페이지 예시
+
+   `홈화면`
+
+   ![image-20200924230734491](README.assets/image-20200924230734491.png)
+
+   `홈화면2`
+
+   ![image-20200924230755809](README.assets/image-20200924230755809.png)
+
+   `통역신청리스트`
+
+   ![image-20200924230829868](README.assets/image-20200924230829868.png)
+
+   `통역디테일`
+
+   ![image-20200924230846408](README.assets/image-20200924230846408.png)
+
+   `통역가 등록`
+
+   ![image-20200924230927406](README.assets/image-20200924230927406.png)

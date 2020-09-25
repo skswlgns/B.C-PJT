@@ -15,31 +15,33 @@ const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
 // 전체 Article 조회: GET
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
-  try {
-    // 해당 Model에서 items 가져오기
-    let items: any = await ArticleModel.find({})
-    res.json(items)
-  } catch (err) {
-    res.status(500)
-    res.end()
-    console.error("Caught error", err)
-  }
+  await ArticleModel.find({})
+    .populate("user_id", "user_nickname user_image")
+    .exec((err: Error, articles: any) => {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        res.status(200).send(articles)
+      }
+    })
 })
 
 // Article 1개 조회: GET
 articleRoutes.get("/:article_id", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
-    if (err) {
-      console.log(err)
-    } else {
-      if (article === null) {
-        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
+  await ArticleModel.findOne({ _id: article_id })
+    .populate("user_id", "user_nickname user_image")
+    .exec((err: Error, article: any) => {
+      if (err) {
+        res.status(500).send(err)
       } else {
-        res.status(200).send(article)
+        if (article === null) {
+          res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
+        } else {
+          res.status(200).send(article)
+        }
       }
-    }
-  })
+    })
 })
 
 // Article 생성: POST
@@ -47,8 +49,9 @@ articleRoutes.post("/", verificationMiddleware)
 articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
   const requestBody = req.body
   const user_id = await UserModel.findOne({ user_email: req.headers.user_email })
-  const item = new ArticleModel({
+  const article = new ArticleModel({
     user_id: user_id,
+    article_title: requestBody.article_title,
     article_content: requestBody.article_content,
     article_from: requestBody.article_from,
     article_to: requestBody.article_to,
@@ -56,8 +59,13 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_end: requestBody.article_end,
     article_egg: requestBody.article_egg,
   })
-  await item.save()
-  res.status(200).send({ message: "article이 생성되었습니다." })
+  await article.save((err, _) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      res.status(200).send({ message: `article이 생성되었습니다.` })
+    }
+  })
 })
 
 // Article 수정 (id는 hash값): PUT
@@ -109,36 +117,14 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
 })
 
 /* 
-작성된 Article에 통역가를 신청하기 위한 router
+작성된 Article에 Candidate를 신청하기 위한 router
 */
-
-// 특정 Article의 모든 통역 후보자 조회: GET
-articleRoutes.get("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
-    if (err) {
-      console.log(err)
-    } else {
-      if (article === null) {
-        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
-      } else {
-        UserModel.find(
-          {
-            _id: { $in: article.article_candidate },
-          },
-          function (err, users) {
-            res.status(200).send(users)
-          }
-        )
-      }
-    }
-  })
-})
 
 // 특정 Article의 통역 후보자 등록: POST
 articleRoutes.post("/:article_id/candidates", verificationMiddleware)
 articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
+  const user_id = await UserModel.findOne({ user_email: req.headers.user_email })
   ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
     if (err) {
       console.log(err)
@@ -146,21 +132,28 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
       if (article === null) {
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
-        await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
+        // 새로운 candidate 만들기
+        const item = new CandidateModel({
+          user_id: user_id,
+          article_id: article_id,
+          candidate_content: req.body.candidate_content,
+        })
+        await item.save((err, candidate) => {
           if (err) {
-            console.log(err)
+            res.status(500).send(err)
           } else {
-            const user_id = user._id
+            // candidate_id 값을 article.article_candidate에 추가하기
+            const candidateId = candidate
             const articleCandidateList = article.article_candidate
             if (articleCandidateList.includes(user_id)) {
               res.status(403).send({ message: `이미 등록된 후보자 입니다.` })
             } else {
               articleCandidateList.push(user_id)
-              await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
-                (_: any) => {
-                  res.status(200).send({ message: `${article_id} article에 ${user_id} candidate를 추가하였습니다.` })
-                }
-              )
+              // await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
+              // (_: any) => {
+              // res.status(200).send({ message: `${article_id} article에 ${user_id} candidate를 추가하였습니다.` })
+              // }
+              // )
             }
           }
         })

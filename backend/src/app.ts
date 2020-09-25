@@ -2,11 +2,8 @@ import express from "express"
 import cors from "cors"
 import requestLogger from "./middleware/requestLogger"
 
-<<<<<<< HEAD
-=======
-import { productRoutes } from "./router/product.mongoose"
->>>>>>> develop
 import { authRoutes } from "./router/authRoutes"
+import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
 
 const app = express()
@@ -15,15 +12,12 @@ app.use(express.json())
 app.use(requestLogger)
 
 // routes
-<<<<<<< HEAD
-=======
-app.use("/product", productRoutes)
->>>>>>> develop
-app.use("/auth", authRoutes)
-app.use("/articles", articleRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/users", userRoutes)
+app.use("/api/articles", articleRoutes)
 
 // main
-app.get("/", (req: express.Request, res: express.Response) => {
+app.get("/api/", (req: express.Request, res: express.Response) => {
   res.send(`start, ${req.statusCode}`)
 })
 
