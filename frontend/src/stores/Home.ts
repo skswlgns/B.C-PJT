@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 import router from '@/router';
+import { couldStartTrivia } from 'typescript';
 
 const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 
@@ -9,13 +10,10 @@ const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 export default class Home extends VuexModule {
 
   // states
-  public article: any;
+  public article: any = {};
 
-  // getters
-  // get doubledCount() {
-  //   return this.article
-  // }
-
+  //getters
+  
   // mutations
   @Mutation
   public async save_article(temp_data:any) {    
@@ -24,13 +22,10 @@ export default class Home extends VuexModule {
   }
 
   // actions
-  @Action({ commit: 'save_article' })
+  @Action({commit: 'save_article'})
   public async get_article() {
-    await axios.get(`${SERVER_URL}/articles`)
-    .then(res => {
-      const temp_data: any = res.data
-      console.log(temp_data)
-      return temp_data
-    })
+    console.log('action')
+    const res = await axios.get(`${SERVER_URL}/articles`)
+    return res.data 
   }
 }
