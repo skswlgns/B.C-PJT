@@ -3,6 +3,7 @@ import { UserModel } from "../model/UserModel"
 import { ArticleModel } from "../model/ArticleModel"
 import { GoodLangModel } from "../model/GoodLangModel"
 import { ResumeModel } from "../model/ResumeModel"
+import { CandidateModel } from "../model/CandidateModel"
 
 const userRoutes = express.Router()
 
@@ -27,6 +28,62 @@ userRoutes.get("/my", async (req: express.Request, res: express.Response) => {
       } else {
         // 회원정보가 존재하면 수정
         res.status(200).send(user)
+      }
+    }
+  })
+})
+
+// 본인이 작성한 article 조회
+userRoutes.get("/my/articles", verificationMiddleware)
+userRoutes.get("/my/articles", async (req: express.Request, res: express.Response) => {
+  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      if (user === null) {
+        // 회원정보가 존재하지 않으면 오류반환
+        res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
+      } else {
+        // 회원정보가 존재하면 수정
+        await ArticleModel.find({ user_id: user._id }).exec((err: Error, articles: any) => {
+          if (err) {
+            res.status(500).send(err)
+          } else {
+            if (articles === null) {
+              res.status(403).send({ message: "작성한 글이 없습니다." })
+            } else {
+              res.status(200).send(articles)
+            }
+          }
+        })
+      }
+    }
+  })
+})
+
+// 본인이 신청한 candidate 조회
+userRoutes.get("/my/candidates", verificationMiddleware)
+userRoutes.get("/my/candidates", async (req: express.Request, res: express.Response) => {
+  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      if (user === null) {
+        // 회원정보가 존재하지 않으면 오류반환
+        res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
+      } else {
+        // 회원정보가 존재하면 수정
+        await CandidateModel.find({ user_id: user._id }).exec((err: Error, candidates: any) => {
+          if (err) {
+            res.status(500).send(err)
+          } else {
+            if (candidates === null) {
+              res.status(403).send({ message: "신청한 통역이 없습니다." })
+            } else {
+              res.status(200).send(candidates)
+            }
+          }
+        })
       }
     }
   })
@@ -83,6 +140,38 @@ userRoutes.put("/:user_id", async (req: express.Request, res: express.Response) 
           }
         )
         res.status(200).send({ message: `${user_id} User가 통역가로 등록되었습니다.` })
+      }
+    }
+  })
+})
+
+// User가 작성한 article 조회: GET
+userRoutes.get("/:user_id/articles", async (req: express.Request, res: express.Response) => {
+  const user_id = req.params["user_id"]
+  await ArticleModel.find({ user_id: user_id }).exec((err: Error, articles: any) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      if (articles === null) {
+        res.status(403).send({ message: "작성한 글이 없습니다." })
+      } else {
+        res.status(200).send(articles)
+      }
+    }
+  })
+})
+
+// User가 작성한 candidate 조회: GET
+userRoutes.get("/:user_id/candidates", async (req: express.Request, res: express.Response) => {
+  const user_id = req.params["user_id"]
+  await CandidateModel.find({ user_id: user_id }).exec((err: Error, candidates: any) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      if (candidates === null) {
+        res.status(403).send({ message: "신청한 통역이 없습니다." })
+      } else {
+        res.status(200).send(candidates)
       }
     }
   })
