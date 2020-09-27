@@ -17,7 +17,7 @@ const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 // 본인 회원정보 조회
 userRoutes.get("/my", verificationMiddleware)
 userRoutes.get("/my", async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {

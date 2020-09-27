@@ -47,7 +47,7 @@ articleRoutes.get("/:article_id", async (req: express.Request, res: express.Resp
 articleRoutes.post("/", verificationMiddleware)
 articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
   const requestBody = req.body
-  const user_id = await UserModel.findOne({ user_email: req.headers.user_email })
+  const user_id = await UserModel.findOne({ user_email: req.headers.email })
   const article = new ArticleModel({
     user_id: user_id,
     article_title: requestBody.article_title,
@@ -128,7 +128,7 @@ articleRoutes.post("/:article_id/candidates", verificationMiddleware)
 articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
   // user_id 가져오기
-  await UserModel.findOne({ user_email: req.headers.user_email }, (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -189,7 +189,7 @@ articleRoutes.delete("/:article_id/candidates", verificationMiddleware)
 articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
   // user_id 가져오기
-  await UserModel.findOne({ user_email: req.headers.user_email }, (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
