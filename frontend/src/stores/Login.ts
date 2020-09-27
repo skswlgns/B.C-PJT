@@ -37,7 +37,6 @@ export default class Login extends VuexModule  {
   public async login (loginData: any){
     await axios.post(`${SERVER_URL}/auth/signin`, loginData)
     .then(res => {
-      console.log(res)
       Vue.cookies.set('auth-token', res.data.token)
     })
 

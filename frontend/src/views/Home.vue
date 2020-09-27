@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <h1 class="trans_h1">통역 리스트</h1>
@@ -315,10 +316,10 @@
         </div>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <input v-model="date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+            <input v-model="transData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
           </template>
           <v-list>
-            <v-date-picker v-model="date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="transData.date_picker" color="green lighten-1"></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -330,7 +331,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="time_picker"
+              v-model="transData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -339,7 +340,7 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="time_picker"
+            v-model="transData.time_picker"
             full-width
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
@@ -349,17 +350,17 @@
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList" @click="goDetail()">
-            <li v-for="list in ListData" :key="list.user_id">
+            <li v-for="list in article" :key="list.user_id">
               <div class="card"> 
                 <div class="profile">
                   <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                  <h6 class="center">{{ list.user_nickname }}</h6>
+                  <h6 class="center">{{ list.user_id.user_nickname }}</h6>
                   <v-spacer></v-spacer>
                   <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                 </div> 
                 <h2 class="card_content">{{ list.article_title }}</h2>
                 <div class="">
-                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
+                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                 </div>
               </div> 
             </li>
@@ -760,17 +761,15 @@
   const HomeModule = namespace('Home');
 
   @Component({
-    mounted() {
 
-    }
   })
   export default class Home extends Vue {
 
     private transData : any = {
       lang_1 : "통역 할 언어",
       lang_2 : "통역 될 언어",
-      date : "",
-      time : "",
+      date_picker : "",
+      time_picker : "",
     }
 
     private date_picker = ""
@@ -821,17 +820,20 @@
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
     }
-    
 
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
 
     @HomeModule.Mutation('save_article')
-    // private signup!: (signupData: object) => void;
+    private save_article !: any;
 
     @HomeModule.Action('get_article')
-    private mounted() { }
+    private get_article!: () => void;
+
+    async mounted()  {
+      await this.get_article()
+    }
   }
 </script>
 
