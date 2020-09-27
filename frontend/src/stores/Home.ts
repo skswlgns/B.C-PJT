@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 import router from '@/router';
+import { couldStartTrivia } from 'typescript';
 
 const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 
@@ -11,11 +12,8 @@ export default class Home extends VuexModule {
   // states
   public article: any = {};
 
-  // getters
-  // get doubledCount() {
-  //   return this.article
-  // }
-
+  //getters
+  
   // mutations
   @Mutation
   public async savearticle(temp_data:any) {    

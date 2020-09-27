@@ -315,10 +315,10 @@
         </div>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <input v-model="date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+            <input v-model="transData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
           </template>
           <v-list>
-            <v-date-picker v-model="date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="transData.date_picker" color="green lighten-1"></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -330,7 +330,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="time_picker"
+              v-model="transData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -339,7 +339,7 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="time_picker"
+            v-model="transData.time_picker"
             full-width
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
@@ -359,7 +359,7 @@
                 </div> 
                 <h2 class="card_content">{{ list.article_title }}</h2>
                 <div class="">
-                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
+                  <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                 </div>
               </div> 
             </li>
@@ -760,18 +760,15 @@
   const HomeModule = namespace('Home');
 
   @Component({
-    // mounted () {
-    //   // again, do any necessary error handling
-    //   console.log(this.$store)
-    // },
+
   })
   export default class Home extends Vue {
 
     private transData : any = {
       lang_1 : "통역 할 언어",
       lang_2 : "통역 될 언어",
-      date : "",
-      time : "",
+      date_picker : "",
+      time_picker : "",
     }
 
     private date_picker = ""
@@ -797,14 +794,9 @@
 
     @HomeModule.Action('get_article')
     private get_article!: () => void;
-    // private signup!: (signupData: object) => void;
 
-
-    mounted() {
-      this.get_article()
-      // console.log('이거는 함수를 적은겁니다.',this.get_article())
-      // console.log('이거는 this.article이지요',this.article)
-      
+    async mounted()  {
+      await this.get_article()
     }
   }
 </script>

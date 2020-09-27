@@ -185,12 +185,12 @@
 	.form-structor {
 		background-color: #222;
 		border-radius: 15px;
-		height: 550px;
+		height: 700px;
 		width: 350px;
 		position: relative;
 		overflow: hidden;
 		margin: auto; 
-		margin-top: 5rem;
+		margin-top: 3rem;
 
 		&::after {
 			content: "";
@@ -208,13 +208,18 @@
 
 		.signup {
 			position: absolute;
-			top: 50%;
+			top: 45%;
 			left: 50%;
 			-webkit-transform: translate(-50%, -50%);
 			width: 80%;
 			z-index: 5;
 			-webkit-transition: all 0.3s ease;
 			// background-color: #FF416C;
+			.check {
+				color: white;
+
+				font-size: 0.8rem;
+			}
 
 			&.slide-up {
 				top: 5%;
@@ -257,7 +262,8 @@
 				border-radius: 15px;
 				background-color: #fff;
 				overflow: hidden;
-				margin-top: 30px;
+				margin-top: 20px;
+				margin-bottom: 5px;
 				opacity: 1;
 				visibility: visible;
 				-webkit-transition: all 0.3s ease;
