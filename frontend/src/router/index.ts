@@ -46,9 +46,10 @@ const routes = [
     component: MyPage
   },
   {
-    path: '/userpage',
+    path: '/userpage/:id',
     name: 'UserPage',
     component: UserPage,
+    props: true,
   },
   {
     path: '/registtrans',

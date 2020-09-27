@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <h1 class="trans_h1">통역 리스트</h1>
@@ -349,12 +348,12 @@
 
       <v-row class="home_main">
         <v-col lg="8">
-          <div class="cardList" @click="goDetail()">
-            <li v-for="list in ListData" :key="list.user_id">
+          <div class="cardList">  <!-- @click="goDetail()" -->
+            <li v-for="(list, index) in article" :key="index">
               <div class="card"> 
                 <div class="profile">
-                  <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                  <h6 class="center">{{ list.user_nickname }}</h6>
+                  <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image" @click="goUserpage(list.user_id._id)">
+                  <h6 class="center" @click="goUserpage(list.user_id._id)">{{ list.user_nickname }}</h6>
                   <v-spacer></v-spacer>
                   <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                 </div> 
@@ -736,7 +735,7 @@
       </div>
 
       <div class="cardList" @click="goDetail()">
-        <li v-for="list in ListData" :key="list.user_id">
+        <li v-for="(list, index) in ListData" :key="index">
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
@@ -780,62 +779,32 @@
     private menu2 = false
     private modal2 = false
 
-    private ListData : any = [
-      {
-        user_nickname: '단짠단짱',
-        article_title: '비즈니스 대화가 있는데 도와주실 분 구합니다 !!! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_date: '2020-09-22',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      },
-      {
-        user_nickname: '단짠단짱',
-        article_title: '독일어 가능하신 분 !! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_date: '2020-09-22',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      },
-      {
-        user_nickname: '단짠단짱',
-        article_title: '독일어 가능하신 분 !! ',
-        article_content: '누구 scss나 typescript 장인 어디 없나요.. 살려주세요.. 이거 계속 하는거 맞는거겟죠.. 이미 돌아가기도 늦었어요.. 인생.. ',
-        article_egg: '200',
-        article_date: '2020-09-22',
-        article_enddate: '2020-09-30',
-        article_end: '5:00 AM',
-        article_from: '한국어',
-        article_to: 'English',
-        article_start: '1:00 AM',
-      }
-    ]
-
     // methods
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
     }
 
+    // goUserpage() {
+    //   this.$router.push('/userpage').catch(()=>{})
+    // }
+
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
+
+    @HomeModule.Mutation('goUserpage')
+    private goUserpage !: any;
 
     @HomeModule.Action('get_article')
     private get_article!: () => void;
     // private signup!: (signupData: object) => void;
 
 
-    private mounted() {
+    mounted() {
       this.get_article()
-      console.log('여기다', this.article)
+      // console.log('이거는 함수를 적은겁니다.',this.get_article())
+      // console.log('이거는 this.article이지요',this.article)
+      
     }
   }
 </script>

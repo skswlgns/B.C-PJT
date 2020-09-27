@@ -21,12 +21,15 @@
             </v-responsive></span>
         </div>
         <div class="ml-auto my-auto mr-3">
-          <v-btn
-            color="primary"
-            class="ma-10"
-            @click="goRegist()">
-            통역가 신청하기
-          </v-btn>
+          <div class="d-flex">
+            <v-btn
+              color="primary"
+              class="ma-10"
+              @click="goRegist()">
+              통역가 신청하기
+            </v-btn>
+          </div>
+         
         </div>
       </div>
       <div>
@@ -179,6 +182,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
+  import { namespace } from 'vuex-class';
+
+  const myPageModule = namespace('MyPage');
 
   @Component({
     methods: {
@@ -211,6 +217,13 @@
       user_id: 2,
     },
   ]
+
+  @myPageModule.Action('get_mypage')
+  private get_mypage!: () => void;
+
+  mounted() {
+    this.get_mypage()
+  }
 }
 </script>
 
