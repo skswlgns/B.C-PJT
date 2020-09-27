@@ -7,7 +7,6 @@ const articleRoutes = express.Router()
 
 // jwt middleware
 const verificationMiddleware = require("../middleware/verification")
-const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
 /*
 통역 요청 Article 작성을 위한 router
@@ -145,8 +144,8 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
               console.log(article)
 
               // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
-              const articleCandidateList = article.article_candidate
-              const isCandidate = articleCandidateList.some(
+              const articleCandidateList: any = article.article_candidate
+              const isCandidate: boolean = articleCandidateList.some(
                 (element: any) => element.user_id.toString() === user._id.toString()
               )
               console.log(articleCandidateList)
@@ -207,7 +206,7 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
 
               // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
               const articleCandidateList = article.article_candidate
-              const isCandidate = (candidateList: any) => {
+              const isCandidate: any = (candidateList: any) => {
                 let tmp_object: any = {}
                 for (let i = 0; i < candidateList.length; i++) {
                   if (candidateList[i].user_id.toString() === user._id.toString()) {
