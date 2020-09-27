@@ -55,8 +55,10 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_content: requestBody.article_content,
     article_from: requestBody.article_from,
     article_to: requestBody.article_to,
-    article_start: requestBody.article_start,
-    article_end: requestBody.article_end,
+    article_start_date: requestBody.article_start_date,
+    article_start_time: requestBody.article_start_time,
+    article_end_date: requestBody.article_end_date,
+    article_end_time: requestBody.article_end_time,
     article_egg: requestBody.article_egg,
   })
   await article.save((err, _) => {
@@ -75,7 +77,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
   const requestBody = req.body
   ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (article === null) {
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
@@ -86,8 +88,10 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
             article_content: requestBody.article_content,
             article_from: requestBody.article_from,
             article_to: requestBody.article_to,
-            article_start: requestBody.article_start,
-            article_end: requestBody.article_end,
+            article_start_date: requestBody.article_start_date,
+            article_start_time: requestBody.article_start_time,
+            article_end_date: requestBody.article_end_date,
+            article_end_time: requestBody.article_end_time,
             article_egg: requestBody.article_egg,
           }
         )
@@ -104,7 +108,7 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
   const requestBody = req.body
   ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (article === null) {
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
@@ -124,74 +128,108 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
 articleRoutes.post("/:article_id/candidates", verificationMiddleware)
 articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
-  const user_id = await UserModel.findOne({ user_email: req.headers.user_email })
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
+  // user_id 가져오기
+  await UserModel.findOne({ user_email: req.headers.user_email }, (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
-      if (article === null) {
-        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
-      } else {
-        // 새로운 candidate 만들기
-        const item = new CandidateModel({
-          user_id: user_id,
-          article_id: article_id,
-          candidate_content: req.body.candidate_content,
-        })
-        await item.save((err, candidate) => {
+      ArticleModel.findOne({ _id: article_id })
+        .populate("article_candidate")
+        .exec((err: Error, article: any) => {
           if (err) {
             res.status(500).send(err)
           } else {
-            // candidate_id 값을 article.article_candidate에 추가하기
-            const candidateId = candidate
-            const articleCandidateList = article.article_candidate
-            if (articleCandidateList.includes(user_id)) {
-              res.status(403).send({ message: `이미 등록된 후보자 입니다.` })
+            if (article === null) {
+              res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
             } else {
-              articleCandidateList.push(user_id)
-              // await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
-              // (_: any) => {
-              // res.status(200).send({ message: `${article_id} article에 ${user_id} candidate를 추가하였습니다.` })
-              // }
-              // )
+              console.log(article)
+
+              // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
+              const articleCandidateList = article.article_candidate
+              const isCandidate = articleCandidateList.some(
+                (element: any) => element.user_id.toString() === user._id.toString()
+              )
+              console.log(articleCandidateList)
+              console.log(user._id)
+              if (isCandidate) {
+                // 이미 등록되어 있다면 오류 메세지 반환
+                res.status(403).send({ message: "이미 등록된 통역사입니다." })
+              } else {
+                // 등록되어 있지 않다면 새로운 candidate 만들기
+                const item = new CandidateModel({
+                  user_id: user._id,
+                  article_id: article_id,
+                  candidate_content: req.body.candidate_content,
+                })
+                item.save(async (err, candidate) => {
+                  if (err) {
+                    res.status(500).send(err)
+                  } else {
+                    // candidate_id 값을 article.article_candidate에 추가하기
+                    const candidateId = candidate._id
+                    articleCandidateList.push(candidateId)
+                    await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
+                      (_: any) => {
+                        res
+                          .status(200)
+                          .send({ message: `${article_id} article에 ${user._id} candidate를 추가하였습니다.` })
+                      }
+                    )
+                  }
+                })
+              }
             }
           }
         })
-      }
     }
   })
 })
 
 // Article의 통역 후보자 취소: DELETE
-articleRoutes.post("/:article_id/candidates", verificationMiddleware)
-articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
+articleRoutes.delete("/:article_id/candidates", verificationMiddleware)
+articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
+  // user_id 가져오기
+  await UserModel.findOne({ user_email: req.headers.user_email }, (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
-      if (article === null) {
-        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
-      } else {
-        await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
+      ArticleModel.findOne({ _id: article_id })
+        .populate("article_candidate")
+        .exec(async (err: Error, article: any) => {
           if (err) {
-            console.log(err)
+            res.status(500).send(err)
           } else {
-            const user_id = user._id
-            const articleCandidateList = article.article_candidate
-            if (articleCandidateList.includes(user_id)) {
-              res.status(403).send({ message: `이미 등록된 후보자 입니다.` })
+            if (article === null) {
+              res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
             } else {
-              articleCandidateList.push(user_id)
-              await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
-                (_: any) => {
-                  res.status(200).send({ message: `${article_id} article에 ${user_id} candidate를 추가하였습니다.` })
+              console.log(article)
+
+              // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
+              const articleCandidateList = article.article_candidate
+              const isCandidate = (candidateList: any) => {
+                let tmp_object: any = {}
+                for (let i = 0; i < candidateList.length; i++) {
+                  if (candidateList[i].user_id.toString() === user._id.toString()) {
+                    tmp_object = candidateList[i]
+                    break
+                  }
                 }
-              )
+                return tmp_object
+              }
+              console.log("isCandidate", isCandidate(articleCandidateList))
+              if (isCandidate === {}) {
+                // 등록되어있지 않다면 오류 메세지 반환
+                res.status(403).send({ message: "등록되지 않은 통역사입니다." })
+              } else {
+                // 등록되어 있는 candidate 없애기
+                const candidateId = isCandidate._id
+                await CandidateModel.deleteOne({ _id: isCandidate._id })
+                res.status(200).send({ message: `${article_id} article이 삭제되었습니다.` })
+              }
             }
           }
         })
-      }
     }
   })
 })
