@@ -3,7 +3,7 @@ import * as express from "express"
 const jwt = require("jsonwebtoken")
 const secretObj = require("../config/jwt")
 
-const authMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+const verificationMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   // read the token from header or url
   const token = req.headers.token
 
@@ -41,4 +41,4 @@ const authMiddleware = (req: express.Request, res: express.Response, next: expre
   }).catch(onError)
 }
 
-module.exports = authMiddleware
+module.exports = verificationMiddleware

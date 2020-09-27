@@ -38,7 +38,7 @@ authRoutes.post("/signin", async (req: express.Request, res: express.Response) =
           res.status(403).send({ message: "비밀번호가 다릅니다." })
         } else {
           // 아아디, 비밀번호 일치
-          const token = jwt.sign(
+          jwt.sign(
             {
               // 첫번째 인자: 로그인을 위한 정보
               user_email: user.user_email,
