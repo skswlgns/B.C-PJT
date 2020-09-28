@@ -3,7 +3,7 @@ import * as express from "express"
 const jwt = require("jsonwebtoken")
 const secretObj = require("../config/jwt")
 
-const authMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+const verificationMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   // read the token from header or url
   const token = req.headers.token
 
@@ -33,7 +33,9 @@ const authMiddleware = (req: express.Request, res: express.Response, next: expre
 
   // process the promise
   p.then((decoded: any) => {
-    if (decoded.user_email != req.headers.user_email) {
+    console.log("decode", decoded)
+    console.log("req.headers", req.headers)
+    if (decoded.user_email.toString() !== (req.headers.email || "").toString()) {
       res.status(403).send({ message: "인증된 사용자가 아닙니다." })
     } else {
       next()
@@ -41,4 +43,4 @@ const authMiddleware = (req: express.Request, res: express.Response, next: expre
   }).catch(onError)
 }
 
-module.exports = authMiddleware
+module.exports = verificationMiddleware

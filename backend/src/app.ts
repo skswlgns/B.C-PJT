@@ -11,6 +11,12 @@ app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 
+require("./model/ArticleModel")
+require("./model/CandidateModel")
+require("./model/GoodLangModel")
+require("./model/ResumeModel")
+require("./model/UserModel")
+
 // routes
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)

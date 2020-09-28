@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
   user_good_lang: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Good_Lang",
+      ref: "GoodLang",
     },
   ],
   user_resume: [
