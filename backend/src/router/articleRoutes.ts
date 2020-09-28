@@ -30,6 +30,7 @@ articleRoutes.get("/:article_id", async (req: express.Request, res: express.Resp
   const article_id = req.params["article_id"]
   await ArticleModel.findOne({ _id: article_id })
     .populate("user_id", "user_nickname user_image")
+    .populate("article_candidate")
     .exec((err: Error, article: any) => {
       if (err) {
         res.status(500).send(err)
@@ -193,44 +194,58 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
     if (err) {
       res.status(500).send(err)
     } else {
-      ArticleModel.findOne({ _id: article_id })
-        .populate("article_candidate")
-        .exec(async (err: Error, article: any) => {
-          if (err) {
-            res.status(500).send(err)
+      ArticleModel.findOne({ _id: article_id }).exec(async (err: Error, article: any) => {
+        if (err) {
+          res.status(500).send(err)
+        } else {
+          if (article === null) {
+            res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
           } else {
-            if (article === null) {
-              res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
-            } else {
-              console.log(article)
+            // console.log(article)
 
-              // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
-              const articleCandidateList = article.article_candidate
-              const isCandidate: any = (candidateList: any) => {
-                let tmp_object: any = {}
-                for (let i = 0; i < candidateList.length; i++) {
-                  if (candidateList[i].user_id.toString() === user._id.toString()) {
-                    tmp_object = candidateList[i]
-                    break
+            // 현재 user가 article의 cadidate 목록 가져오기
+            const articleCandidatesId = article.article_candidate
+
+            await CandidateModel.find()
+              .where("_id")
+              .in(articleCandidatesId)
+              .exec(async (err: Error, candidates: any) => {
+                if (err) {
+                  res.status(500).send(err)
+                } else {
+                  // Candidates 중에 user가 있는지 찾기
+                  const candidateIndex: any = (candidateList: any) => {
+                    let index: any = candidateList.length
+                    for (let i = 0; i < candidateList.length; i++) {
+                      if (candidateList[i].user_id.toString() === user._id.toString()) {
+                        index = i
+                        break
+                      }
+                    }
+                    return index
+                  }
+                  // console.log("candidateIndex", typeof candidateIndex(candidates))
+                  // console.log("candidates.length", typeof candidates.length)
+                  if (candidateIndex(candidates) === candidates.length) {
+                    // 등록되어있지 않다면 오류 메세지 반환
+                    res.status(403).send({ message: "등록되지 않은 통역사입니다." })
+                  } else {
+                    // 등록되어 있는 candidate 없애기
+                    await CandidateModel.deleteOne({ _id: articleCandidatesId[candidateIndex] })
+                    articleCandidatesId.splice(candidateIndex, 1)
+                    await ArticleModel.findOneAndUpdate(
+                      { _id: article_id },
+                      {
+                        article_candidate: articleCandidatesId,
+                      }
+                    )
+                    res.status(200).send({ message: `통역사 지원이 취소되었습니다.` })
                   }
                 }
-                return tmp_object
-              }
-              console.log("isCandidate", isCandidate(articleCandidateList))
-              isCandidate(articleCandidateList)
-              if (isCandidate === {}) {
-                // 등록되어있지 않다면 오류 메세지 반환
-                res.status(403).send({ message: "등록되지 않은 통역사입니다." })
-              } else {
-                // 등록되어 있는 candidate 없애기
-                const candidateId = isCandidate._id
-                console.log(candidateId)
-                await CandidateModel.deleteOne({ _id: isCandidate._id })
-                res.status(200).send({ message: `${candidateId} candidate가 삭제되었습니다.` })
-              }
-            }
+              })
           }
-        })
+        }
+      })
     }
   })
 })
