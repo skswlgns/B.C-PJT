@@ -4,19 +4,18 @@ import router from '@/router'
 // import VueRouter from 'vue-router'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 
-const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
+const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
 
 @Module({namespaced: true})
 export default class Login extends VuexModule  {
   
   // states
-  public user_token: string = ""
 
   // mutations
   @Mutation
   public async SET_TOKEN() {
     router.push('/home')
-    location.reload()
+    // location.reload()
   }
 
   // actions
@@ -37,8 +36,11 @@ export default class Login extends VuexModule  {
   public async login (loginData: any){
     await axios.post(`${SERVER_URL}/auth/signin`, loginData)
     .then(res => {
-      Vue.cookies.set('auth-token', res.data.token)
+      console.log(res.data)
+      Vue.cookies.set('token', res.data.token)
+      Vue.cookies.set('email', res.data.user_email)
+      // axios.defaults.headers.common['auth-token'] = res.data.token
+      // axios.defaults.headers.common['user_email'] = res.data.user_email
     })
-
   }
 }

@@ -744,7 +744,7 @@
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <h6 class="center">{{ list.user_nickname }}</h6>
+              <h6 class="center">{{ list.user_id.user_nickname }}</h6>
               <v-spacer></v-spacer>
               <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
             </div> 
