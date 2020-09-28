@@ -33,8 +33,6 @@ const verificationMiddleware = (req: express.Request, res: express.Response, nex
 
   // process the promise
   p.then((decoded: any) => {
-    console.log("decode", decoded)
-    console.log("req.headers", req.headers)
     if (decoded.user_email.toString() !== (req.headers.email || "").toString()) {
       res.status(403).send({ message: "인증된 사용자가 아닙니다." })
     } else {

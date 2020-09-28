@@ -161,7 +161,7 @@ userRoutes.get("/:user_id/articles", async (req: express.Request, res: express.R
   })
 })
 
-// User가 작성한 candidate 조회: GET
+// User가 신청한 candidate 조회: GET
 userRoutes.get("/:user_id/candidates", async (req: express.Request, res: express.Response) => {
   const user_id = req.params["user_id"]
   await CandidateModel.find({ user_id: user_id }).exec((err: Error, candidates: any) => {
