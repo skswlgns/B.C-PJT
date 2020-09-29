@@ -1,6 +1,5 @@
 <template>
   <div id="home">
-    <!-- {{ article }} -->
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <h1 class="trans_h1">통역 리스트</h1>
@@ -351,22 +350,22 @@
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList">
-            <li v-for="list in article" :key="list.user_id">
-              <router-link :to="{name: 'TransDetail', params : {id:list._id}}" class="router"> 
+            <li v-for="(list, index) in article" :key="index">
+              
                 <div class="card"> 
                   <div class="profile">
-                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                    <h6 class="center">{{ list.user_id.user_nickname }}</h6>
+                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image" @click="goUserpage(list.user_id._id)">
+                    <h6 class="center" @click="goUserpage(list.user_id._id)">{{ list.user_id.user_nickname }}</h6>
                     <v-spacer></v-spacer>
                     <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                   </div> 
-                  <h2 class="
-                  card_content">{{ list.article_title }}</h2>
+                  <router-link :to="{name: 'TransDetail', params : {id:list._id}}" class="router"> 
+                  <h2 class="card_content">{{ list.article_title }}</h2></router-link>
                   <div class="">
                     <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                   </div>
                 </div> 
-              </router-link>
+              
             </li>
           </div>
         </v-col>
@@ -740,7 +739,7 @@
       </div>
 
       <div class="cardList" @click="goDetail()">
-        <li v-for="list in ListData" :key="list.user_id">
+        <li v-for="(list, index) in article" :key="index">
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
@@ -791,8 +790,8 @@
     @HomeModule.State('article')
     private article!: any;
 
-    @HomeModule.Mutation('save_article')
-    private save_article !: any;
+    @HomeModule.Mutation('goUserpage')
+    private goUserpage !: any;
 
     @HomeModule.Action('get_article')
     private get_article!: () => void;

@@ -15,16 +15,21 @@ export default class Home extends VuexModule {
 
   // mutations
   @Mutation
-  public async save_article(temp_data:any) {    
-    console.log('mutation',temp_data)
+  public async savearticle(temp_data:any) {    
+    // console.log('mutation', temp_data)
     this.article = temp_data
   }
 
+  @Mutation
+  public async goUserpage(userid: string) {
+    // router.push('/userpage').catch(()=>{})
+    router.push({name: 'UserPage', params: { id : userid }}).catch(()=>{})
+  }
+
   // actions
-  @Action({commit: 'save_article'})
+  @Action({ commit: 'savearticle' })
   public async get_article() {
-    console.log('action')
     const res = await axios.get(`${SERVER_URL}/articles`)
-    return res.data 
+    return res.data
   }
 }
