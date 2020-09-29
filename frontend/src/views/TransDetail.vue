@@ -285,14 +285,9 @@
     async mounted() {
       await this.get_article_1(this.id)
       console.log('mounted')
-      if(this.article.article_candidate){
-        for(let x in this.article.article_candidate){
-          console.log(this.article.article_candidate[x].user_id)
-          this.get_candidate(this.article.article_candidate[x].user_id)
-        }
-      }
+      await this.get_candidate(this.article.article_candidate)
       window.scrollTo(0, 0)
-    }
+    }   
   }
 </script>
 
