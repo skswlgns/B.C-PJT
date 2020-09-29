@@ -235,7 +235,9 @@
 
   const TransDetailModule = namespace('TransDetail');
   @Component({
-
+    mounted() {
+      
+    }
   })
   export default class TransDetail extends Vue {
     @Prop()
@@ -310,6 +312,7 @@
         console.log(this.article.article_candidate[x])
         await this.get_candidate(this.article.article_candidate[x])
       }
+      window.scrollTo(0, 0)
     }
   }
 </script>
