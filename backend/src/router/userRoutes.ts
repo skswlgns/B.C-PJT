@@ -164,17 +164,19 @@ userRoutes.get("/:user_id/articles", async (req: express.Request, res: express.R
 // User가 신청한 candidate 조회: GET
 userRoutes.get("/:user_id/candidates", async (req: express.Request, res: express.Response) => {
   const user_id = req.params["user_id"]
-  await CandidateModel.find({ user_id: user_id }).exec((err: Error, candidates: any) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      if (candidates === null) {
-        res.status(403).send({ message: "신청한 통역이 없습니다." })
+  await CandidateModel.find({ user_id: user_id })
+    .populate("article_id")
+    .exec((err: Error, candidates: any) => {
+      if (err) {
+        res.status(500).send(err)
       } else {
-        res.status(200).send(candidates)
+        if (candidates === null) {
+          res.status(403).send({ message: "신청한 통역이 없습니다." })
+        } else {
+          res.status(200).send(candidates)
+        }
       }
-    }
-  })
+    })
 })
 
 export { userRoutes }
