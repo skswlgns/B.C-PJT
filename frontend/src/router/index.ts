@@ -7,6 +7,7 @@ import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
 import TransDetail from '@/views/TransDetail.vue'
+import TranslateRegist from '@/views/TranslateRegist.vue'
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
     name: 'Home2',
     component: Home2
   },
+  {
+    path: '/regist',
+    name: 'TranslateRegist',
+    component: TranslateRegist,
+  }
 ]
 
 const router = new VueRouter({
