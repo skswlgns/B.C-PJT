@@ -36,7 +36,7 @@ export default class TransDetail extends VuexModule  {
   }
 
 
-  @Action ({ commit : 'add_user' })
+  @Action
   public async apply(applyData : any){
     console.log('apply')
     console.log(applyData)
@@ -50,8 +50,6 @@ export default class TransDetail extends VuexModule  {
     axios.post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)    
     .then(async res => {
       console.log(res.data)
-      const response = await axios.get(`${SERVER_URL}/users/${Vue.cookies.get('token')}`)
-      return response.data
     })
     .catch(err => console.log(err))
   }
