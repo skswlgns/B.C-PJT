@@ -9,7 +9,7 @@ const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 export default class MyPage extends VuexModule {
 
   // states
-//   public article: any = {};
+  public myinfo: any = {};
 
   // getters
   // get doubledCount() {
@@ -17,18 +17,19 @@ export default class MyPage extends VuexModule {
   // }
 
   // mutations
-//   @Mutation
-//   public async savearticle(temp_data:any) {    
-//     // console.log('mutation', temp_data)
-//     this.article = temp_data
-//   }
+  @Mutation
+  public async savemyinfo(temp_data:any) {
+    // console.log('mutation', temp_data)
+    this.myinfo = temp_data
+  }
 
   // actions
-  @Action
+  @Action({commit: "savemyinfo"})
   public async get_mypage() {
       if (Vue.cookies.isKey('auth-token')) {
-        console.log('키가 있으시군요!')
         const res = await axios.get(`${SERVER_URL}/users/my`)
+        console.log(res)
+        return res.data
       }
       else {
         router.push('/404')   

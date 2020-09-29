@@ -1,12 +1,13 @@
 <template>
   <div>
+    {{ myinfo }}
 
     <!-- #                    브라우저                       # -->
 
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
       <div class="user-box d-flex">
-        <img src="https://t1.daumcdn.net/cfile/tistory/991DA6445EFEB65E15" alt="profile_image" class="box">
+        <img src="@/assets/images/user_basic.png" alt="profile_image" class="box">
         <div class="pure-mt">
           <span class="nick-size">닉네임</span>
           <p>ㅁ 국가</p>
@@ -218,10 +219,14 @@
     },
   ]
 
+  @myPageModule.State('myinfo')
+  private myinfo!: any;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
+  
 
-  mounted() {
+  async mounted() {
     this.get_mypage()
   }
 }

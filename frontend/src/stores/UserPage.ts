@@ -35,8 +35,9 @@ export default class UserPage extends VuexModule {
         router.push('/login')
       }
   }
-//   public async get_article() {
-//     const res = await axios.get(`${SERVER_URL}/articles`)
-//     return res.data
-//   }
+
+  @Action
+  public async get_article() {
+      
+  }
 }
