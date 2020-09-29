@@ -25,7 +25,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/transdetail',
+    path: '/transdetail/:id',
     name: 'TransDetail',
     component: TransDetail,
     props: true,

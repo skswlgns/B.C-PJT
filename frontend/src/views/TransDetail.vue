@@ -1,9 +1,12 @@
 <template>
   <div>
-    {{ id }}
-    {{ article }}
+    {{article}}
+    <hr>
     {{ article.article_candidate }}
+    <hr>
     {{ user }}
+    <hr>
+
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
@@ -59,61 +62,36 @@
       </div>
 
       <div class="applyList">
-        <li v-for="list in applyList" :key="list.user_name">
-          <div v-if="list.select" class="applyCard_select">
-            <div class="profile">
-              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <div class="applyUser">
-                <h3 class="center">{{ list.user_name }}  |</h3>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.user_lang}}</p>
-                  <p class="badge">모국어</p>
+        <li v-for="(user_profile, index) in user" :key="index">
+          <ol v-for="(content, index) in article.article_candidate" :key="index">
+            {{ user_profile._id }} | {{ content.user_id }}
+            <div v-if="user_profile._id == content.user_id" class="applyCard_select">
+              <div class="profile">
+                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                <div class="applyUser">
+                  <h3 class="center">{{ user_profile.user_name }}  |</h3>
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_lang}}</p>
+                    <p class="badge">모국어</p>
+                  </div>
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_good_lang}}</p>
+                    <p class="badge">고급</p>
+                  </div>
                 </div>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.good_lang}}</p>
-                  <p class="badge">고급</p>
+                <v-spacer></v-spacer>
+                <!-- <div v-if="list.select" class="select">
+                  <v-btn class="btn" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
                 </div>
+                <div v-if="!list.select" class="notselect">
+                  <v-btn class="notbtn" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+                </div> -->
               </div>
-              <v-spacer></v-spacer>
-              <div v-if="list.select" class="select">
-                <v-btn class="btn" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-              </div>
-              <div v-if="!list.select" class="notselect">
-                <v-btn class="notbtn" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-                <!-- <v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기 -->
+              <div class="content">
+                {{content.candidate_content}}
               </div>
             </div>
-            <div class="content">
-              {{list.apply_content}}
-            </div>
-          </div>
-
-          <div v-if="!list.select" class="applyCard_notselect">
-            <div class="profile">
-              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <div class="applyUser">
-                <h3 class="center">{{ list.user_name }}  |</h3>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.user_lang}}</p>
-                  <p class="badge">모국어</p>
-                </div>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.good_lang}}</p>
-                  <p class="badge">고급</p>
-                </div>
-              </div>
-              <v-spacer></v-spacer>
-              <div v-if="list.select" class="select">
-                <v-btn class="btn" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-              </div>
-              <div v-if="!list.select" class="notselect">
-                <v-btn class="notbtn" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-              </div>
-            </div>
-            <div class="content">
-              {{list.apply_content}}
-            </div>
-          </div>
+          </ol>
         </li>
       </div>
     </div>
@@ -244,7 +222,7 @@
       id !: String;
 
     private candidate_content : String = "";
-    
+  
     private applyList : any = [
       {
         user_name: '이다인',
@@ -306,11 +284,12 @@
 
     async mounted() {
       await this.get_article_1(this.id)
-
-      for(let x in this.article.article_candidate){
-        console.log('하이')
-        console.log(this.article.article_candidate[x])
-        await this.get_candidate(this.article.article_candidate[x])
+      console.log('mounted')
+      if(this.article.article_candidate){
+        for(let x in this.article.article_candidate){
+          console.log(this.article.article_candidate[x].user_id)
+          this.get_candidate(this.article.article_candidate[x].user_id)
+        }
       }
       window.scrollTo(0, 0)
     }
