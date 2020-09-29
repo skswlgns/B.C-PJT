@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 import Home2 from '@/views/Home2.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
@@ -9,6 +8,7 @@ import MyPage from '@/views/MyPage.vue'
 import TransDetail from '@/views/TransDetail.vue'
 import UserPage from '@/views/UserPage.vue'
 import RegistTrans from '@/views/RegistTrans.vue'
+import EditProfile from '@/views/EditProfile.vue'
 
 Vue.use(VueRouter)
 
@@ -56,6 +56,12 @@ const routes = [
     path: '/registtrans',
     name: "RegistTrans",
     component: RegistTrans
+  },
+  {
+    path: '/editprofile',
+    name: 'EditProfile',
+    component: EditProfile,
+    props: true,
   },
   // 도희
   {

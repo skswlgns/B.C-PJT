@@ -26,9 +26,14 @@ export default class UserPage extends VuexModule {
   // actions
   @Action({ commit: 'saveuserinfo' })
   public async get_userpage(temp: string) {
-      if (Vue.cookies.isKey('auth-token')) {
+      if (Vue.cookies.isKey('token')) {
         const res = await axios.get(`${SERVER_URL}/users/${temp}`)
-        return res.data
+        if (res.data.user_email === Vue.cookies.get('email')) {
+          router.push('/mypage')
+        } 
+        else {
+          return res.data
+        }
       }
       else {
         alert('로그인을 해주세요!')

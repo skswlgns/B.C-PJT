@@ -350,8 +350,8 @@
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList">
-            <li v-for="list in article" :key="list.user_id">
-              <router-link > <!-- :to="{name: 'TransDetail', params : {id:list._id}}" class="router" -->
+            <li v-for="(list, index) in article" :key="index">
+              
                 <div class="card"> 
                   <div class="profile">
                     <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image" @click="goUserpage(list.user_id._id)">
@@ -359,13 +359,13 @@
                     <v-spacer></v-spacer>
                     <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                   </div> 
-                  <h2 class="
-                  card_content">{{ list.article_title }}</h2>
+                  <router-link :to="{name: 'TransDetail', params : {id:list._id}}" class="router"> 
+                  <h2 class="card_content">{{ list.article_title }}</h2></router-link>
                   <div class="">
                     <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                   </div>
                 </div> 
-              </router-link>
+              
             </li>
           </div>
         </v-col>
@@ -739,7 +739,7 @@
       </div>
 
       <div class="cardList" @click="goDetail()">
-        <li v-for="(list, index) in ListData" :key="index">
+        <li v-for="(list, index) in article" :key="index">
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">

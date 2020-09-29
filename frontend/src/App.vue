@@ -7,7 +7,7 @@
         'img_logo_600 curs': windowWidth < 1000}]" @click="goHome()">
       </div>
       <!-- 로그인 되어 있을 경우 -->
-      <div class="right" v-if="this.$cookies.isKey('auth-token')">
+      <div class="right" v-if="this.$cookies.isKey('token')">
         <!-- 마이페이지 -->
         <span>
           <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
@@ -72,7 +72,8 @@
         this.$router.push('/login').catch(()=>{})
       },
       goLogout() {
-        this.$cookies.remove('auth-token')
+        this.$cookies.remove('token')
+        this.$cookies.remove('email')
         this.$router.push('/home').catch(()=>{})
         location.reload()
         alert('로그아웃 되었습니다.')

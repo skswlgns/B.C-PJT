@@ -120,6 +120,7 @@ import { namespace } from 'vuex-class';
 
   @Component({
     mounted() {
+
     }
   })
 
@@ -138,6 +139,8 @@ import { namespace } from 'vuex-class';
     async mounted() {
       this.get_userpage(this.$route.params.id)
     }
+
+
 }
 </script>
 

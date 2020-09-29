@@ -23,7 +23,7 @@ export default class Home extends VuexModule {
   @Mutation
   public async goUserpage(userid: string) {
     // router.push('/userpage').catch(()=>{})
-    router.push({name: 'UserPage', params: { id : userid }}).catch(()=>{})  
+    router.push({name: 'UserPage', params: { id : userid }}).catch(()=>{})
   }
 
   // actions

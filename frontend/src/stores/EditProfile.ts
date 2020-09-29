@@ -7,11 +7,10 @@ const SERVER_URL = 'http://j3b103.p.ssafy.io/api'
 
 
 @Module({namespaced: true})
-export default class MyPage extends VuexModule {
+export default class EditProfile extends VuexModule {
 
   // states
   public myinfo: any = {};
-  public myarticle: any = {};
 
   // getters
   // get doubledCount() {
@@ -23,14 +22,7 @@ export default class MyPage extends VuexModule {
   // 유저정보 저장
   @Mutation
   public async savemyinfo(temp_data:any) {
-    // console.log('mutation', temp_data)
     this.myinfo = temp_data
-  }
-
-  // 아티클 저장
-  @Mutation
-  public async save_article(temp_data:any) {
-    this.myarticle = temp_data
   }
 
   // actions
@@ -51,18 +43,4 @@ export default class MyPage extends VuexModule {
         router.push('/404')   
       }
   }
-
-  // 내가 신청한 article 받아오기
-  @Action({commit:'save_article'})
-  public async get_myarticle() {
-    const config = {
-      headers: {
-        token : Vue.cookies.get('token'),
-        email : Vue.cookies.get('email'),
-      }
-    }
-    const res = await axios.get(`${SERVER_URL}/users/my/articles`, config)
-    return res.data
-  }
-
 }

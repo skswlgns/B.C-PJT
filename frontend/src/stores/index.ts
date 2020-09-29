@@ -5,6 +5,7 @@ import Login from './Login'
 import MyPage from './MyPage'
 import UserPage from './UserPage'
 import TransDetail from './TransDetail'
+import EditProfile from './EditProfile'
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     MyPage,
     UserPage,
     TransDetail,
+    EditProfile,
   }
 })
