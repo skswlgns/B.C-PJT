@@ -39,8 +39,6 @@ export default class Login extends VuexModule  {
       console.log(res.data)
       Vue.cookies.set('token', res.data.token)
       Vue.cookies.set('email', res.data.user_email)
-      // axios.defaults.headers.common['auth-token'] = res.data.token
-      // axios.defaults.headers.common['user_email'] = res.data.user_email
     })
   }
 }
