@@ -23,35 +23,35 @@
               <tbody>
                 <tr class="tr1">
                   <td>
-                    실시간 인공지능<br>
-                    <b>집단지성</b>으로 빠르게
+                    실시간 통역<br>
+                    <b>언택트</b>로 안전하게
                   </td>
                   <td></td>
                   <td>
-                    중요한 번역은<br>
-                    <b>전문 번역가</b>에게
+                    중요한 통역은<br>
+                    <b>전문 통역가</b>에게
                   </td>
                 </tr>
                 <tr class="space"></tr>
                 <tr class="tr2">
-                  <td>전세계 1,030만 사용자의 집단지성으로 용도에 딱 맞는 자연스러운 번역</td>
+                  <td>긴급한 상황이 생겼을 때 당황하지 마시고</td>
                   <td></td>
-                  <td>이력서, 논문, 비즈니스 문서, 영상, 게임 등 분야별 전문가를 선택하세요.</td>
+                  <td>블록체인을 통해 검증된 통역가들을 신뢰하고 맡겨주세요.</td>
                 </tr>
                 <tr class="space"></tr>
                 <tr class="tr3">
-                  <td>평균 응답시간 <span>3 </span>분</td>
+                  <td>평균 응답시간 <span>30 </span>분을 목표</td>
                   <td></td>
-                  <td>전문 번역가 <span>5,398</span>명</td>
+                  <td>전문 통역가 <span>5,398</span>명이상을 목표로</td>
                 </tr>
                 <tr class="space"></tr>
                 <tr>
                   <td>
-                    <a href='#'>빠르게 번역하기</a>
+                    <a href='/home'>빠르게 통역하기</a>
                   </td>
                   <td></td>
                   <td>
-                    <a href="#">전문번역 견적받기</a>
+                    <a href="#">전문통역 견적받기</a>
                   </td>
                 </tr>
               </tbody>
@@ -78,7 +78,7 @@
             <div class="text-content2">
               <div class="interval">
                 <p>전문 통역가</p>
-                <p>전문적인 번역이 가능하다면, 플리토 전문 번역가에 지원하세요.<br>
+                <p>전문적인 통역이 가능하다면, 마마고 전문 통역가에 지원하세요.<br>
                   원하는 시간에만 통역하고, 통역 가격은 스스로 결정할 수 있습니다.</p> 
               </div>
               <a href="#">더 알아보기</a>

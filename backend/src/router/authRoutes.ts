@@ -38,7 +38,7 @@ authRoutes.post("/signin", async (req: express.Request, res: express.Response) =
           res.status(403).send({ message: "비밀번호가 다릅니다." })
         } else {
           // 아아디, 비밀번호 일치
-          const token = jwt.sign(
+          jwt.sign(
             {
               // 첫번째 인자: 로그인을 위한 정보
               user_email: user.user_email,
@@ -114,16 +114,20 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
 // 회원정보 수정
 authRoutes.put("/", verificationMiddleware)
 authRoutes.put("/", async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
         // 회원정보가 존재하면 수정
-        await UserModel.update({ user_email: user.user_email }, { user_nickname: req.body.user_nickname })
+        await UserModel.update(
+          { user_pwd: user.user_pwd },
+          { user_nickname: req.body.user_nickname },
+          { user_image: req.body.user_image }
+        )
         res.status(200).send({ message: "회원정보가 수정되었습니다." })
       }
     }
@@ -133,16 +137,16 @@ authRoutes.put("/", async (req: express.Request, res: express.Response) => {
 // 회원탈퇴
 authRoutes.delete("/", verificationMiddleware)
 authRoutes.delete("/", async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.user_email }, async (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
     if (err) {
-      console.log(err)
+      res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
         // 회원정보가 존재하면 수정
-        await UserModel.deleteOne({ user_email: req.headers.user_email })
+        await UserModel.deleteOne({ user_email: req.headers.email })
         res.status(200).send({ message: "회원 탈퇴 되었습니다." })
       }
     }

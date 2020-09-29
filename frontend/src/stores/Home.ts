@@ -1,29 +1,30 @@
+import Vue from 'vue'
+import axios from 'axios'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import router from '@/router';
+
+const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
 
 @Module({namespaced: true})
 export default class Home extends VuexModule {
-  // states
-  public count: number = 0;
 
-  // getters
-  get doubledCount() {
-    return this.count * 2;
-  }
+  // states
+  public article: any = {};
+
+  //getters
 
   // mutations
   @Mutation
-  public increment(delta: number) {
-    console.log(`increment mutation: ${delta}`);
-    this.count += delta;
-    console.log(this.count);
+  public async save_article(temp_data:any) {    
+    console.log('mutation',temp_data)
+    this.article = temp_data
   }
 
   // actions
-  @Action({ commit: 'increment' })
-  public incr(delta: number) {
-    console.log(`increment action: ${delta}`);
-    delta ++;
-    return delta;
+  @Action({commit: 'save_article'})
+  public async get_article() {
+    console.log('action')
+    const res = await axios.get(`${SERVER_URL}/articles`)
+    return res.data 
   }
-
 }

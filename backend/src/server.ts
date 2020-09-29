@@ -1,11 +1,10 @@
 import { app } from "./app"
 import http from "http"
 
-import { MongoHelper } from "./mongoHelper"
 import mongoose from "mongoose"
 
-const PORT = 5000
-const MONGO_URL = "mongodb://localhost:27017/test"
+const PORT = 8080
+const MONGO_URL = "mongodb://j3b103.p.ssafy.io:5000/test"
 const server = http.createServer(app)
 server.listen(PORT)
 server.on("listening", async () => {
