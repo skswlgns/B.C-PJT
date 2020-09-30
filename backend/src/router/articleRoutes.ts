@@ -15,7 +15,7 @@ const verificationMiddleware = require("../middleware/verification")
 // 전체 Article 조회: GET
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   await ArticleModel.find({})
-    .populate("user_id", "user_nickname user_image")
+    .populate("user_id", "user_nickname user_email user_image")
     .sort({ article_updated_at: -1 })
     .exec((err: Error, articles: any) => {
       if (err) {
@@ -30,7 +30,7 @@ articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
 articleRoutes.get("/:article_id", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
   await ArticleModel.findOne({ _id: article_id })
-    .populate("user_id", "user_nickname user_image")
+    .populate("user_id", "user_nickname user_email user_image")
     .populate("article_candidate")
     .exec((err: Error, article: any) => {
       if (err) {
