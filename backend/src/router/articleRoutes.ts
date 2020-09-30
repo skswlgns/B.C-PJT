@@ -285,8 +285,6 @@ articleRoutes.post(
                   ).exec((err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
-                    } else {
-                      res.status(200).send({ message: `${candidate_user_id} 통역사를 채택하였습니다.` })
                     }
                   })
                 } else if (article.article_select.toString() !== candidate_user_id.toString()) {
@@ -296,10 +294,6 @@ articleRoutes.post(
                     (err: Error, _: any) => {
                       if (err) {
                         res.status(500).send(err)
-                      } else {
-                        res
-                          .status(200)
-                          .send({ message: `기존 통역사를 취소하고 ${candidate_user_id} 통역사를 채택하였습니다.` })
                       }
                     }
                   )
@@ -312,11 +306,11 @@ articleRoutes.post(
                   ).exec((err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
-                    } else {
-                      res.status(200).send({ message: `${candidate_user_id} 통역사 채택을 취소하였습니다.` })
                     }
                   })
                 }
+                const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                res.status(200).json(chandgedArticle)
               }
             }
           })
