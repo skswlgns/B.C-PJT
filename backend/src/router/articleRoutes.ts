@@ -224,13 +224,14 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
                   }
                   // console.log("candidateIndex", typeof candidateIndex(candidates))
                   // console.log("candidates.length", typeof candidates.length)
-                  if (candidateIndex(candidates) === candidates.length) {
+                  const indexNumber = candidateIndex(candidates)
+                  if (indexNumber === candidates.length) {
                     // 등록되어있지 않다면 오류 메세지 반환
                     res.status(403).send({ message: "등록되지 않은 통역사입니다." })
                   } else {
                     // 등록되어 있는 candidate 없애기
                     await CandidateModel.deleteOne({ _id: articleCandidatesId[candidateIndex] })
-                    articleCandidatesId.splice(candidateIndex, 1)
+                    articleCandidatesId.splice(indexNumber, 1)
                     await ArticleModel.findOneAndUpdate(
                       { _id: article_id },
                       {
