@@ -16,6 +16,7 @@ const verificationMiddleware = require("../middleware/verification")
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   await ArticleModel.find({})
     .populate("user_id", "user_nickname user_image")
+    .sort({ article_updated_at: -1 })
     .exec((err: Error, articles: any) => {
       if (err) {
         res.status(500).send(err)
@@ -62,11 +63,11 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_request: requestBody.article_request,
     article_egg: requestBody.article_egg,
   })
-  await article.save((err, _) => {
+  await article.save((err, newArticle) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      res.status(200).send({ message: `article이 생성되었습니다.` })
+      res.status(200).json({ article_id: newArticle._id })
     }
   })
 })
@@ -86,6 +87,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
         await ArticleModel.findOneAndUpdate(
           { _id: article_id },
           {
+            article_title: requestBody.article_title,
             article_content: requestBody.article_content,
             article_from: requestBody.article_from,
             article_to: requestBody.article_to,
@@ -93,6 +95,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
             article_start_time: requestBody.article_start_time,
             article_end_date: requestBody.article_end_date,
             article_end_time: requestBody.article_end_time,
+            article_request: requestBody.article_request,
             article_egg: requestBody.article_egg,
           }
         )
@@ -224,13 +227,14 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
                   }
                   // console.log("candidateIndex", typeof candidateIndex(candidates))
                   // console.log("candidates.length", typeof candidates.length)
-                  if (candidateIndex(candidates) === candidates.length) {
+                  const indexNumber = candidateIndex(candidates)
+                  if (indexNumber === candidates.length) {
                     // 등록되어있지 않다면 오류 메세지 반환
                     res.status(403).send({ message: "등록되지 않은 통역사입니다." })
                   } else {
                     // 등록되어 있는 candidate 없애기
                     await CandidateModel.deleteOne({ _id: articleCandidatesId[candidateIndex] })
-                    articleCandidatesId.splice(candidateIndex, 1)
+                    articleCandidatesId.splice(indexNumber, 1)
                     await ArticleModel.findOneAndUpdate(
                       { _id: article_id },
                       {
@@ -281,24 +285,24 @@ articleRoutes.post(
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
                     { article_select: candidate_user_id, article_complete: true }
-                  ).exec((err: Error, _: any) => {
+                  ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      res.status(200).send({ message: `${candidate_user_id} 통역사를 채택하였습니다.` })
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
                     }
                   })
                 } else if (article.article_select.toString() !== candidate_user_id.toString()) {
                   // 다른 통역사로 채택이 완료된 article이라면, candidate_user_id로 대체하기
 
                   await ArticleModel.findOneAndUpdate({ _id: article_id }, { article_select: candidate_user_id }).exec(
-                    (err: Error, _: any) => {
+                    async (err: Error, _: any) => {
                       if (err) {
                         res.status(500).send(err)
                       } else {
-                        res
-                          .status(200)
-                          .send({ message: `기존 통역사를 취소하고 ${candidate_user_id} 통역사를 채택하였습니다.` })
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        res.status(200).json(chandgedArticle)
                       }
                     }
                   )
@@ -307,12 +311,13 @@ articleRoutes.post(
 
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
-                    { article_candidate: null, article_complete: false }
-                  ).exec((err: Error, _: any) => {
+                    { article_select: "", article_complete: false }
+                  ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      res.status(200).send({ message: `${candidate_user_id} 통역사 채택을 취소하였습니다.` })
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
                     }
                   })
                 }
