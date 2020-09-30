@@ -5,6 +5,7 @@ import requestLogger from "./middleware/requestLogger"
 import { authRoutes } from "./router/authRoutes"
 import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
+import { ChoiceRoutes } from "./router/ChoiceRoutes"
 
 const app = express()
 app.use(cors())
@@ -21,6 +22,7 @@ require("./model/UserModel")
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/articles", articleRoutes)
+app.use("/api/eth", ChoiceRoutes)
 
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {

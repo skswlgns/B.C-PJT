@@ -187,10 +187,17 @@
           }
         }
       }
-
-      .content{
-        margin-top: 0.8rem;
-        padding: 1rem;
+      
+      .contents{
+        .content{
+          margin-top: 0.8rem;
+          padding: 1rem;
+        }
+        .cancel_btn{
+          background-color: #F57C00;
+          color: white;
+          padding : 0.5rem 1rem;
+        }
       }
     }
 
@@ -263,9 +270,17 @@
         }
       }
 
-      .content{
-        margin-top: 0.8rem;
-        padding: 1rem;
+      .contents{
+        .content{
+          margin-top: 0.8rem;
+          padding: 1rem;
+        }
+        .cancel_btn{
+          background-color: #F57C00;
+          color: white;
+          padding : 0.5rem 1rem;
+          margin : 0 1rem;
+        }
       }
     }
   }
