@@ -164,6 +164,7 @@
                 <option>ខ្មែរ</option>
                 <option>ᏣᎳᎩ</option>
             </select>
+            <!-- <input v-model="signupData.user_wal" type="text" placeholder="전화번호" /> -->
             <button @click="signup(signupData)">회원가입</button>
           </div>
         </div>
