@@ -282,18 +282,24 @@ articleRoutes.post(
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
                     { article_select: candidate_user_id, article_complete: true }
-                  ).exec((err: Error, _: any) => {
+                  ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
+                    } else {
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
                     }
                   })
                 } else if (article.article_select.toString() !== candidate_user_id.toString()) {
                   // 다른 통역사로 채택이 완료된 article이라면, candidate_user_id로 대체하기
 
                   await ArticleModel.findOneAndUpdate({ _id: article_id }, { article_select: candidate_user_id }).exec(
-                    (err: Error, _: any) => {
+                    async (err: Error, _: any) => {
                       if (err) {
                         res.status(500).send(err)
+                      } else {
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        res.status(200).json(chandgedArticle)
                       }
                     }
                   )
@@ -303,14 +309,15 @@ articleRoutes.post(
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
                     { article_candidate: null, article_complete: false }
-                  ).exec((err: Error, _: any) => {
+                  ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
+                    } else {
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
                     }
                   })
                 }
-                const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
-                res.status(200).json(chandgedArticle)
               }
             }
           })
