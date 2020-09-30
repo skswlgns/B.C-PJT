@@ -18,21 +18,28 @@ export default class TransDetail extends VuexModule  {
 
   @Mutation
   public async save_user(temp:any){
-    this.user.append(temp)
+    console.log(this.user)
+    this.user.push(temp)
   }
 
-  @Action({commit : 'save_article'})
+  @Mutation
+  public async add_user(temp:any){
+    console.log('user 추가')
+    this.user.push(temp)
+    location.reload()
+  }
+
+  @Action({ commit : 'save_article' })
   public async get_article_1(id: string) {
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
     return res.data
   }
 
 
-  @Action 
+  @Action
   public async apply(applyData : any){
     console.log('apply')
     console.log(applyData)
-    
     let config = {
       headers: {
         token : Vue.cookies.get('token'),
@@ -41,19 +48,23 @@ export default class TransDetail extends VuexModule  {
     }
     console.log(config)
     axios.post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)    
-    .then(res => {
+    .then(async res => {
       console.log(res.data)
     })
     .catch(err => console.log(err))
   }
 
   @Action
-  public async get_candidate(id: String){
-    const res = await axios.get(`${SERVER_URL}/users/${id}`)
-    console.log('save user')
-    console.log(res.data)
-    return res.data
+  public async get_candidate(candi_list: any){
+    console.log(candi_list)
+    // this.user = []
+    for(let candi in candi_list){
+      const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
+      if(!this.user.includes(res.data)){
+        this.user.push(res.data)
+        console.log('user 저장')
+        console.log(this.user)
+      }
+    }
   }
-
-
 }

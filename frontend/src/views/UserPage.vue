@@ -2,16 +2,25 @@
   <div>
 
     <!-- #                    브라우저                       # -->
-
+    {{ userinfo }}
     <div v-if="windowWidth > 375">
-      <h1>마이페이지</h1>
+      <h1>유저페이지</h1>
       <div class="user-box d-flex">
-        <img src="https://t1.daumcdn.net/cfile/tistory/991DA6445EFEB65E15" alt="profile_image" class="box">
+        <img 
+          v-if="userinfo.user_image === ''"
+          src="@/assets/images/user_basic.png" 
+          alt="profile_image" 
+          class="box">
+         <img 
+          v-else
+          :src="userinfo.user_image" 
+          alt="profile_image" 
+          class="box"> 
         <div class="pure-mt">
-          <span class="nick-size">닉네임</span>
-          <p>ㅁ 국가</p>
-          <span>ㅁ 잘하는 언어</span>
-          <span>| 
+          <span class="nick-size">{{ userinfo.user_nickname }}</span>
+          <p>ㅁ 모국어 | {{ userinfo.user_lang }}</p>
+          <span>ㅁ 잘하는 언어 | {{ userinfo.user_good_lang }} </span>
+          <span>
             <v-responsive
             class="text-center grey lighten-2 rounded-pill d-inline-flex align-center justify-center ma-1"
             height="1.2vw"
@@ -105,34 +114,33 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
+
+  const UserModule = namespace('UserPage');
 
   @Component({
+    mounted() {
 
+    }
   })
 
   export default class UserPage extends Vue {
-    private list: any = [
-    {
-      article_title: '너! 내 통역가가 되어라!',
-      article_egg: '200알',
-      article_date: '2020.09.16',
-      article_from: '한국어',
-      article_to: '영어',
-      article_complete: true,
-      apply: '3',
-      user_id: 1,
-    },
-    {
-      article_title: '세계 제일의 통역가가 되고싶나? 그렇다면!',
-      article_egg: '5000알',
-      article_date: '2020.09.23',
-      article_from: '스페인어',
-      article_to: '한국어',
-      article_complete: false,
-      apply: '2',
-      user_id: 2,
-    },
-  ]
+
+   @UserModule.State('userinfo')
+    private userinfo!: any;
+
+    @UserModule.Mutation('saveuserinfo')
+    private saveuserinfo !: any;
+
+    @UserModule.Action('get_userpage')
+    private get_userpage!: (temp: string) => void;
+    // private signup!: (signupData: object) => void;
+
+    async mounted() {
+      this.get_userpage(this.$route.params.id)
+    }
+
+
 }
 </script>
 
