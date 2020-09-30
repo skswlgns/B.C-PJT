@@ -16,6 +16,7 @@ const verificationMiddleware = require("../middleware/verification")
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   await ArticleModel.find({})
     .populate("user_id", "user_nickname user_image")
+    .sort({ article_updated_at: -1 })
     .exec((err: Error, articles: any) => {
       if (err) {
         res.status(500).send(err)
@@ -86,6 +87,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
         await ArticleModel.findOneAndUpdate(
           { _id: article_id },
           {
+            article_title: requestBody.article_title,
             article_content: requestBody.article_content,
             article_from: requestBody.article_from,
             article_to: requestBody.article_to,
@@ -93,6 +95,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
             article_start_time: requestBody.article_start_time,
             article_end_date: requestBody.article_end_date,
             article_end_time: requestBody.article_end_time,
+            article_request: requestBody.article_request,
             article_egg: requestBody.article_egg,
           }
         )
