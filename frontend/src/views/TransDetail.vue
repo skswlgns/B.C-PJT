@@ -51,6 +51,11 @@
             <span class="point inline">{{article.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span>
           </div>
         </div>
+        <v-row class="requests">
+          <v-spacer></v-spacer>
+          <v-btn class="edit_btn">수정하기</v-btn>
+          <v-btn class="del_btn">삭제하기</v-btn>
+        </v-row>
       </div>
 
       <div class="apply">
@@ -285,14 +290,9 @@
     async mounted() {
       await this.get_article_1(this.id)
       console.log('mounted')
-      if(this.article.article_candidate){
-        for(let x in this.article.article_candidate){
-          console.log(this.article.article_candidate[x].user_id)
-          this.get_candidate(this.article.article_candidate[x].user_id)
-        }
-      }
+      await this.get_candidate(this.article.article_candidate)
       window.scrollTo(0, 0)
-    }
+    }   
   }
 </script>
 

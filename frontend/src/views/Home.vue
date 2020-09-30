@@ -359,8 +359,8 @@
                     <v-spacer></v-spacer>
                     <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                   </div> 
-                  <router-link :to="{name: 'TransDetail', params : {id:list._id}}" class="router"> 
-                  <h2 class="card_content">{{ list.article_title }}</h2></router-link>
+                  <div @click="goDetailpage(list._id)" class="router"> 
+                  <h2 class="card_content">{{ list.article_title }}</h2></div>
                   <div class="">
                     <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                   </div>
@@ -792,6 +792,9 @@
 
     @HomeModule.Mutation('goUserpage')
     private goUserpage !: any;
+
+    @HomeModule.Mutation('goDetailpage')
+    private goDetailpage !: any;
 
     @HomeModule.Action('get_article')
     private get_article!: () => void;
