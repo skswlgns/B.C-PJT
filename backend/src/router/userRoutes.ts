@@ -178,7 +178,6 @@ userRoutes.put("/:user_id", async (req: express.Request, res: express.Response) 
             user_gender: requestBody.user_gender,
             user_lang: requestBody.user_lang,
             user_intro: requestBody.user_intro,
-            user_egg: requestBody.user_egg,
           }
         )
         res.status(200).send({ message: `${user_id} User가 통역가로 등록되었습니다.` })
