@@ -18,8 +18,7 @@ export default class TransDetail extends VuexModule  {
 
   @Mutation
   public async save_user(temp:any){
-    console.log(this.user)
-    this.user.push(temp)
+    this.user = temp
   }
 
   @Mutation
@@ -54,17 +53,27 @@ export default class TransDetail extends VuexModule  {
     .catch(err => console.log(err))
   }
 
-  @Action
+  @Action({commit : 'save_user'})
   public async get_candidate(candi_list: any){
     console.log(candi_list)
-    // this.user = []
+    const users = []
     for(let candi in candi_list){
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
-      if(!this.user.includes(res.data)){
-        this.user.push(res.data)
-        console.log('user 저장')
-        console.log(this.user)
+      users.push(res.data)
+    }
+    return users 
+  }
+
+  @Action 
+  public async candi_click(clickData : any){
+    let config = {
+      headers : {
+        token : Vue.cookies.get('token'),
+        email : Vue.cookies.get('email')
       }
     }
+    const res = await axios.post(`${SERVER_URL}/articles/${clickData.article_id}/candidates/${clickData.user_id}`, {}, config)
+    console.log(res.data)
+    location.reload()
   }
 }

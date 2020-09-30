@@ -5,6 +5,7 @@
     {{ article.article_candidate }}
     <hr>
     {{ user }}
+    {{ my_email }}
     <hr>
 
     <!--WEB-->
@@ -70,7 +71,7 @@
         <li v-for="(user_profile, index) in user" :key="index">
           <ol v-for="(content, index) in article.article_candidate" :key="index">
             {{ user_profile._id }} | {{ content.user_id }}
-            <div v-if="user_profile._id == content.user_id" class="applyCard_select">
+            <div v-if="user_profile._id == content.user_id && article.article_select == user_profile._id" class="applyCard_select">
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                 <div class="applyUser">
@@ -85,16 +86,46 @@
                   </div>
                 </div>
                 <v-spacer></v-spacer>
-                <!-- <div v-if="list.select" class="select">
-                  <v-btn class="btn" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
+                <div class="select">
+                  <v-btn class="btn" @click="btn_click(user_profile._id)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
                 </div>
-                <div v-if="!list.select" class="notselect">
-                  <v-btn class="notbtn" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-                </div> -->
               </div>
-              <div class="content">
-                {{content.candidate_content}}
+              <v-row class="contents">
+                <div class="content">
+                  {{content.candidate_content}}
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn v-if="user_profile.user_email == my_email" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
+              </v-row>
+            </div>
+
+            <div v-if="user_profile._id == content.user_id && article.article_select != user_profile._id" class="applyCard_notselect">
+              <div class="profile">
+                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                <div class="applyUser">
+                  <h3 class="center">{{ user_profile.user_name }}  |</h3>
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_lang}}</p>
+                    <p class="badge">모국어</p>
+                  </div>
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_good_lang}}</p>
+                    <p class="badge">고급</p>
+                  </div>
+                </div>
+                <v-spacer></v-spacer>
+
+                <div class="notselect">
+                  <v-btn class="notbtn" @click="btn_click(user_profile._id)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+                </div>
               </div>
+              <v-row class="contents">
+                <div class="content">
+                  {{content.candidate_content}}
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn v-if="user_profile.user_email == my_email" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
+              </v-row>
             </div>
           </ol>
         </li>
@@ -227,30 +258,7 @@
       id !: String;
 
     private candidate_content : String = "";
-  
-    private applyList : any = [
-      {
-        user_name: '이다인',
-        user_lang: '한국어',
-        good_lang: 'English',
-        apply_content: '한국에 거주하고있는 30세 여성입니다. UCLA에서 세무를 전공하였습니다. 프로필 확인 부탁드립니다.',
-        select: true,
-      },
-      {
-        user_name: '용가리',
-        user_lang: '한국어',
-        good_lang: 'English',
-        apply_content: '한국에 거주하고있는 30세 여성입니다. UCLA에서 세무를 전공하였습니다. 프로필 확인 부탁드립니다.',
-        select: false,      
-      },
-      {
-        user_name: '아메용',
-        user_lang: '한국어',
-        good_lang: 'English',
-        apply_content: '한국에 거주하고있는 30세 여성입니다. UCLA에서 세무를 전공하였습니다. 프로필 확인 부탁드립니다.',
-        select: false,
-      }
-    ]
+    private my_email : any = Vue.cookies.get('email');
 
     // methods 
     translator_select(list : any){
@@ -258,6 +266,11 @@
     }
     translator_cancel(list : any){
       list.select = false
+    }
+
+    btn_click(user_id : String) {
+      this.clickData.user_id = user_id
+      this.candi_click(this.clickData)
     }
 
     @TransDetailModule.State('article')
@@ -278,8 +291,14 @@
     @TransDetailModule.Action('apply')
     private apply!: (applyData: any) => void;
 
+    @TransDetailModule.Action('apply_cancel')
+    private apply_cancel!: (applyData: any) => void;
+
     @TransDetailModule.Action('get_candidate')
     private get_candidate!: (id: String) => void;
+
+    @TransDetailModule.Action('candi_click')
+    private candi_click!: (user_id: String) => void;
 
 
     private applyData : any = {
@@ -287,9 +306,15 @@
       article_id: this.id,
     }
 
+    private clickData : any = {
+      article_id: this.id,
+      user_id: ""
+    }
+
     async mounted() {
       await this.get_article_1(this.id)
       console.log('mounted')
+
       await this.get_candidate(this.article.article_candidate)
       window.scrollTo(0, 0)
     }   
