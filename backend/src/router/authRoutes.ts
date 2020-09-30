@@ -123,10 +123,14 @@ authRoutes.put("/", async (req: express.Request, res: express.Response) => {
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
         // 회원정보가 존재하면 수정
-        await UserModel.update(
-          { user_pwd: user.user_pwd },
-          { user_nickname: req.body.user_nickname },
-          { user_image: req.body.user_image }
+        await UserModel.findOneAndUpdate(
+          { _id: user._id },
+          {
+            user_pwd: user.user_pwd,
+            user_nickname: req.body.user_nickname,
+            user_image: req.body.user_image,
+            user_phone: req.body.user_phone,
+          }
         )
         res.status(200).send({ message: "회원정보가 수정되었습니다." })
       }
