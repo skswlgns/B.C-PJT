@@ -308,7 +308,7 @@ articleRoutes.post(
 
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
-                    { article_candidate: null, article_complete: false }
+                    { article_select: "", article_complete: false }
                   ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
