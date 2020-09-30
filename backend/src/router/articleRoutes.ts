@@ -59,6 +59,7 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_start_time: requestBody.article_start_time,
     article_end_date: requestBody.article_end_date,
     article_end_time: requestBody.article_end_time,
+    article_request: requestBody.article_request,
     article_egg: requestBody.article_egg,
   })
   await article.save((err, _) => {
@@ -142,15 +143,12 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
             if (article === null) {
               res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
             } else {
-              console.log(article)
-
               // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
               const articleCandidateList: any = article.article_candidate
               const isCandidate: boolean = articleCandidateList.some(
                 (element: any) => element.user_id.toString() === user._id.toString()
               )
-              console.log(articleCandidateList)
-              console.log(user._id)
+
               if (isCandidate) {
                 // 이미 등록되어 있다면 오류 메세지 반환
                 res.status(403).send({ message: "이미 등록된 통역사입니다." })
@@ -226,13 +224,14 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
                   }
                   // console.log("candidateIndex", typeof candidateIndex(candidates))
                   // console.log("candidates.length", typeof candidates.length)
-                  if (candidateIndex(candidates) === candidates.length) {
+                  const indexNumber = candidateIndex(candidates)
+                  if (indexNumber === candidates.length) {
                     // 등록되어있지 않다면 오류 메세지 반환
                     res.status(403).send({ message: "등록되지 않은 통역사입니다." })
                   } else {
                     // 등록되어 있는 candidate 없애기
                     await CandidateModel.deleteOne({ _id: articleCandidatesId[candidateIndex] })
-                    articleCandidatesId.splice(candidateIndex, 1)
+                    articleCandidatesId.splice(indexNumber, 1)
                     await ArticleModel.findOneAndUpdate(
                       { _id: article_id },
                       {
@@ -249,5 +248,82 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
     }
   })
 })
+
+// 특정 Article의 통역사 채택 & 취소: Post
+articleRoutes.post("/:article_id/candidates/:candidate_user_id", verificationMiddleware)
+articleRoutes.post(
+  "/:article_id/candidates/:candidate_user_id",
+  async (req: express.Request, res: express.Response) => {
+    const article_id = req.params["article_id"]
+    const candidate_user_id = req.params["candidate_user_id"]
+    // user_id 가져오기
+    await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
+      if (err) {
+        res.status(500).send(err)
+      } else {
+        ArticleModel.findOne({ _id: article_id })
+          .populate("article_candidate")
+          .exec(async (err: Error, article: any) => {
+            if (err) {
+              res.status(500).send(err)
+            } else {
+              if (article === null) {
+                res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
+              } else if (article.user_id.toString() !== user._id.toString()) {
+                // 해당 article의 작성자 id와 user의 id가 다르면 수행하지 않음
+
+                res.status(403).send({ message: "본인이 작성한 게시글이 아닙니다." })
+              } else {
+                // 해당 article의 작성자 id와 user의 id가 같으면 수행
+
+                if (!article.article_complete) {
+                  // 만일 채택이 완료된 article이 아니라면 채택
+
+                  await ArticleModel.findOneAndUpdate(
+                    { _id: article_id },
+                    { article_select: candidate_user_id, article_complete: true }
+                  ).exec(async (err: Error, _: any) => {
+                    if (err) {
+                      res.status(500).send(err)
+                    } else {
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
+                    }
+                  })
+                } else if (article.article_select.toString() !== candidate_user_id.toString()) {
+                  // 다른 통역사로 채택이 완료된 article이라면, candidate_user_id로 대체하기
+
+                  await ArticleModel.findOneAndUpdate({ _id: article_id }, { article_select: candidate_user_id }).exec(
+                    async (err: Error, _: any) => {
+                      if (err) {
+                        res.status(500).send(err)
+                      } else {
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        res.status(200).json(chandgedArticle)
+                      }
+                    }
+                  )
+                } else {
+                  // 같은 통역사로 채택이 완료된 article이라면, 채택을 취소하기
+
+                  await ArticleModel.findOneAndUpdate(
+                    { _id: article_id },
+                    { article_select: "", article_complete: false }
+                  ).exec(async (err: Error, _: any) => {
+                    if (err) {
+                      res.status(500).send(err)
+                    } else {
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      res.status(200).json(chandgedArticle)
+                    }
+                  })
+                }
+              }
+            }
+          })
+      }
+    })
+  }
+)
 
 export { articleRoutes }
