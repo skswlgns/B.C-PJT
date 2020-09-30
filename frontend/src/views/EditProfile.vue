@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="#FAFAFA" class="mb-2">
+    <v-card  class="mb-2">
       <v-container>
         <h2 class="text-center my-3"> 프로필 수정 </h2>
         <div>
@@ -30,11 +30,11 @@
           </v-col>
         </div>
 
-         <v-col class="text-center mx-auto">
+         <div class="text-center mx-auto">
           <div class="my-2">
             <v-btn depressed x-large class="white--text" color="#5C6BC0">수정하기</v-btn>
           </div>
-        </v-col>
+        </div>
 
       </v-container>
     </v-card>
@@ -56,8 +56,11 @@
 
     @EditProfileModule.State('myinfo')
     private myinfo!: any;
+
     @EditProfileModule.Action('get_mypage')
     private get_mypage!: () => void;
+
+
 
 
     async mounted() {

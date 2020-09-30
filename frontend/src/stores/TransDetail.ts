@@ -10,16 +10,24 @@ export default class TransDetail extends VuexModule  {
 
   public article: any = {};
   public user: any = [];
+  public temp_list: any = [];
 
   @Mutation
   public async save_article(temp:any) {
-    this.article = temp
+    this.article = temp    
   }
 
   @Mutation
   public async save_user(temp:any){
-    console.log(this.user)
-    this.user.push(temp)
+    console.log('이건 this.user이구',this.user)
+    this.temp_list.push(temp)
+
+    console.log(this.temp_list)
+
+    this.user = this.temp_list.reduce((a: any, b: any) => {
+      if (a.indexOf(b) < 0 ) a.push(b);
+      return a
+    }, []);
   }
 
   @Mutation
@@ -58,7 +66,7 @@ export default class TransDetail extends VuexModule  {
   public async get_candidate(id: String){
     console.log('저장하쟈')
     const res = await axios.get(`${SERVER_URL}/users/${id}`)
-    console.log(res.data)
+    console.log('요게 res.data얌',res.data)
     return res.data
   }
 }
