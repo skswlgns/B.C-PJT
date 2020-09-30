@@ -26,6 +26,13 @@ export default class Home extends VuexModule {
     router.push({name: 'UserPage', params: { id : userid }}).catch(()=>{})
   }
 
+  @Mutation
+  public async goDetailpage(articleid: string) {
+    // router.push('/userpage').catch(()=>{})
+    router.push({name: 'TransDetail', params: { id : articleid }}).catch(()=>{})
+  }
+
+
   // actions
   @Action({ commit: 'savearticle' })
   public async get_article() {
