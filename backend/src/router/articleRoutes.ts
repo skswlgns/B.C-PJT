@@ -59,6 +59,7 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_start_time: requestBody.article_start_time,
     article_end_date: requestBody.article_end_date,
     article_end_time: requestBody.article_end_time,
+    article_request: requestBody.article_request,
     article_egg: requestBody.article_egg,
   })
   await article.save((err, _) => {
