@@ -63,11 +63,11 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     article_request: requestBody.article_request,
     article_egg: requestBody.article_egg,
   })
-  await article.save((err, _) => {
+  await article.save((err, newArticle) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      res.status(200).send({ message: `article이 생성되었습니다.` })
+      res.status(200).json({ article_id: newArticle._id })
     }
   })
 })
