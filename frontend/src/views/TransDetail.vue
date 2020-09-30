@@ -51,6 +51,11 @@
             <span class="point inline">{{article.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span>
           </div>
         </div>
+        <v-row class="requests">
+          <v-spacer></v-spacer>
+          <v-btn class="edit_btn">수정하기</v-btn>
+          <v-btn class="del_btn">삭제하기</v-btn>
+        </v-row>
       </div>
 
       <div class="apply">
