@@ -67,7 +67,12 @@ const routes = [
     path: '/regist',
     name: 'TranslateRegist',
     component: TranslateRegist,
-  }
+  },
+  {
+    path: '/transdetail/revise/:id',
+    name: 'TransRevise',
+    component: TranslateRegist,
+  },
 ]
 
 const router = new VueRouter({

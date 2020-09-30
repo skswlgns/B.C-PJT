@@ -5,7 +5,7 @@
         <h1 class="lang_form">언어 설정</h1>
         <div class="lang_input">
           <div class="select_lang">
-            <select v-model="transData.lang_1" name="lang_1" class="lang_1">
+            <select v-model="transData.article_from" name="lang_1" class="lang_1">
               <option>통역 할 언어</option>
               <option>한국어</option>
               <option>English</option>
@@ -159,7 +159,7 @@
               <option>ᏣᎳᎩ</option>
             </select>
             <v-icon class="swap_icon" @click="change">mdi-swap-horizontal-bold</v-icon>
-            <select v-model="transData.lang_2" name="lang_2" class="lang_2">
+            <select v-model="transData.article_to" name="lang_2" class="lang_2">
               <option>통역 될 언어</option>
               <option>한국어</option>
               <option>English</option>
@@ -316,7 +316,7 @@
         </div>
         <h1>포인트</h1>
         <div class='point_fr'>
-          <select v-model="transData.point" name="point" class="point">
+          <select v-model="transData.article_egg" name="point" class="point">
             <option>50000</option>
             <option>100000</option>
             <option>150000</option>
@@ -324,7 +324,7 @@
             <option>250000</option>
             <option>300000</option>
           </select>
-          <input type="text" class="point_input" v-model="transData.point">
+          <input type="text" class="point_input" v-model="transData.article_egg">
           <div class='space'></div>
           <div class="btn_fr">
             <div class="btn">
@@ -340,14 +340,14 @@
               ref="menu"
               v-model="menu"
               :close-on-content-click="false"
-              :return-value.sync="transData.start_date"
+              :return-value.sync="transData.article_start_date"
               transition="scale-transition"
               offset-y
               min-width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="transData.start_date"
+                  v-model="transData.article_start_date"
                   label="통역 시작일"
                   prepend-icon=""
                   readonly
@@ -355,10 +355,10 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="transData.start_date" no-title scrollable>
+              <v-date-picker v-model="transData.article_start_date" no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(transData.start_date)">OK</v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(transData.article_start_date)">OK</v-btn>
               </v-date-picker>
             </v-menu>
           </div>
@@ -368,7 +368,7 @@
               v-model="menu2"
               :close-on-content-click="false"
               :nudge-right="40"
-              :return-value.sync="transData.start_time"
+              :return-value.sync="transData.article_start_time"
               transition="scale-transition"
               offset-y
               max-width="290px"
@@ -376,7 +376,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="transData.start_time"
+                  v-model="transData.article_start_time"
                   label="통역 시작 시간"
                   prepend-icon=""
                   readonly
@@ -386,9 +386,9 @@
               </template>
               <v-time-picker
                 v-if="menu2"
-                v-model="transData.start_time"
+                v-model="transData.article_start_time"
                 full-width
-                @click:minute="$refs.menu2.save(transData.start_time)"
+                @click:minute="$refs.menu2.save(transData.article_start_time)"
               ></v-time-picker>
             </v-menu>
           </div>
@@ -397,14 +397,14 @@
               ref="menu3"
               v-model="menu3"
               :close-on-content-click="false"
-              :return-value.sync="transData.end_date"
+              :return-value.sync="transData.article_end_date"
               transition="scale-transition"
               offset-y
               min-width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="transData.end_date"
+                  v-model="transData.article_end_date"
                   label="통역 종료일"
                   prepend-icon=""
                   readonly
@@ -412,10 +412,10 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="transData.end_date" no-title scrollable>
+              <v-date-picker v-model="transData.article_end_date" no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="menu3 = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu3.save(transData.end_date)">OK</v-btn>
+                <v-btn text color="primary" @click="$refs.menu3.save(transData.article_end_date)">OK</v-btn>
               </v-date-picker>
             </v-menu>
           </div>
@@ -425,7 +425,7 @@
               v-model="menu4"
               :close-on-content-click="false"
               :nudge-right="40"
-              :return-value.sync="transData.end_time"
+              :return-value.sync="transData.article_end_time"
               transition="scale-transition"
               offset-y
               max-width="290px"
@@ -433,7 +433,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="transData.end_time"
+                  v-model="transData.article_end_time"
                   label="통역 종료 시간"
                   prepend-icon=""
                   readonly
@@ -443,20 +443,20 @@
               </template>
               <v-time-picker
                 v-if="menu4"
-                v-model="transData.end_time"
+                v-model="transData.article_end_time"
                 full-width
-                @click:minute="$refs.menu4.save(transData.end_time)"
+                @click:minute="$refs.menu4.save(transData.article_end_time)"
               ></v-time-picker>
             </v-menu>
           </div>
         </div>
         <h1>제목</h1>
         <div class="title_fr">
-          <input type="text" class="text" v-model="transData.title">
+          <input type="text" class="text" v-model="transData.article_title">
         </div>
         <h1>내용</h1>
         <div class="content_fr">
-          <textarea class="content" v-model="transData.content"></textarea>
+          <textarea class="content" v-model="transData.article_content"></textarea>
         </div>
         <h1>요청사항</h1>
         <div class="request_fr">
@@ -489,27 +489,28 @@
           <h2>요청 정보</h2>
           <h3>언어</h3>
           <div class="language">
-            <div>{{transData.lang_1}}</div>
+            <div>{{transData.article_from}}</div>
             <div> -> </div>
-            <div>{{transData.lang_2}}</div>
+            <div>{{transData.article_to}}</div>
           </div>
           <h3>포인트</h3>
-          <div>{{ transData.point }} </div>
+          <div>{{ transData.article_egg }} </div>
           <h3>날짜/시간</h3>
           <div>
-            {{transData.start_date}}  {{transData.start_time}} ~ {{transData.end_date}}  {{transData.end_time}}
+            {{transData.article_start_date}}  {{transData.article_start_time}} ~ {{transData.article_end_date}}  {{transData.article_end_time}}
           </div>
           <h3>제목</h3>   
-          <div>{{transData.title}}</div>
+          <div>{{transData.article_title}}</div>
           <h3>내용</h3>   
-          <div>{{transData.content}}</div>
-          <h3>요청사항</h3>   
+          <div>{{transData.article_content}}</div>
+          <!-- <h3>요청사항</h3>   
           <div v-for="i in transData.request" :key="i.id">
               {{i.content}}
-          </div>
+          </div> -->
           <v-btn
             class="request_btn"
             color="primary"
+            @click="regist(transData)"
           >
             요청하기
           </v-btn>
@@ -521,23 +522,26 @@
 
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
-
+  import { namespace } from 'vuex-class';
+  
+  const tRegistModule = namespace('TranslateRegist');
+  
   @Component({
     components: {
     }
   })
   export default class TranslateRegist extends Vue {
     private transData : any = {
-      lang_1 : "통역 할 언어",
-      lang_2 : "통역 될 언어",
-      point: 0,
-      start_date: new Date().toISOString().substr(0, 10),
-      start_time: '00:00',
-      end_date: new Date().toISOString().substr(0, 10),
-      end_time: '00:00',
-      title : '',
-      content : '',
-      request : [{id: 0, content:''}],
+      article_from : "통역 할 언어",
+      article_to : "통역 될 언어",
+      article_egg: 0 ,
+      article_start_date: new Date().toISOString().substr(0, 10),
+      article_start_time: '00:00',
+      article_end_date: new Date().toISOString().substr(0, 10),
+      article_end_time: '00:00',
+      article_title : '',
+      article_content : '',
+      // request : [{id: 0, content:''}],
       // file:''
     }
     private menu : boolean = false;
@@ -568,8 +572,7 @@
         this.transData.request.pop(); 
       }
     }
-
-    async mounted() {
+    private mounted() {
       (function() {
         let maxScrollValue : number;
         const registElem = document.querySelector('.memo') as HTMLElement;
@@ -609,8 +612,15 @@
 
         resizeHandler();
       })();
+      if (this.$route.name === 'TransRevise') {
+        console.log('얍얍얍')
+      }
+
     }
     
+
+    @tRegistModule.Action('regist')
+    private regist!: (transData: any) => void;
 }
 
 </script>
