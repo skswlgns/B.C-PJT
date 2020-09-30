@@ -218,9 +218,7 @@
 
   const TransDetailModule = namespace('TransDetail');
   @Component({
-    mounted() {
-      
-    }
+
   })
   export default class TransDetail extends Vue {
     @Prop()

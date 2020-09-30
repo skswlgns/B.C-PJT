@@ -1,8 +1,6 @@
 <template>
   <div>
     {{ myinfo }}
-    <!-- {{ myarticle }} -->
-
     <!-- #                    브라우저                       # -->
 
     <div v-if="windowWidth > 375">
@@ -32,13 +30,14 @@
               @click="goRegist()">
               통역가 신청하기
             </v-btn>
-            <router-link :to="{name: 'EditProfile', params : {profiledata:myinfo}}" class="router">
-              <v-btn
-                color="error"
-                class="my-2 mr-10">
-                프로필 수정하기
-              </v-btn>
-            </router-link>
+
+            <v-btn
+              @click="goedit()"
+              color="error"
+              class="my-2 mr-10">
+              프로필 수정하기
+            </v-btn>
+
           </div>
          
         </div>
@@ -143,6 +142,10 @@
           <button class="primary_pure" @click="goRegist()" v-if="myinfo.user_is_ts === false">
             통역가 신청하기
           </button>
+          <br>
+          <button class="primary_pure mt-2" @click="goedit()" v-if="myinfo.user_is_ts === false">
+            프로필 수정하기
+          </button>
         </div>
         <div class="skills">
           <h6>통역가능언어</h6>
@@ -166,7 +169,9 @@
             <v-list-item-content>
               <div class="overline mb-4" v-if="li.article_complete === true">완료</div>
               <div class="overline mb-4" v-else>미완료</div>
-              <v-list-item-title class="headline mb-1">{{ li.article_title }}</v-list-item-title>
+               <router-link :to="{name: 'TransDetail', params : {id:li._id}}" class="router">
+                <v-list-item-title class="headline mb-1">{{ li.article_title }}</v-list-item-title>
+              </router-link>
               <v-list-item-subtitle class="my-2">{{ li.article_egg }}알 | {{ li.article_start_date }} ~ {{li.article_end_date}} | 
                 {{  li.article_from }} -> {{ li.article_to }} | 통역가 이름</v-list-item-subtitle>
             </v-list-item-content>
@@ -200,7 +205,15 @@
   const myPageModule = namespace('MyPage');
 
   @Component({
+    methods: {
+      goRegist() {
+        this.$router.push('/registtrans')
+      },
 
+      goedit() {
+        this.$router.push('/editprofile')
+      }
+    }
   })
 
   export default class MyPage extends Vue {

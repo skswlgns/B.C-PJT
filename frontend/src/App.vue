@@ -36,17 +36,23 @@
         <div class="ml-2 ">
           <img src="@/assets/images/logo_mobile.png" alt="로고!" class="img_mobile" @click="goHome()">
         </div>
-        <div class="mr-2 nav">
-          <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
+        <div class="d-flex" v-if="this.$cookies.isKey('token')">
+          <!-- 마이페이지 -->
+          <div class="mr-2 nav">
+            <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
+          </div>
+          <!-- 알림 -->
+          <div class="mr-2 nav">
+            <i class="far fa-bell fa-2x nav_icon"></i>
+          </div>
+          <!-- 로구아웃 -->
+          <div class="mr-2 nav">
+            <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogout()"></i>
+          </div>
         </div>
-        <!-- 알림 -->
-        <div class="mr-2 nav">
-          <i class="far fa-bell fa-2x nav_icon"></i>
-        </div>
-        <!-- 로구아웃 -->
-        <div class="mr-2 nav">
+        <div class="mr-2 nav" v-else>
           <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i>
-        </div>
+        </div>        
       </div>
     </div>
     <router-view/>
