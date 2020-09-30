@@ -18,10 +18,28 @@
       }
       .ing{
         margin-top: 1.5%;
-        border: 2px solid #FF5252;
+        border: 2px solid #43A047;
         height: 50%;
         padding: 0.3rem 0.7rem;
-        color: #FF5252;
+        color: #43A047;
+        font-weight: bold;
+        border-radius: 3rem;
+      }
+      .end{
+        margin-top: 1.5%;
+        border: 2px solid #0288D1;
+        height: 50%;
+        padding: 0.3rem 0.7rem;
+        color: #0288D1;
+        font-weight: bold;
+        border-radius: 3rem;
+      }
+      .complete{
+        margin-top: 1.5%;
+        border: 2px solid #FF3D00;
+        height: 50%;
+        padding: 0.3rem 0.7rem;
+        color: #FF3D00;
         font-weight: bold;
         border-radius: 3rem;
       }
@@ -158,17 +176,41 @@
             }
           }
         }
+        .div_select{
+          background-color: #FF5252;
+          color: white;
+          height: 35px;
+          width: 200px;
+          font-weight: bold;
+          padding: 6px;
+
+          .select_icon{
+            color: white;
+            margin-right: 10px;
+          }
+        }
         .select{
+          margin-left: 8rem;
           .btn{
             background-color: #FF5252;
             color: white;
             height: 6%;
+            width: 180px;
             font-weight: bold;
             padding: 1rem;
           }
           .select_icon{
             color: white;
             margin-right: 10px;
+          }
+          .complete_btn{
+            background-color: #FF8F00;
+            color: white;
+            height: 6%;
+            width: 180px;
+            font-weight: bold;
+            padding: 1rem;
+            margin-top: 0.5rem;
           }
         }
         .notselect{
@@ -193,10 +235,24 @@
           margin-top: 0.8rem;
           padding: 1rem;
         }
+        
+        .cancel_btn_2{
+          background-color: #F57C00;
+          color: white;
+          padding : 0.5rem 1rem;
+          margin : 0 1rem;
+          .modal{
+            padding: 1rem;
+            .modal_body{
+              background-color: red;
+            }
+          }
+        }
         .cancel_btn{
           background-color: #F57C00;
           color: white;
           padding : 0.5rem 1rem;
+          margin : 0 1rem;
         }
       }
     }

@@ -5,6 +5,7 @@ import router from '@/router'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 
 const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
+const SERVER = 'http://localhost:3000'
 
 @Module({namespaced: true})
 export default class Login extends VuexModule  {
@@ -40,5 +41,12 @@ export default class Login extends VuexModule  {
       Vue.cookies.set('token', res.data.token)
       Vue.cookies.set('email', res.data.user_email)
     })
+  }
+
+  @Action
+  public async create_wallet(wallet_password : String){
+    console.log(wallet_password)
+    // const res = await axios.post(`${SERVER}/api/eth/newBalance`)
+    // console.log(res.data)
   }
 }

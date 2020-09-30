@@ -50,6 +50,19 @@ export default class TransDetail extends VuexModule  {
     .catch(err => console.log(err))
   }
 
+  @Action
+  public async apply_cancel(applyData: any){
+    let config = {
+      headers : {
+        token : Vue.cookies.get('token'),
+        email : Vue.cookies.get('email')
+      }
+    }
+    const res = await axios.delete(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, config)
+    console.log(res.data)
+    location.reload()
+  }
+
   @Action({commit : 'save_user'})
   public async get_candidate(candi_list: any){
     console.log(candi_list)
@@ -69,11 +82,14 @@ export default class TransDetail extends VuexModule  {
         email : Vue.cookies.get('email')
       }
     }
-    // const res = await axios.post(`${SERVER_URL}/articles/${clickData.article_id}/candidates/${clickData.user_id}`, {}, config)
-    // console.log(res.data)
+    const res = await axios.post(`${SERVER_URL}/articles/${clickData.article_id}/candidates/${clickData.user_id}`, {}, config)
+    console.log(res.data)
+    location.reload()
+  }
 
+  @Action
+  public async send_money(){
     const res = await axios.get(`${SERVER}/api/eth/getBalance`)
     console.log(res.data)
-    // location.reload()
   }
 }
