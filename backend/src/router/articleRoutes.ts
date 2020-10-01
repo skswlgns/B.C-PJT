@@ -30,7 +30,7 @@ articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
 articleRoutes.get("/:article_id", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
   await ArticleModel.findOne({ _id: article_id })
-    .populate("user_id", "user_nickname user_email user_image")
+    .populate("user_id")
     .populate("article_candidate")
     .exec((err: Error, article: any) => {
       if (err) {
