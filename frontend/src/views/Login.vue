@@ -181,6 +181,7 @@
                 <v-card-text class="modal_text">
                   <input v-model="wallet_password" type="text" placeholder="비밀번호">
                   <v-btn class="create_wal" @click="create_wallet(wallet_password)">지갑 생성</v-btn>
+                  {{ my_wallet }}
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -481,6 +482,9 @@
     // vuex 영역
     @LoginModule.State('user_token')
     private user_token!: string;
+
+    @LoginModule.State('my_wallet')
+    private my_wallet!: string;
 
     @LoginModule.Action('signup')
     private signup!: (signupData: object) => void;

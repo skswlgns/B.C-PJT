@@ -11,12 +11,18 @@ const SERVER = 'http://localhost:3000'
 export default class Login extends VuexModule  {
   
   // states
+  public my_wallet : String = "" 
 
   // mutations
   @Mutation
   public SET_TOKEN() {
     router.push('/home')
     location.reload()
+  }
+
+  @Mutation
+  public SET_Wallet(wallet : String) {
+    this.my_wallet = wallet
   }
 
   // actions
@@ -29,7 +35,7 @@ export default class Login extends VuexModule  {
         user_pwd : signupData.user_pwd
       }
       this.context.dispatch('login', loginInfo)
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -43,10 +49,13 @@ export default class Login extends VuexModule  {
     })
   }
 
-  @Action
+  @Action({ commit : 'SET_Wallet' })
   public async create_wallet(wallet_password : String){
-    console.log(wallet_password)
-    // const res = await axios.post(`${SERVER}/api/eth/newBalance`)
-    // console.log(res.data)
+    // console.log(wallet_password)
+    const wallet_data : any = {
+      wallet_password : wallet_password
+    }
+    const res = await axios.post(`${SERVER}/api/eth/newBalance`, wallet_data)
+    return res.data
   }
 }

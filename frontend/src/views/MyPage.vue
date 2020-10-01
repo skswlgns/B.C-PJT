@@ -11,6 +11,7 @@
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}</span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
+          <p>잔액 : {{ mymoney }}</p>
           <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" > {{ lang }}</span> </span>
           
           <!-- <span>| 
@@ -243,19 +244,37 @@
   @myPageModule.State('myinfo')
   private myinfo!: any;
 
+  private temp_wallet : String = ""
+
+  set_address(address : String){
+    this.temp_wallet = address
+  }
+
   @myPageModule.State('myarticle')
   private myarticle!: any;
+
+  @myPageModule.State('mymoney')
+  private mymoney!: any;
 
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
   @myPageModule.Action('get_myarticle')
   private get_myarticle!: () => void;
-  
 
-  async mounted() {
+  @myPageModule.Action('get_balance')
+  private get_balance!: (address : String) => void;
+  
+  async created() {
+    // console.log('여기는 비폴 ')
     this.get_mypage()
     this.get_myarticle()
+  }
+
+  async mounted(){
+    setTimeout(() => 
+      this.get_balance(this.myinfo.user_wallet), 500
+    )
   }
 }
 </script>
