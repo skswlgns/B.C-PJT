@@ -257,14 +257,16 @@ articleRoutes.post("/:article_id/candidates/:candidate_user_id", verificationMid
 articleRoutes.post(
   "/:article_id/candidates/:candidate_user_id",
   async (req: express.Request, res: express.Response) => {
-    const article_id = req.params["article_id"]
-    const candidate_user_id = req.params["candidate_user_id"]
+    const articleId = req.params["article_id"]
+    const candidateUserId = req.params["candidate_user_id"]
+    const candidateUser: any = await CandidateModel.findOne({ _id: candidateUserId }).populate("user_id")
+
     // user_id 가져오기
     await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
       if (err) {
         res.status(500).send(err)
       } else {
-        ArticleModel.findOne({ _id: article_id })
+        ArticleModel.findOne({ _id: articleId })
           .populate("article_candidate")
           .exec(async (err: Error, article: any) => {
             if (err) {
@@ -283,44 +285,49 @@ articleRoutes.post(
                   // 만일 채택이 완료된 article이 아니라면 채택
 
                   await ArticleModel.findOneAndUpdate(
-                    { _id: article_id },
-                    { article_select: candidate_user_id, article_complete: true }
+                    { _id: articleId },
+                    {
+                      article_select: candidateUserId,
+                      article_complete: true,
+                      article_to_egg: candidateUser.user_id.user_wallet,
+                    }
                   ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      const chandgedArticle = await ArticleModel.findOne({ _id: articleId })
                         .populate("article_candidate")
                         .populate("user_id")
                       res.status(200).json(chandgedArticle)
                     }
                   })
-                } else if (article.article_select.toString() !== candidate_user_id.toString()) {
+                } else if (article.article_select.toString() !== candidateUserId.toString()) {
                   // 다른 통역사로 채택이 완료된 article이라면, candidate_user_id로 대체하기
 
-                  await ArticleModel.findOneAndUpdate({ _id: article_id }, { article_select: candidate_user_id }).exec(
-                    async (err: Error, _: any) => {
-                      if (err) {
-                        res.status(500).send(err)
-                      } else {
-                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
-                          .populate("article_candidate")
-                          .populate("user_id")
-                        res.status(200).json(chandgedArticle)
-                      }
-                    }
-                  )
-                } else {
-                  // 같은 통역사로 채택이 완료된 article이라면, 채택을 취소하기
-
                   await ArticleModel.findOneAndUpdate(
-                    { _id: article_id },
-                    { article_select: "", article_complete: false }
+                    { _id: articleId },
+                    { article_select: candidateUserId, article_to_egg: candidateUser.user_id.user_wallet }
                   ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      const chandgedArticle = await ArticleModel.findOne({ _id: articleId })
+                        .populate("article_candidate")
+                        .populate("user_id")
+                      res.status(200).json(chandgedArticle)
+                    }
+                  })
+                } else {
+                  // 같은 통역사로 채택이 완료된 article이라면, 채택을 취소하기
+
+                  await ArticleModel.findOneAndUpdate(
+                    { _id: articleId },
+                    { article_select: "", article_complete: false, article_to_egg: "" }
+                  ).exec(async (err: Error, _: any) => {
+                    if (err) {
+                      res.status(500).send(err)
+                    } else {
+                      const chandgedArticle = await ArticleModel.findOne({ _id: articleId })
                         .populate("article_candidate")
                         .populate("user_id")
                       res.status(200).json(chandgedArticle)
