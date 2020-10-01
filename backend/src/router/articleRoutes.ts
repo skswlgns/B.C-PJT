@@ -259,7 +259,8 @@ articleRoutes.post(
   async (req: express.Request, res: express.Response) => {
     const articleId = req.params["article_id"]
     const candidateUserId = req.params["candidate_user_id"]
-    const candidateUser: any = await CandidateModel.findOne({ _id: candidateUserId }).populate("user_id")
+    const candidateUser: any = await UserModel.findOne({ _id: candidateUserId })
+    console.log(candidateUser)
     // user_id 가져오기
     await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
       if (err) {
@@ -288,7 +289,7 @@ articleRoutes.post(
                     {
                       article_select: candidateUserId,
                       article_complete: true,
-                      article_to_egg: candidateUser.user_id.user_wallet,
+                      article_to_egg: candidateUser.user_wallet,
                     }
                   ).exec(async (err: Error, _: any) => {
                     if (err) {
@@ -305,7 +306,7 @@ articleRoutes.post(
 
                   await ArticleModel.findOneAndUpdate(
                     { _id: articleId },
-                    { article_select: candidateUserId, article_to_egg: candidateUser.user_id.user_wallet }
+                    { article_select: candidateUserId, article_to_egg: candidateUser.user_wallet }
                   ).exec(async (err: Error, _: any) => {
                     if (err) {
                       res.status(500).send(err)
