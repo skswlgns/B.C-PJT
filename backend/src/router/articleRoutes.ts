@@ -260,7 +260,6 @@ articleRoutes.post(
     const articleId = req.params["article_id"]
     const candidateUserId = req.params["candidate_user_id"]
     const candidateUser: any = await CandidateModel.findOne({ _id: candidateUserId }).populate("user_id")
-
     // user_id 가져오기
     await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
       if (err) {
