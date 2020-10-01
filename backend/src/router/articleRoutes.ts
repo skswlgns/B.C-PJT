@@ -312,14 +312,16 @@ articleRoutes.post(
                   await ArticleModel.findOneAndUpdate(
                     { _id: article_id },
                     { article_select: "", article_complete: false }
-                  ).exec(async (err: Error, _: any) => {
-                    if (err) {
-                      res.status(500).send(err)
-                    } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
-                      res.status(200).json(chandgedArticle)
-                    }
-                  })
+                  )
+                    .populate("article_candidate")
+                    .exec(async (err: Error, _: any) => {
+                      if (err) {
+                        res.status(500).send(err)
+                      } else {
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        res.status(200).json(chandgedArticle)
+                      }
+                    })
                 }
               }
             }
