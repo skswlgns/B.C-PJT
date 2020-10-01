@@ -289,7 +289,9 @@ articleRoutes.post(
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id }).populate(
+                        "article_candidate"
+                      )
                       res.status(200).json(chandgedArticle)
                     }
                   })
@@ -301,7 +303,9 @@ articleRoutes.post(
                       if (err) {
                         res.status(500).send(err)
                       } else {
-                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id }).populate(
+                          "article_candidate"
+                        )
                         res.status(200).json(chandgedArticle)
                       }
                     }
