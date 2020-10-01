@@ -289,9 +289,9 @@ articleRoutes.post(
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id }).populate(
-                        "article_candidate"
-                      )
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        .populate("article_candidate")
+                        .populate("user_id")
                       res.status(200).json(chandgedArticle)
                     }
                   })
@@ -303,9 +303,9 @@ articleRoutes.post(
                       if (err) {
                         res.status(500).send(err)
                       } else {
-                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id }).populate(
-                          "article_candidate"
-                        )
+                        const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                          .populate("article_candidate")
+                          .populate("user_id")
                         res.status(200).json(chandgedArticle)
                       }
                     }
@@ -320,9 +320,9 @@ articleRoutes.post(
                     if (err) {
                       res.status(500).send(err)
                     } else {
-                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id }).populate(
-                        "article_candidate"
-                      )
+                      const chandgedArticle = await ArticleModel.findOne({ _id: article_id })
+                        .populate("article_candidate")
+                        .populate("user_id")
                       res.status(200).json(chandgedArticle)
                     }
                   })
