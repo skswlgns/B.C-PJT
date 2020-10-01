@@ -82,7 +82,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_nickname = req.body.user_nickname
     const user_lang = req.body.user_lang
     const user_phone = req.body.user_phone
-    const user_wallet = req.body.user_phone
+    const user_wallet = req.body.user_wallet
 
     // 빈 아이딩 및 비밀번호 검증
     if (
