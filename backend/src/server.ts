@@ -3,7 +3,7 @@ import http from "http"
 
 import mongoose from "mongoose"
 
-const PORT = 3000
+const PORT = 8080
 
 const MONGO_URL = "mongodb://j3b103.p.ssafy.io:5000/test"
 const server = http.createServer(app)
