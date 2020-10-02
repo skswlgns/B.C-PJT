@@ -27,9 +27,8 @@ app.use("/api/eth", ChoiceRoutes)
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {
   let web3: any = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
-  console.log(web3.eth)
-  console.log("accounts", web3.eth.accounts)
-  res.send(`start, ${req.statusCode}, ${web3}, ${web3.eth}`)
+  web3.eth.getAccounts().then(console.log)
+  res.send(`Server: Start, Web3.js: ${web3.isConnected()}`)
 })
 
 export { app }
