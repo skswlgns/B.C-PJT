@@ -130,7 +130,7 @@
                     </v-card>
                   </v-dialog>
                 </div>
-
+                <!--client가 취소 -> 지원자한테 메일 보내기 -->
                 <v-dialog
                   v-model="dialog3"
                   persistent
@@ -149,8 +149,8 @@
                       취소 사유를 작성해주세요. 
                     </v-card-title>
                     <v-card-text class="modal_text">
-                      <input type="text" placeholder="취소 사유">
-                      <v-btn>전송하기</v-btn>
+                      <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                      <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
                       </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -171,8 +171,8 @@
                   {{content.candidate_content}}
                 </div>
                 <v-spacer></v-spacer>
-                 <!-- <v-btn v-if="user_profile.user_email == my_email " @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn> -->
                 <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
+                <!-- 지원한 사람이 취소 -> client한테 메일 보내기 -->
                 <v-dialog
                   v-model="dialog"
                   persistent
@@ -191,8 +191,8 @@
                       취소 사유를 작성해주세요. 
                     </v-card-title>
                     <v-card-text class="modal_text">
-                      <input type="text" placeholder="취소 사유">
-                      <v-btn>전송하기</v-btn>
+                      <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                      <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
                       </v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -358,7 +358,7 @@
     }
 
     private cancelParams = {
-      to_email: "",
+      to_email: "dlekdls0213@naver.com",
       title: "",
       reason: "",
       message_html: `https://j3b103.p.ssafy.io/`
@@ -399,6 +399,29 @@
       this.templateParams.client_email = client_email,
       this.templateParams.title = title
       this.sendTest()
+    }
+
+    cancelTest(){
+      emailjs
+        .send(
+          "mamago",
+          "template_o5pxba4",
+          this.cancelParams,
+          "user_vsSYzgaTl8akZR9vLj921",
+        )
+        .then(
+          function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          function(error) {
+            console.log("FAILED...", error);
+          }
+        );
+    }
+    cancel_save(to_email: string, title: string){
+      // this.cancelParams.to_email = to_email,
+      this.cancelParams.title = title
+      this.cancelTest()
     }
 
     @TransDetailModule.State('article')
