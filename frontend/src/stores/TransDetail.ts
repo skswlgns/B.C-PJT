@@ -1,70 +1,142 @@
-import Vue from 'vue'
-import axios from 'axios'
-import router from '@/router'
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
+import Vue from "vue"
+import axios from "axios"
+import router from "@/router"
+import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
+import Swal from "sweetalert2"
 
-const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
+const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER = "http://localhost:8080"
 
-@Module({namespaced: true})
-export default class TransDetail extends VuexModule  {
-
-  public article: any = {};
-  public user: any = [];
+@Module({ namespaced: true })
+export default class TransDetail extends VuexModule {
+  public article: any = {}
+  public user: any = []
+  public temp_list: any = []
+  public toegg: String = ""
+  public money_success: boolean = false
 
   @Mutation
-  public async save_article(temp:any) {
+  public async save_article(temp: any) {
     this.article = temp
   }
 
   @Mutation
-  public async save_user(temp:any){
-    console.log(this.user)
-    this.user.push(temp)
+  public async save_user(temp: any) {
+    this.user = temp
   }
 
   @Mutation
-  public async add_user(temp:any){
-    console.log('user 추가')
-    this.user.push(temp)
-    location.reload()
+  public async article_save(temp: any) {
+    this.article = temp
   }
 
-  @Action({ commit : 'save_article' })
+  @Mutation
+  public async save_from(temp: String) {
+    console.log("toegg 저장", temp)
+    this.toegg = temp
+  }
+
+  @Mutation
+  public async save_success(temp: String) {
+    this.money_success = true
+  }
+
+  @Action({ commit: "save_article" })
   public async get_article_1(id: string) {
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
     return res.data
   }
 
-
   @Action
-  public async apply(applyData : any){
-    console.log('apply')
-    console.log(applyData)
+  public async apply(applyData: any) {
+    // console.log('apply')
+    // console.log(applyData)
     let config = {
       headers: {
-        token : Vue.cookies.get('token'),
-        email : Vue.cookies.get('email'),
-      }
+        token: Vue.cookies.get("token"),
+        email: Vue.cookies.get("email"),
+      },
     }
-    console.log(config)
-    axios.post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)    
-    .then(async res => {
-      console.log(res.data)
-    })
-    .catch(err => console.log(err))
+    // console.log(config)
+
+    axios
+      .post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)
+      .then(async (res) => {
+        // console.log(res.data)
+        location.reload()
+      })
+      .catch((err) => console.log(err))
   }
 
   @Action
-  public async get_candidate(candi_list: any){
-    console.log(candi_list)
-    // this.user = []
-    for(let candi in candi_list){
+  public async apply_cancel(applyData: any) {
+    let config = {
+      headers: {
+        token: Vue.cookies.get("token"),
+        email: Vue.cookies.get("email"),
+      },
+    }
+    const res = await axios.delete(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, config)
+    // console.log(res.data)
+    location.reload()
+  }
+
+  @Action({ commit: "save_user" })
+  public async get_candidate(candi_list: any) {
+    // console.log(candi_list)
+    const users = []
+    for (let candi in candi_list) {
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
-      if(!this.user.includes(res.data)){
-        this.user.push(res.data)
-        console.log('user 저장')
-        console.log(this.user)
-      }
+      users.push(res.data)
+    }
+    return users
+  }
+
+  @Action({ commit: "article_save" })
+  public async candi_click(clickData: any) {
+    console.log("여기야야야야야양야야야")
+    console.log(clickData)
+    let config = {
+      headers: {
+        token: Vue.cookies.get("token"),
+        email: Vue.cookies.get("email"),
+      },
+    }
+    const res = await axios.post(
+      `${SERVER_URL}/articles/${clickData.article_id}/candidates/${clickData.user_id}`,
+      {},
+      config
+    )
+    console.log(res.data)
+    return res.data
+    // location.reload()
+  }
+
+  @Action({ commit: "save_from" })
+  public async send_id(user_id: String) {
+    const user_data: any = {
+      user_id: user_id,
+    }
+    const res = await axios.post(`${SERVER_URL}/api/eth/userAccount`, user_data)
+    // console.log(res.data)
+    return res.data
+    // console.log('유저 아이디 왔냐')
+    // console.log(user_id)
+  }
+
+  @Action({ commit: "save_success" })
+  public async send_money(send_data: any) {
+    console.log("action")
+    console.log(send_data)
+    const res = await axios.post(`${SERVER_URL}/api/eth/transcoin`, send_data)
+    if (res.data) {
+      Swal.fire({
+        icon: "info",
+        title: "돈이 없쩌용",
+        width: 600,
+      })
+    } else {
+      return "success"
     }
   }
   @Action

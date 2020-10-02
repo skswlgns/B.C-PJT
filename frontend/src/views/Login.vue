@@ -164,6 +164,39 @@
                 <option>ខ្មែរ</option>
                 <option>ᏣᎳᎩ</option>
             </select>
+            <input v-model="signupData.user_wallet" type="text" placeholder="지갑 주소" />
+
+            <v-dialog
+              v-model="dialog"
+              persistent
+              max-width="400"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <a v-bind="attrs" v-on="on">지갑이 없으신가요 ? ? </a>
+              </template>
+              <v-card>
+                <v-card-title class="headline">
+                  지갑 비밀번호를 입력해주세요.
+                </v-card-title>
+                <v-card-text class="modal_text">
+                  <input v-model="wallet_password" type="text" placeholder="비밀번호">
+                  <v-btn v-if="!wallet_complete" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
+                  <h3>{{ my_wallet }}</h3>
+                  <p>위의 지갑 주소를 복사해서 작성해주세요 : )</p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog = false"
+                  >
+                    close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
             <button @click="signup(signupData)">회원가입</button>
           </div>
         </div>
@@ -417,13 +450,18 @@
   })
 
   export default class Login extends Vue {
-    // 데이터 영역 
+    // 데이터 영역
+    private dialog: boolean = false;
+    private wallet_password: String = '';
+    private wallet_complete : boolean = false;
+
     private signupData : any = {
       user_email : "",
       user_nickname: "",
       user_pwd: "",
       user_phone: "",
       user_lang: "모국어",
+      user_wallet : ""
     }
     private conf_pwd: string = ""
     private pwd_bool: boolean = false
@@ -447,11 +485,22 @@
     @LoginModule.State('user_token')
     private user_token!: string;
 
+    @LoginModule.State('my_wallet')
+    private my_wallet!: string;
+
     @LoginModule.Action('signup')
     private signup!: (signupData: object) => void;
 
     @LoginModule.Action('login')
     private login!: (loginData: any) => void;
+
+    @LoginModule.Action('create_wallet')
+    private create_wallet!: (wallet_password: String) => void;
+
+    wallet_create(wallet_password: String){
+      this. wallet_complete = true
+      this.create_wallet(wallet_password)
+    }
     
   }
 </script>

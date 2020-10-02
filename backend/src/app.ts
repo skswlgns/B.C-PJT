@@ -1,10 +1,11 @@
 import express from "express"
 import cors from "cors"
 import requestLogger from "./middleware/requestLogger"
-
+import Web3 from "web3"
 import { authRoutes } from "./router/authRoutes"
 import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
+import { ChoiceRoutes } from "./router/ChoiceRoutes"
 
 const app = express()
 app.use(cors())
@@ -21,10 +22,13 @@ require("./model/UserModel")
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/articles", articleRoutes)
+app.use("/api/eth", ChoiceRoutes)
 
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {
-  res.send(`start, ${req.statusCode}`)
+  let web3: any = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+  web3.eth.getAccounts().then(console.log)
+  res.send(`Server: Start, Web3.js: ${web3.eth.net.isListening() ? true : false}`)
 })
 
 export { app }

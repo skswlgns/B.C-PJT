@@ -11,6 +11,7 @@ const ArticleSchema = new mongoose.Schema({
   article_end_date: { type: String, required: true },
   article_end_time: { type: String, required: true },
   article_egg: { type: Number, required: true },
+  article_to_egg: { type: String, default: "" },
   article_select: { type: String, default: "" },
   article_complete: { type: Boolean, default: false },
   article_created_at: { type: Date, default: Date.now() },

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-card color="#FAFAFA" class="mb-2">
+    {{ myinfo }}
+    {{profile_image}}
+    <v-card  class="mb-2">
       <v-container>
         <h2 class="text-center my-3"> 프로필 수정 </h2>
         <div>
@@ -18,23 +20,24 @@
         </div>
 
         <div>
-          <h3 class="ml-4"> 프로필 이미지 </h3>
+          <!-- <h3 class="ml-4"> 프로필 이미지 </h3> -->
           <v-col xs="6" md="11" class="mx-auto">
             <v-file-input
-              label="프로필 이미지를 등록해주세요."
-              filled
+              :rules="rules"
+              accept="image/*"
+              placeholder="프로필 이미지를 등록해주세요!"
               prepend-icon="mdi-camera"
-              accept = "image/*"
+              label="프로필 이미지"
               v-model="myinfo.user_image"
             ></v-file-input>
           </v-col>
         </div>
 
-         <v-col class="text-center mx-auto">
+         <div class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed x-large class="white--text" color="#5C6BC0">수정하기</v-btn>
+            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="editprofile(myinfo, profile_image)">수정하기</v-btn>
           </div>
-        </v-col>
+        </div>
 
       </v-container>
     </v-card>
@@ -47,21 +50,29 @@
 
   const EditProfileModule = namespace('EditProfile');
   @Component({
-    mounted() {
-      
-    }
+    data: () => ({
+      rules: [
+        (value: { size: number; }) => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],
+    }),
   })
   export default class EditProfile extends Vue {
-
+    private profile_image: string = '';
 
     @EditProfileModule.State('myinfo')
     private myinfo!: any;
+
     @EditProfileModule.Action('get_mypage')
     private get_mypage!: () => void;
 
+    @EditProfileModule.Action('editprofile')
+    private editprofile!: (profiledata:any, profile_image:string) => void;
+
+
+
 
     async mounted() {
-      this.get_mypage()
+      await this.get_mypage()
 
       window.scrollTo(0, 0)
     }

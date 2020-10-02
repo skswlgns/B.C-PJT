@@ -82,9 +82,16 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_nickname = req.body.user_nickname
     const user_lang = req.body.user_lang
     const user_phone = req.body.user_phone
+    const user_wallet = req.body.user_wallet
 
     // 빈 아이딩 및 비밀번호 검증
-    if (user_email !== "" && user_pwd !== "" && user_email !== undefined && user_pwd !== undefined) {
+    if (
+      user_email !== "" &&
+      user_pwd !== "" &&
+      user_email !== undefined &&
+      user_pwd !== undefined &&
+      user_wallet !== ""
+    ) {
       // email 중복 확인
       await UserModel.findOne({ user_email: user_email }).then(async (user: any) => {
         // 이메일이 중복이면 중복 메세지 보내기
@@ -98,6 +105,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
             user_nickname: user_nickname,
             user_lang: user_lang,
             user_phone: user_phone,
+            user_wallet: user_wallet,
           })
           await item.save()
           res.status(200).send({
