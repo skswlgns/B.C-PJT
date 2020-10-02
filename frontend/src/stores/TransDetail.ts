@@ -67,4 +67,17 @@ export default class TransDetail extends VuexModule  {
       }
     }
   }
+  @Action
+  public async delete(delData: string) {
+    let config = {
+      headers: {
+        token : Vue.cookies.get('token'),
+        email : Vue.cookies.get('email'),
+      }
+    }
+    axios.delete(`${SERVER_URL}/articles/${delData}`, config)
+    .then(() => {
+      router.push('/home')
+    })
+  }
 }

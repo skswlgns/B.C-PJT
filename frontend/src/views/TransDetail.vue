@@ -26,9 +26,9 @@
         <div class="requests"> 
           <v-icon class="check_icon">mdi-check-bold</v-icon>
           <h3 class="check">요청사항</h3>
-          <div class="request">
-            <p> 1) {{article.article_requests}}</p>
-          </div>
+          <ul class="request" v-for="i in article.article_request" :key="i.id">
+            <li>{{ i.content }}</li>
+          </ul>
         </div>
         <div class="requests"> 
           <v-icon class="check_icon">mdi-check-bold</v-icon>
@@ -53,8 +53,8 @@
         </div>
         <v-row class="requests">
           <v-spacer></v-spacer>
-          <v-btn class="edit_btn">수정하기</v-btn>
-          <v-btn class="del_btn">삭제하기</v-btn>
+          <router-link :to="{ name: 'TransRevise', params: { id: applyData.article_id }}" class='routerbtn'><v-btn class="edit_btn">수정하기</v-btn></router-link>
+          <v-btn class="del_btn" @click="del(id)">삭제하기</v-btn>
         </v-row>
       </div>
 
@@ -120,8 +120,8 @@
         <div class="requests"> 
           <v-icon class="check_icon">mdi-check-bold</v-icon>
           <h3 class="check">요청사항</h3>
-          <div class="request">
-            <p> 1) {{article.article_requests}}</p>
+          <div class="request" v-for="i in article.article_request" :key="i.id">
+            <p> {{ i.id }}) {{ i.content }}</p>
           </div>
         </div>
         <div class="requests"> 
@@ -281,6 +281,9 @@
     @TransDetailModule.Action('get_candidate')
     private get_candidate!: (id: String) => void;
 
+    @TransDetailModule.Action('delete')
+    private del!: (id: String) => void;
+
 
     private applyData : any = {
       candidate_content : "",
@@ -291,7 +294,7 @@
       await this.get_article_1(this.id)
       console.log('mounted')
       await this.get_candidate(this.article.article_candidate)
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0) 
     }   
   }
 </script>

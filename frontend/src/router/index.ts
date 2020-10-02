@@ -79,6 +79,7 @@ const routes = [
     path: '/transdetail/revise/:id',
     name: 'TransRevise',
     component: TranslateRegist,
+    props: true,
   },
 ]
 

@@ -108,6 +108,9 @@
 				} 
 				
 			}
+			// .searchImg {
+			// 	width: 100% 
+			// }
 	
 			.applyTrans{
 				border: 1px solid lightgray;
@@ -116,6 +119,9 @@
 				height: 350px;
 				padding: 1rem 1rem;
 				background-color: white;
+				.router {
+					text-decoration: none;
+				}
 				.btns {
 					margin-bottom: 3rem;
 					.btn_blue {

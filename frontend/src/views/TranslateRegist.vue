@@ -316,7 +316,7 @@
         </div>
         <h1>포인트</h1>
         <div class='point_fr'>
-          <select v-model="transData.article_egg" name="point" class="point">
+          <select v-model.number="transData.article_egg" name="point" class="point" type="number"  >
             <option>50000</option>
             <option>100000</option>
             <option>150000</option>
@@ -324,7 +324,7 @@
             <option>250000</option>
             <option>300000</option>
           </select>
-          <input type="text" class="point_input" v-model="transData.article_egg">
+          <input type="text" class="point_input" v-model.number="transData.article_egg" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
           <div class='space'></div>
           <div class="btn_fr">
             <div class="btn">
@@ -461,7 +461,7 @@
         <h1>요청사항</h1>
         <div class="request_fr">
           <div class="request_stage">
-            <div class="first_request" v-for="i in transData.request" :key='i.id'>
+            <div class="first_request" v-for="i in transData.article_request" :key='i.id'>
               <input type="text" class="request" v-model="i.content">
               <div class="plus_btn" v-if="i.id === 0">
                 <button class="icon-btn add-btn" @click="addText">
@@ -475,13 +475,6 @@
             </div>
           </div>
         </div>
-        <!-- <h1>파일 추가</h1>
-        <div class="file_input">
-          <v-file-input 
-            accept="*"
-            label="File input"
-          ></v-file-input>
-        </div> -->
       </div>
       <div class='space'></div>
       <div class="regist">
@@ -503,16 +496,25 @@
           <div>{{transData.article_title}}</div>
           <h3>내용</h3>   
           <div>{{transData.article_content}}</div>
-          <!-- <h3>요청사항</h3>   
-          <div v-for="i in transData.request" :key="i.id">
+          <h3>요청사항</h3>   
+          <div v-for="i in transData.article_request" :key="i.id">
               {{i.content}}
-          </div> -->
+          </div>
           <v-btn
+            v-if="this.$route.name === 'TranslateRegist'"
             class="request_btn"
             color="primary"
             @click="regist(transData)"
           >
-            요청하기
+            <span >요청하기</span>
+          </v-btn>
+          <v-btn
+            v-else
+            class="request_btn"
+            color="primary"
+            @click="revise({transData, id})"
+          >
+            <span>수정하기</span>
           </v-btn>
         </div>
       </div>
@@ -521,7 +523,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Vue, Prop } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
   
   const tRegistModule = namespace('TranslateRegist');
@@ -531,29 +533,31 @@
     }
   })
   export default class TranslateRegist extends Vue {
+    @Prop()
+      id !: string;
+
     private transData : any = {
       article_from : "통역 할 언어",
       article_to : "통역 될 언어",
-      article_egg: 0 ,
+      article_egg: 0,
       article_start_date: new Date().toISOString().substr(0, 10),
       article_start_time: '00:00',
       article_end_date: new Date().toISOString().substr(0, 10),
       article_end_time: '00:00',
       article_title : '',
       article_content : '',
-      // request : [{id: 0, content:''}],
-      // file:''
+      article_request : [{id: 0, content:''}],
     }
     private menu : boolean = false;
     private menu2 : boolean = false;
     private menu3 : boolean = false;
     private menu4 : boolean = false;
     change() {
-      if (this.transData.lang_1 !== "통역 할 언어" && this.transData.lang_2 !== "통역 될 언어") {
+      if (this.transData.article_from !== "통역 할 언어" && this.transData.article_to !== "통역 될 언어") {
         let temp : any;
-        temp = this.transData.lang_1;
-        this.transData.lang_1 = this.transData.lang_2;
-        this.transData.lang_2 = temp;
+        temp = this.transData.article_from;
+        this.transData.article_from = this.transData.article_to;
+        this.transData.article_to = temp;
       }
     }
     pointInput() {
@@ -564,12 +568,12 @@
       inputElem.classList.add('point');
     }
     addText() {
-      let count: number =  this.transData.request.length;
-      this.transData.request.push({id: count + 1, value: ''});
+      let count: number =  this.transData.article_request.length;
+      this.transData.article_request.push({id: count, content: ''});
     }
     deleteText() {
-      if (this.transData.request.length > 1) {
-        this.transData.request.pop(); 
+      if (this.transData.article_request.length > 1) {
+        this.transData.article_request.pop(); 
       }
     }
     private mounted() {
@@ -613,14 +617,30 @@
         resizeHandler();
       })();
       if (this.$route.name === 'TransRevise') {
-        console.log('얍얍얍')
+        this.getData(this.id)
+        this.transData = this.reviseData
+        
+        
       }
 
     }
     
+    @tRegistModule.State('reviseData')
+    private reviseData!: any;
+
+    @tRegistModule.Mutation('Input_Data')
+    private Input_Data!: any;
 
     @tRegistModule.Action('regist')
-    private regist!: (transData: any) => void;
+    private regist!: (transData: any, id: String) => void;
+
+    @tRegistModule.Action('getData')
+    private getData!: (id: String) => void;
+
+    @tRegistModule.Action('revise')
+    private revise!: (reData:any) => void;
+
+
 }
 
 </script>
