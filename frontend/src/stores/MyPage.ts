@@ -97,7 +97,7 @@ export default class MyPage extends VuexModule {
     const balance_data: any = {
       address: address,
     }
-    const res = await axios.post(`${SERVER_URL}/api/eth/getBalance`, balance_data)
+    const res = await axios.post(`${SERVER_URL}/eth/getBalance`, balance_data)
     // console.log(res.data)
     return res.data
   }

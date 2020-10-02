@@ -52,7 +52,7 @@ export default class Login extends VuexModule {
     const wallet_data: any = {
       wallet_password: wallet_password,
     }
-    const res = await axios.post(`${SERVER_URL}/api/eth/newBalance`, wallet_data)
+    const res = await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
     return res.data
   }
 }
