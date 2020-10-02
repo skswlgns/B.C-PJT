@@ -1,52 +1,49 @@
-import express from "express"
-import Web3 from 'web3';
+import express, { response } from "express"
+import Web3 from 'web3'
+import { UserModel } from "../model/UserModel"
 
 // contract주소
-const address = '0x9a0Dfa88c2F5dc17c07Dc40d2bA7be68357938EF';
+const address = '0xd9145CCE52D386f254917e481eB44e9943F39138';
 const ChoiceRoutes = express.Router()
 // contract_select
+
+
 const ABI = [
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "kill",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_selectPerson",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
 				"name": "_selectedPerson",
 				"type": "address"
 			},
 			{
+				"internalType": "uint256",
 				"name": "article",
 				"type": "uint256"
 			},
 			{
+				"internalType": "uint256",
 				"name": "_selectedArticle",
 				"type": "uint256"
 			},
 			{
+				"internalType": "uint256",
 				"name": "_point",
 				"type": "uint256"
 			},
 			{
+				"internalType": "uint256",
 				"name": "_score",
 				"type": "uint256"
 			}
 		],
 		"name": "RewardLogic",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": true,
+		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
 	}
@@ -87,17 +84,71 @@ ChoiceRoutes.post("/traincoin", async (req: express.Request, res: express.Respon
 //계좌생성
 ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Response) => {
 	let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
-	const data = req.params
-	console.log(data)
-    // web3.eth.personal.newAccount("test1234")
-    // .then(console.log);
+  // const data = req
+  let wallet_address : String = ""
+	console.log(req.body)
+  web3.eth.personal.newAccount(req.body['wallet_password'])
+  .then(response => {
+    console.log(response)
+    wallet_address = response
+    res.status(200).send(wallet_address)
+  });
 })
 
 // 계좌확인
-ChoiceRoutes.get("/getBalance",async (req: express.Request, res: express.Response) => {
+ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Response) => {
     let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
-    web3.eth.getAccounts()
-    .then(console.log);
+    console.log(req.body)
+    let my_money : String = ""
+    web3.eth.getBalance(req.body['address'])
+    .then( response => {
+      console.log(typeof(Number(response)))
+      // 0.024 이더 -> 1알
+      my_money = String((Number(response) / 10**18) * 41.7) 
+      res.status(200).send(my_money)
+    });
 })
+
+// 상대방 계좌 저장 
+ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Response) => {
+  const user_id = req.body["user_id"]
+  console.log(user_id)
+	await UserModel.findOne({ _id: user_id })
+    .exec((err: Error, user:any) => {
+      console.log(err,"에러")
+      console.log(user.user_wallet,"지갑")
+      if(err){
+        res.status(500).send(err)
+      }else{
+        res.status(200).send(user.user_wallet)
+      }
+    })
+})
+
+// 계좌송금
+ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Response) => {
+  let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
+  console.log(req.body)
+  let fromEgg : string = req.body['fromEgg']
+  let toEgg : string = req.body['toEgg']
+  let PassWord : string = req.body['Password']
+  let Egg : number = req.body['Egg']
+  
+  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
+  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
+    //계좌가 unlock됫다면 이제 돈보내면된다
+  web3.eth.sendTransaction({
+      from: fromEgg, // 출금 계좌(통역 의뢰인)
+      to: toEgg, // 입금 계좌 (통역가)
+      value: (Egg / 41.7)*(10**18) // 통역 대가
+  })
+  .then(function(receipt){
+      console.log(receipt);
+  })
+  .catch(function() {
+    res.status(500).send({ message: "돈이 없어용" })
+  });   
+})
+
 
 export { ChoiceRoutes }

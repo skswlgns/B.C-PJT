@@ -1,6 +1,9 @@
 <template>
   <div>
     {{ myinfo }}
+    {{ myarticle }}
+    <hr>
+    {{ applyarticle}}
     <!-- #                    브라우저                       # -->
 
     <div v-if="windowWidth > 375">
@@ -11,17 +14,8 @@
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}</span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
-          <p>잔액 : {{ mymoney }}</p>
+          <p> {{ mymoney }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
           <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" > {{ lang }}</span> </span>
-          
-          <!-- <span>| 
-            <v-responsive
-            class="text-center grey lighten-2 rounded-pill d-inline-flex align-center justify-center ma-1"
-            height="1.2vw"
-            width="5vw"
-            >
-              초고수
-            </v-responsive></span> -->
         </div>
         <div class="ml-auto my-auto mr-3">
           <div class="d-flex flex-column">
@@ -31,31 +25,71 @@
               @click="goRegist()">
               통역가 신청하기
             </v-btn>
-
             <v-btn
               @click="goedit()"
               color="error"
               class="my-2 mr-10">
               프로필 수정하기
             </v-btn>
-
           </div>
-         
         </div>
+      </div>
+        <h1>진행 중</h1>
+        <div class="ing-box">
+          <!--요청한거부터 처리하자-->
+          <v-card
+            class="mx-auto my-3"
+            max-width="500"
+            outlined
+            v-for="(article, index) in myarticle" :key="index"
+          >
+          <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
+            <v-list-item v-if="article.article_select">
+              <v-list-item-content>
+                <div class="card_header">
+                  <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
+                  <div class="overline mb-4 complete" v-if="article.article_complete === true">완료</div>
+                  <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                  <v-spacer></v-spacer>
+                  <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                </div>
+                <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
+                <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
+                    {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link>
+          </v-card>
+
+          <v-card
+            class="mx-auto my-3"
+            max-width="500"
+            outlined
+            v-for="(li, index) in applyarticle" :key="index"
+          >
+          <router-link :to="{name: 'TransDetail', params : {id:li.article_id._id}}" class="router">
+            <v-list-item v-if="li.article_id.article_select == myinfo._id">
+              <v-list-item-content>
+                <div class="card_header">
+                  <div class="overline mb-4 complete" v-if="li.article_complete === true">완료</div>
+                  <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                  <v-spacer></v-spacer>
+                  <div class="point"> <span>{{li.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                </div>
+                <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
+                <v-list-item-subtitle class="my-2">{{ li.article_id.article_start_date }} ~ {{ li.article_id.article_end_date }} | 
+                  {{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </router-link> 
+        </v-card>
+        </div>
+      <div>
+
       </div>
       <div>
         <h1>내역</h1>
         <div class="user-box">
-          <br>
-          <div class="d-flex">
-            <h4 class="mx-4">보유포인트</h4>
-            <div class="mr-4">
-              {{ myinfo.user_egg }}
-            </div>
-            <div>
-              <a href="" v-if="myinfo.user_egg !== 0">보유포인트 환전하기</a>              
-            </div>
-          </div>
           <v-row class="ma-4">
             <v-col>
               <v-card>
@@ -75,17 +109,22 @@
                       outlined
                       v-for="(article, index) in myarticle" :key="index"
                     >
+                    <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
                       <v-list-item>
                         <v-list-item-content>
-                          <div class="overline mb-4" v-if="article.article_complete === true">완료</div>
-                          <div class="overline mb-4" v-else>미완료</div>
-                          <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
-                            <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
-                          </router-link>
-                          <v-list-item-subtitle class="my-2">{{ article.article_egg }} | {{ article.article_start_date }} ~ {{ article.article_end_date }} |
+                          <div class="card_header">
+                            <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
+                            <div class="overline mb-4 complete" v-if="article.article_complete === true">완료</div>
+                            <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                            <v-spacer></v-spacer>
+                            <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                          </div>
+                          <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
+                          <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
                              {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
+                    </router-link>
                     </v-card>
                   </v-col>
                 </v-row>
@@ -95,7 +134,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    참여 (1)
+                    참여 ( {{ applyarticle.length}})
                   </div>
                   <div class="ml-auto mr-2 my-2">
                     <a href="">전체보기</a>
@@ -103,21 +142,27 @@
                 </div>
                 <v-row>
                   <v-col col="12">
-                    <v-card
-                      class="mx-auto my-3"
-                      max-width="500"
-                      outlined
-                      v-for="(li, index) in list" :key="index"
-                    >
-                      <v-list-item>
-                        <v-list-item-content>
-                          <div class="overline mb-4" v-if="li.article_complete === true">완료</div>
-                          <div class="overline mb-4" v-else>미완료</div>
-                          <v-list-item-title class="headline mb-1">{{ li.article_title }}</v-list-item-title>
-                          <v-list-item-subtitle class="my-2">{{ li.article_egg }} | {{ li.article_date }} | 
-                            {{  li.article_from }} -> {{ li.article_to }}</v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
+                      <v-card
+                        class="mx-auto my-3"
+                        max-width="500"
+                        outlined
+                        v-for="(li, index) in applyarticle" :key="index"
+                      >
+                      <router-link :to="{name: 'TransDetail', params : {id:li.article_id._id}}" class="router">
+                        <v-list-item>
+                          <v-list-item-content>
+                            <div class="card_header">
+                              <div class="overline mb-4 complete" v-if="li.article_complete === true">완료</div>
+                              <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                              <v-spacer></v-spacer>
+                              <div class="point"> <span>{{li.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                            </div>
+                            <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
+                            <v-list-item-subtitle class="my-2">{{ li.article_id.article_start_date }} ~ {{ li.article_id.article_end_date }} | 
+                              {{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </router-link> 
                     </v-card>
                   </v-col>
                 </v-row>
@@ -253,6 +298,9 @@
   @myPageModule.State('myarticle')
   private myarticle!: any;
 
+  @myPageModule.State('applyarticle')
+  private applyarticle!: any;
+
   @myPageModule.State('mymoney')
   private mymoney!: any;
 
@@ -265,10 +313,14 @@
   @myPageModule.Action('get_balance')
   private get_balance!: (address : String) => void;
   
+  @myPageModule.Action('get_applyarticle')
+  private get_applyarticle!: () => void;
+
   async created() {
     // console.log('여기는 비폴 ')
     this.get_mypage()
     this.get_myarticle()
+    this.get_applyarticle()
   }
 
   async mounted(){

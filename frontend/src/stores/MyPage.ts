@@ -13,6 +13,8 @@ export default class MyPage extends VuexModule {
   public myinfo: any = {};
   public myarticle: any = {};
   public mymoney : String = "";
+  public applyarticle : any = {};
+
   // getters
   // get doubledCount() {
   //   return this.article
@@ -31,6 +33,11 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_article(temp_data:any) {
     this.myarticle = temp_data
+  }
+
+  @Mutation
+  public async save_apply(temp_data:any) {
+    this.applyarticle = temp_data
   }
 
   // 계좌 잔액 저장 
@@ -68,6 +75,20 @@ export default class MyPage extends VuexModule {
       }
     }
     const res = await axios.get(`${SERVER_URL}/users/my/articles`, config)
+    return res.data
+  }
+
+  // 내가 지원한 article 받아오기 
+  @Action({commit:'save_apply'})
+  public async get_applyarticle() {
+    const config = {
+      headers: {
+        token : Vue.cookies.get('token'),
+        email : Vue.cookies.get('email'),
+      }
+    }
+    const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
+    console.log('get apply')
     return res.data
   }
 

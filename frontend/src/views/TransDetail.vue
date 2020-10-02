@@ -8,6 +8,7 @@
     {{ my_email }}
     {{ toegg }}
     {{ clickData }}
+    {{ money_success }}
     <hr>
 
     <!--WEB-->
@@ -91,7 +92,7 @@
                 </div>
                 <v-spacer></v-spacer>
                 <div v-if="article.user_id.user_email == my_email && article.article_select != user_profile._id" class="notselect">
-                  <v-btn class="notbtn" @click="btn_click(user_profile._id)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">
@@ -129,6 +130,41 @@
                     </v-card>
                   </v-dialog>
                 </div>
+
+                <v-dialog
+                  v-model="dialog3"
+                  persistent
+                  max-width="350"
+                  class="modal"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" 
+                      v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && money_success"  
+                      class="cancel_btn_2">
+                      통역사 취소하기 
+                    </v-btn>
+                  </template>
+                  <v-card class="modal_body">
+                    <v-card-title class="headline">
+                      취소 사유를 작성해주세요. 
+                    </v-card-title>
+                    <v-card-text class="modal_text">
+                      <input type="text" placeholder="취소 사유">
+                      <v-btn>전송하기</v-btn>
+                      </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog3 = false"
+                      >
+                        close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog> 
+
               </div>
               <v-row class="contents">
                 <div class="content">
@@ -291,7 +327,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
-
+  import emailjs from "emailjs-com";
   const TransDetailModule = namespace('TransDetail');
   @Component({
 
@@ -304,6 +340,7 @@
     private my_email : any = Vue.cookies.get('email');
     private dialog: boolean = false;
     private dialog2: boolean = false;
+    private dialog3: boolean = false;
     private finish : boolean = false;
 
     private send_data = {
@@ -311,6 +348,20 @@
       toEgg : "",
       Password: "",
       Egg : 0
+    }
+ 
+    private templateParams = {
+      to_email: "",
+      client_email: "",
+      title: "",
+      message_html: `https://j3b103.p.ssafy.io/`
+    }
+
+    private cancelParams = {
+      to_email: "",
+      title: "",
+      reason: "",
+      message_html: `https://j3b103.p.ssafy.io/`
     }
 
     // methods 
@@ -321,10 +372,33 @@
       list.select = false
     }
 
-    btn_click(user_id : String) {
+    sendTest(){
+      emailjs
+        .send(
+          "mamago",
+          "template_ptpula7",
+          this.templateParams,
+          "user_vsSYzgaTl8akZR9vLj921",
+        )
+        .then(
+          function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          function(error) {
+            console.log("FAILED...", error);
+          }
+        );
+    }
+
+    btn_click(user_id : string, to_email: string, client_email: string, title: string) {
       this.clickData.user_id = user_id
       this.candi_click(this.clickData)
       this.send_id(user_id)
+
+      this.templateParams.to_email = to_email,
+      this.templateParams.client_email = client_email,
+      this.templateParams.title = title
+      this.sendTest()
     }
 
     @TransDetailModule.State('article')
@@ -335,9 +409,6 @@
 
     @TransDetailModule.State('toegg')
     private toegg!: any;
-
-    @TransDetailModule.State('no_money')
-    private no_money!: boolean;
 
     @TransDetailModule.State('money_success')
     private money_success!: boolean;

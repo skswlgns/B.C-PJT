@@ -180,8 +180,9 @@
                 </v-card-title>
                 <v-card-text class="modal_text">
                   <input v-model="wallet_password" type="text" placeholder="비밀번호">
-                  <v-btn class="create_wal" @click="create_wallet(wallet_password)">지갑 생성</v-btn>
-                  {{ my_wallet }}
+                  <v-btn v-if="!wallet_complete" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
+                  <h3>{{ my_wallet }}</h3>
+                  <p>위의 지갑 주소를 복사해서 작성해주세요 : )</p>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -452,6 +453,7 @@
     // 데이터 영역
     private dialog: boolean = false;
     private wallet_password: String = '';
+    private wallet_complete : boolean = false;
 
     private signupData : any = {
       user_email : "",
@@ -494,6 +496,11 @@
 
     @LoginModule.Action('create_wallet')
     private create_wallet!: (wallet_password: String) => void;
+
+    wallet_create(wallet_password: String){
+      this. wallet_complete = true
+      this.create_wallet(wallet_password)
+    }
     
   }
 </script>
