@@ -5,7 +5,36 @@
 .user-box {
   background-color: white;
   margin: 3vh 0;
-    
+  .card_header{
+		display: flex;
+		.complete{
+			border: 2px solid red;
+			color: red;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.nocomplete{
+			border: 2px solid green;
+			color: green;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.point {
+			border: 1px solid lightgray;
+			border-radius: 1rem;
+			padding: 0.3rem 0.5rem;
+			background-color: white;
+			margin-right: 0.5rem;
+			font-weight: bold;
+			height: 6%;
+			.egg_icon{
+				color: #FFAB00;
+			}
+		}
+	}
+
   .box{
     width: 10vw;
     height: 10vw; 
@@ -14,7 +43,11 @@
     margin: 1.3vh 4vw;
   }
   .pure-mt {
-    margin-top: 1.8vw;
+		margin-top: 1.8vw;
+		.egg_icon{
+			color: #FFAB00;
+			font-size: x-large;
+		}
 
     .nick-size {
       font-size: 1.8vw;
