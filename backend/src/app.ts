@@ -28,7 +28,7 @@ app.use("/api/eth", ChoiceRoutes)
 app.get("/api/", (req: express.Request, res: express.Response) => {
   let web3: any = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
   console.log(web3.eth)
-  console.log(web3.eth.accounts)
+  console.log("accounts", web3.eth.accounts)
   res.send(`start, ${req.statusCode}, ${web3}, ${web3.eth}`)
 })
 
