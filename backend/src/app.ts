@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import requestLogger from "./middleware/requestLogger"
-
+import Web3 from "web3"
 import { authRoutes } from "./router/authRoutes"
 import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
@@ -26,7 +26,8 @@ app.use("/api/eth", ChoiceRoutes)
 
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {
-  res.send(`start, ${req.statusCode}`)
+  let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+  res.send(`start, ${req.statusCode},${web3}`)
 })
 
 export { app }
