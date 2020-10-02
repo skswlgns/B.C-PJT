@@ -431,11 +431,9 @@
     @TransDetailModule.Action('get_candidate')
     private get_candidate!: (id: String) => void;
 
-<<<<<<< HEAD
     @TransDetailModule.Action('delete')
     private del!: (id: String) => void;
 
-=======
     @TransDetailModule.Action('candi_click')
     private candi_click!: (user_id: String) => void;
 
@@ -447,7 +445,6 @@
 
 
     private candi_complete : boolean = false ;
->>>>>>> 39a1206ecb9e297d1e31aa2dea04ba49a00b5569
 
     private applyData : any = {
       candidate_content : "",
