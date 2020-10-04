@@ -52,6 +52,20 @@
 	.card_header{
 		display: flex;
 		margin: auto;
+		.request{
+			border: 2px solid #FB8C00;
+			color:	#FB8C00;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.apply{
+			border: 2px solid #D500F9;
+			color: #D500F9;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
 		.complete{
 			border: 2px solid red;
 			color: red;

@@ -15,13 +15,7 @@ export default class MyPage extends VuexModule {
   public mymoney: String = ""
   public applyarticle: any = {}
 
-  // getters
-  // get doubledCount() {
-  //   return this.article
-  // }
-
   // mutations
-
   // 유저정보 저장
   @Mutation
   public async savemyinfo(temp_data: any) {
