@@ -176,7 +176,7 @@ userRoutes.put("/:user_id", async (req: express.Request, res: express.Response) 
             user_is_ts: true,
             user_name: requestBody.user_name,
             user_gender: requestBody.user_gender,
-            user_lang: requestBody.user_lang,
+            user_good_lang: requestBody.user_good_lang,
             user_intro: requestBody.user_intro,
           }
         )
