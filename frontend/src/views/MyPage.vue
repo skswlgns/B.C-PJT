@@ -1,9 +1,6 @@
 <template>
   <div>
     {{ myinfo }}
-    {{ myarticle }}
-    <hr>
-    {{ applyarticle}}
     <!-- #                    브라우저                       # -->
 
     <div v-if="windowWidth > 375">
