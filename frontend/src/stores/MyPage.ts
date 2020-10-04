@@ -38,6 +38,9 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_apply(temp_data: any) {
     this.applyarticle = temp_data
+    console.log('mutation')
+    console.log(temp_data)
+    console.log(this.applyarticle)
   }
 
   // 계좌 잔액 저장
@@ -64,7 +67,7 @@ export default class MyPage extends VuexModule {
     }
   }
 
-  // 내가 신청한 article 받아오기
+  // 내가 작성한 article 받아오기
   @Action({ commit: "save_article" })
   public async get_myarticle() {
     const config = {
@@ -87,6 +90,8 @@ export default class MyPage extends VuexModule {
       },
     }
     const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
+    console.log('here')
+    console.log(res.data)
     return res.data
   }
 
