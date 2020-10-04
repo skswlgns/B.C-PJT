@@ -47,14 +47,24 @@ export default class EditProfile extends VuexModule {
   @Action
   public async editprofile(profiledata:any) {
     if (Vue.cookies.isKey('token')) {
-      const config = {
+      let config = {
         headers: {
           token : Vue.cookies.get('token'),
           email : Vue.cookies.get('email'),
         }
       }
-      await axios.put(`${SERVER_URL}/auth`, profiledata, config)
-      .then( )
+      // const editData:any = new FormData();
+      // editData.append('user_phone', profiledata.user_phone)
+      // editData.append('user_image', profiledata.user_image)
+      // editData.append('user_nickname', profiledata.user_nickname)
+      const editData: any = {
+        user_phone: profiledata.user_phone,
+        user_image: profiledata.user_image.name,
+        user_nickname: profiledata.user_nickname,
+      }
+      console.log(editData)
+      console.log(config)
+      await axios.put(`${SERVER_URL}/auth`, editData, config)
 
     }
   }
