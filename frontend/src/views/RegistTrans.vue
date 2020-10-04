@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    {{ myinfo }}
+    {{ myinfo.user_good_lang }}
     <div v-if="windowWidth > 375">
       <h1>통역가 등록하기</h1>
       <div class="user-box">
@@ -424,26 +424,29 @@ import { namespace } from 'vuex-class';
       { text: 'ខ្មែរ', value: 'ខ្មែរ' },
       { text: 'ᏣᎳᎩ', value: 'ᏣᎳᎩ' }
     ]
+    private temp_lang: any = [];
+
+    @RegistTransModule.State('myinfo')
+    private myinfo!: any;
+
+    @RegistTransModule.Action('get_mypage')
+    private get_mypage!: () => void;
+
+    async mounted() {
+      await this.get_mypage()
+
+      window.scrollTo(0, 0)
+    }
+
+    onChange(event: any) {
+      // console.log(this.myinfo.user_good_lang)
+      console.log(typeof(this.myinfo.user_good_lang))
+      this.temp_lang.push(event.target.value)
+
+      this.myinfo.user_good_lang = this.temp_lang
+    }
   
-  @RegistTransModule.State('myinfo')
-  private myinfo!: any;
-
-  @RegistTransModule.Action('get_mypage')
-  private get_mypage!: () => void;
-
-   async mounted() {
-    await this.get_mypage()
-
-    window.scrollTo(0, 0)
   }
-
-  onChange(event: any) {
-    // console.log(this.myinfo.user_good_lang)
-    console.log('dfsdfsd',this.myinfo.user_good_lang)
-    this.myinfo.user_good_lang.push(event.target.value)
-  }
-  
-}
 </script>
 
 <style lang="scss" scoped>
