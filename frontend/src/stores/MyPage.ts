@@ -5,6 +5,7 @@ import router from "@/router"
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 const SERVER = "http://localhost:8080"
+const CAHT_URL = 'https://j3b103.p.ssafy.io/chat'
 
 @Module({ namespaced: true })
 export default class MyPage extends VuexModule {
@@ -86,7 +87,6 @@ export default class MyPage extends VuexModule {
       },
     }
     const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
-    console.log("get apply")
     return res.data
   }
 
@@ -100,5 +100,10 @@ export default class MyPage extends VuexModule {
     const res = await axios.post(`${SERVER_URL}/eth/getBalance`, balance_data)
     // console.log(res.data)
     return res.data
+  }
+
+  @Action 
+  public async goChat(){
+    window.location.href = `${CAHT_URL}`;
   }
 }

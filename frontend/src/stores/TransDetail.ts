@@ -130,11 +130,8 @@ export default class TransDetail extends VuexModule {
     console.log(send_data)
     const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
     if (res.data) {
-      Swal.fire({
-        icon: "info",
-        title: "돈이 없쩌용",
-        width: 600,
-      })
+      console.log('돈이 안가쓔')
+      console.log(res.data)
     } else {
       return "success"
     }

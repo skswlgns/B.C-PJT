@@ -146,7 +146,7 @@ ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Respons
       console.log(receipt);
   })
   .catch(function() {
-    res.status(500).send({ message: "돈이 없어용" })
+    res.status(403).send({ message: "돈이 없어용" })
   });   
 })
 
