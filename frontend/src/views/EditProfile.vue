@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ myinfo }}
-    {{profile_image}}
     <v-card  class="mb-2">
       <v-container>
         <h2 class="text-center my-3"> 프로필 수정 </h2>
@@ -35,7 +33,7 @@
 
          <div class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="editprofile(myinfo, profile_image)">수정하기</v-btn>
+            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="editprofile(myinfo)">수정하기</v-btn>
           </div>
         </div>
 
@@ -66,7 +64,7 @@
     private get_mypage!: () => void;
 
     @EditProfileModule.Action('editprofile')
-    private editprofile!: (profiledata:any, profile_image:string) => void;
+    private editprofile!: (profiledata:any) => void;
 
 
 
