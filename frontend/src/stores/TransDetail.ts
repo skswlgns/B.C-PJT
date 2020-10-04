@@ -117,7 +117,7 @@ export default class TransDetail extends VuexModule {
     const user_data: any = {
       user_id: user_id,
     }
-    const res = await axios.post(`${SERVER_URL}/api/eth/userAccount`, user_data)
+    const res = await axios.post(`${SERVER_URL}/eth/userAccount`, user_data)
     // console.log(res.data)
     return res.data
     // console.log('유저 아이디 왔냐')
@@ -128,7 +128,7 @@ export default class TransDetail extends VuexModule {
   public async send_money(send_data: any) {
     console.log("action")
     console.log(send_data)
-    const res = await axios.post(`${SERVER_URL}/api/eth/transcoin`, send_data)
+    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
     if (res.data) {
       Swal.fire({
         icon: "info",
