@@ -87,7 +87,7 @@
                   </div>
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_good_lang}}</p>
-                    <p class="badge">고급</p>
+                    <p class="badge">잘하는 언어</p>
                   </div>
                 </div>
                 <v-spacer></v-spacer>
@@ -95,9 +95,7 @@
                   <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
-                <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">
-                  <v-btn class="btn" @click="btn_click(user_profile._id)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-                
+                <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
                   <v-dialog
                     v-model="dialog2"
                     persistent
@@ -129,42 +127,42 @@
                       </v-card-actions>
                     </v-card>
                   </v-dialog>
+
+                  <v-dialog
+                    v-model="dialog3"
+                    persistent
+                    max-width="350"
+                    class="modal"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn v-bind="attrs" v-on="on"   
+                        class="cancel_btn_2">
+                        <v-icon class="select_icon">mdi-close-thick</v-icon>
+                        통역사 취소하기 
+                      </v-btn>
+                    </template>
+                    <v-card class="modal_body">
+                      <v-card-title class="headline">
+                        취소 사유를 작성해주세요. 
+                      </v-card-title>
+                      <v-card-text class="modal_text">
+                        <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                        <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
+                        </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog3 = false"
+                        >
+                          close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog> 
                 </div>
                 <!--client가 취소 -> 지원자한테 메일 보내기 -->
-                <v-dialog
-                  v-model="dialog3"
-                  persistent
-                  max-width="350"
-                  class="modal"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" 
-                      v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && money_success"  
-                      class="cancel_btn_2">
-                      통역사 취소하기 
-                    </v-btn>
-                  </template>
-                  <v-card class="modal_body">
-                    <v-card-title class="headline">
-                      취소 사유를 작성해주세요. 
-                    </v-card-title>
-                    <v-card-text class="modal_text">
-                      <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                      <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
-                      </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialog3 = false"
-                      >
-                        close
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog> 
-
               </div>
               <v-row class="contents">
                 <div class="content">
@@ -422,6 +420,8 @@
       // this.cancelParams.to_email = to_email,
       this.cancelParams.title = title
       this.cancelTest()
+      this.dialog3 = false
+      this.dialog = false
     }
 
     @TransDetailModule.State('article')
@@ -491,8 +491,6 @@
 
     async mounted() {
       await this.get_article_1(this.id)
-      console.log('mounted')
-
       await this.get_candidate(this.article.article_candidate)
       window.scrollTo(0, 0) 
     }   

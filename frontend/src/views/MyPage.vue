@@ -4,8 +4,8 @@
     {{ myarticle }}
     <hr>
     {{ applyarticle}}
-    <!-- #                    브라우저                       # -->
 
+    <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
       <div class="user-box d-flex">
@@ -34,39 +34,56 @@
           </div>
         </div>
       </div>
-        <h1>진행 중</h1>
-        <div class="ing-box">
-          <!--요청한거부터 처리하자-->
+      
+      <h1>진행 중</h1>
+      <div class="ing-box">
+        <!--요청한거부터 처리하자-->
+        <div class="two_box">
           <v-card
-            class="mx-auto my-3"
-            max-width="500"
+            class="my-3"
+            max-width="1000"
             outlined
             v-for="(article, index) in myarticle" :key="index"
           >
-          <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
-            <v-list-item v-if="article.article_select">
-              <v-list-item-content>
-                <div class="card_header">
-                  <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                  <div class="overline mb-4 complete" v-if="article.article_complete === true">완료</div>
-                  <div class="overline mb-4 nocomplete" v-else>미완료</div>
-                  <v-spacer></v-spacer>
-                  <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                </div>
-                <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
-                <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
-                    {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
+            <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
+              <v-list-item v-if="article.article_select">
+                <v-list-item-content>
+                  <div class="card_header">
+                    <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
+                    <div class="overline mb-4 complete" v-if="article.article_complete === true">완료</div>
+                    <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                    <v-spacer></v-spacer>
+                    <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                  </div>
+                  <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
+                      {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
           </v-card>
 
           <v-card
-            class="mx-auto my-3"
-            max-width="500"
+            class="my-3"
+            max-width="400"
             outlined
-            v-for="(li, index) in applyarticle" :key="index"
+            v-for="(article, index) in myarticle" :key="index"
           >
+            <v-list-item v-if="article.article_select">
+              <v-list-item-content class="btn_box">
+                <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+                <v-btn class="send_btn">통역사 송금하기</v-btn>
+              </v-list-item-content>
+            </v-list-item>
+          </v-card>
+        </div>
+
+        <v-card
+          class="mx-auto my-3"
+          max-width="500"
+          outlined
+          v-for="(li, index) in applyarticle" :key="index"
+        >
           <router-link :to="{name: 'TransDetail', params : {id:li.article_id._id}}" class="router">
             <v-list-item v-if="li.article_id.article_select == myinfo._id">
               <v-list-item-content>
@@ -83,7 +100,7 @@
             </v-list-item>
           </router-link> 
         </v-card>
-        </div>
+      </div>
       <div>
 
       </div>
@@ -315,6 +332,9 @@
   
   @myPageModule.Action('get_applyarticle')
   private get_applyarticle!: () => void;
+
+  @myPageModule.Action('goChat')
+  private goChat!: () => void;
 
   async created() {
     // console.log('여기는 비폴 ')

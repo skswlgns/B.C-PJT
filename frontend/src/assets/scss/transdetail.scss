@@ -207,6 +207,17 @@
             color: white;
             margin-right: 10px;
           }
+          .cancel_btn_2{
+            background-color:#F4511E;
+            color: white;
+            margin-top: 1rem;
+            .modal{
+              padding: 1rem;
+              .modal_body{
+                background-color: red;
+              }
+            }
+          }
           .complete_btn{
             background-color: #FF8F00;
             color: white;

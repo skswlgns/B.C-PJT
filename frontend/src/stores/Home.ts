@@ -18,9 +18,6 @@ export default class Home extends VuexModule {
   public async savearticle(temp_data:any) {    
     // console.log('mutation', temp_data)
     this.article = temp_data
-    console.log('여기야')
-    console.log(temp_data)
-    console.log(this.article)
   }
 
   @Mutation
@@ -40,7 +37,6 @@ export default class Home extends VuexModule {
   @Action({ commit: 'savearticle' })
   public async get_article() {
     const res = await axios.get(`${SERVER_URL}/articles`)
-    console.log(res.data)
     return res.data
   }
 }
