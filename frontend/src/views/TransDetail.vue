@@ -485,7 +485,6 @@
       this.send_data.toEgg = toegg
       this.finish = true
       this.dialog2 = false
-      console.log(this.send_data)
       this.send_money(this.send_data)
     }
 

@@ -2,10 +2,9 @@ import Vue from "vue"
 import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
-import Swal from "sweetalert2"
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER = "http://localhost:8080"
+
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
@@ -94,8 +93,6 @@ export default class TransDetail extends VuexModule {
 
   @Action({ commit: "article_save" })
   public async candi_click(clickData: any) {
-    console.log("여기야야야야야양야야야")
-    console.log(clickData)
     let config = {
       headers: {
         token: Vue.cookies.get("token"),
@@ -126,16 +123,18 @@ export default class TransDetail extends VuexModule {
 
   @Action({ commit: "save_success" })
   public async send_money(send_data: any) {
-    console.log("action")
+    console.log("돈 전송 action")
     console.log(send_data)
     const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
     if (res.data) {
       console.log('돈이 안가쓔')
       console.log(res.data)
     } else {
+      console.log('돈 송금 성공')
       return "success"
     }
   }
+
   @Action
   public async delete(delData: string) {
     let config = {

@@ -15,7 +15,7 @@
           <span class="nick-size">{{ myinfo.user_nickname }}</span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
           <p> {{ mymoney }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
-          <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" > {{ lang }}</span> </span>
+          <!-- <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" > {{ lang }}</span> </span> -->
         </div>
         <div class="ml-auto my-auto mr-3">
           <div class="d-flex flex-column">
@@ -43,64 +43,97 @@
             class="my-3 two_box"
             max-width="1200"
             outlined
-            v-for="(article, index) in myarticle" :key="index"
+            v-for="(post, index) in myarticle" :key="index"
           >
-            <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
-              <v-list-item v-if="article.article_select">
+            <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
+              <v-list-item v-if="post.article_select">
                 <v-list-item-content>
                   <div class="card_header">
                     <div class="overline mb-4 request">요청</div>
                     <v-spacer></v-spacer>
-                    <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                    <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                   </div>
-                  <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
-                      {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
+                  <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
+                      {{  post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </router-link>
             <div class="btn_box">
               <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-              <v-btn class="send_btn">통역사 송금하기</v-btn>
+
+              <v-dialog
+                v-model="dialog2"
+                persistent
+                max-width="400"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title class="headline">
+                    계좌 비밀번호를 입력해주세요. 
+                  </v-card-title>
+                  <v-card-text>
+                    <input  type="text" placeholder="비밀번호">
+                    <v-btn>송금하기</v-btn>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="green darken-1"
+                      text
+                      @click="dialog2 = false"
+                    >
+                      close
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </div>
             <div class="chat_box">
               <p>! 화상 채팅 입력 방법 !</p>
               <p>nickname : 이름 작성</p>
-              <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
+              <p>Room : <span class="room">{{post._id.substr(0, 5)}}</span></p>
             </div>
           </v-card>
         </div>
 
-        <v-card
-          class="mx-auto my-3"
-          max-width="500"
-          outlined
-          v-for="(li, index) in applyarticle" :key="index"
-        >
-          <router-link :to="{name: 'TransDetail', params : {id:li.article_id._id}}" class="router">
-            <v-list-item v-if="li.article_id.article_select == myinfo._id">
-              <v-list-item-content>
-                <div class="card_header">
-                  <div class="overline mb-4 apply">참여</div>
-                  <v-spacer></v-spacer>
-                  <div class="point"> <span>{{li.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                </div>
-                <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
-                <v-list-item-subtitle class="my-2">{{ li.article_id.article_start_date }} ~ {{ li.article_id.article_end_date }} | 
-                  {{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </router-link>
-          <div class="btn_box">
-            <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-            <v-btn class="send_btn">통역사 송금하기</v-btn>
-          </div>
-          <div class="chat_box">
-            <p>화상 채팅 입력 방법</p>
-            <p>nickname : 이름 작성</p>
-            <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
-          </div>
-        </v-card>
+        <div>
+          <v-card
+            class="my-3 two_box"
+            max-width="1200"
+            outlined
+            v-for="(post, index) in applyarticle" :key="index"
+            
+          >
+            <div v-if="post.article_id">
+              <router-link  :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
+                <v-list-item v-if="post.article_id.article_select == myinfo._id">
+                  <v-list-item-content>
+                    <div class="card_header">
+                      <div class="overline mb-4 apply">참여</div>
+                      <v-spacer></v-spacer>
+                      <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                    </div>
+                    <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
+                    <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
+                      {{  post.article_id.article_from }} -> {{ post.article_id.article_to }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </router-link>
+              <div class="btn_box">
+                <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+                <v-btn class="send_btn">통역사 송금하기</v-btn>
+              </div>
+              <div class="chat_box">
+                <p>화상 채팅 입력 방법</p>
+                <p>nickname : 이름 작성</p>
+                <p>Room : <span class="room">{{post.article_id._id.substr(0, 5)}}</span></p>
+              </div>
+            </div>
+          </v-card> 
+        </div>
       </div>
       <div>
 
@@ -113,7 +146,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    요청 ({{myarticle.length}})
+                    <!-- 요청 ({{myarticle.length}}) -->
                   </div>
                 </div>
                 <v-row>
@@ -122,21 +155,21 @@
                       class="mx-auto my-3"
                       max-width="500"
                       outlined
-                      v-for="(article, index) in myarticle" :key="index"
+                      v-for="(post, index) in myarticle" :key="index"
                     >
-                    <router-link :to="{name: 'TransDetail', params : {id:article._id}}" class="router">
+                    <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                       <v-list-item>
                         <v-list-item-content>
                           <div class="card_header">
                             <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                            <div class="overline mb-4 complete" v-if="article.article_complete === true">완료</div>
-                            <div class="overline mb-4 nocomplete" v-else>미완료</div>
+                            <div class="overline mb-4 complete">완료</div>
+                            <div class="overline mb-4 nocomplete">미완료</div>
                             <v-spacer></v-spacer>
-                            <div class="point"> <span>{{article.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                            <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                           </div>
-                          <v-list-item-title class="headline mb-1">{{ article.article_title }}</v-list-item-title>
-                          <v-list-item-subtitle class="my-2">{{ article.article_start_date }} ~ {{ article.article_end_date }} |
-                             {{  article.article_from }} -> {{ article.article_to }} </v-list-item-subtitle>
+                          <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
+                          <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
+                             {{ post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
                     </router-link>
@@ -159,24 +192,25 @@
                         class="mx-auto my-3"
                         max-width="500"
                         outlined
-                        v-for="(li, index) in applyarticle" :key="index"
+                        v-for="(post, index) in applyarticle" :key="index"
                       >
-                      <router-link :to="{name: 'TransDetail', params : {id:li.article_id._id}}" class="router">
-                        <v-list-item>
-                          <v-list-item-content>
-                            <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                            <div class="card_header">
-                              <div class="overline mb-4 complete" v-if="li.article_complete === true">완료</div>
-                              <div class="overline mb-4 nocomplete" v-else>미완료</div>
-                              <v-spacer></v-spacer>
-                              <div class="point"> <span>{{li.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                            </div>
-                            <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
-                            <v-list-item-subtitle class="my-2">{{ li.article_id.article_start_date }} ~ {{ li.article_id.article_end_date }} | 
-                              {{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </router-link> 
+                      <div v-if="post.article_id">
+                        <router-link :to="{name: 'TransDetail', params : {id: post.article_id._id}}" class="router">
+                          <v-list-item>
+                            <v-list-item-content>
+                              <div class="card_header">
+                                <div class="overline mb-4 complete">완료</div>
+                                <div class="overline mb-4 nocomplete">미완료</div>
+                                <v-spacer></v-spacer>
+                                <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                              </div>
+                              <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
+                              <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
+                                {{  post.article_id.article_from }} -> {{ post.article_id.article_to }}</v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                        </router-link> 
+                      </div>
                     </v-card>
                   </v-col>
                 </v-row>
@@ -213,6 +247,7 @@
   private myinfo!: any;
 
   private temp_wallet : String = ""
+  private dialog2 : boolean = false
 
   set_address(address : String){
     this.temp_wallet = address
@@ -223,7 +258,6 @@
 
   @myPageModule.State('applyarticle')
   private applyarticle!: any;
-
 
   @myPageModule.State('mymoney')
   private mymoney!: any;
@@ -240,7 +274,6 @@
   @myPageModule.Action('get_applyarticle')
   private get_applyarticle!: () => void;
 
-
   @myPageModule.Action('goChat')
   private goChat!: () => void;
 
@@ -249,12 +282,16 @@
     this.get_mypage()
     this.get_myarticle()
     this.get_applyarticle()
+
+    setTimeout(() => 
+      this.get_balance(this.myinfo.user_wallet), 200
+    )
   }
 
   async mounted(){
-    setTimeout(() => 
-      this.get_balance(this.myinfo.user_wallet), 500
-    )
+    // setTimeout(() => 
+    //   this.get_balance(this.myinfo.user_wallet), 200
+    // )
   }
 }
 </script>
