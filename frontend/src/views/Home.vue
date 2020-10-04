@@ -6,8 +6,8 @@
       <h1 class="trans_h1">통역 리스트</h1>
       <div class="selection">
         <div class="selection_lang">
-          <select v-model="serachData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
-        <option>{{ serachData.lang_1 }}</option>
+          <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1" >
+        <option>{{ searchData.lang_1 }}</option>
         <option>한국어</option>
         <option>English</option>
         <option>Deutsch</option>
@@ -160,8 +160,8 @@
         <option>ᏣᎳᎩ</option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
-          <select v-model="serachData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
-            <option>{{ serachData.lang_2 }}</option>
+          <select v-model="searchData.lang_2" name="searchData.lang_2" id="searchData.lang_2" >
+            <option>{{ searchData.lang_2 }}</option>
             <option>한국어</option>
             <option>English</option>
             <option>Deutsch</option>
@@ -315,11 +315,11 @@
           </select>
         </div>
         <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
-            <input v-model="serachData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+          <template v-slot:activator="{ on, attrs }" >
+            <input v-model="searchData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="시작 날짜" >
           </template>
           <v-list>
-            <v-date-picker v-model="serachData.date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="searchData.date_picker" color="green lighten-1" ></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -331,7 +331,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="serachData.time_picker"
+              v-model="searchData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -340,19 +340,18 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="serachData.time_picker"
+            v-model="searchData.time_picker"
             full-width
-            @click:minute="$refs.menu.save(time)"
+            @click:minute="$refs.menu.save(searchData.time_picker)"
           ></v-time-picker>
         </v-menu>
-        <v-icon @click="search(searchData)" class="mag_icon">mdi-magnify</v-icon>
+        <v-icon class="mag_icon">mdi-magnify</v-icon>
       </div>
 
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList">
-            <li v-for="(list, index) in article" :key="index">
-              
+            <li v-for="(list, index) in searching" :key="index">
                 <div class="card"> 
                   <div class="profile">
                     <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image" @click="goUserpage(list.user_id._id)">
@@ -366,16 +365,18 @@
                     <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                   </div>
                 </div> 
-              
             </li>
+          </div>
+          <div v-if="articleData.length === 0">
+            <img src="../assets/images/텅.png" class="searchImg">
           </div>
         </v-col>
 
         <v-col lg="4">
           <div class="applyTrans">
             <div class="btns">
-              <v-btn class="btn_blue">긴급 통역 요청</v-btn>
-              <v-btn class="btn">일반 통역 요청</v-btn>
+              <router-link to="/regist" class="router"><v-btn class="btn_blue">긴급 통역 요청</v-btn></router-link>
+              <router-link to="/regist" class="router"><v-btn class="btn">일반 통역 요청</v-btn></router-link>
             </div>
             <div class="lately_trans">
               <h3>최근 활동한 번역가</h3>
@@ -391,8 +392,8 @@
       <h3 class="trans_h3">통역 신청 리스트</h3>
       <div class="selection">
         <div class="selection_lang">
-          <select v-model="serachData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
-        <option>{{ serachData.lang_1 }}</option>
+          <select v-model="searchData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
+        <option>{{ searchData.lang_1 }}</option>
         <option>한국어</option>
         <option>English</option>
         <option>Deutsch</option>
@@ -545,8 +546,8 @@
         <option>ᏣᎳᎩ</option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
-          <select v-model="serachData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
-            <option>{{ serachData.lang_2 }}</option>
+          <select v-model="searchData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
+            <option>{{ searchData.lang_2 }}</option>
             <option>한국어</option>
             <option>English</option>
             <option>Deutsch</option>
@@ -701,10 +702,10 @@
         </div>
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <input v-model="serachData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
+            <input v-model="searchData.date_picker" v-bind="attrs" v-on="on" type="text" class="selection_date" placeholder="통역 날짜">
           </template>
           <v-list>
-            <v-date-picker v-model="serachData.date_picker" color="green lighten-1"></v-date-picker>
+            <v-date-picker v-model="searchData.date_picker" color="green lighten-1"></v-date-picker>
           </v-list>
         </v-menu>
         <v-menu
@@ -716,7 +717,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <input
-              v-model="serachData.time_picker"
+              v-model="searchData.time_picker"
               class="selection_time"
               placeholder="통역 시간"
               v-bind="attrs"
@@ -725,7 +726,7 @@
           </template>
           <v-time-picker
             v-if="menu2"
-            v-model="serachData.time_picker"
+            v-model="searchData.time_picker"
             full-width
             @click:minute="$refs.menu.save(time)"
           ></v-time-picker>
@@ -759,7 +760,7 @@
   </div>
 </template>
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
+  import { Component, Vue} from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
 
   const HomeModule = namespace('Home');
@@ -768,10 +769,11 @@
 
   })
   export default class Home extends Vue {
+    private articleData: any = []
 
-    private serachData : any = {
-      lang_1 : "requestBody.article_from",
-      lang_2 : "requestBody.article_to",
+    private searchData : any = {
+      lang_1 : "",
+      lang_2 : "",
       date_picker : "",
       time_picker : "",
     }
@@ -782,7 +784,6 @@
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
     }
-
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
@@ -796,8 +797,19 @@
     @HomeModule.Action('get_article')
     private get_article!: () => void;
 
-    async mounted()  {
+    async created()  {
       await this.get_article()
+      this.articleData = this.article
+
+    }
+    private get searching() {
+      if (this.searchData.lang_1 || this.searchData.lang_2 || this.searchData.date_picker || this.searchData.time_picker) {
+        this.articleData = this.article.filter((from: any) => from.article_from.includes(this.searchData.lang_1))
+        this.articleData = this.articleData.filter((to: any) => to.article_to.includes(this.searchData.lang_2))
+        this.articleData = this.articleData.filter((date : any) => date.article_start_date.includes(this.searchData.date_picker)) 
+        this.articleData = this.articleData.filter((time : any) => time.article_start_time >= this.searchData.time_picker)
+      }
+      return this.articleData
     }
   }
 </script>
