@@ -2,7 +2,6 @@
   <div>
 
     <!-- #                    브라우저                       # -->
-    {{ userinfo }}
     <div v-if="windowWidth > 375">
       <h1>유저페이지</h1>
       <div class="user-box d-flex">
