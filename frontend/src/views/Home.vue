@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <h1 class="trans_h1">통역 리스트</h1>
@@ -780,10 +781,6 @@
     // methods
     goDetail(){
       this.$router.push('/transdetail').catch(()=>{})
-    }
-
-    search(){
-
     }
 
     // vuex 영역
