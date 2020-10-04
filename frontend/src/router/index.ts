@@ -6,6 +6,7 @@ import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
 import TransDetail from '@/views/TransDetail.vue'
+import TranslateRegist from '@/views/TranslateRegist.vue'
 import UserPage from '@/views/UserPage.vue'
 import RegistTrans from '@/views/RegistTrans.vue'
 import EditProfile from '@/views/EditProfile.vue'
@@ -68,6 +69,17 @@ const routes = [
     path: '/',
     name: 'Home2',
     component: Home2
+  },
+  {
+    path: '/regist',
+    name: 'TranslateRegist',
+    component: TranslateRegist,
+  },
+  {
+    path: '/transdetail/revise/:id',
+    name: 'TransRevise',
+    component: TranslateRegist,
+    props: true,
   },
 ]
 
