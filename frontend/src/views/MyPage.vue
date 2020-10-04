@@ -1,13 +1,9 @@
 <template>
   <div>
     {{ myinfo }}
-<<<<<<< HEAD
     {{ myarticle }}
     <hr>
     {{ applyarticle}}
-=======
-    <!-- #                    브라우저                       # -->
->>>>>>> 16c3edfb3a6a67302598e9dba87ab8349993165b
 
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
