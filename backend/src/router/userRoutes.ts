@@ -19,7 +19,7 @@ const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 userRoutes.get("/my", verificationMiddleware)
 userRoutes.get("/my", async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.email })
-    .populate("user_good_lang")
+    // .populate("user_good_lang")
     .populate("user_resume")
     .exec(async (err: Error, user: any) => {
       if (err) {
