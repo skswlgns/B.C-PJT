@@ -66,7 +66,7 @@
               <v-btn class="send_btn">통역사 송금하기</v-btn>
             </div>
             <div class="chat_box">
-              <p>화상 채팅 입력 방법</p>
+              <p>! 화상 채팅 입력 방법 !</p>
               <p>nicname : 이름 작성</p>
               <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
             </div>
@@ -95,14 +95,14 @@
             </v-list-item>
           </router-link>
           <div class="btn_box">
-              <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-              <v-btn class="send_btn">통역사 송금하기</v-btn>
-            </div>
-            <div class="chat_box">
-              <p>화상 채팅 입력 방법</p>
-              <p>nicname : 이름 작성</p>
-              <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
-            </div>
+            <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+            <v-btn class="send_btn">통역사 송금하기</v-btn>
+          </div>
+          <div class="chat_box">
+            <p>화상 채팅 입력 방법</p>
+            <p>nicname : 이름 작성</p>
+            <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
+          </div>
         </v-card>
       </div>
       <div>
@@ -154,9 +154,6 @@
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     참여 ( {{ applyarticle.length}})
-                  </div>
-                  <div class="ml-auto mr-2 my-2">
-                    <a href="">전체보기</a>
                   </div>
                 </div>
                 <v-row>
