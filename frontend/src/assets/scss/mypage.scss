@@ -9,17 +9,18 @@
 
 .two_box{
 	display: flex;
-	margin : 0 15%;
-
 	.btn_box{
-		margin: 8% 0;
+		width: 400px;
+		padding: 1.5rem 0;
+		border-left: 1px solid grey;
 		.chat_btn{
 			border: 2px solid blue;
 			background-color: white;
 			color: blue;
 			font-weight: bold;
 			border-radius: 0.5rem;
-			padding: 0 0.5rem;
+			padding: 0 3rem;
+			margin: 0 20%;
 			margin-bottom: 1rem;
 		}
 		.send_btn{
@@ -28,36 +29,54 @@
 			background-color: white;
 			font-weight: bold;
 			border-radius: 0.5rem;
-			padding: 0 0.5rem;	
+			padding: 0 1.5rem;	
+			margin: 0 20%;	
+		}
+	}
+	.chat_box{
+		width: 400px;
+		padding: 1rem ;
+		border-left: 1px solid grey;
+		text-align: center;
+		p{
+			font-weight: bold;
+		}
+		.room{
+			color: red;
 		}
 	}
 }
-.card_header{
-	display: flex;
-	.complete{
-		border: 2px solid red;
-		color: red;
-		font-weight: bold;
-		border-radius: 1rem;
-		padding: 0 0.5rem;	
-	}
-	.nocomplete{
-		border: 2px solid green;
-		color: green;
-		font-weight: bold;
-		border-radius: 1rem;
-		padding: 0 0.5rem;	
-	}
-	.point {
-		border: 1px solid lightgray;
-		border-radius: 1rem;
-		padding: 0.3rem 0.5rem;
-		background-color: white;
-		margin-right: 0.5rem;
-		font-weight: bold;
-		height: 6%;
-		.egg_icon{
-			color: #FFAB00;
+.router{
+	padding: 0 1rem;
+	width: 700px;
+	.card_header{
+		display: flex;
+		margin: auto;
+		.complete{
+			border: 2px solid red;
+			color: red;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.nocomplete{
+			border: 2px solid green;
+			color: green;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.point {
+			border: 1px solid lightgray;
+			border-radius: 1rem;
+			padding: 0.3rem 0.5rem;
+			background-color: white;
+			margin-right: 0.5rem;
+			font-weight: bold;
+			height: 6%;
+			.egg_icon{
+				color: #FFAB00;
+			}
 		}
 	}
 }

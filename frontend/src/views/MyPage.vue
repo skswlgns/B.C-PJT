@@ -38,10 +38,10 @@
       <h1>진행 중</h1>
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
-        <div class="two_box">
+        <div>
           <v-card
-            class="my-3"
-            max-width="1000"
+            class="my-3 two_box"
+            max-width="1200"
             outlined
             v-for="(article, index) in myarticle" :key="index"
           >
@@ -61,20 +61,15 @@
                 </v-list-item-content>
               </v-list-item>
             </router-link>
-          </v-card>
-
-          <v-card
-            class="my-3"
-            max-width="400"
-            outlined
-            v-for="(article, index) in myarticle" :key="index"
-          >
-            <v-list-item v-if="article.article_select">
-              <v-list-item-content class="btn_box">
-                <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-                <v-btn class="send_btn">통역사 송금하기</v-btn>
-              </v-list-item-content>
-            </v-list-item>
+            <div class="btn_box">
+              <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+              <v-btn class="send_btn">통역사 송금하기</v-btn>
+            </div>
+            <div class="chat_box">
+              <p>! 화상 채팅 입력 방법 !</p>
+              <p>nicname : 이름 작성</p>
+              <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
+            </div>
           </v-card>
         </div>
 
@@ -98,7 +93,16 @@
                   {{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
-          </router-link> 
+          </router-link>
+          <div class="btn_box">
+            <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+            <v-btn class="send_btn">통역사 송금하기</v-btn>
+          </div>
+          <div class="chat_box">
+            <p>화상 채팅 입력 방법</p>
+            <p>nicname : 이름 작성</p>
+            <p>Room : <span class="room">{{article._id.substr(0, 5)}}</span></p>
+          </div>
         </v-card>
       </div>
       <div>
@@ -113,9 +117,6 @@
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     요청 ({{myarticle.length }})
-                  </div>
-                  <div class="ml-auto mr-2 my-2">
-                    <a href="">전체보기</a>
                   </div>
                 </div>
                 <v-row>
@@ -147,14 +148,12 @@
                 </v-row>
               </v-card>
             </v-col>
+
             <v-col>
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     참여 ( {{ applyarticle.length}})
-                  </div>
-                  <div class="ml-auto mr-2 my-2">
-                    <a href="">전체보기</a>
                   </div>
                 </div>
                 <v-row>
@@ -192,7 +191,7 @@
 
     <!-- ########################   모바일    ##################################3-->
 
-    <div v-else-if="windowWidth <= 375">
+    <!-- <div v-else-if="windowWidth <= 375">
       <h2 class="ma-2">마이페이지</h2>
       <div class="card-container mx-auto text-center">
         <span class="pro" v-if="myinfo.user_is_ts === true">통역가</span>
@@ -257,7 +256,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-    </div>
+    </div> -->
   </div>
 </template>
 
