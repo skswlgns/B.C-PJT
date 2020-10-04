@@ -14,12 +14,7 @@ const UserSchema = new mongoose.Schema({
   user_gender: { type: String, default: "" },
   user_lang: { type: String, default: "" },
   user_intro: { type: String, default: "" },
-  user_good_lang: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "GoodLang",
-    },
-  ],
+  user_good_lang: { type: Array, default: [] },
   user_resume: [
     {
       type: Schema.Types.ObjectId,
