@@ -762,13 +762,13 @@
 <script lang="ts">
   import { Component, Vue} from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
-  import InfiniteLoading from 'vue-infinite-loading'
+  // import InfiniteLoading from 'vue-infinite-loading'
 
   const HomeModule = namespace('Home');
 
   @Component({
     components: {
-      InfiniteLoading,
+      // InfiniteLoading,
     }
   })
   export default class Home extends Vue {
