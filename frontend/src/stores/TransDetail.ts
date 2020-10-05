@@ -3,7 +3,8 @@ import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
-const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER_URL = 'http://localhost:8080/api'
 
 
 @Module({ namespaced: true })

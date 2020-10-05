@@ -601,7 +601,7 @@
               }], {duration: 1500, fill: 'forwards'});
             }
             if (scrollPer > 0.9) {
-              let yMove = scrollPer * 170
+              let yMove = scrollPer * 150
               registElem.animate([
               {
                 transform: 'translateY(' + yMove + '%)'
