@@ -286,7 +286,7 @@
   private goChat!: () => void;
 
   @myPageModule.Action('send_money')
-  private send_money!: (send_data : any) => void;
+  private send_money!: (send_data : any) => any;
 
   private send_data = {
     fromEgg : "",
