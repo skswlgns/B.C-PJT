@@ -11,6 +11,18 @@ const userRoutes = express.Router()
 const verificationMiddleware = require("../middleware/verification")
 const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
+// SET STORAGE
+// var storage = multer.diskStorage({
+//   destination: function (req: any, file: any, cb: any) {
+//     cb(null, "uploads")
+//   },
+//   filename: function (req: any, file: any, cb: any) {
+//     cb(null, file.fieldname + "-" + Date.now())
+//   },
+// })
+
+// var upload = multer({ storage: storage })
+
 /*
 본인의 정보를 요청하거나 정보를 수정하는 작업을 위한 router
 */

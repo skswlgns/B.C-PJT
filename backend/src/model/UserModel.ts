@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   user_egg: { type: Number, default: 0 },
   user_wallet: { type: String, default: "" },
   user_created_at: { type: Date, default: Date.now() },
-  user_image: { type: String, default: "" },
+  user_image: { type: Buffer, contentType: String },
   user_is_ts: { type: Boolean, default: false },
   user_name: { type: String, default: "" },
   user_gender: { type: String, default: "" },

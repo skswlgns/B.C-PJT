@@ -1,5 +1,7 @@
 import express from "express"
 import { UserModel } from "../model/UserModel"
+import { ArticleModel } from "../model/ArticleModel"
+import { CandidateModel } from "../model/CandidateModel"
 
 const authRoutes = express.Router()
 const crypto = require("crypto")
@@ -10,7 +12,18 @@ const secretObj = require("../config/jwt")
 
 // jwt middleware
 const verificationMiddleware = require("../middleware/verification")
-const verificationAdminMiddleware = require("../middleware/verificationAdmin")
+
+// SET STORAGE
+// var storage = multer.diskStorage({
+//   destination: function (req: any, file: any, cb: any) {
+//     cb(null, "uploads")
+//   },
+//   filename: function (req: any, file: any, cb: any) {
+//     cb(null, file.fieldname + "-" + Date.now())
+//   },
+// })
+
+// var upload = multer({ storage: storage })
 
 /*
 계정 인증을 위한 router
@@ -130,6 +143,9 @@ authRoutes.put("/", async (req: express.Request, res: express.Response) => {
         // 회원정보가 존재하지 않으면 오류반환
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
+        // image file 있는지 확인
+        // const imageFile = req.files
+
         // 회원정보가 존재하면 수정
         await UserModel.findOneAndUpdate(
           { _id: user._id },
@@ -158,7 +174,9 @@ authRoutes.delete("/", async (req: express.Request, res: express.Response) => {
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
         // 회원정보가 존재하면 수정
-        await UserModel.deleteOne({ user_email: req.headers.email })
+        await UserModel.deleteOne({ user_email: user._id })
+        await ArticleModel.deleteMany({ user_id: user._id })
+        await CandidateModel.deleteMany({ user_id: user._id })
         res.status(200).send({ message: "회원 탈퇴 되었습니다." })
       }
     }
