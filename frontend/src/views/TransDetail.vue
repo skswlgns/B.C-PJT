@@ -1,14 +1,15 @@
 <template>
   <div>
-    {{article}}
+    <!-- {{article}} -->
+    {{ article.user_id }}
     <hr>
-    {{ article.article_candidate }}
+    <!-- {{ article.article_candidate }} -->
     <hr>
-    {{ user }}
+    <!-- {{ user }}
     {{ my_email }}
     {{ toegg }}
     {{ clickData }}
-    {{ money_success }}
+    {{ money_success }} -->
     <hr>
 
     <!--WEB-->
@@ -57,9 +58,9 @@
             <span class="point inline">{{article.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span>
           </div>
         </div>
-        <v-row class="requests">
+        <v-row class="requests" v-if="article.user_id.user_email === my_email">
           <v-spacer></v-spacer>
-          <router-link :to="{ name: 'TransRevise', params: { id: applyData.article_id }}" class='routerbtn'><v-btn class="edit_btn">수정하기</v-btn></router-link>
+          <router-link  :to="{ name: 'TransRevise', params: { id: applyData.article_id }}" class='routerbtn'><v-btn class="edit_btn">수정하기</v-btn></router-link>
           <v-btn class="del_btn" @click="del(id)">삭제하기</v-btn>
         </v-row>
       </div>
