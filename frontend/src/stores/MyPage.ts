@@ -44,8 +44,8 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_success(temp_data: boolean) {
     this.success_money = true
-    console.log(temp_data)
-    console.log(this.success_money)
+    // console.log(temp_data)
+    // console.log(this.success_money)
   }
 
   // actions
@@ -116,9 +116,10 @@ export default class MyPage extends VuexModule {
     console.log(send_data)
     await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
     .then(res => {
-      console.log(res.data)
-      return res.data
+      console.log('김용욱 개천사', res.data)
+      // return res.data
     })
+    .catch(err => console.log(err))
 
   }
 }
