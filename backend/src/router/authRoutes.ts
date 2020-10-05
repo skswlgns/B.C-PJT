@@ -14,16 +14,21 @@ const secretObj = require("../config/jwt")
 const verificationMiddleware = require("../middleware/verification")
 
 // SET STORAGE
-// var storage = multer.diskStorage({
-//   destination: function (req: any, file: any, cb: any) {
-//     cb(null, "uploads")
-//   },
-//   filename: function (req: any, file: any, cb: any) {
-//     cb(null, file.fieldname + "-" + Date.now())
-//   },
-// })
+const multer = require("multer")
+const path = require("path")
 
-// var upload = multer({ storage: storage })
+const upload = multer({
+  storage: multer.diskStorage({
+    // set a localstorage destination
+    destination: (req: any, file: any, cb: any) => {
+      cb(null, "uploads/")
+    },
+    // convert a file name
+    filename: (req: any, file: any, cb: any) => {
+      cb(null, new Date().valueOf() + path.extname(file.originalname))
+    },
+  }),
+})
 
 /*
 계정 인증을 위한 router
@@ -93,7 +98,6 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_email = req.body.user_email
     const user_pwd = req.body.user_pwd
     const user_nickname = req.body.user_nickname
-    const user_lang = req.body.user_lang
     const user_phone = req.body.user_phone
     const user_wallet = req.body.user_wallet
 
@@ -101,9 +105,14 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     if (
       user_email !== "" &&
       user_pwd !== "" &&
+      user_wallet !== "" &&
+      user_nickname !== "" &&
+      user_phone !== "" &&
       user_email !== undefined &&
       user_pwd !== undefined &&
-      user_wallet !== ""
+      user_wallet !== undefined &&
+      user_nickname !== undefined &&
+      user_phone !== undefined
     ) {
       // email 중복 확인
       await UserModel.findOne({ user_email: user_email }).then(async (user: any) => {
@@ -116,7 +125,6 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
             user_email: user_email,
             user_pwd: hashPassword(user_pwd),
             user_nickname: user_nickname,
-            user_lang: user_lang,
             user_phone: user_phone,
             user_wallet: user_wallet,
           })
@@ -134,7 +142,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
 
 // 회원정보 수정
 authRoutes.put("/", verificationMiddleware)
-authRoutes.put("/", async (req: express.Request, res: express.Response) => {
+authRoutes.put("/", upload.single("user_image"), async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
@@ -145,14 +153,13 @@ authRoutes.put("/", async (req: express.Request, res: express.Response) => {
       } else {
         // image file 있는지 확인
         // const imageFile = req.files
-
+        console.log(req.file)
         // 회원정보가 존재하면 수정
         await UserModel.findOneAndUpdate(
           { _id: user._id },
           {
-            user_pwd: user.user_pwd,
             user_nickname: req.body.user_nickname,
-            user_image: req.body.user_image,
+            user_image: req.file.filename,
             user_phone: req.body.user_phone,
           }
         )
