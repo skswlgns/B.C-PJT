@@ -136,10 +136,10 @@ ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Respons
   let PassWord : string = req.body['Password']
   let Egg : number = req.body['Egg']
   
-  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
-  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
+  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
+  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
     //계좌가 unlock됫다면 이제 돈보내면된다
-  web3.eth.sendTransaction({
+  await web3.eth.sendTransaction({
       from: fromEgg, // 출금 계좌(통역 의뢰인)
       to: toEgg, // 입금 계좌 (통역가)
       value: (Egg / 41.7)*(10**18) // 통역 대가
