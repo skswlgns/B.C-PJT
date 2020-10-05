@@ -3,7 +3,8 @@
     {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
-      <h1 class="trans_h1">통역 리스트</h1>
+      <!-- <h1 class="trans_h1">통역 리스트</h1> -->
+      {{ article }}
       <div class="selection">
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1" >
@@ -345,12 +346,13 @@
             @click:minute="$refs.menu.save(searchData.time_picker)"
           ></v-time-picker>
         </v-menu>
-        <v-icon class="mag_icon">mdi-magnify</v-icon>
+        <input type="text" class="selection_egg" v-model.number="searchData.egg" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
       </div>
 
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList">
+            <!-- <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading> -->
             <li v-for="(list, index) in searching" :key="index">
                 <div class="card"> 
                   <div class="profile">
@@ -736,7 +738,7 @@
       </div>
 
       <div class="cardList" @click="goDetail()">
-        <li v-for="(list, index) in article" :key="index">
+        <li v-for="(list, index) in searching" :key="index">
           <div class="card"> 
             <div class="profile">
               <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
@@ -750,6 +752,9 @@
             <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
           </div> 
         </li>
+        <div v-if="articleData.length === 0">
+          <img src="../assets/images/텅.png" class="searchImg" style="width: 100%">
+        </div>
       </div>
     </div>
   </div>
@@ -757,13 +762,17 @@
 <script lang="ts">
   import { Component, Vue} from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
+  import InfiniteLoading from 'vue-infinite-loading'
 
   const HomeModule = namespace('Home');
 
   @Component({
-
+    components: {
+      InfiniteLoading,
+    }
   })
   export default class Home extends Vue {
+
     private articleData: any = []
 
     private searchData : any = {
@@ -771,6 +780,7 @@
       lang_2 : "",
       date_picker : "",
       time_picker : "",
+      egg: 0,
     }
     private menu2 = false
     private modal2 = false
@@ -782,6 +792,9 @@
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
+
+    @HomeModule.State('limit')
+    private limit!: number;
 
     @HomeModule.Mutation('goUserpage')
     private goUserpage !: any;
@@ -798,11 +811,12 @@
 
     }
     private get searching() {
-      if (this.searchData.lang_1 || this.searchData.lang_2 || this.searchData.date_picker || this.searchData.time_picker) {
+      if (this.searchData.lang_1 || this.searchData.lang_2 || this.searchData.date_picker || this.searchData.time_picker || this.searchData.egg) {
         this.articleData = this.article.filter((from: any) => from.article_from.includes(this.searchData.lang_1))
         this.articleData = this.articleData.filter((to: any) => to.article_to.includes(this.searchData.lang_2))
         this.articleData = this.articleData.filter((date : any) => date.article_start_date.includes(this.searchData.date_picker)) 
         this.articleData = this.articleData.filter((time : any) => time.article_start_time >= this.searchData.time_picker)
+        this.articleData = this.articleData.filter((egg : any) => egg.article_egg >= this.searchData.egg)
       }
       return this.articleData
     }
