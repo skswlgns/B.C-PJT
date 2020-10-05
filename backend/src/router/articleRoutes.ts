@@ -13,8 +13,21 @@ const verificationMiddleware = require("../middleware/verification")
 */
 
 // 전체 Article 조회: GET
+// articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
+//   await ArticleModel.find({})
+//     .populate("user_id", "user_nickname user_email user_image")
+//     .sort({ article_updated_at: -1 })
+//     .exec((err: Error, articles: any) => {
+//       if (err) {
+//         res.status(500).send(err)
+//       } else {
+//         res.status(200).send(articles)
+//       }
+//     })
+// })
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
-  await ArticleModel.find({})
+  // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+  await ArticleModel.find({}) 
     .populate("user_id", "user_nickname user_email user_image")
     .sort({ article_updated_at: -1 })
     .exec((err: Error, articles: any) => {
@@ -118,6 +131,7 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
         await ArticleModel.deleteOne({ _id: article_id })
+        await CandidateModel.deleteMany({ article_id: article_id })
         res.status(200).send({ message: `${article_id} article이 삭제되었습니다.` })
       }
     }

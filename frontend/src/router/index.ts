@@ -25,7 +25,16 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next('/home')
+      }
+      else {
+        next()
+      }
+    }
+
   },
   {
     path: '/transdetail/:id',

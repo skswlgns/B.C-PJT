@@ -3,7 +3,7 @@ import Web3 from 'web3'
 import { UserModel } from "../model/UserModel"
 
 // contract주소
-const address = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+const address = '0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8';
 const ChoiceRoutes = express.Router()
 // contract_select
 
@@ -34,11 +34,6 @@ const ABI = [
 			{
 				"internalType": "uint256",
 				"name": "_point",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_score",
 				"type": "uint256"
 			}
 		],
@@ -104,7 +99,7 @@ ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Respon
     web3.eth.getBalance(req.body['address'])
     .then( response => {
       console.log(typeof(Number(response)))
-      // 0.024 이더 -> 1알
+      // 0.024 이더 -> 1알 = 10000원
       my_money = String((Number(response) / 10**18) * 41.7) 
       res.status(200).send(my_money)
     });
@@ -129,27 +124,28 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
 // 계좌송금
 ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Response) => {
   let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-  console.log('돈 보낸다....')
+  console.log('send money....')
   console.log(req.body)
   let fromEgg : string = req.body['fromEgg']
   let toEgg : string = req.body['toEgg']
   let PassWord : string = req.body['Password']
   let Egg : number = req.body['Egg']
   
-  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
-  web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
+  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
+  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
     //계좌가 unlock됫다면 이제 돈보내면된다
-  web3.eth.sendTransaction({
+  await web3.eth.sendTransaction({
       from: fromEgg, // 출금 계좌(통역 의뢰인)
       to: toEgg, // 입금 계좌 (통역가)
       value: (Egg / 41.7)*(10**18) // 통역 대가
   })
-  .then(function(receipt){
+  .then(res => {
     console.log('success')
-    console.log(receipt);
+    console.log(res)
   })
-  .catch(function() {
+  .catch(err => {
     console.log('fail')
+    console.log(err)
     res.status(403).send({ message: "돈이 없어용" })
   });   
 })
