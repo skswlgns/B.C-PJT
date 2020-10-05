@@ -1,9 +1,9 @@
 <template>
   <div id="home">
-    {{ article }}
+    <!-- {{ article }} -->
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
-      <h1 class="trans_h1">통역 리스트</h1>
+      <!-- <h1 class="trans_h1">통역 리스트</h1> -->
       <div class="selection">
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1" >

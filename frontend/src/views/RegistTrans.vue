@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <!--                                 모바일 ################################################ -->
+    <!--                                                모바일 ################################################ -->
     <div v-else>
       <form>  
         <div class="segment">
@@ -400,5 +400,5 @@ import { namespace } from 'vuex-class';
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/registtrans.scss"
+  @import "@/assets/scss/registtrans.scss";
 </style>

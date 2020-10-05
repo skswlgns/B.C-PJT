@@ -1,14 +1,14 @@
 <template>
   <div>
-    {{article}}
+    <!-- {{article.user_id.user_nickname}} -->
     <hr>
-    {{ article.article_candidate }}
+    <!-- {{ article.article_candidate }} -->
     <hr>
-    {{ user }}
+    <!-- {{ user }}
     {{ my_email }}
     {{ toegg }}
     {{ clickData }}
-    {{ money_success }}
+    {{ money_success }} -->
     <hr>
 
     <!--WEB-->
@@ -441,8 +441,11 @@
 
     async mounted() {
       await this.get_article_1(this.id)
-      await this.get_candidate(this.article.article_candidate)
-      window.scrollTo(0, 0) 
+      if (this.article.article_candidate != '') {
+        await this.get_candidate(this.article.article_candidate)
+      }
+      
+      window.scrollTo(0, 0)
     }   
   }
 </script>

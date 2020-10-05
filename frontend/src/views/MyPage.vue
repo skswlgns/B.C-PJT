@@ -1,10 +1,7 @@
 <template>
   <div>
     {{ myinfo }}
-    {{ myarticle }}
     <hr>
-    {{ applyarticle }}
-
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
@@ -15,7 +12,7 @@
           <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
           <p> {{ mymoney }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
-          <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | 
+          <span v-if="myinfo.user_good_lang != ''">잘하는 언어 | 
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-1"> 
               <v-btn rounded color="primary" dark small v-if="lang.slice(-1) == 1">{{ lang.slice(0,-1) }}</v-btn>
               <v-btn rounded color="warning" dark small v-else>{{ lang.slice(0,-1) }}</v-btn>
@@ -163,7 +160,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    <!-- 요청 ({{myarticle.length }}) -->
+                    요청 ({{myarticle.length }})
                   </div>
                 </div>
                 <v-row>
@@ -200,7 +197,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    <!-- 참여 ( {{ applyarticle.length}}) -->
+                    참여 ( {{ applyarticle.length}})
                   </div>
                 </div>
                 <v-row>
@@ -211,7 +208,7 @@
                         outlined
                         v-for="(post, index) in applyarticle" :key="index"
                       >
-                      <div v-if="post.article_id">
+                      <div v-if="post.article_id != null">
                         <router-link :to="{name: 'TransDetail', params : {id: post.article_id._id}}" class="router">
                           <v-list-item>
                             <v-list-item-content>
@@ -227,6 +224,9 @@
                             </v-list-item-content>
                           </v-list-item>
                         </router-link> 
+                      </div>
+                      <div v-else class="text-center">
+                        해당 글은 삭제되었습니다.
                       </div>
                     </v-card>
                   </v-col>
