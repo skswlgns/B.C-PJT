@@ -328,19 +328,14 @@
 
   async created() {
     // console.log('여기는 비폴 ')
-    this.get_mypage()
-    this.get_myarticle()
-    this.get_applyarticle()
-
-    setTimeout(() => 
-      this.get_balance(this.myinfo.user_wallet), 200
-    )
+    await this.get_mypage()
+    await this.get_myarticle()
+    await this.get_applyarticle()
+    await this.get_balance(this.myinfo.user_wallet)
   }
 
   async mounted(){
-    // setTimeout(() => 
-    //   this.get_balance(this.myinfo.user_wallet), 200
-    // )
+
   }
 }
 </script>
