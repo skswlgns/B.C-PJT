@@ -50,7 +50,7 @@ const ABI = [
 ChoiceRoutes.post("/traincoin", async (req: express.Request, res: express.Response) => {
 	let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 	// <선택하는 사람의 계좌:string>  <계좌의 비번:string>
-    web3.eth.personal.unlockAccount("ddd", "test", 600)
+  await web3.eth.personal.unlockAccount("ddd", "test", 600)
     .then(() => console.log('Account unlocked!'));
     let selectTokenAbi:any = ABI;
     let TokenContract = new web3.eth.Contract(selectTokenAbi,address);
@@ -82,7 +82,7 @@ ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Respon
   // const data = req
   let wallet_address : String = ""
 	console.log(req.body)
-  web3.eth.personal.newAccount(req.body['wallet_password'])
+  await web3.eth.personal.newAccount(req.body['wallet_password'])
   .then(response => {
     console.log(response)
     wallet_address = response
@@ -96,7 +96,7 @@ ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Respon
     console.log('getBalance')
     console.log(req.body)
     let my_money : String = ""
-    web3.eth.getBalance(req.body['address'])
+    await web3.eth.getBalance(req.body['address'])
     .then( response => {
       console.log(typeof(Number(response)))
       // 0.024 이더 -> 1알 = 10000원
