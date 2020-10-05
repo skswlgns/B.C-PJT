@@ -97,7 +97,8 @@ ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Respon
 
 // 계좌확인
 ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Response) => {
-    let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
+    let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+    console.log('getBalance')
     console.log(req.body)
     let my_money : String = ""
     web3.eth.getBalance(req.body['address'])
@@ -127,7 +128,8 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
 
 // 계좌송금
 ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Response) => {
-  let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
+  let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+  console.log('send money....')
   console.log(req.body)
   let fromEgg : string = req.body['fromEgg']
   let toEgg : string = req.body['toEgg']
@@ -142,11 +144,14 @@ ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Respons
       to: toEgg, // 입금 계좌 (통역가)
       value: (Egg / 41.7)*(10**18) // 통역 대가
   })
-  .then(function(receipt){
-      console.log(receipt);
+  .then(res => {
+    console.log('success')
+    console.log(res)
   })
-  .catch(function() {
-    res.status(500).send({ message: "돈이 없어용" })
+  .catch(err => {
+    console.log('fail')
+    console.log(err)
+    res.status(403).send({ message: "돈이 없어용" })
   });   
 })
 

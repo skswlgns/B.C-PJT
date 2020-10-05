@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    {{ article }}
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <!-- <h1 class="trans_h1">통역 리스트</h1> -->
@@ -376,12 +377,7 @@
         <v-col lg="4">
           <div class="applyTrans">
             <div class="btns">
-              <router-link to="/regist" class="router"><v-btn class="btn_blue">긴급 통역 요청</v-btn></router-link>
-              <router-link to="/regist" class="router"><v-btn class="btn">일반 통역 요청</v-btn></router-link>
-            </div>
-            <div class="lately_trans">
-              <h3>최근 활동한 번역가</h3>
-              <img class="profile_img" src="@/assets/images/지창욱.jpg" alt="">
+              <router-link to="/regist" class="router"><v-btn class="btn_blue">통역 요청</v-btn></router-link>
             </div>
           </div>
         </v-col>

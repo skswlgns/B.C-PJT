@@ -11,6 +11,18 @@ const userRoutes = express.Router()
 const verificationMiddleware = require("../middleware/verification")
 const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
+// SET STORAGE
+// var storage = multer.diskStorage({
+//   destination: function (req: any, file: any, cb: any) {
+//     cb(null, "uploads")
+//   },
+//   filename: function (req: any, file: any, cb: any) {
+//     cb(null, file.fieldname + "-" + Date.now())
+//   },
+// })
+
+// var upload = multer({ storage: storage })
+
 /*
 본인의 정보를 요청하거나 정보를 수정하는 작업을 위한 router
 */
@@ -19,7 +31,7 @@ const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 userRoutes.get("/my", verificationMiddleware)
 userRoutes.get("/my", async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.email })
-    .populate("user_good_lang")
+    // .populate("user_good_lang")
     .populate("user_resume")
     .exec(async (err: Error, user: any) => {
       if (err) {
@@ -176,7 +188,7 @@ userRoutes.put("/:user_id", async (req: express.Request, res: express.Response) 
             user_is_ts: true,
             user_name: requestBody.user_name,
             user_gender: requestBody.user_gender,
-            user_lang: requestBody.user_lang,
+            user_good_lang: requestBody.user_good_lang,
             user_intro: requestBody.user_intro,
           }
         )

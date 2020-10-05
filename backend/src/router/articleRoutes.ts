@@ -131,6 +131,7 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
         await ArticleModel.deleteOne({ _id: article_id })
+        await CandidateModel.deleteMany({ article_id: article_id })
         res.status(200).send({ message: `${article_id} article이 삭제되었습니다.` })
       }
     }

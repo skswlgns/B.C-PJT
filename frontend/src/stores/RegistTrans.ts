@@ -14,7 +14,6 @@ export default class RegistTrans extends VuexModule {
   // 유저정보 저장
   @Mutation
   public async savemyinfo(temp_data: any) {
-    // console.log('mutation', temp_data)
     this.myinfo = temp_data
   }
 
@@ -34,5 +33,26 @@ export default class RegistTrans extends VuexModule {
     } else {
       router.push("/404")
     }
+  }
+
+  @Action
+  public async first_trans(myinfo:any) {
+		const config = {
+			headers: {
+				token: Vue.cookies.get("token"),
+				email: Vue.cookies.get("email"),
+			},
+		}
+
+		const trans_data: any = {
+			user_name: myinfo.user_name,
+			user_gender: myinfo.user_gender,
+			user_good_lang: myinfo.user_good_lang,
+			user_intro: myinfo.user_intro,
+		}
+
+		console.log(trans_data)
+
+		await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
   }
 }
