@@ -3,7 +3,8 @@ import axios from "axios"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import router from "@/router"
 
-const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER_URL = 'http://localhost:8080/api'
 
 @Module({ namespaced: true })
 export default class UserPage extends VuexModule {

@@ -1,14 +1,15 @@
 <template>
   <div>
-    {{article}}
+    <!-- {{article}} -->
+    {{ article.user_id }}
     <hr>
-    {{ article.article_candidate }}
+    <!-- {{ article.article_candidate }} -->
     <hr>
-    {{ user }}
+    <!-- {{ user }}
     {{ my_email }}
     {{ toegg }}
     {{ clickData }}
-    {{ money_success }}
+    {{ money_success }} -->
     <hr>
 
     <!--WEB-->

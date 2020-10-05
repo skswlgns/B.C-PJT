@@ -3,13 +3,9 @@ import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
-<<<<<<< HEAD
 // const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER_URL = "http://localhost:8080"
-=======
-const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER_URL = 'http://localhost:8080/api'
 
->>>>>>> 0874366789b0a0027c8a6d4983598b3323454532
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
