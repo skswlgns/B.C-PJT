@@ -75,8 +75,8 @@
                     계좌 비밀번호를 입력해주세요. 
                   </v-card-title>
                   <v-card-text>
-                    <input  type="text" placeholder="비밀번호">
-                    <v-btn>송금하기</v-btn>
+                    <input v-model="send_data.Password" type="text" placeholder="비밀번호">
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg)">송금하기</v-btn>
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -101,11 +101,10 @@
 
         <div>
           <v-card
-            class="my-3 two_box"
+            class="two_box flex"
             max-width="1200"
             outlined
-            v-for="(post, index) in applyarticle" :key="index"
-            
+            v-for="(post, index) in applyarticle" :key="index" 
           >
             <div v-if="post.article_id">
               <router-link  :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
@@ -114,7 +113,7 @@
                     <div class="card_header">
                       <div class="overline mb-4 apply">참여</div>
                       <v-spacer></v-spacer>
-                      <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                      <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                     </div>
                     <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
                     <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
@@ -124,10 +123,9 @@
               </router-link>
               <div class="btn_box">
                 <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-                <v-btn class="send_btn">통역사 송금하기</v-btn>
               </div>
               <div class="chat_box">
-                <p>화상 채팅 입력 방법</p>
+                <p> ! 화상 채팅 입력 방법 !</p>
                 <p>nickname : 이름 작성</p>
                 <p>Room : <span class="room">{{post.article_id._id.substr(0, 5)}}</span></p>
               </div>
@@ -183,7 +181,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    참여 ( {{ applyarticle}})
+                    <!-- 참여 ( {{ applyarticle}}) -->
                   </div>
                 </div>
                 <v-row>
@@ -202,7 +200,7 @@
                                 <div class="overline mb-4 complete">완료</div>
                                 <div class="overline mb-4 nocomplete">미완료</div>
                                 <v-spacer></v-spacer>
-                                <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                                <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                               </div>
                               <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
                               <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
@@ -226,7 +224,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
-
+  import emailjs from "emailjs-com";
   const myPageModule = namespace('MyPage');
 
   @Component({
@@ -245,13 +243,20 @@
 
   @myPageModule.State('myinfo')
   private myinfo!: any;
-
   private temp_wallet : String = ""
   private dialog2 : boolean = false
+  private finish : boolean = false
 
   set_address(address : String){
     this.temp_wallet = address
   }
+
+   private successParams = {
+      to_email: "",
+      title: "",
+      reason: "",
+      message_html: `https://j3b103.p.ssafy.io/`
+    }
 
   @myPageModule.State('myarticle')
   private myarticle!: any;
@@ -262,6 +267,9 @@
   @myPageModule.State('mymoney')
   private mymoney!: any;
   
+  @myPageModule.State('success_money')
+  private success_money!: boolean;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
@@ -276,6 +284,47 @@
 
   @myPageModule.Action('goChat')
   private goChat!: () => void;
+
+  @myPageModule.Action('send_money')
+  private send_money!: (send_data : any) => void;
+
+  private send_data = {
+    fromEgg : "",
+    toEgg : "",
+    Password: "",
+    Egg : 0
+  }
+
+  save_send(address : string, egg : number, toegg : string){
+    this.send_data.fromEgg = address
+    this.send_data.Egg = egg
+    this.send_data.toEgg = toegg
+    this.finish = true
+    this.dialog2 = false
+    this.send_money(this.send_data)
+  }
+
+  successTest(){
+      emailjs
+        .send(
+          "mamago",
+          "template_346dwuw",
+          this.successParams,
+          "user_3x0V5QZyfdtMPvYN4YMOC",
+        )
+        .then(
+          function(response) {
+            console.log("SUCCESS!", response.status, response.text);
+          },
+          function(error) {
+            console.log("FAILED...", error);
+          }
+        );
+    }
+
+  if(success_money : boolean){
+    console.log(success_money)
+  }
 
   async created() {
     // console.log('여기는 비폴 ')

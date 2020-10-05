@@ -121,20 +121,6 @@ export default class TransDetail extends VuexModule {
     // console.log(user_id)
   }
 
-  @Action({ commit: "save_success" })
-  public async send_money(send_data: any) {
-    console.log("돈 전송 action")
-    console.log(send_data)
-    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
-    if (res.data) {
-      console.log('돈이 안가쓔')
-      console.log(res.data)
-    } else {
-      console.log('돈 송금 성공')
-      return "success"
-    }
-  }
-
   @Action
   public async delete(delData: string) {
     let config = {

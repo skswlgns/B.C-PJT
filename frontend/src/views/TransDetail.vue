@@ -97,38 +97,6 @@
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
                   <v-dialog
-                    v-model="dialog2"
-                    persistent
-                    max-width="350"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        v-bind="attrs"
-                        v-on="on"
-                        class="complete_btn"><v-icon class="select_icon">mdi-account-reactivate</v-icon>통역사 확정하기</v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title class="headline">
-                        계좌 비밀번호를 입력해주세요. 
-                      </v-card-title>
-                      <v-card-text>
-                        <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                        <v-btn @click="save_send(article.user_id.user_wallet, article.article_egg, article.article_to_egg)">송금하기</v-btn>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="green darken-1"
-                          text
-                          @click="dialog2 = false"
-                        >
-                          close
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-
-                  <v-dialog
                     v-model="dialog3"
                     persistent
                     max-width="350"
@@ -339,14 +307,6 @@
     private dialog: boolean = false;
     private dialog2: boolean = false;
     private dialog3: boolean = false;
-    private finish : boolean = false;
-
-    private send_data = {
-      fromEgg : "",
-      toEgg : "",
-      Password: "",
-      Egg : 0
-    }
  
     private templateParams = {
       to_email: "",
@@ -356,7 +316,7 @@
     }
 
     private cancelParams = {
-      to_email: "dlekdls0213@naver.com",
+      to_email: "",
       title: "",
       reason: "",
       message_html: `https://j3b103.p.ssafy.io/`
@@ -477,15 +437,6 @@
     private clickData : any = {
       article_id: this.id,
       user_id: ""
-    }
-
-    save_send(address : string, egg : number, toegg : string){
-      this.send_data.fromEgg = address
-      this.send_data.Egg = egg
-      this.send_data.toEgg = toegg
-      this.finish = true
-      this.dialog2 = false
-      this.send_money(this.send_data)
     }
 
     async mounted() {

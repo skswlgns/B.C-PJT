@@ -145,9 +145,11 @@ ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Respons
       value: (Egg / 41.7)*(10**18) // 통역 대가
   })
   .then(function(receipt){
-      console.log(receipt);
+    console.log('success')
+    console.log(receipt);
   })
   .catch(function() {
+    console.log('fail')
     res.status(403).send({ message: "돈이 없어용" })
   });   
 })
