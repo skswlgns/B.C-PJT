@@ -4,8 +4,8 @@ import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import Swal from "sweetalert2"
 
-const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER = "http://localhost:8080"
+// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER_URL = "http://localhost:8080"
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {

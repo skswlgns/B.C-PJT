@@ -351,6 +351,7 @@
       <v-row class="home_main">
         <v-col lg="8">
           <div class="cardList">
+            <!-- <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading> -->
             <li v-for="(list, index) in searching" :key="index">
                 <div class="card"> 
                   <div class="profile">
@@ -765,13 +766,17 @@
 <script lang="ts">
   import { Component, Vue} from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
+  import InfiniteLoading from 'vue-infinite-loading'
 
   const HomeModule = namespace('Home');
 
   @Component({
-
+    components: {
+      InfiniteLoading,
+    }
   })
   export default class Home extends Vue {
+
     private articleData: any = []
 
     private searchData : any = {
@@ -791,6 +796,9 @@
     // vuex 영역
     @HomeModule.State('article')
     private article!: any;
+
+    @HomeModule.State('limit')
+    private limit!: number;
 
     @HomeModule.Mutation('goUserpage')
     private goUserpage !: any;
