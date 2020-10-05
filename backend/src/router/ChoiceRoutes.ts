@@ -3,7 +3,7 @@ import Web3 from 'web3'
 import { UserModel } from "../model/UserModel"
 
 // contract주소
-const address = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+const address = '0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8';
 const ChoiceRoutes = express.Router()
 // contract_select
 
@@ -34,11 +34,6 @@ const ABI = [
 			{
 				"internalType": "uint256",
 				"name": "_point",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_score",
 				"type": "uint256"
 			}
 		],
@@ -104,7 +99,7 @@ ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Respon
     web3.eth.getBalance(req.body['address'])
     .then( response => {
       console.log(typeof(Number(response)))
-      // 0.024 이더 -> 1알
+      // 0.024 이더 -> 1알 = 10000원
       my_money = String((Number(response) / 10**18) * 41.7) 
       res.status(200).send(my_money)
     });
