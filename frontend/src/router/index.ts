@@ -10,6 +10,8 @@ import TranslateRegist from '@/views/TranslateRegist.vue'
 import UserPage from '@/views/UserPage.vue'
 import RegistTrans from '@/views/RegistTrans.vue'
 import EditProfile from '@/views/EditProfile.vue'
+import Edittrans from '@/views/Edittrans.vue'
+import AddCareer from '@/views/AddCareer.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +65,16 @@ const routes = [
     name: 'EditProfile',
     component: EditProfile,
     props: true,
+  },
+  {
+    path: '/edittrans',
+    name: 'Edittrans',
+    component: Edittrans,
+  },
+  {
+    path: '/addcareer',
+    name: 'AddCareer',
+    component: AddCareer,
   },
   // 도희
   {

@@ -50,7 +50,7 @@
   @Component({
     data: () => ({
       rules: [
-        (value: { size: number; }) => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+        (value: { size: number; }) => !value || value.size < 20000000 || 'size should be less than 20 MB!',
       ],
     }),
   })

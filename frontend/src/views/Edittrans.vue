@@ -1,9 +1,6 @@
-
 <template>
   <div>
-    {{myinfo}}
-    <!-- {{ myinfo.user_good_lang }} -->
-    <!-- {{ temp_lang }} -->
+    {{temp_lang}}
     <div v-if="windowWidth > 375">
       <h1>통역가 등록하기</h1>
       <div class="user-box">
@@ -16,28 +13,6 @@
           </div>
         </div>
         <div class="mt-15">
-          <v-row class="text-center">
-            <v-col cols="3">
-              <h3 class="ml-10 mt-3">실명</h3>
-            </v-col>
-            <v-col cols="9">
-              <input type="text" v-model="myinfo.user_name">
-            </v-col>
-          </v-row>
-          <v-row class="text-center">
-            <v-col cols="3">
-              <h3 class="ml-10 mt-3">성별</h3>
-            </v-col>
-            <v-col cols="9">
-              <label class="custom-select" for="gender">
-                <select id="gender" name="options" v-model="myinfo.user_gender">
-                  <option value="" disabled>성별을 선택하세요</option>
-                  <option value="남">남</option>
-                  <option value="여">여</option>
-                </select>
-              </label>
-            </v-col>
-          </v-row>
           <v-row class="text-center">
             <v-col cols="3">
               <h3 class="ml-10 mt-3">자신있는 언어</h3>
@@ -94,8 +69,6 @@
         </div>
       </div>
     </div>
-
-    <!--                                 모바일 ################################################ -->
     <div v-else>
       <form>  
         <div class="segment">
@@ -128,7 +101,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 
-  const RegistTransModule = namespace('RegistTrans');
+  const EdittransModule = namespace('Edittrans');
 
   @Component({
     methods: {
@@ -136,7 +109,7 @@ import { namespace } from 'vuex-class';
     }
   })
 
-  export default class RegistTrans extends Vue {
+  export default class Edittrans extends Vue {
     private options: any = [
       { text: '한국어[네이티브]', value: '한국어1' },
       { text: '한국어[고급]', value: '한국어2' },
@@ -361,24 +334,22 @@ import { namespace } from 'vuex-class';
       { text: 'Wolof[네이티브]', value: 'Wolof1' },
       { text: 'Wolof[고급]', value: 'Wolof2' }
     ]
-    
-    private temap_obj: Object = {};
     private temp_lang: any = [];
 
-    @RegistTransModule.State('myinfo')
+    @EdittransModule.State('myinfo')
     private myinfo!: any;
 
-    @RegistTransModule.Action('get_mypage')
+    @EdittransModule.Action('get_mypage')
     private get_mypage!: () => void;
 
-    @RegistTransModule.Action('first_trans')
+    @EdittransModule.Action('first_trans')
     private first_trans!: (data:any) => void;
-
 
     async mounted() {
       await this.get_mypage()
 
       window.scrollTo(0, 0)
+      this.temp_lang = [...new Set(this.myinfo.user_good_lang)];
     }
 
     onChange(event: any) {
@@ -391,7 +362,7 @@ import { namespace } from 'vuex-class';
       while (L > 1 && arr.length) {
         what = a[--L];
         while ((ax= arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
+          arr.splice(ax, 1);
         }
       }
       this.myinfo.user_good_lang = [...new Set(arr)];
@@ -400,5 +371,5 @@ import { namespace } from 'vuex-class';
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/registtrans.scss"
+  @import "@/assets/scss/registtrans.scss";
 </style>

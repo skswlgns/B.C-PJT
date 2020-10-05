@@ -53,10 +53,6 @@ export default class EditProfile extends VuexModule {
           email : Vue.cookies.get('email'),
         }
       }
-      // const editData:any = new FormData();
-      // editData.append('user_phone', profiledata.user_phone)
-      // editData.append('user_image', profiledata.user_image)
-      // editData.append('user_nickname', profiledata.user_nickname)
       const editData: any = {
         user_phone: profiledata.user_phone,
         user_image: profiledata.user_image.name,
@@ -65,6 +61,8 @@ export default class EditProfile extends VuexModule {
       console.log(editData)
       console.log(config)
       await axios.put(`${SERVER_URL}/auth`, editData, config)
+
+      router.push('/mypage')
 
     }
   }
