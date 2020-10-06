@@ -1,5 +1,12 @@
 <template>
   <div>
+    {{ article.user_id.user_email}}
+    <!-- {{article}} -->
+    {{ article.user_id._id }}
+    <hr>
+    <hr>
+
+    <hr>
     {{ article.article_candidate }}
     <!-- {{ article.article_candidate }} -->
     <hr>
@@ -74,7 +81,7 @@
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                 <div class="applyUser">
-                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
+                  <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_lang}}</p>
                     <p class="badge">모국어</p>
@@ -161,7 +168,7 @@
                       >
                         close
                       </v-btn>
-                    </v-card-actions>
+                    </v-card-actions> 
                   </v-card>
                 </v-dialog> 
               </v-row>
@@ -169,6 +176,7 @@
           </ol>
         </li>
       </div>
+
     </div>
 
     <!--Mobile -->

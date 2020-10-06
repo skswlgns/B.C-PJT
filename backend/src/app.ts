@@ -7,6 +7,7 @@ import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
 import { ChoiceRoutes } from "./router/ChoiceRoutes"
 import { starRateRoutes } from "./router/starRateRoutes"
+import { resumeRoutes } from "./router/resumeRoutes"
 
 const app = express()
 app.use(cors())
@@ -26,6 +27,7 @@ app.use("/api/users", userRoutes)
 app.use("/api/articles", articleRoutes)
 app.use("/api/eth", ChoiceRoutes)
 app.use("/api/rate", starRateRoutes)
+app.use("/api/resume", resumeRoutes)
 
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {
