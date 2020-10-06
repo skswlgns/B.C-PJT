@@ -31,7 +31,6 @@
             <v-col cols="9">
               <v-file-input
                 :rules="rules"
-                accept="image/*"
                 placeholder="경력증명을 위한 파일을 업로드 해주세요."
                 label="경령증명파일"
                 v-model="file"
@@ -41,7 +40,7 @@
           <v-row>
             <v-col cols="3"></v-col>
             <v-col class="text-center">
-              <v-btn rounded color="warning" dark small @click="add_resume(name, desc, file.url)">추가하기</v-btn>
+              <v-btn rounded color="warning" dark small @click="add_resume(name, desc, file)">추가하기</v-btn>
             </v-col>
           </v-row>
           <v-row>
@@ -98,7 +97,7 @@
     private editprofile!: (profiledata:any) => void;
 
 
-    add_resume(name:string, desc:string, file:string) {
+    add_resume(name:string, desc:string, file:any) {
       this.user_resume.push({resume_name: name, resume_desc: desc, resume_file:file})
       this.name = '';
       this.desc = '';
