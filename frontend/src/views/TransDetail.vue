@@ -174,7 +174,7 @@
                   </v-dialog> 
                 </v-row>
               </div>
-            </ol>
+            </div>
           </li>
         </ul>
       </div>

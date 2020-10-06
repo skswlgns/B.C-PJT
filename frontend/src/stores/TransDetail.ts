@@ -8,7 +8,7 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
   public myinfo: any = {}
-  public article: any = {}
+  public article: any = { user_id:{} }
   public user: any = []
   public temp_list: any = []
   public toegg: String = ""
