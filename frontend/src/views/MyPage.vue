@@ -1,20 +1,14 @@
 <template>
   <div>
-    {{ myinfo }}
-    {{ myarticle }}
-    <hr>
-    {{ applyarticle }}
-
     <!-- #브라우저# -->
+    {{ myinfo }}
     <div v-if="windowWidth > 375">
-      <h1>마이페이지</h1>
       <div class="user-box d-flex">
         <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt">
-          <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
-          <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
-          <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
+          <span class="nick-size">{{ myinfo.user_nickname }}<span v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></span></span>
+          <p>{{ myinfo.user_nickname }}<span>모국어</span></p>
           <span v-if="myinfo.user_good_lang != ''">잘하는 언어 | 
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-1"> 
               <v-btn rounded color="primary" dark small v-if="lang.slice(-1) == 1">{{ lang.slice(0,-1) }}</v-btn>
@@ -27,6 +21,7 @@
               <v-btn rounded color="warning" dark small>고급</v-btn>
             </span>
           </p>
+          <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
         </div>
         <div class="ml-auto my-auto mr-3">
           <div class="d-flex flex-column">
@@ -88,7 +83,7 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
+                  <v-btn color="#388E3C" v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="headline">

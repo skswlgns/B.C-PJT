@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="WEB" v-if="windowWidth > 380">
+    <div id="WEB" v-if="windowWidth > 450">
       <div class="container" id="container">
         <div class="form-container sign-up-container">
           <div class="form_pure">
@@ -78,7 +78,7 @@
         </div>
       </div>
     </div>
-    <div id="Mobile"  v-if="windowWidth <= 380">
+    <div id="Mobile"  v-if="windowWidth <= 450">
       <div class="form-structor">
         <div id="signup_body" class="signup slide-up">
           <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>

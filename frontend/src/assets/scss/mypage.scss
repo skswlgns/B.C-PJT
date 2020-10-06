@@ -2,9 +2,18 @@
   box-sizing: border-box;
 }
 
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
+}
 .user-box {
   background-color: white;
   margin: 3vh 0;
+  box-shadow: 2px 2px 3px 2px grey;
+  img {
+	  margin: auto 5%;
+  }
 }
 
 .no_style{
