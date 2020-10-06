@@ -74,8 +74,8 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
   const user_id = req.body["user_id"]
 	await UserModel.findOne({ _id: user_id })
     .exec((err: Error, user:any) => {
-      console.log(err,"에러")
-      console.log(user.user_wallet,"지갑")
+      // console.log(err,"에러")
+      // console.log(user.user_wallet,"지갑")
       if(err){
         res.status(500).send(err)
       }else{
@@ -130,6 +130,9 @@ ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Resp
   // let article : string = req.body['article']
   // let _selectedArticle : string = req.body['_selectedArticle']
   let _point : number = req.body['_point']
+
+  await web3.eth.personal.unlockAccount(_selectPerson, '1234', 600).then(() => console.log('Account unlocked!1'));
+  await web3.eth.personal.unlockAccount(_selectPerson, '1234', 600).then(() => console.log('Account unlocked!2'));
 
   // selectPerson, selectedPerson, 
   TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, 100, 100, _point)
