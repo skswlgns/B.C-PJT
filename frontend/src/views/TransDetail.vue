@@ -62,7 +62,7 @@
         <h3>통역가 지원하기</h3>
         <v-row class="row">
           <input v-model="applyData.candidate_content" class="applybox" type="text"/>
-          <v-btn class="applybtn" @click="apply(applyData)">지원하기</v-btn>
+          <v-btn class="applybtn" @click="applypreview(applyData, myinfo)">지원하기</v-btn>
         </v-row>
       </div>
 
@@ -375,6 +375,14 @@
       this.dialog = false
     }
 
+    applypreview(temp: any, myinfo: any) {
+      if (myinfo.user_is_ts === true) {
+        this.apply(temp)
+      } else {
+        alert('통역가를 등록하여야지 지원할 수 있습니다.')
+      }
+    }
+
     @TransDetailModule.State('article')
     private article!: any;
 
@@ -383,6 +391,9 @@
 
     @TransDetailModule.State('toegg')
     private toegg!: any;
+
+    @TransDetailModule.State('myinfo')
+    private myinfo!: any;
 
     @TransDetailModule.State('money_success')
     private money_success!: boolean;
@@ -417,8 +428,12 @@
     @TransDetailModule.Action('send_money')
     private send_money!: (send_data : any) => void;
 
+    @TransDetailModule.Action('get_myinfo')
+    private get_myinfo!: () => void;
+
     @TransDetailModule.Mutation('goUserpage')
     private goUserpage !: any;
+
 
 
     private candi_complete : boolean = false ;
@@ -441,6 +456,9 @@
       if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)
       }
+
+      this.get_myinfo()
+      
     }
 
     async mounted() {
