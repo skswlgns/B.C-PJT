@@ -1,14 +1,8 @@
 <template>
   <div>
-    {{ article.user_id.user_email}}
-    <!-- {{article}} -->
-    {{ article.user_id._id }}
-    <hr>
-    <hr>
-
+    {{ article}}
     <hr>
     {{ article.article_candidate }}
-    <!-- {{ article.article_candidate }} -->
     <hr>
     {{ user }}
 
@@ -81,7 +75,7 @@
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                 <div class="applyUser">
-                  <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
+                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_lang}}</p>
                     <p class="badge">모국어</p>
@@ -93,7 +87,9 @@
                 </div>
                 <v-spacer></v-spacer>
                 <div v-if="article.user_id.user_email == my_email && article.article_select != user_profile._id" class="notselect">
-                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg )">
+                    <v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기
+                  </v-btn>
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
@@ -294,6 +290,7 @@
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
   import emailjs from "emailjs-com";
+
   const TransDetailModule = namespace('TransDetail');
   @Component({
 
@@ -319,6 +316,14 @@
       title: "",
       reason: "",
       message_html: `https://j3b103.p.ssafy.io/`
+    }
+
+    private contractData : any = {
+      _selectPerson : "",
+      _selectedPerson : "",
+      article : "",
+      _selectedArticle : "",
+      _point : 0
     }
 
     // methods 
@@ -347,7 +352,7 @@
         );
     }
 
-    btn_click(user_id : string, to_email: string, client_email: string, title: string) {
+    btn_click(user_id : string, to_email: string, client_email: string, title: string, _selectPerson: string, _selectedPerson: string, article: string, _selectedArticle: string, _point: number) {
       this.clickData.user_id = user_id
       this.candi_click(this.clickData)
       this.send_id(user_id)
@@ -356,6 +361,13 @@
       this.templateParams.client_email = client_email,
       this.templateParams.title = title
       this.sendTest()
+
+      this.contractData._selectPerson = _selectPerson,
+      this.contractData._selectedPerson = _selectedPerson,
+      this.contractData.article = article,
+      this.contractData._selectedArticle = _selectedArticle,
+      this.contractData._point = _point
+      this.saveContract(this.contractData)
     }
 
     cancelTest(){
@@ -401,6 +413,9 @@
     @TransDetailModule.Mutation('save_user')
     private save_user !: any;
 
+    @TransDetailModule.Mutation('goUserpage')
+    private goUserpage !: any;
+
     @TransDetailModule.Action('get_article_1')
     private get_article_1!: (id: String) => void;
 
@@ -425,8 +440,8 @@
     @TransDetailModule.Action('send_money')
     private send_money!: (send_data : any) => void;
 
-    @TransDetailModule.Mutation('goUserpage')
-    private goUserpage !: any;
+    @TransDetailModule.Action('saveContract')
+    private saveContract!: (contractData : any) => void;
 
 
     private candi_complete : boolean = false ;

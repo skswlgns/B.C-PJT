@@ -44,38 +44,6 @@ const ABI = [
 	}
 ]
 
-
-
-//통역 선택 로직
-ChoiceRoutes.post("/traincoin", async (req: express.Request, res: express.Response) => {
-	let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-	// <선택하는 사람의 계좌:string>  <계좌의 비번:string>
-  await web3.eth.personal.unlockAccount("ddd", "test", 600)
-    .then(() => console.log('Account unlocked!'));
-    let selectTokenAbi:any = ABI;
-    let TokenContract = new web3.eth.Contract(selectTokenAbi,address);
-
-    // then이하는 그냥 확인용임
-    // cotnract에 관한 해당 컨트랙트 내용을 확인하기 위해서는 backend/contract/Select 보면 됨
-    // 계좌만 string이고 그 이외에 parameter는 int
-    TokenContract.methods.RewardLogic("<통역해준사람의 계좌>","<게시물 id>", "<선택한 통역 id>","<포인트>","<평점>").send({from: "<선택하는 사람의 계좌:string>"})
-    .on('transactionHash', function(hash:any){
-        console.log('해쉬야');
-        console.log(hash);
-    })
-    .on('receipt', function(receipt:any){
-        console.log('레시피야');
-        console.log(receipt);
-    })
-    .on('confirmation', function(confirmationNumber:any, receipt:any){
-        console.log('컴필이야');
-        console.log(confirmationNumber);
-    })
-    .on('error', function(error:any, receipt:any) {
-        console.log('에러야');
-        console.log(error);
-    });
-})
 //계좌생성
 ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Response) => {
 	let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
@@ -152,6 +120,35 @@ ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Respons
   //   console.log(err)
   //   res.status(403).send({ message: "돈이 없어용" })
   // });   
+})
+
+ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Response) => {
+  let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+  // web3.eth.personal.unlockAccount("0x5ec940f76caaccd269d07bd78c0e00c1638eba8c", "test1234", 600)
+  // .then(console.log('Account unlocked!'));
+  let selectTokenAbi:any = ABI;
+  let TokenContract = new web3.eth.Contract(selectTokenAbi, address);
+  console.log('컨트랙트 저장 되냐')
+​  console.log(req.body)
+  console.log(TokenContract.methods)
+​ 
+  let _selectPerson : string = req.body['_selectPerson']
+  let _selectedPerson : string = req.body['_selectedPerson']
+  let article : string = req.body['article']
+  let _selectedArticle : string = req.body['_selectedArticle']
+  let _point : number = req.body['_point']
+
+  // selectPerson, selectedPerson, 
+  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, article, _selectedArticle, _point)
+  .send({from: _selectPerson})
+  .on('transactionHash', function(hash:any){
+      console.log('해쉬야');
+      console.log(hash);
+  })
+  .on('error', function(error:any) {
+      console.log('에러야');
+      console.log(error);
+  });  
 })
 
 export { ChoiceRoutes }
