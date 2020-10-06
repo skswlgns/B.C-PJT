@@ -1,15 +1,11 @@
 <template>
   <div>
-    {{ article.article_candidate }}
-    <!-- {{ article.article_candidate }} -->
-    <hr>
-    {{ user }}
-
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">
-          <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image"  @click="goUserpage(article.user_id)">
+          <img :src="'https://j3b103.p.ssafy.io/image/' + article.user_id.user_image" alt="프로필이미지" class="profile_image"  @click="goUserpage(article.user_id)" v-if="article.user_id.user_image != ''">
+          <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else>
           <h4 class="center"  @click="goUserpage(article.user_id)">{{ article.user_id.user_nickname }}</h4>
           <v-spacer></v-spacer>
           <span v-if="!article.article_select" class="ing">진행중</span>
@@ -67,17 +63,20 @@
       </div>
 
       <div class="applyList">
-        <li v-for="(user_profile, index) in user" :key="index">
-          <ol v-for="(content, index) in article.article_candidate" :key="index">
-            
-            <div v-if="user_profile._id == content.user_id" class="applyCard_select">
-              <div class="profile">
-                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                <div class="applyUser">
-                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
-                  <div class="native_lang">
-                    <p class="user_lang">{{user_profile.user_lang}}</p>
-                    <p class="badge">모국어</p>
+
+        <ul>
+          <li v-for="(user_profile, index) in user" :key="index">
+            <div v-for="(content, index) in article.article_candidate" :key="index">
+              
+              <div v-if="user_profile._id == content.user_id" class="applyCard_select">
+                <div class="profile">
+                  <img :src="'https://j3b103.p.ssafy.io/image/' + user_profile.user_image" alt="프로필 이미지" class="profile_image" v-if="user_profile.user_image">
+                  <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image">
+                  <div class="applyUser">
+                    <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
+                    <div class="native_lang">
+                      <p class="user_lang">{{user_profile.user_lang}}</p>
+                      <p class="badge">모국어</p>
                   </div>
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_good_lang}}</p>
@@ -166,8 +165,9 @@
                 </v-dialog> 
               </v-row>
             </div>
-          </ol>
+          </div>
         </li>
+        </ul>
       </div>
     </div>
 

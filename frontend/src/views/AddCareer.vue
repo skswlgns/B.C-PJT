@@ -42,14 +42,8 @@
             <v-col class="text-center">
               <v-btn rounded color="warning" dark small @click="add_resume(name, desc, file)">추가하기</v-btn>
             </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3"></v-col>
-            <v-col cols="9">
-              <button class="red my-3" type="button">신청하기</button>
-            </v-col>
-          </v-row>
-          <v-row v-for="(resume, index) in user_resume" :key="index">
+          </v-row>          
+          <v-row v-for="(resume, index) in user_resume" :key="index" class="text-center">
             <v-col cols="3">
               <h3 class="ml-10 mt-3">미리보기</h3>
             </v-col>
@@ -57,6 +51,12 @@
               <p>{{resume.resume_name }}</p>
               <p>{{resume.resume_desc }}</p>
               <p>{{resume.resume_file }}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="3"></v-col>
+            <v-col cols="9">
+              <button class="red my-3" type="button" @click="addcareer(user_resume)">신청하기</button>
             </v-col>
           </v-row>
 
@@ -93,8 +93,8 @@
     @AddCareerModule.Action('get_mypage')
     private get_mypage!: () => void;
 
-    @AddCareerModule.Action('editprofile')
-    private editprofile!: (profiledata:any) => void;
+    @AddCareerModule.Action('addcareer')
+    private addcareer!: (user_resume:any) => void;
 
 
     add_resume(name:string, desc:string, file:any) {
