@@ -65,7 +65,9 @@
 
                   <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
                   <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>
-                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                  
+                  <VueDocPreview :value="'https://j3b103.p.ssafy.io/static/' + li.resume_file" :type="docType" v-if="li.resume_file.slice(-3,0) != 'pdf'"/>
+                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file" v-else></pdf>
                 </v-list-item-content>
               </v-list-item>
             </v-card>
@@ -147,12 +149,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 import pdf from 'vue-pdf'
+import VueDocPreview from 'vue-doc-preview'
 
   const UserModule = namespace('UserPage');
 
   @Component({
     components: {
-      pdf
+      pdf,
+      VueDocPreview
     },
     mounted() {
       
