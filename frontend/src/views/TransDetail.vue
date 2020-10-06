@@ -71,7 +71,7 @@
         <ul>
           <li v-for="(user_profile, index) in user" :key="index">
             <div v-for="(content, index) in article.article_candidate" :key="index">
-              
+
               <div v-if="user_profile._id == content.user_id" class="applyCard_select">
                 <div class="profile">
                   <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
@@ -479,6 +479,7 @@
     }
 
     async created() {
+      console.log('created')
       await this.get_article_1(this.id)
       if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)
