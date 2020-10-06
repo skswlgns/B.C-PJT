@@ -8,7 +8,8 @@ const SERVER_URL = 'http://localhost:8080/api'
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
-  public article: any = {}
+  public myinfo: any = {}
+  public article: any = { user_id:{} }
   public user: any = []
   public temp_list: any = []
   public toegg: String = ""
@@ -16,16 +17,12 @@ export default class TransDetail extends VuexModule {
 
   @Mutation
   public async save_article(temp: any) {
-    console.log('article_저장했냐')
-    console.log(temp)
     this.article = temp
   }
 
   @Mutation
   public async save_user(temp: any) {
-    console.log('save_user')
     this.user = temp
-    console.log(this.user)
   }
 
   @Mutation
@@ -35,7 +32,6 @@ export default class TransDetail extends VuexModule {
 
   @Mutation
   public async save_from(temp: string) {
-    console.log("toegg 저장", temp)
     this.toegg = temp
   }
 
@@ -55,19 +51,19 @@ export default class TransDetail extends VuexModule {
     
   }
 
+  @Mutation
+  public async savemyinfo(temp_data: any) {
+    this.myinfo = temp_data
+  }
+
   @Action({ commit: "save_article" })
   public async get_article_1(id: string) {
-    console.log('article_왓냐')
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
-    console.log(res)
-    console.log(res.data)
     return res.data
   }
 
   @Action
   public async apply(applyData: any) {
-    console.log('apply')
-    console.log(applyData)
     let config = {
       headers: {
         token: Vue.cookies.get("token"),
@@ -78,7 +74,6 @@ export default class TransDetail extends VuexModule {
     await axios
       .post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)
       .then(async (res) => {
-        console.log(res.data)
         location.reload()
       })
       .catch((err) => console.log(err))
@@ -98,13 +93,11 @@ export default class TransDetail extends VuexModule {
 
   @Action({ commit: "save_user" })
   public async get_candidate(candi_list: any) {
-    console.log('get_candidate')
     const users : any = []
     for (let candi in candi_list) {
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
       users.push(res.data)
     }
-    console.log(users)
     return users
   }
 
@@ -121,7 +114,6 @@ export default class TransDetail extends VuexModule {
       {},
       config
     )
-    console.log(res.data)
     return res.data
     // location.reload()
   }
@@ -153,5 +145,21 @@ export default class TransDetail extends VuexModule {
   public async saveContract(contractData: any) {
     console.log('contract action', contractData)
     const res = await axios.post(`${SERVER_URL}/eth/contracting`, contractData)
+  }
+  
+  @Action({ commit: "savemyinfo" })
+  public async get_myinfo() {
+    if (Vue.cookies.isKey("token")) {
+      const config = {
+        headers: {
+          token: Vue.cookies.get("token"),
+          email: Vue.cookies.get("email"),
+        },
+      }
+      const res = await axios.get(`${SERVER_URL}/users/my`, config)
+      return res.data
+    } else {
+      router.push("/404")
+    }
   }
 }

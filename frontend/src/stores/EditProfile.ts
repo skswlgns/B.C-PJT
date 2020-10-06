@@ -55,6 +55,7 @@ export default class EditProfile extends VuexModule {
           email: Vue.cookies.get("email"),
         },
       }
+
       const editData: any = new FormData()
       editData.append("user_phone", profiledata.user_phone)
       editData.append("user_nickname", profiledata.user_nickname)

@@ -45,8 +45,6 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_success(temp_data: boolean) {
     this.success_money = temp_data
-    // console.log(temp_data)
-    // console.log(this.success_money)
   }
 
   // actions
@@ -90,7 +88,6 @@ export default class MyPage extends VuexModule {
       },
     }
     const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
-    // console.log('here')
     console.log(res.data)
     return res.data
   }
@@ -138,5 +135,18 @@ export default class MyPage extends VuexModule {
           console.log("FAILED...", error);
         }
       );
+  }
+
+  @Action
+  public async send_rate(star: any) {
+    const config = {
+      headers: {
+        email: Vue.cookies.get("email"),
+        token: Vue.cookies.get("token"),
+      },
+    }
+    console.log(star)
+    const res = await axios.post(`${SERVER_URL}/rate`, star, config)
+    console.log(res)
   }
 }

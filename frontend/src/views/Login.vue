@@ -281,7 +281,7 @@
       user_nickname: "",
       user_pwd: "",
       user_phone: "",
-      user_lang: "모국어",
+      user_lang: "",
       user_wallet : ""
     }
     private conf_pwd: string = ""
@@ -320,7 +320,6 @@
 
     wallet_create(wallet_password: String){
       this.wallet_complete = true
-      console.log('')
       this.create_wallet(wallet_password)
     }
     
