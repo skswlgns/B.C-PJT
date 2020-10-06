@@ -6,6 +6,7 @@ import { authRoutes } from "./router/authRoutes"
 import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
 import { ChoiceRoutes } from "./router/ChoiceRoutes"
+import { starRateRoutes } from "./router/starRateRoutes"
 
 const app = express()
 app.use(cors())
@@ -16,6 +17,7 @@ require("./model/ArticleModel")
 require("./model/CandidateModel")
 require("./model/GoodLangModel")
 require("./model/ResumeModel")
+require("./model/StarRateModel")
 require("./model/UserModel")
 
 // routes
@@ -23,6 +25,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/articles", articleRoutes)
 app.use("/api/eth", ChoiceRoutes)
+app.use("/api/rate", starRateRoutes)
 
 // main
 app.get("/api/", (req: express.Request, res: express.Response) => {
