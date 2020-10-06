@@ -1,14 +1,11 @@
 <template>
   <div>
-    {{myinfo}}
-    <!-- {{ myinfo.user_good_lang }} -->
-    <!-- {{ temp_lang }} -->
     <div v-if="windowWidth > 375">
       <h1>통역가 등록하기</h1>
       <div class="user-box">
         <div class="d-flex">
-          <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-if="myinfo.user_image === ''">
-          <img :src="myinfo.user_image" alt="profile_image" class="box" v-else>
+          <img :src="'https://j3b103.p.ssafy.io/image/'+ myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
+          <img src="@/assets/images/user_basic.png"  alt="profile_image" class="box" v-else>
           <div class="pure-mt">
             <span class="nick-size">{{ myinfo.user_nickname }}</span>
             <p>모국어 | {{myinfo.user_lang}}</p>

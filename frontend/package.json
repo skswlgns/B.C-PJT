@@ -19,6 +19,7 @@
     "vue-cookies-ts": "^1.5.19",
     "vue-infinite-loading": "^2.4.5",
     "vue-infinite-scroll": "^2.0.2",
+    "vue-pdf": "^4.1.0",
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.4.3",
     "vue-window-size": "^0.6.1",
