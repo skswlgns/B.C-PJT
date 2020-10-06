@@ -193,20 +193,6 @@
                     &:nth-child(1) {
                       width: 410px;
                       text-align: right;
-                      a {
-                        word-break: break-all;
-                        border-radius: 2px;
-                        font-weight: bold;
-                        line-height: 1;
-                        font-size: 16px;
-                        padding: 16px 15px;
-                        display: inline-block;
-                        background-color: #1880ff;
-                        border: 1px solid #1880ff;
-                        color: #fff;
-                        border-bottom: 2px solid #145ce1;
-                        text-decoration:none
-                      }
                     }
                     &:nth-child(2) {
                       width: 200px;
@@ -330,8 +316,9 @@
                 left: 50px;
                 position: absolute;
                 img {
-                  width: 270px;
-                  height: 320px;
+                  z-index: 1;
+                  width: 256px;
+                  height: 256px;
                   vertical-align: middle;
                   border: 0;
                 }
@@ -342,7 +329,8 @@
                 left: -164px;
                 position: absolute;
                 img {
-                  width: 360px;
+                  z-index: -1;
+                  width: 256px;
                   border: 0;
                   vertical-align: middle;
                 }
