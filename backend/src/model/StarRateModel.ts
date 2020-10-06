@@ -9,6 +9,7 @@ const StarRateSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  star_rate_content: { type: String, default: "" },
   article_id: {
     type: Schema.Types.ObjectId,
     ref: "Article",

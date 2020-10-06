@@ -40,15 +40,6 @@ starRateRoutes.get("/:user_id/score", async (req: express.Request, res: express.
         starRate.forEach((rate: any) => {
           scoreSum += rate.star_rate_score
         })
-        // for (let rate in starRate) {
-        //   console.log(rate)
-        // }
-        // const scoreSum: any = StarRateModel.aggregate([
-        //   { $match: { star_rate_ts_user_id: user_id } },
-        //   { $group: { _id: user_id, sum: { $sum: "$score" } } },
-        // ])
-        // console.log(scoreSum.sum)
-
         res.status(200).send({ score: scoreSum / starRate.length })
       }
     }
@@ -58,21 +49,29 @@ starRateRoutes.get("/:user_id/score", async (req: express.Request, res: express.
 // 유저 평가: POST
 // starRateRoutes.post("/", verificationMiddleware)
 starRateRoutes.post("/", async (req: express.Request, res: express.Response) => {
-  const star_rate_ts_user_id = req.body.star_rate_ts_user_id
-  const article_id = req.body.article_id
-  const star_rate_score = req.body.star_rate_score
-  const star_rate_rq_user_id = await UserModel.findOne({ user_email: req.headers.email })
-  const starRate = new StarRateModel({
-    star_rate_ts_user_id: star_rate_ts_user_id,
-    star_rate_rq_user_id: star_rate_rq_user_id,
-    article_id: article_id,
-    star_rate_score: star_rate_score,
-  })
-  await starRate.save((err, newStarRate) => {
+  await UserModel.findOne({ user_email: req.headers.email }).exec(async (err: any, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      res.status(200).json(newStarRate)
+      const star_rate_rq_user_id = user._id
+      const star_rate_ts_user_id = req.body.star_rate_ts_user_id
+      const article_id = req.body.article_id
+      const star_rate_score = req.body.star_rate_score
+      const star_rate_content = req.body.star_rate_content
+      const starRate = new StarRateModel({
+        star_rate_ts_user_id: star_rate_ts_user_id,
+        star_rate_rq_user_id: star_rate_rq_user_id,
+        article_id: article_id,
+        star_rate_score: star_rate_score,
+        star_rate_content: star_rate_content,
+      })
+      await starRate.save((err, newStarRate) => {
+        if (err) {
+          res.status(500).send(err)
+        } else {
+          res.status(200).json(newStarRate)
+        }
+      })
     }
   })
 })
