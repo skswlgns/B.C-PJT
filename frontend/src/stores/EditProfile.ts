@@ -51,12 +51,15 @@ export default class EditProfile extends VuexModule {
           email: Vue.cookies.get("email"),
         },
       }
+
       const editData: any = new FormData()
       editData.append("user_phone", profiledata.user_phone)
       editData.append("user_nickname", profiledata.user_nickname)
       editData.append("user_image", profiledata.user_image)
 
-      await axios.put(`http://localhost:8080/api/auth`, editData, config)
+      console.log(editData)
+
+      await axios.put(`${SERVER_URL}/auth`, editData, config)
 
       router.push('/mypage')
     }

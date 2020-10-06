@@ -9,6 +9,7 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
+  public myinfo: any = {}
   public article: any = {}
   public user: any = []
   public temp_list: any = []
@@ -50,6 +51,11 @@ export default class TransDetail extends VuexModule {
       router.push({name: 'UserPage', params: { id : userid._id }}).catch(()=>{})
     }
     
+  }
+
+  @Mutation
+  public async savemyinfo(temp_data: any) {
+    this.myinfo = temp_data
   }
 
   @Action({ commit: "save_article" })
@@ -145,5 +151,21 @@ export default class TransDetail extends VuexModule {
     .then(() => {
       router.push('/home')
     })
+  }
+
+  @Action({ commit: "savemyinfo" })
+  public async get_myinfo() {
+    if (Vue.cookies.isKey("token")) {
+      const config = {
+        headers: {
+          token: Vue.cookies.get("token"),
+          email: Vue.cookies.get("email"),
+        },
+      }
+      const res = await axios.get(`${SERVER_URL}/users/my`, config)
+      return res.data
+    } else {
+      router.push("/404")
+    }
   }
 }

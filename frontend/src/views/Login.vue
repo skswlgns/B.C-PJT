@@ -281,7 +281,7 @@
       user_nickname: "",
       user_pwd: "",
       user_phone: "",
-      user_lang: "모국어",
+      user_lang: "",
       user_wallet : ""
     }
     private conf_pwd: string = ""

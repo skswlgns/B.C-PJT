@@ -1,12 +1,13 @@
 <template>
   <div>
     {{ myinfo }}
+    {{ imgurl}}
     <hr>
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
       <div class="user-box d-flex">
-        <img :src="myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
+        <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
@@ -61,6 +62,7 @@
             outlined
             v-for="(post, index) in myarticle" :key="index"
           >
+          
             <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
               <v-list-item v-if="post.article_select">
                 <v-list-item-content>
@@ -88,14 +90,59 @@
                 </template>
                 <v-card>
                   <v-card-title class="headline">
+                    이번 통역가는 어떠셨나요?
+                  </v-card-title>
+                  <v-card-text>                    
+                    <input type="radio" id="one" value="1" v-model="star.star_rate_score" class="ml-1">
+                    <label for="one">1</label>
+                    <input type="radio" id="two" value="2" v-model="star.star_rate_score" class="ml-1">
+                    <label for="two">2</label>
+                    <input type="radio" id="three" value="3" v-model="star.star_rate_score" class="ml-1">
+                    <label for="three">3</label>
+                    <input type="radio" id="four" value="4" v-model="star.star_rate_score" class="ml-1">
+                    <label for="four">4</label>
+                    <input type="radio" id="five" value="5" v-model="star.star_rate_score" class="ml-1">
+                    <label for="five">5</label>
+                    <div v-if="star.star_rate_score == '1'"><i class="fas fa-star"></i></div>
+                    <div v-else-if="star.star_rate_score == '2'">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-else-if="star.star_rate_score == '3'">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-else-if="trans_value == '4'">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-else-if="trans_value == '5'">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>                    
+                  </v-card-text>
+                  <v-row class="text-center">
+                    <v-col cols="12">
+                      <textarea type="text" placeholder="왜 그러한 평점을 주셨나요?(선택)" v-model="trans_evaluate" v-if="trans_value != ''"/>
+                    </v-col>
+                  </v-row>
+                  <v-card-title class="headline">
                     계좌 비밀번호를 입력해주세요. 
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg)">송금하기</v-btn>
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, trans_value, trans_evaluate)">송금하기</v-btn>
                   </v-card-text>
-                  <v-card-actions>
                     <v-spacer></v-spacer>
+
+                  <v-card-actions>
+                    <v-sapcer></v-sapcer>
                     <v-btn
                       color="green darken-1"
                       text
@@ -269,6 +316,14 @@
   private temp_wallet : String = ""
   private dialog2 : boolean = false
   private finish : boolean = false
+  private imgurl: string = ''
+
+  private star: any = {
+    star_rate_ts_user_id: '',
+    article_id: '',
+    star_rate_score: '',
+    star_rate_content: '',
+  }
 
   set_address(address : String){
     this.temp_wallet = address
@@ -318,12 +373,14 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string){
+  save_send(address : string, egg : number, toegg : string, value: string, evaluate: string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
+    value
+    evaluate
     this.send_money(this.send_data)
   }
 
@@ -355,10 +412,11 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
+    this.imgurl = `https://j3b103.p.ssafy.io/image/${this.myinfo.user_image}`
   }
 
   async mounted(){
-
+    
   }
 }
 </script>
