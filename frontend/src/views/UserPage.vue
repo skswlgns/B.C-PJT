@@ -1,17 +1,18 @@
 <template>
   <div>
+    {{resume}}
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <h1>유저페이지</h1>
       <div class="user-box d-flex">
         <img 
-          v-if="userinfo.user_image === ''"
-          src="@/assets/images/user_basic.png" 
+          v-if="userinfo.user_image"
+          :src="'https://j3b103.p.ssafy.io/image/'+ userinfo.user_image"
           alt="profile_image" 
-          class="box">
+          class="box profile_image">
          <img 
           v-else
-          :src="imgurl" 
+          src="@/assets/images/user_basic.png" 
           alt="profile_image" 
           class="box"> 
         <div class="pure-mt">
@@ -47,13 +48,31 @@
             </span>
           </p>
         </div>
-        <div class="ml-auto my-auto mr-3">
-          <v-btn
-            color="primary"
-            class="ma-10">
-            <i class="far fa-envelope"></i>
-          </v-btn>
+      </div>
+      <div class="user-box">
+        <br>
+        <div class="d-flex">
+          <h2 class="mx-4">경력</h2>
         </div>
+        <v-row class="mx-2">
+          <v-col v-for="(li, index) in resume" :key="index" cols="6">
+            <v-card
+              class="my-3"
+              outlined                
+            >
+              <v-list-item>
+                <v-list-item-content>
+
+                  <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>
+                  
+                  <VueDocPreview :value="'https://j3b103.p.ssafy.io/static/' + li.resume_file" :type="docType" v-if="li.resume_file.slice(-3,0) != 'pdf'"/>
+                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file" v-else></pdf>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
       <div class="user-box">
         <br>
@@ -129,12 +148,18 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
+import pdf from 'vue-pdf'
+import VueDocPreview from 'vue-doc-preview'
 
   const UserModule = namespace('UserPage');
 
   @Component({
+    components: {
+      pdf,
+      VueDocPreview
+    },
     mounted() {
-
+      
     }
   })
 
@@ -145,8 +170,12 @@ import { namespace } from 'vuex-class';
 
     @UserModule.State('userinfo')
     private userinfo!: any;
+
     @UserModule.State('my_article')
     private my_article!: any;
+
+    @UserModule.State('resume')
+    private resume!: any;
 
     @UserModule.State('starrate')
     private starrate!: Number;
@@ -159,14 +188,18 @@ import { namespace } from 'vuex-class';
 
     @UserModule.Action('get_applyarticle')
     private get_applyarticle!: (id: string) => void;
-      
+
+    @UserModule.Action('get_resume')
+    private get_resume!: (id: string) => void;
+
     async created() {
       await this.get_userpage(this.$route.params.id)
       this.imgurl = `https://j3b103.p.ssafy.io/image/${this.userinfo.user_image}`
 
       await this.get_starrate(this.$route.params.id)
       await this.get_applyarticle(this.$route.params.id)
-      console.log('created', this.my_article)
+
+      await this.get_resume(this.$route.params.id)
 
       for (let i in this.my_article) {
         if (this.my_article[i].article_id.article_select === this.userinfo._id) {

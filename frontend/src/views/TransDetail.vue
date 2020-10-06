@@ -4,8 +4,8 @@
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">
-          <img :src="'https://j3b103.p.ssafy.io/image/' + article.user_id.user_image" alt="프로필이미지" class="profile_image"  @click="goUserpage(article.user_id)" v-if="article.user_id.user_image != ''">
-          <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else>
+          <img :src="'https://j3b103.p.ssafy.io/image/' + article.user_id.user_image" alt="프로필이미지" class="profile_image"  @click="goUserpage(article.user_id)" v-if="article.user_id.user_image">
+          <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image">
           <h4 class="center"  @click="goUserpage(article.user_id)">{{ article.user_id.user_nickname }}</h4>
           <v-spacer></v-spacer>
           <span v-if="!article.article_select" class="ing">진행중</span>
@@ -135,7 +135,7 @@
                       </v-card-title>
                       <v-card-text class="modal_text">
                         <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                        <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
+                        <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
                         </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>

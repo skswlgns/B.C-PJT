@@ -7,22 +7,27 @@
       <div class="user-box d-flex">
         <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
-        <div class="pure-mt">
-          <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
-          <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
-          <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
-          <span v-if="myinfo.user_good_lang != ''">잘하는 언어 | 
-            <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-1"> 
-              <v-btn rounded color="primary" dark small v-if="lang.slice(-1) == 1">{{ lang.slice(0,-1) }}</v-btn>
-              <v-btn rounded color="warning" dark small v-else>{{ lang.slice(0,-1) }}</v-btn>
+        <div class="pure-mt"> 
+          <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
+          <div class="badge_fr">
+            <p>{{ myinfo.user_lang }}</p>
+            <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
+          </div>
+          <span class="ability" v-if="myinfo.user_good_lang != ''">
+            <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
+              <span class="ability_fr" v-if="lang.slice(-1) == 1">
+                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges">네이티브</span></div>
+              </span>
+              <span v-else class="ability_fr">
+                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <div class="deep-purple darken-1 text-no-wrap rounded-pill ab"><span class="badges">고급</span></div>  
+              </span>
             </span>
           </span>
-          <p class="mt-1">
-            <span>
-              <v-btn rounded color="primary" dark small class="mx-1">네이티브</v-btn>
-              <v-btn rounded color="warning" dark small>고급</v-btn>
-            </span>
-          </p>
+          <div class="egg">
+            <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
+          </div>
         </div>
         <div class="ml-auto my-auto mr-3">
           <div class="d-flex flex-column">

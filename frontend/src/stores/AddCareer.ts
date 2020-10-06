@@ -55,13 +55,7 @@ export default class Edittrans extends VuexModule {
 
         await axios.post(`${SERVER_URL}/resume`, addData, config)
       }
-      // const editData: any = new FormData()
-      // editData.append("user_phone", user_resume.user_phone)
-      // editData.append("user_nickname", user_resume.user_nickname)
-      // editData.append("user_image", user_resume.user_image)
-
-      // await axios.put(`${SERVER_URL}/auth`, editData, config)
-      // router.push('/mypage')
+      router.push('/mypage')
     }
   }
 }
