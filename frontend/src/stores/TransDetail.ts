@@ -158,6 +158,6 @@ export default class TransDetail extends VuexModule {
   @Action
   public async saveContract(contractData: any) {
     console.log('contract action', contractData)
-    const res = await axios.post(`${SERVER}/eth/contracting`, contractData)
+    const res = await axios.post(`${SERVER_URL}/eth/contracting`, contractData)
   }
 }
