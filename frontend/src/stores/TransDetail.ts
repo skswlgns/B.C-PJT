@@ -4,7 +4,11 @@ import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+<<<<<<< HEAD
 const SERVER = 'http://localhost:8080/api'
+=======
+// const SERVER_URL = 'http://localhost:8080/api'
+>>>>>>> 742ba09ff4741a1113379e8b7dc0e9b06541ecb3
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {

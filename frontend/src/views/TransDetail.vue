@@ -91,7 +91,7 @@
                     <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
                   </div>
                   <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
-                  <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
+                  <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select"></div>   
                     <v-dialog
                       v-model="dialog3"
                       persistent
@@ -135,51 +135,51 @@
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
-                <v-row class="contents">
-                  <div class="content">
-                    {{content.candidate_content}}
-                  </div>
-                  <v-spacer></v-spacer>
-                  <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
-                  <v-dialog
-                    v-model="dialog"
-                    persistent
-                    max-width="350"
-                    class="modal"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn v-bind="attrs" v-on="on" 
-                        v-if="user_profile.user_email == my_email && article.article_select == user_profile._id" 
-                        class="cancel_btn_2">
-                        취소하기
-                      </v-btn>
-                    </template>
-                    <v-card class="modal_body">
-                      <v-card-title class="headline">
-                        취소 사유를 작성해주세요. 
-                      </v-card-title>
-                      <v-card-text class="modal_text">
-                        <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                        <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
-                        </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="green darken-1"
-                          text
-                          @click="dialog = false"
-                        >
-                          close
+                  <v-row class="contents">
+                    <div class="content">
+                      {{content.candidate_content}}
+                    </div>
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
+                    <v-dialog
+                      v-model="dialog"
+                      persistent
+                      max-width="350"
+                      class="modal"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn v-bind="attrs" v-on="on" 
+                          v-if="user_profile.user_email == my_email && article.article_select == user_profile._id" 
+                          class="cancel_btn_2">
+                          취소하기
                         </v-btn>
-                      </v-card-actions> 
-                    </v-card>
-                  </v-dialog> 
-                </v-row>
+                      </template>
+                      <v-card class="modal_body">
+                        <v-card-title class="headline">
+                          취소 사유를 작성해주세요. 
+                        </v-card-title>
+                        <v-card-text class="modal_text">
+                          <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                          <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
+                          </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="green darken-1"
+                            text
+                            @click="dialog = false"
+                          >
+                            close
+                          </v-btn>
+                        </v-card-actions> 
+                      </v-card>
+                    </v-dialog> 
+                  </v-row>
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </li>
+          </ul>
+        </div>
 
     </div>
 
