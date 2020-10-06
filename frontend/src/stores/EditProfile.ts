@@ -57,10 +57,7 @@ export default class EditProfile extends VuexModule {
       editData.append("user_nickname", profiledata.user_nickname)
       editData.append("user_image", profiledata.user_image)
 
-      console.log(editData)
-
       await axios.put(`${SERVER_URL}/auth`, editData, config)
-
       router.push('/mypage')
     }
   }

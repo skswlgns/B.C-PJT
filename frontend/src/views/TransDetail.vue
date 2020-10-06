@@ -1,15 +1,9 @@
 <template>
   <div>
-    <!-- {{article}} -->
-    {{ article.user_id._id }}
-    <hr>
+    {{ article.article_candidate }}
     <!-- {{ article.article_candidate }} -->
     <hr>
-    <!--{{ my_email }}
-    {{ toegg }}
-    {{ clickData }}
-    {{ money_success }} -->
-    <hr>
+    {{ user }}
 
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
@@ -75,7 +69,7 @@
       <div class="applyList">
         <li v-for="(user_profile, index) in user" :key="index">
           <ol v-for="(content, index) in article.article_candidate" :key="index">
-            <!-- {{ user_profile._id }} | {{ content.user_id }} -->
+            
             <div v-if="user_profile._id == content.user_id" class="applyCard_select">
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
@@ -130,7 +124,6 @@
                     </v-card>
                   </v-dialog> 
                 </div>
-                <!--client가 취소 -> 지원자한테 메일 보내기 -->
               </div>
               <v-row class="contents">
                 <div class="content">
@@ -138,7 +131,6 @@
                 </div>
                 <v-spacer></v-spacer>
                 <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
-                <!-- 지원한 사람이 취소 -> client한테 메일 보내기 -->
                 <v-dialog
                   v-model="dialog"
                   persistent
@@ -301,8 +293,7 @@
   export default class TransDetail extends Vue {
     @Prop()
       id !: String;
-
-    private candidate_content : String = "";
+      
     private my_email : any = Vue.cookies.get('email');
     private dialog: boolean = false;
     private dialog2: boolean = false;
@@ -423,7 +414,7 @@
     private apply_cancel!: (applyData: any) => void;
 
     @TransDetailModule.Action('get_candidate')
-    private get_candidate!: (id: String) => void;
+    private get_candidate!: (candi_list: any) => void;
 
     @TransDetailModule.Action('delete')
     private del!: (id: String) => void;
@@ -457,14 +448,19 @@
       user_id: ""
     }
 
-    async mounted() {
+    async created() {
       await this.get_article_1(this.id)
-      if (this.article.article_candidate != '') {
+      await console.log('created' , this.article.article_candidate)
+
+      if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)
       }
 
       this.get_myinfo()
       
+    }
+
+    async mounted() {
       window.scrollTo(0, 0)
     }   
   }

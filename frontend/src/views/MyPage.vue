@@ -1,8 +1,10 @@
 <template>
   <div>
-    {{ myinfo }}
-    {{ imgurl}}
+    <!-- {{ myinfo }} -->
+    {{ myarticle }}
     <hr>
+    {{ applyarticle }}
+
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
@@ -12,7 +14,7 @@
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
-          <p> {{ mymoney }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
+          <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
           <span v-if="myinfo.user_good_lang != ''">잘하는 언어 | 
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-1"> 
               <v-btn rounded color="primary" dark small v-if="lang.slice(-1) == 1">{{ lang.slice(0,-1) }}</v-btn>
@@ -56,36 +58,36 @@
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
         <div>
-          <v-card
-            class="my-3 two_box"
-            max-width="1200"
-            outlined
-            v-for="(post, index) in myarticle" :key="index"
-          >
-          
-            <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
-              <v-list-item v-if="post.article_select">
-                <v-list-item-content>
-                  <div class="card_header">
-                    <div class="overline mb-4 request">요청</div>
-                    <v-spacer></v-spacer>
-                    <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                  </div>
-                  <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
-                      {{  post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </router-link>
-            <div class="btn_box">
-              <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+          <li class="no_style" v-for="(post, index) in myarticle" :key="index">
+            <v-card
+              class="my-3 two_box"
+              max-width="1200"
+              outlined
+              v-if="post.article_select"
+            >
+              <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
+                <v-list-item >
+                  <v-list-item-content>
+                    <div class="card_header">
+                      <div class="overline mb-4 request">요청</div>
+                      <v-spacer></v-spacer>
+                      <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                    </div>
+                    <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
+                    <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
+                        {{  post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </router-link>
+              <div class="btn_box">
+                <v-btn @click="goChat()" color="#0288D1" class="mt-1 chat_btn">화상 채팅</v-btn>
 
-              <v-dialog
-                v-model="dialog2"
-                persistent
-                max-width="400"
-              >
-                <template v-slot:activator="{ on, attrs }">
+                <v-dialog
+                  v-model="dialog2"
+                  persistent
+                  max-width="400"
+                >
+                  <template v-slot:activator="{ on, attrs }">
                   <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
                 </template>
                 <v-card>
@@ -152,26 +154,28 @@
                     </v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-dialog>
-            </div>
-            <div class="chat_box">
-              <p>! 화상 채팅 입력 방법 !</p>
-              <p>nickname : 이름 작성</p>
-              <p>Room : <span class="room">{{post._id.substr(0, 5)}}</span></p>
-            </div>
-          </v-card>
+                </v-dialog>
+              </div>
+              <div class="chat_box">
+                <p>! 화상 채팅 입력 방법 !</p>
+                <p>nickname : 이름 작성</p>
+                <p>Room : <span class="room">{{post._id.substr(0, 7)}}</span></p>
+              </div>
+            </v-card>
+          </li>
         </div>
 
+        <!--지원한거-->
         <div>
-          <v-card
-            class="two_box flex"
-            max-width="1200"
-            outlined
-            v-for="(post, index) in applyarticle" :key="index" 
-          >
-            <div v-if="post.article_id">
-              <router-link  :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
-                <v-list-item v-if="post.article_id.article_select == myinfo._id">
+          <li class="no_style" v-for="(post, index) in applyarticle" :key="index">
+            <v-card
+              class="my-3 two_box"
+              max-width="1200"
+              outlined
+              v-if="post.article_id.article_select == myinfo._id"
+            >
+              <router-link :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
+                <v-list-item>
                   <v-list-item-content>
                     <div class="card_header">
                       <div class="overline mb-4 apply">참여</div>
@@ -179,26 +183,24 @@
                       <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                     </div>
                     <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
-                    <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
-                      {{  post.article_id.article_from }} -> {{ post.article_id.article_to }}</v-list-item-subtitle>
+                    <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} |
+                        {{  post.article_id.article_from }} -> {{ post.article_id.article_to }} </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </router-link>
               <div class="btn_box">
-                <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+                <v-btn @click="goChat()" color="#0288D1" class="mt-8 chat_btn">화상 채팅</v-btn>
               </div>
               <div class="chat_box">
-                <p> ! 화상 채팅 입력 방법 !</p>
+                <p>! 화상 채팅 입력 방법 !</p>
                 <p>nickname : 이름 작성</p>
-                <p>Room : <span class="room">{{post.article_id._id.substr(0, 5)}}</span></p>
+                <p>Room : <span class="room">{{post.article_id._id.substr(0, 7)}}</span></p>
               </div>
-            </div>
-          </v-card> 
+            </v-card>
+          </li>
         </div>
       </div>
-      <div>
 
-      </div>
       <div>
         <h1>내역</h1>
         <div class="user-box">
@@ -223,8 +225,9 @@
                         <v-list-item-content>
                           <div class="card_header">
                             <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                            <div class="overline mb-4 complete">완료</div>
-                            <div class="overline mb-4 nocomplete">미완료</div>
+                            <span v-if="!post.article_select && success_money" class="ing">진행중</span>
+                            <span v-if="post.article_select && !success_money" class="end">마감</span>
+                            <span v-if="success_money" class="complete">완료</span>
                             <v-spacer></v-spacer>
                             <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                           </div>
@@ -244,7 +247,7 @@
               <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
-                    참여 ( {{ applyarticle.length}})
+                    참여 ({{ applyarticle.length}})
                   </div>
                 </div>
                 <v-row>
@@ -260,8 +263,9 @@
                           <v-list-item>
                             <v-list-item-content>
                               <div class="card_header">
-                                <div class="overline mb-4 complete">완료</div>
-                                <div class="overline mb-4 nocomplete">미완료</div>
+                                <span v-if="!post.article_id.article_select && !success_money" class="ing">진행중</span>
+                                <span v-if="post.article_id.article_select && !success_money" class="end">마감</span>
+                                <span v-if="success_money" class="complete">완료</span>
                                 <v-spacer></v-spacer>
                                 <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                               </div>
@@ -330,11 +334,11 @@
   }
 
    private successParams = {
-      to_email: "",
-      title: "",
-      reason: "",
-      message_html: `https://j3b103.p.ssafy.io/`
-    }
+    to_email: "",
+    title: "",
+    reason: "",
+    message_html: `https://j3b103.p.ssafy.io/`
+  }
 
   @myPageModule.State('myarticle')
   private myarticle!: any;
@@ -343,7 +347,7 @@
   private applyarticle!: any;
 
   @myPageModule.State('mymoney')
-  private mymoney!: any;
+  private mymoney!: Number;
   
   @myPageModule.State('success_money')
   private success_money!: boolean;
@@ -373,37 +377,37 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string, value: string, evaluate: string){
+  successTest(){
+    emailjs
+      .send(
+        "mamago",
+        "template_346dwuw",
+        this.successParams,
+        "user_3x0V5QZyfdtMPvYN4YMOC",
+      )
+      .then(
+        function(response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function(error) {
+          console.log("FAILED...", error);
+        }
+      );
+  }
+
+  save_send(address : string, egg : number, toegg : string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
-    value
-    evaluate
     this.send_money(this.send_data)
   }
 
-  successTest(){
-      emailjs
-        .send(
-          "mamago",
-          "template_346dwuw",
-          this.successParams,
-          "user_3x0V5QZyfdtMPvYN4YMOC",
-        )
-        .then(
-          function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function(error) {
-            console.log("FAILED...", error);
-          }
-        );
-    }
-
-  if(success_money : boolean){
+  // 돈 성공적으로 전송되었을 때, 이메일 알림 
+  if(success_money : boolean = true){
     console.log(success_money)
+    this.successTest()
   }
 
   async created() {
