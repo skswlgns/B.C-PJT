@@ -92,27 +92,6 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
                   </template>
-                  <v-card>
-                    <v-card-title class="headline">
-                      계좌 비밀번호를 입력해주세요. 
-                    </v-card-title>
-                    <v-card-text>
-                      <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                      <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.user_id, post.article_title, myinfo.user_email)">송금하기</v-btn>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialog2 = false"
-                      >
-                        close
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                  <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
-                </template>
                 <v-card>
                   <v-card-title class="headline">
                     이번 통역가는 어떠셨나요?
