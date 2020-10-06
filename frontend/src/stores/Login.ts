@@ -27,6 +27,7 @@ export default class Login extends VuexModule {
   // actions
   @Action
   public async signup(signupData: any) {
+    console.log(signupData)
     await axios.post(`${SERVER_URL}/auth/signup`, signupData).then((res) => {
       const loginInfo: any = {
         user_email: signupData.user_email,

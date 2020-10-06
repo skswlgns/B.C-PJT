@@ -2,6 +2,7 @@ import Vue from "vue"
 import axios from "axios"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import router from "@/router"
+import emailjs from "emailjs-com";
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER_URL = "http://localhost:8080/api"
@@ -108,16 +109,32 @@ export default class MyPage extends VuexModule {
   }
 
   @Action({ commit: "save_success"})
-  public async send_money(send_data: any) {
+  public async send_money(send_data: any, successParams : any) {
     console.log("돈 전송 action")
     console.log(send_data)
-    await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
-    .then(res => {
+    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
       console.log('김용욱 개천사', res.data)
+      this.context.dispatch("successTest", successParams)
       return res.data
-    })
-    .catch(err => console.log(err))
+  }
 
+  @Action
+  public async successTest(successParams : any){
+    emailjs
+      .send(
+        "service_yx8j1on",
+        "template_346dwuw",
+        successParams,
+        "user_3x0V5QZyfdtMPvYN4YMOC",
+      )
+      .then(
+        function(response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function(error) {
+          console.log("FAILED...", error);
+        }
+      );
   }
 
   @Action

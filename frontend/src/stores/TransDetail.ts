@@ -3,7 +3,8 @@ import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
-const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+const SERVER_URL = 'http://localhost:8080/api'
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
@@ -140,6 +141,12 @@ export default class TransDetail extends VuexModule {
     })
   }
 
+  @Action
+  public async saveContract(contractData: any) {
+    console.log('contract action', contractData)
+    const res = await axios.post(`${SERVER_URL}/eth/contracting`, contractData)
+  }
+  
   @Action({ commit: "savemyinfo" })
   public async get_myinfo() {
     if (Vue.cookies.isKey("token")) {
