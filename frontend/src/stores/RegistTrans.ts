@@ -53,6 +53,6 @@ export default class RegistTrans extends VuexModule {
     
     await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
     
-    router.push('/mypage')
+    router.push('/addcareer')
   }
 }

@@ -6,8 +6,8 @@
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
       <div class="user-box d-flex">
-        <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-if="myinfo.user_image === ''">
-        <img :src="myinfo.user_image" alt="profile_image" class="box" v-else>
+        <img :src="myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
+        <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}<v-btn color="error" class="ml-2" rounded dark v-if="myinfo.user_is_ts === true">통역가</v-btn></span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>

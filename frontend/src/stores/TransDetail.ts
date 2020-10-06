@@ -3,8 +3,8 @@ import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
-// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER_URL = 'http://localhost:8080/api'
+const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER_URL = 'http://localhost:8080/api'
 
 
 @Module({ namespaced: true })
@@ -39,6 +39,17 @@ export default class TransDetail extends VuexModule {
   @Mutation
   public async save_success(temp: String) {
     this.money_success = true
+  }
+
+  @Mutation
+  public async goUserpage(userid: any) {
+    if (userid.user_email === Vue.cookies.get('email')) {
+      router.push('/mypage')
+    }
+    else {
+      router.push({name: 'UserPage', params: { id : userid._id }}).catch(()=>{})
+    }
+    
   }
 
   @Action({ commit: "save_article" })

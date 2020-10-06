@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
 import router from '@/router';
 
-// const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
-const SERVER_URL = 'http://localhost:8080/api'
+const SERVER_URL = 'https://j3b103.p.ssafy.io/api'
+// const SERVER_URL = 'http://localhost:8080/api'
 
 
 @Module({namespaced: true})
@@ -56,7 +56,7 @@ export default class EditProfile extends VuexModule {
       }
       const editData: any = {
         user_phone: profiledata.user_phone,
-        user_image: profiledata.user_image.name,
+        user_image: profiledata.user_image,
         user_nickname: profiledata.user_nickname,
       }
       console.log(editData)

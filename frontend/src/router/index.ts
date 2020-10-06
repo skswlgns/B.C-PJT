@@ -95,6 +95,14 @@ const routes = [
     path: '/regist',
     name: 'TranslateRegist',
     component: TranslateRegist,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next()
+      }
+      else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/transdetail/revise/:id',

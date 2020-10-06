@@ -117,7 +117,7 @@
 
         <h4>경력증명</h4>
         <input type="file">
-        <button class="red mt-3" type="button" @click="first_trans(myinfo)">신청하기</button>
+        <button class="red mt-3" type="button" @click="first_trans(myinfo)">다음단계</button>
       </form>
     </div>
   </div>
