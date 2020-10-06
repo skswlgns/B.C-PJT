@@ -95,6 +95,7 @@ export default class TransDetail extends VuexModule {
   public async get_candidate(candi_list: any) {
     const users : any = []
     for (let candi in candi_list) {
+      // console.log('candi' + candi)  
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
       users.push(res.data)
     }

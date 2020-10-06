@@ -2,10 +2,24 @@
   box-sizing: border-box;
 }
 
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
+}
 .user-box {
   background-color: white;
   margin: 3vh 0;
+  box-shadow: 2px 2px 3px 2px grey;
+  img {
+	  margin: auto 5%;
+  }
+
 }
+.ing-box {
+	box-shadow: 2px 2px 3px 2px grey;
+}
+
 
 .no_style{
 	list-style: none;
@@ -138,13 +152,73 @@
 	}
 
 	.nick-size {
+		min-width: 350px;
+		display: flex;
 		font-size: 1.8vw;
 		font-weight: bold;
+		div {
+			margin-left: 2%;
+		}
 	}
 
 	p, span {
 		font-size: 1.2vw;
 	}
+	.badge_fr {
+		display: flex;
+		p {
+			display: inline;
+			margin: auto 2%;
+			margin-left: 0;
+		}
+		.badge {
+			min-width: 60px;
+			height: 28px;
+			text-align: center;
+			.badge_font {
+				font-size: 10px;
+				color: white;
+			}
+		}
+	}
+	.ability {
+		display: flex;
+		margin-top: 3%;
+		flex-wrap: wrap;
+		.abil {
+			display: flex;
+			margin-left: 0;
+			margin-right: 5%;
+			.ability_fr {
+				margin-top: 5%;
+				display: flex;
+				// display: inline-block;
+				.abilities {
+					display: flex;
+					margin-right: 5%;
+				}
+				.ab {
+					display: flex;
+					min-width: 60px;
+					height: 28px;
+					justify-content: center;
+					align-items: center;	
+					.badges {
+						font-size: 10px;
+						color: white;
+	
+					}
+	
+				}
+	
+			}
+		}
+
+	}
+	.egg {
+		margin-top: 3%;
+	}
+
 }  
 
 

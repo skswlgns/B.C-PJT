@@ -108,7 +108,7 @@
                       </v-card-title>
                       <v-card-text class="modal_text">
                         <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                        <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
+                        <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
                         </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
