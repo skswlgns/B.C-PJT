@@ -6,30 +6,30 @@
         <div class="top-landing">
           <div class="top-inner">
             <div class="slide"> 
-              <img src="../assets/images/peo1.png" class="item">
-              <img src="../assets/images/peo2.png" class="item">
-              <img src="../assets/images/peo3.png" class="item">
-              <img src="../assets/images/peo4.png" class="item">
-              <img src="../assets/images/peo5.png" class="item">
+              <img src="../assets/images/peo1.png" class="item" alt="mian model">
+              <img src="../assets/images/peo2.png" class="item" alt="mian model">
+              <img src="../assets/images/peo3.png" class="item" alt="mian model">
+              <img src="../assets/images/peo4.png" class="item" alt="mian model">
+              <img src="../assets/images/peo5.png" class="item" alt="mian model">
             </div>
             <table class="table-center">
-              <thead>
+              <th>
                 <tr>
                   <td></td>
                   <td></td>
                   <td></td> 
                 </tr>
-              </thead>
+              </th>
               <tbody>
                 <tr class="tr1">
                   <td>
                     실시간 통역<br>
-                    <b>언택트</b>로 안전하게
+                    <strong>언택트</strong>로 안전하게
                   </td>
                   <td></td>
                   <td>
                     중요한 통역은<br>
-                    <b>신뢰할 수 있는 통역가</b>에게
+                    <strong>신뢰할 수 있는 통역가</strong>에게
                   </td>
                 </tr>
                 <tr class="space"></tr>
@@ -90,10 +90,10 @@
             <div class="picture">
               <div class="picture-top">
                 <div class="pic-position">
-                  <img src='../assets/images/translate.png'>
+                  <img src='../assets/images/translate.png' alt="illustration">
                 </div>
                 <div class="pic-position2">
-                  <img src="../assets/images/translation.png">
+                  <img src="../assets/images/translation.png" alt="illustration">
                 </div>  
               </div>
             </div>

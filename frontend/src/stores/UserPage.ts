@@ -19,7 +19,6 @@ export default class UserPage extends VuexModule {
   // mutations
   @Mutation
   public async saveuserinfo(temp_data: any = {}) {
-    console.log(temp_data)
     this.userinfo = temp_data
   }
 
@@ -49,8 +48,6 @@ export default class UserPage extends VuexModule {
       },
     }
     const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
-    // console.log('here')
-    console.log(res.data)
     return res.data
   }
 }
