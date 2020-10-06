@@ -7,7 +7,7 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER = "http://localhost:3000"
 
 @Module({ namespaced: true })
-export default class RegistTrans extends VuexModule {
+export default class Edittrans extends VuexModule {
   // states
   public myinfo: any = {}
 
@@ -34,7 +34,6 @@ export default class RegistTrans extends VuexModule {
       router.push("/404")
     }
   }
-
   @Action
   public async first_trans(myinfo:any) {
 		const config = {
@@ -53,6 +52,6 @@ export default class RegistTrans extends VuexModule {
     
     await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
     
-    router.push('/addcareer')
+    router.push('/mypage')
   }
 }

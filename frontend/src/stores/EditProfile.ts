@@ -57,6 +57,8 @@ export default class EditProfile extends VuexModule {
       editData.append("user_image", profiledata.user_image)
 
       await axios.put(`http://localhost:8080/api/auth`, editData, config)
+
+      router.push('/mypage')
     }
   }
 }
