@@ -1,10 +1,5 @@
 <template>
   <div>
-    {{ article.article_candidate }}
-    <!-- {{ article.article_candidate }} -->
-    <hr>
-    {{ user }}
-
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
@@ -172,6 +167,7 @@
             </div>
           </div>
         </li>
+        </ul>
       </div>
     </div>
 
