@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{userinfo}}
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <h1>유저페이지</h1>
@@ -12,21 +11,41 @@
           class="box">
          <img 
           v-else
-          :src="userinfo.user_image" 
+          :src="imgurl" 
           alt="profile_image" 
           class="box"> 
         <div class="pure-mt">
-          <span class="nick-size">{{ userinfo.user_nickname }}</span>
+          <span class="nick-size">{{ userinfo.user_nickname }}</span>          
           <p>ㅁ 모국어 | {{ userinfo.user_lang }}</p>
           <span>ㅁ 잘하는 언어 | {{ userinfo.user_good_lang }} </span>
-          <span>
-            <v-responsive
-            class="text-center grey lighten-2 rounded-pill d-inline-flex align-center justify-center ma-1"
-            height="1.2vw"
-            width="5vw"
-            >
-              초고수
-            </v-responsive></span>
+          <p v-if="userinfo.user_is_ts === true">
+            ㅁ 신뢰도 |
+            <span v-if="starrate === 1">
+              <i class="fas fa-star" style="color: red"></i>
+            </span>
+            <span v-else-if="starrate === 2">
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+            </span>
+            <span v-else-if="starrate === 3">
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+            </span>
+            <span v-else-if="starrate === 4">
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+            </span>
+            <span v-else-if="starrate === 5">
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+              <i class="fas fa-star" style="color: red"></i>
+            </span>
+          </p>
         </div>
         <div class="ml-auto my-auto mr-3">
           <v-btn
@@ -36,37 +55,33 @@
           </v-btn>
         </div>
       </div>
-      <div>
-        <div class="user-box">
-          <br>
-          <div class="d-flex">
-            <h2 class="mx-4">통역내역</h2>
-          </div>
-          <v-row class="ma-4">
-            <v-col col="6"  v-for="(li, index) in list" :key="index">
-              <v-card
-                class="mx-auto my-3"
-                max-width="500"
-                outlined
-              >
-                <v-list-item>
-                  <v-list-item-content>
-                    <div class="overline mb-4" v-if="li.article_complete === true">완료</div>
-                    <div class="overline mb-4" v-else>미완료</div>
-                    <v-list-item-title class="headline mb-1">{{ li.article_title }}</v-list-item-title>
-                    <v-list-item-subtitle class="my-2">{{ li.article_egg }} | {{ li.article_date }} | {{  li.article_from }} -> {{ li.article_to }} | 통역가 이름</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-card>
-            </v-col>
-          </v-row>
+      <div class="user-box">
+        <br>
+        <div class="d-flex">
+          <h2 class="mx-4">통역내역</h2>
         </div>
+        <v-row class="mx-2">
+          <v-col v-for="(li, index) in candarticle" :key="index" cols="6">
+            <v-card
+              v-if="li.article_id.article_select === userinfo._id"
+              class="my-3"
+              outlined                
+            >
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{ li.article_id.article_egg }} | {{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
     </div>
 
     <!-- ########################   모바일    ##################################3-->
 
-    <div v-else>
+    <!-- <div v-else>
       <h2 class="ma-2">마이페이지</h2>
       <div class="card-container mx-auto text-center">
         <span class="pro">통역가</span>
@@ -107,7 +122,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-card>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -124,19 +139,44 @@ import { namespace } from 'vuex-class';
   })
 
   export default class UserPage extends Vue {
+    private imgurl: string = '';
+    private candarticle : any = [];
+    
 
-   @UserModule.State('userinfo')
+    @UserModule.State('userinfo')
     private userinfo!: any;
+    @UserModule.State('my_article')
+    private my_article!: any;
 
-    @UserModule.Mutation('saveuserinfo')
-    private saveuserinfo !: any;
+    @UserModule.State('starrate')
+    private starrate!: Number;
 
     @UserModule.Action('get_userpage')
     private get_userpage!: (temp: string) => void;
-    // private signup!: (signupData: object) => void;
+    
+    @UserModule.Action('get_starrate')
+    private get_starrate!: (id: string) => void;
+
+    @UserModule.Action('get_applyarticle')
+    private get_applyarticle!: (id: string) => void;
+      
+    async created() {
+      await this.get_userpage(this.$route.params.id)
+      this.imgurl = `https://j3b103.p.ssafy.io/image/${this.userinfo.user_image}`
+
+      await this.get_starrate(this.$route.params.id)
+      await this.get_applyarticle(this.$route.params.id)
+      console.log('created', this.my_article)
+
+      for (let i in this.my_article) {
+        if (this.my_article[i].article_id.article_select === this.userinfo._id) {
+          this.candarticle.push(this.my_article[i])
+        }
+      }
+    }
 
     async mounted() {
-      this.get_userpage(this.$route.params.id)
+
     }
 
 
@@ -144,5 +184,6 @@ import { namespace } from 'vuex-class';
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/scss/userpage.scss';
+  // @import '@/assets/scss/userpage.scss';
+  @import '@/assets/scss/mypage.scss';
 </style>

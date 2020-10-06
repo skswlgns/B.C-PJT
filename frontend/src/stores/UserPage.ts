@@ -9,7 +9,9 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 @Module({ namespaced: true })
 export default class UserPage extends VuexModule {
   // states
-  public userinfo: any = {}
+  public userinfo: any = {};
+  public starrate: Number = 0;
+  public my_article: any = {};
 
   // getters
   // get doubledCount() {
@@ -20,6 +22,16 @@ export default class UserPage extends VuexModule {
   @Mutation
   public async saveuserinfo(temp_data: any = {}) {
     this.userinfo = temp_data
+  }
+
+  @Mutation
+  public async save_rate(rate: any) {
+    this.starrate = rate.score
+  }
+
+  @Mutation
+  public async save_apply(onData: any) {
+    this.my_article = onData
   }
 
   // actions
@@ -40,14 +52,20 @@ export default class UserPage extends VuexModule {
 
   // 유저가 지원한 article 받아오기
   @Action({ commit: "save_apply" })
-  public async get_applyarticle() {
+  public async get_applyarticle(id: string) {
     const config = {
       headers: {
         token: Vue.cookies.get("token"),
         email: Vue.cookies.get("email"),
       },
     }
-    const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
+    const res = await axios.get(`${SERVER_URL}/users/${id}/candidates`, config)
+    return res.data
+  }
+
+  @Action({commit: 'save_rate'})
+  public async get_starrate(id:string) {
+    const res = await axios.get(`${SERVER_URL}/rate/${id}/score`)
     return res.data
   }
 }
