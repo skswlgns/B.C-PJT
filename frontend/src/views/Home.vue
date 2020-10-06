@@ -60,7 +60,7 @@
               <li v-for="(list, index) in searching" :key="index">
                   <div class="card router" @click="goDetailpage(list._id)"> 
                     <div class="profile">
-                      <img :src="'https://j3b103.p.ssafy.io/image/'+ list.user_id.user_image" alt="창욱" class="profile_image" v-if="list.user_id.user_image != ''">
+                      <img :src="'https://j3b103.p.ssafy.io/image/'+ list.user_id.user_image" alt="창욱" class="profile_image" v-if="list.user_id.user_image">
                       <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image">
                       <h6 class="center">{{ list.user_id.user_nickname }}</h6>
                       <v-spacer></v-spacer>

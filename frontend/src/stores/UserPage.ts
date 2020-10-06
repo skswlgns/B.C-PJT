@@ -12,6 +12,7 @@ export default class UserPage extends VuexModule {
   public userinfo: any = {};
   public starrate: Number = 0;
   public my_article: any = {};
+  public resume: any = {};
 
   // getters
   // get doubledCount() {
@@ -32,6 +33,11 @@ export default class UserPage extends VuexModule {
   @Mutation
   public async save_apply(onData: any) {
     this.my_article = onData
+  }
+
+  @Mutation
+  public async save_resume(resumeData: any) {
+    this.resume = resumeData
   }
 
   // actions
@@ -66,6 +72,12 @@ export default class UserPage extends VuexModule {
   @Action({commit: 'save_rate'})
   public async get_starrate(id:string) {
     const res = await axios.get(`${SERVER_URL}/rate/${id}/score`)
+    return res.data
+  }
+
+  @Action({commit: 'save_resume'})
+  public async get_resume(id:string) {
+    const res = await axios.get(`${SERVER_URL}/resume/${id}`)
     return res.data
   }
 }
