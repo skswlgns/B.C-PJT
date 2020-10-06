@@ -1,9 +1,9 @@
 <template>
   <div>
-    {{ myinfo }}
+    <!-- {{ myinfo }}
     {{ myarticle }}
     <hr>
-    {{ applyarticle }}
+    {{ applyarticle }} -->
 
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
@@ -14,7 +14,7 @@
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}</span>
           <p>ㅁ 모국어 | {{ myinfo.user_lang }}</p>
-          <p> {{ mymoney }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
+          <p> {{ Math.ceil(mymoney) }} <v-icon class="egg_icon">mdi-egg-easter</v-icon></p>
           <!-- <span v-if="myinfo.user_good_lang.length !== 0">잘하는 언어 | <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" > {{ lang }}</span> </span> -->
         </div>
         <div class="ml-auto my-auto mr-3">
@@ -60,7 +60,7 @@
               </v-list-item>
             </router-link>
             <div class="btn_box">
-              <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
+              <v-btn @click="goChat()" color="#0288D1" class="mt-1 chat_btn">화상 채팅</v-btn>
 
               <v-dialog
                 v-model="dialog2"
@@ -68,7 +68,7 @@
                 max-width="400"
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
+                  <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="headline">
@@ -94,48 +94,45 @@
             <div class="chat_box">
               <p>! 화상 채팅 입력 방법 !</p>
               <p>nickname : 이름 작성</p>
-              <p>Room : <span class="room">{{post._id.substr(0, 5)}}</span></p>
+              <p>Room : <span class="room">{{post._id.substr(0, 7)}}</span></p>
             </div>
           </v-card>
         </div>
 
+        <!--지원한거-->
         <div>
           <v-card
-            class="two_box flex"
+            class="my-3 two_box"
             max-width="1200"
             outlined
-            v-for="(post, index) in applyarticle" :key="index" 
+            v-for="(post, index) in applyarticle" :key="index"
           >
-            <div v-if="post.article_id">
-              <router-link  :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
-                <v-list-item v-if="post.article_id.article_select == myinfo._id">
-                  <v-list-item-content>
-                    <div class="card_header">
-                      <div class="overline mb-4 apply">참여</div>
-                      <v-spacer></v-spacer>
-                      <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                    </div>
-                    <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
-                    <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} | 
-                      {{  post.article_id.article_from }} -> {{ post.article_id.article_to }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </router-link>
-              <div class="btn_box">
-                <v-btn @click="goChat()" class="chat_btn">화상 채팅</v-btn>
-              </div>
-              <div class="chat_box">
-                <p> ! 화상 채팅 입력 방법 !</p>
-                <p>nickname : 이름 작성</p>
-                <p>Room : <span class="room">{{post.article_id._id.substr(0, 5)}}</span></p>
-              </div>
+            <router-link :to="{name: 'TransDetail', params : {id:post.article_id._id}}" class="router">
+              <v-list-item v-if="post.article_id.article_select == myinfo._id">
+                <v-list-item-content>
+                  <div class="card_header">
+                    <div class="overline mb-4 apply">참여</div>
+                    <v-spacer></v-spacer>
+                    <div class="point"> <span>{{post.article_id.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                  </div>
+                  <v-list-item-title class="headline mb-1">{{ post.article_id.article_title }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{ post.article_id.article_start_date }} ~ {{ post.article_id.article_end_date }} |
+                      {{  post.article_id.article_from }} -> {{ post.article_id.article_to }} </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </router-link>
+            <div class="btn_box">
+              <v-btn @click="goChat()" color="#0288D1" class="mt-8 chat_btn">화상 채팅</v-btn>
             </div>
-          </v-card> 
+            <div class="chat_box">
+              <p>! 화상 채팅 입력 방법 !</p>
+              <p>nickname : 이름 작성</p>
+              <p>Room : <span class="room">{{post.article_id._id.substr(0, 7)}}</span></p>
+            </div>
+          </v-card>
         </div>
       </div>
-      <div>
 
-      </div>
       <div>
         <h1>내역</h1>
         <div class="user-box">
@@ -252,11 +249,11 @@
   }
 
    private successParams = {
-      to_email: "",
-      title: "",
-      reason: "",
-      message_html: `https://j3b103.p.ssafy.io/`
-    }
+    to_email: "",
+    title: "",
+    reason: "",
+    message_html: `https://j3b103.p.ssafy.io/`
+  }
 
   @myPageModule.State('myarticle')
   private myarticle!: any;
@@ -265,7 +262,7 @@
   private applyarticle!: any;
 
   @myPageModule.State('mymoney')
-  private mymoney!: any;
+  private mymoney!: Number;
   
   @myPageModule.State('success_money')
   private success_money!: boolean;
@@ -295,6 +292,24 @@
     Egg : 0
   }
 
+  successTest(){
+    emailjs
+      .send(
+        "mamago",
+        "template_346dwuw",
+        this.successParams,
+        "user_3x0V5QZyfdtMPvYN4YMOC",
+      )
+      .then(
+        function(response) {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        function(error) {
+          console.log("FAILED...", error);
+        }
+      );
+  }
+
   save_send(address : string, egg : number, toegg : string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
@@ -302,25 +317,8 @@
     this.finish = true
     this.dialog2 = false
     this.send_money(this.send_data)
+    this.successTest()
   }
-
-  successTest(){
-      emailjs
-        .send(
-          "mamago",
-          "template_346dwuw",
-          this.successParams,
-          "user_3x0V5QZyfdtMPvYN4YMOC",
-        )
-        .then(
-          function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function(error) {
-            console.log("FAILED...", error);
-          }
-        );
-    }
 
   if(success_money : boolean){
     console.log(success_money)
