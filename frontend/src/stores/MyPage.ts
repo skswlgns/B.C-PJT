@@ -114,12 +114,8 @@ export default class MyPage extends VuexModule {
   public async send_money(send_data: any) {
     console.log("돈 전송 action")
     console.log(send_data)
-    await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
-    .then(res => {
+    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
       console.log('김용욱 개천사', res.data)
       return res.data
-    })
-    .catch(err => console.log(err))
-
   }
 }

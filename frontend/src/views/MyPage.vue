@@ -4,7 +4,7 @@
     {{ myarticle }}
     <hr>
     {{ applyarticle }}
-
+    {{ success_money }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
@@ -352,7 +352,11 @@
   }
 
   // 돈 성공적으로 전송되었을 때, 이메일 알림 
-  if(success_money : boolean = true){
+  if(success_money:boolean = true){
+    // this.templateParams.to_email = to_email,
+    // this.templateParams.client_email = client_email,
+    // this.templateParams.title = title
+
     console.log(success_money)
     this.successTest()
   }
