@@ -159,8 +159,6 @@ export default class TransDetail extends VuexModule {
       }
       const res = await axios.get(`${SERVER_URL}/users/my`, config)
       return res.data
-    } else {
-      router.push("/404")
-    }
+    } 
   }
 }
