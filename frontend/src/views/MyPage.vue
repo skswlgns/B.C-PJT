@@ -56,7 +56,7 @@
           <li class="no_style" v-for="(post, index) in myarticle" :key="index">
             <v-card
               class="my-3 two_box"
-              max-width="1200"
+              max-width="1600"
               outlined
               v-if="post.article_select"
             >
@@ -83,7 +83,28 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                  <v-btn color="#388E3C" v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
+                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title class="headline">
+                      계좌 비밀번호를 입력해주세요. 
+                    </v-card-title>
+                    <v-card-text>
+                      <input v-model="send_data.Password" type="text" placeholder="비밀번호">
+                      <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.user_id, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog2 = false"
+                      >
+                        close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                  <v-btn v-bind="attrs" v-on="on" class="send_btn">통역사 송금하기</v-btn>
                 </template>
                 <v-card>
                   <v-card-title class="headline">
@@ -165,7 +186,7 @@
           <li class="no_style" v-for="(post, index) in applyarticle" :key="index">
             <v-card
               class="my-3 two_box"
-              max-width="1200"
+              max-width="1600"
               outlined
               v-if="post.article_id.article_select == myinfo._id"
             >
@@ -220,7 +241,7 @@
                         <v-list-item-content>
                           <div class="card_header">
                             <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                            <span v-if="!post.article_select && success_money" class="ing">진행중</span>
+                            <span v-if="!post.article_select && !success_money" class="ing">진행중</span>
                             <span v-if="post.article_select && !success_money" class="end">마감</span>
                             <span v-if="success_money" class="complete">완료</span>
                             <v-spacer></v-spacer>
@@ -289,7 +310,7 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
-  import emailjs from "emailjs-com";
+
   const myPageModule = namespace('MyPage');
 
   @Component({
@@ -330,8 +351,9 @@
 
    private successParams = {
     to_email: "",
+    client_email: "",
     title: "",
-    reason: "",
+    money: 0,
     message_html: `https://j3b103.p.ssafy.io/`
   }
 
@@ -363,7 +385,10 @@
   private goChat!: () => void;
 
   @myPageModule.Action('send_money')
-  private send_money!: (send_data : any) => any;
+  private send_money!: (send_data : any, successParams : any) => any;
+
+  @myPageModule.Action('successTest')
+  private successTest!: (successParams : any) => any;
 
   @myPageModule.Action('send_rate')
   private send_rate!: (star: any) => void;
@@ -375,25 +400,7 @@
     Egg : 0
   }
 
-  successTest(){
-    emailjs
-      .send(
-        "mamago",
-        "template_346dwuw",
-        this.successParams,
-        "user_3x0V5QZyfdtMPvYN4YMOC",
-      )
-      .then(
-        function(response) {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        function(error) {
-          console.log("FAILED...", error);
-        }
-      );
-  }
-
-  save_send(address : string, egg : number, toegg : string, star:any, post:any){
+  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string, star:any, post:any){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
@@ -407,17 +414,15 @@
       this.send_rate(star)
       // this.send_money(this.send_data)
     }
-    
-  }
 
-  // 돈 성공적으로 전송되었을 때, 이메일 알림 
-  if(success_money : boolean = true){
-    console.log(success_money)
-    this.successTest()
+    this.successParams.to_email = to_email,
+    this.successParams.client_email = client_email,
+    this.successParams.title = title
+    this.successParams.money = egg
+    this.send_money(this.send_data, this.successParams)
   }
 
   async created() {
-    // console.log('여기는 비폴 ')
     await this.get_mypage()
     await this.get_myarticle()
     await this.get_applyarticle()

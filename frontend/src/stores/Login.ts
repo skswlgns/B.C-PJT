@@ -27,20 +27,19 @@ export default class Login extends VuexModule {
   // actions
   @Action
   public async signup(signupData: any) {
+    console.log(signupData)
     await axios.post(`${SERVER_URL}/auth/signup`, signupData).then((res) => {
       const loginInfo: any = {
         user_email: signupData.user_email,
         user_pwd: signupData.user_pwd,
       }
       this.context.dispatch("login", loginInfo)
-      // console.log(res)
     })
   }
 
   @Action({ commit: "SET_TOKEN" })
   public async login(loginData: any) {
     await axios.post(`${SERVER_URL}/auth/signin`, loginData).then((res) => {
-      console.log(res.data)
       Vue.cookies.set("token", res.data.token)
       Vue.cookies.set("email", res.data.user_email)
     })
@@ -48,7 +47,6 @@ export default class Login extends VuexModule {
 
   @Action({ commit: "SET_Wallet" })
   public async create_wallet(wallet_password: String) {
-    // console.log(wallet_password)
     const wallet_data: any = {
       wallet_password: wallet_password,
     }
