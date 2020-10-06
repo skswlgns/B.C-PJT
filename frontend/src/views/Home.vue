@@ -178,7 +178,6 @@
 
   @Component({
     components: {
-
     }
   })
   export default class Home extends Vue {

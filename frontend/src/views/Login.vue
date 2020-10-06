@@ -319,7 +319,8 @@
     private create_wallet!: (wallet_password: String) => void;
 
     wallet_create(wallet_password: String){
-      this. wallet_complete = true
+      this.wallet_complete = true
+      console.log('')
       this.create_wallet(wallet_password)
     }
     

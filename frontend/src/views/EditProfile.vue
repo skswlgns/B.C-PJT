@@ -1,19 +1,27 @@
 <template>
   <div>
-    <v-card  class="mb-2">
+    <v-card class="mb-2">
       <v-container>
-        <h2 class="text-center my-3"> 프로필 수정 </h2>
+        <h2 class="text-center my-3">프로필 수정</h2>
         <div>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field 
-              v-model="myinfo.user_nickname" label="닉네임" outlined id="nickname"></v-text-field>
+            <v-text-field
+              v-model="myinfo.user_nickname"
+              label="닉네임"
+              outlined
+              id="nickname"
+            ></v-text-field>
           </v-col>
         </div>
 
         <div>
           <v-col xs="6" md="11" class="mx-auto">
-            <v-text-field 
-              v-model="myinfo.user_phone" label="휴대폰 번호" outlined id="phonenumber"></v-text-field>
+            <v-text-field
+              v-model="myinfo.user_phone"
+              label="휴대폰 번호"
+              outlined
+              id="phonenumber"
+            ></v-text-field>
           </v-col>
         </div>
 
@@ -31,52 +39,57 @@
           </v-col>
         </div>
 
-         <div class="text-center mx-auto">
+        <div class="text-center mx-auto">
           <div class="my-2">
-            <v-btn depressed x-large class="white--text" color="#5C6BC0" @click="editprofile(myinfo)">수정하기</v-btn>
+            <v-btn
+              depressed
+              x-large
+              class="white--text"
+              color="#5C6BC0"
+              @click="editprofile(myinfo)"
+              >수정하기</v-btn
+            >
           </div>
         </div>
-
       </v-container>
     </v-card>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'vue-property-decorator';
-  import { namespace } from 'vuex-class';
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
 
-  const EditProfileModule = namespace('EditProfile');
-  @Component({
-    data: () => ({
-      rules: [
-        (value: { size: number; }) => !value || value.size < 20000000 || 'size should be less than 20 MB!',
-      ],
-    }),
-  })
-  export default class EditProfile extends Vue {
-    private profile_image: string = '';
+const EditProfileModule = namespace("EditProfile");
+@Component({
+  data: () => ({
+    rules: [
+      (value: { size: number }) =>
+        !value ||
+        value.size < 2000000 ||
+        "Avatar size should be less than 2 MB!",
+    ],
+  }),
+})
+export default class EditProfile extends Vue {
+  private profile_image: string = "";
 
-    @EditProfileModule.State('myinfo')
-    private myinfo!: any;
+  @EditProfileModule.State("myinfo")
+  private myinfo!: any;
 
-    @EditProfileModule.Action('get_mypage')
-    private get_mypage!: () => void;
+  @EditProfileModule.Action("get_mypage")
+  private get_mypage!: () => void;
 
-    @EditProfileModule.Action('editprofile')
-    private editprofile!: (profiledata:any) => void;
+  @EditProfileModule.Action("editprofile")
+  private editprofile!: (profiledata: any) => void;
 
+  async mounted() {
+    await this.get_mypage();
 
-
-
-    async mounted() {
-      await this.get_mypage()
-
-      window.scrollTo(0, 0)
-    }
+    window.scrollTo(0, 0);
   }
+}
 </script>
 
 <style lang="scss" scoped>
-
 </style>
