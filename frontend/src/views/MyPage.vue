@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- {{ myinfo }} -->
+    {{ myinfo }}
     {{ myarticle }}
     <hr>
     {{ applyarticle }}

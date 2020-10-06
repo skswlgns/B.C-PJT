@@ -329,16 +329,16 @@
     private get_article!: () => void;
 
     async created()  {
-      const scrollHeight = document.body.offsetHeight;
+      // const scrollHeight = document.body.offsetHeight;
       // const scrollTop = document.documentElement.scrollTop;
       // const clientHeight = document.documentElement.clientHeight;
-      function scrollHandler() {
-        if (scrollY > scrollHeight) {
-          console.log('얍')
-        }
-      }
+      // function scrollHandler() {
+      //   if (scrollY > scrollHeight) {
+      //     console.log('얍')
+      //   }
+      // }
 
-      window.addEventListener('scroll', function(){scrollHandler()} );
+      // window.addEventListener('scroll', function(){scrollHandler()} );
 
       await this.get_article()
       this.articleData = this.article

@@ -24,7 +24,6 @@ export default class TransDetail extends VuexModule {
   public async save_user(temp: any) {
     console.log('save_user')
     this.user = temp
-    console.log(this.user)
   }
 
   @Mutation
@@ -58,8 +57,6 @@ export default class TransDetail extends VuexModule {
   public async get_article_1(id: string) {
     console.log('article_왓냐')
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
-    console.log(res)
-    console.log(res.data)
     return res.data
   }
 
@@ -77,7 +74,6 @@ export default class TransDetail extends VuexModule {
     await axios
       .post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)
       .then(async (res) => {
-        console.log(res.data)
         location.reload()
       })
       .catch((err) => console.log(err))
@@ -101,10 +97,10 @@ export default class TransDetail extends VuexModule {
     console.log('get_candidate')
     const users : any = []
     for (let candi in candi_list) {
+      console.log('candi' + candi)  
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
       users.push(res.data)
     }
-    console.log(users)
     return users
   }
 
@@ -121,7 +117,6 @@ export default class TransDetail extends VuexModule {
       {},
       config
     )
-    console.log(res.data)
     return res.data
     // location.reload()
   }
