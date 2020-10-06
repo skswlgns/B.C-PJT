@@ -34,24 +34,34 @@ export default class Edittrans extends VuexModule {
       router.push("/404")
     }
   }
+  
   @Action
-  public async first_trans(myinfo:any) {
-		const config = {
-			headers: {
-				token: Vue.cookies.get("token"),
-				email: Vue.cookies.get("email"),
-			},
-		}
+  public async addcareer(user_resume: any) {
+    if (Vue.cookies.isKey("token")) {
+      let config = {
+        headers: {
+          token: Vue.cookies.get("token"),
+          email: Vue.cookies.get("email"),
+        },
+      }
 
-		const trans_data: any = {
-			user_name: myinfo.user_name,
-			user_gender: myinfo.user_gender,
-			user_good_lang: myinfo.user_good_lang,
-			user_intro: myinfo.user_intro,
+      for (let i in user_resume) {
+        console.log('하히후헤호', user_resume[i])
+
+        const addData: any = new FormData();
+        addData.append('resume_name', user_resume[i].resume_name)
+        addData.append('resume_desc', user_resume[i].resume_desc)
+        addData.append('resume_file', user_resume[i].resume_file)
+
+        await axios.post(`${SERVER_URL}/resume`, addData, config)
+      }
+      // const editData: any = new FormData()
+      // editData.append("user_phone", user_resume.user_phone)
+      // editData.append("user_nickname", user_resume.user_nickname)
+      // editData.append("user_image", user_resume.user_image)
+
+      // await axios.put(`${SERVER_URL}/auth`, editData, config)
+      // router.push('/mypage')
     }
-    
-    await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
-    
-    router.push('/mypage')
   }
 }

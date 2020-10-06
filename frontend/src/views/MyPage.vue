@@ -1,11 +1,5 @@
 <template>
   <div>
-    {{ myinfo }}
-    <hr>
-    {{ myarticle }}
-    {{ myinfo }}
-    <hr>
-    {{ success_money }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
@@ -60,7 +54,6 @@
         <!--요청한거부터 처리하자-->
         <div>
           <li class="no_style" v-for="(post, index) in myarticle" :key="index">
-            {{post}}
             <v-card
               class="my-3 two_box"
               max-width="1600"
