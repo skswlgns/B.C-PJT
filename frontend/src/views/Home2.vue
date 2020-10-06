@@ -29,7 +29,7 @@
                   <td></td>
                   <td>
                     중요한 통역은<br>
-                    <b>전문 통역가</b>에게
+                    <b>신뢰할 수 있는 통역가</b>에게
                   </td>
                 </tr>
                 <tr class="space"></tr>
@@ -42,16 +42,18 @@
                 <tr class="tr3">
                   <td>평균 응답시간 <span>30 </span>분을 목표</td>
                   <td></td>
-                  <td>전문 통역가 <span>5,398</span>명이상을 목표로</td>
+                  <td>통역가 <span>5,398</span>명이상을 목표로</td>
                 </tr>
                 <tr class="space"></tr>
                 <tr>
-                  <td>
-                    <a href='/home'>빠르게 통역하기</a>
+                  <td> 
+                    <!-- <a href='/home'>빠르게 통역하기</a> -->
                   </td>
-                  <td></td>
                   <td>
-                    <a href="/home">전문통역 견적받기</a>
+                    <!-- <a href="/home">전문통역 견적받기</a> -->
+                  </td>
+                  <td>
+                    <a href="/home">Go Translate</a>
                   </td>
                 </tr>
               </tbody>
@@ -70,18 +72,18 @@
               <h2 data-animate="fadeInUP_rending">통역가로 활동하세요</h2>
               <div class="text-content1">
                 <div class="interval">
-                  <p>집단지성 통역가</p>
-                  <p>간단한 테스트를 통과하고 집단지성 통역가로 활동해보세요. 다양한 분야의 번역에 참여하여 경력을 쌓아갈 수 있습니다.</p> 
+                  <p>시·공간 제약 X</p>
+                  <p>언제, 어디서든 원할 때 통역을 할 수 있습니다.</p> 
                 </div>
-                <a href="/home">통역 참여하기</a>
+                <!-- <a href="/home">통역 참여하기</a> -->
               </div>
             <div class="text-content2">
               <div class="interval">
-                <p>전문 통역가</p>
-                <p>전문적인 통역이 가능하다면, 마마고 전문 통역가에 지원하세요.<br>
-                  원하는 시간에만 통역하고, 통역 가격은 스스로 결정할 수 있습니다.</p> 
+                <p>블록체인 기반의 서비스</p>
+                <p>블록체인 Resume<br>
+                  Egg를 통한 송금 서비스로 신뢰 구축</p> 
               </div>
-              <a href="/home">더 알아보기</a>
+              <a href="/home">회원가입</a>
             </div>
 
             </div>

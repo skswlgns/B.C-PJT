@@ -1,15 +1,9 @@
 <template>
   <div>
-    <!-- {{article}} -->
-    {{ article.user_id }}
+    {{ article.user_id.user_email}}
     <hr>
-    <!-- {{ article.article_candidate }} -->
     <hr>
-    <!-- {{ user }}
-    {{ my_email }}
-    {{ toegg }}
-    {{ clickData }}
-    {{ money_success }} -->
+
     <hr>
 
     <!--WEB-->
@@ -17,7 +11,7 @@
       <div class="detail_body">
         <div class="profile">
           <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-          <h4 class="center">{{ article.user_id.user_nickname }}</h4>
+          <!-- <h4 class="center">{{ article.user_id.user_nickname }}</h4> -->
           <v-spacer></v-spacer>
           <span v-if="!article.article_select" class="ing">진행중</span>
           <span v-if="article.article_select" class="end">마감</span>
@@ -81,7 +75,7 @@
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                 <div class="applyUser">
-                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
+                  <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_lang}}</p>
                     <p class="badge">모국어</p>
@@ -170,7 +164,7 @@
                       >
                         close
                       </v-btn>
-                    </v-card-actions>
+                    </v-card-actions> 
                   </v-card>
                 </v-dialog> 
               </v-row>
@@ -178,6 +172,7 @@
           </ol>
         </li>
       </div>
+
     </div>
 
     <!--Mobile -->

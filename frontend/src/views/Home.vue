@@ -806,9 +806,19 @@
     private get_article!: () => void;
 
     async created()  {
+      const scrollHeight = document.body.offsetHeight;
+      // const scrollTop = document.documentElement.scrollTop;
+      // const clientHeight = document.documentElement.clientHeight;
+      function scrollHandler() {
+        if (scrollY > scrollHeight) {
+          console.log('얍')
+        }
+      }
+
+      window.addEventListener('scroll', function(){scrollHandler()} );
+
       await this.get_article()
       this.articleData = this.article
-
     }
     private get searching() {
       if (this.searchData.lang_1 || this.searchData.lang_2 || this.searchData.date_picker || this.searchData.time_picker || this.searchData.egg) {

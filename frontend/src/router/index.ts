@@ -54,7 +54,15 @@ const routes = [
   {
     path: '/mypage',
     name: 'MyPage',
-    component: MyPage
+    component: MyPage,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next()
+      }
+      else {
+        next('/login')
+      }
+    }
   },
   {
     path: '/userpage/:id',

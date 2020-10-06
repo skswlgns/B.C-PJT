@@ -3,8 +3,8 @@ import axios from "axios"
 import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
-// const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER_URL = 'http://localhost:8080/api'
+const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER_URL = 'http://localhost:8080/api'
 
 
 @Module({ namespaced: true })
@@ -31,19 +31,20 @@ export default class TransDetail extends VuexModule {
   }
 
   @Mutation
-  public async save_from(temp: String) {
+  public async save_from(temp: string) {
     console.log("toegg 저장", temp)
     this.toegg = temp
   }
 
   @Mutation
-  public async save_success(temp: String) {
+  public async save_success(temp: string) {
     this.money_success = true
   }
 
   @Action({ commit: "save_article" })
   public async get_article_1(id: string) {
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
+    console.log(res)
     return res.data
   }
 
