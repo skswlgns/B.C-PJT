@@ -106,36 +106,6 @@ userRoutes.get("/my/candidates", async (req: express.Request, res: express.Respo
   })
 })
 
-// 본인의 resume 등록: POST
-userRoutes.get("/my/resumes", verificationMiddleware)
-userRoutes.get("/my/resumes", async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
-    if (err) {
-      res.status(500).send(err)
-    } else {
-      if (user === null) {
-        // 회원정보가 존재하지 않으면 오류반환
-        res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
-      } else {
-        // 회원정보가 존재하면 resume 등록
-        // await CandidateModel.find({ user_id: user._id })
-        //   .populate("article_id")
-        //   .exec((err: Error, candidates: any) => {
-        //     if (err) {
-        //       res.status(500).send(err)
-        //     } else {
-        //       if (candidates === null) {
-        //         res.status(403).send({ message: "신청한 통역이 없습니다." })
-        //       } else {
-        //         res.status(200).send(candidates)
-        //       }
-        //     }
-        //   })
-      }
-    }
-  })
-})
-
 /*
 회원의 정보를 요청하거나 정보를 수정하는 작업을 위한 router
 */
@@ -155,7 +125,6 @@ userRoutes.get("/", async (req: express.Request, res: express.Response) => {
 userRoutes.get("/:user_id", async (req: express.Request, res: express.Response) => {
   const user_id = req.params["user_id"]
   UserModel.findOne({ _id: user_id })
-    .populate("user_good_lang")
     .populate("user_resume")
     .exec(async (err: Error, user: any) => {
       if (err) {

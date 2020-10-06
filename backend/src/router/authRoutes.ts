@@ -2,6 +2,7 @@ import express from "express"
 import { UserModel } from "../model/UserModel"
 import { ArticleModel } from "../model/ArticleModel"
 import { CandidateModel } from "../model/CandidateModel"
+import { ResumeModel } from "../model/ResumeModel"
 
 const authRoutes = express.Router()
 const crypto = require("crypto")
@@ -21,7 +22,7 @@ const upload = multer({
   storage: multer.diskStorage({
     // set a localstorage destination
     destination: (req: any, file: any, cb: any) => {
-      cb(null, "image/")
+      cb(null, `../../image`)
     },
     // convert a file name
     filename: (req: any, file: any, cb: any) => {
@@ -100,6 +101,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_nickname = req.body.user_nickname
     const user_phone = req.body.user_phone
     const user_wallet = req.body.user_wallet
+    const user_lang = req.body.user_lang
 
     // 빈 아이딩 및 비밀번호 검증
     if (
@@ -108,11 +110,13 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
       user_wallet !== "" &&
       user_nickname !== "" &&
       user_phone !== "" &&
+      user_lang ! == "" &&
       user_email !== undefined &&
       user_pwd !== undefined &&
       user_wallet !== undefined &&
       user_nickname !== undefined &&
-      user_phone !== undefined
+      user_phone !== undefined &&
+      user_lang !== undefined
     ) {
       // email 중복 확인
       await UserModel.findOne({ user_email: user_email }).then(async (user: any) => {
@@ -127,6 +131,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
             user_nickname: user_nickname,
             user_phone: user_phone,
             user_wallet: user_wallet,
+            user_lang: user_lang
           })
           await item.save()
           res.status(200).send({
@@ -184,6 +189,7 @@ authRoutes.delete("/", async (req: express.Request, res: express.Response) => {
         await UserModel.deleteOne({ user_email: user._id })
         await ArticleModel.deleteMany({ user_id: user._id })
         await CandidateModel.deleteMany({ user_id: user._id })
+        await ResumeModel.deleteMany({ user_id: user._id })
         res.status(200).send({ message: "회원 탈퇴 되었습니다." })
       }
     }

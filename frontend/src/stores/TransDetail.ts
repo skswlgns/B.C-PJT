@@ -33,13 +33,13 @@ export default class TransDetail extends VuexModule {
   }
 
   @Mutation
-  public async save_from(temp: String) {
+  public async save_from(temp: string) {
     console.log("toegg 저장", temp)
     this.toegg = temp
   }
 
   @Mutation
-  public async save_success(temp: String) {
+  public async save_success(temp: string) {
     this.money_success = true
   }
 
@@ -58,6 +58,7 @@ export default class TransDetail extends VuexModule {
   public async get_article_1(id: string) {
     console.log('article_왓냐')
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
+    console.log(res)
     console.log(res.data)
     return res.data
   }

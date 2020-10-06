@@ -13,23 +13,20 @@ const verificationMiddleware = require("../middleware/verification")
 */
 
 // 전체 Article 조회: GET
-// articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
-//   await ArticleModel.find({})
-//     .populate("user_id", "user_nickname user_email user_image")
-//     .sort({ article_updated_at: -1 })
-//     .exec((err: Error, articles: any) => {
-//       if (err) {
-//         res.status(500).send(err)
-//       } else {
-//         res.status(200).send(articles)
-//       }
-//     })
-// })
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
+<<<<<<< HEAD
+<<<<<<< HEAD
   // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+  await ArticleModel.find({ article_complete: false })
+=======
   await ArticleModel.find({}) 
+>>>>>>> dac8c91f7c1cc6a335772108c7786173e6c90960
+=======
+  // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
+  await ArticleModel.find({ article_complete: false })
+>>>>>>> ab81c8eba729440f69d4e96c5b505ba6dc274786
     .populate("user_id", "user_nickname user_email user_image")
-    .sort({ article_updated_at: -1 })
+    .sort({ article_created_at: -1 })
     .exec((err: Error, articles: any) => {
       if (err) {
         res.status(500).send(err)
