@@ -102,20 +102,20 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_phone = req.body.user_phone
     const user_wallet = req.body.user_wallet
     const user_lang = req.body.user_lang
-
+    
     // 빈 아이딩 및 비밀번호 검증
     if (
       user_email !== "" &&
-      user_pwd !== "" &&
-      user_wallet !== "" &&
-      user_nickname !== "" &&
-      user_phone !== "" &&
-      user_lang ! == "" &&
       user_email !== undefined &&
+      user_pwd !== "" &&
       user_pwd !== undefined &&
+      user_wallet !== "" &&
       user_wallet !== undefined &&
+      user_nickname !== "" &&
       user_nickname !== undefined &&
+      user_phone !== "" &&
       user_phone !== undefined &&
+      user_lang !== "" &&
       user_lang !== undefined
     ) {
       // email 중복 확인
