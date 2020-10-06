@@ -3,6 +3,7 @@
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
+      {{ myinfo }}
       <div class="user-box d-flex">
         <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
@@ -60,6 +61,7 @@
               outlined
               v-if="post.article_select"
             >
+              {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
@@ -134,12 +136,12 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star, post)">송금하기</v-btn>
+                    {{ post }}
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email, star, post)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
 
                   <v-card-actions>
-                    <v-sapcer></v-sapcer>
                     <v-btn
                       color="green darken-1"
                       text
@@ -329,7 +331,7 @@
   }
 
    private successParams = {
-    to_email: "",
+    to_email: "emplam27@gmail.com",
     client_email: "",
     title: "",
     money: 0,
@@ -379,12 +381,15 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string, star:any, post:any){
+  save_send(address : string, egg : number, toegg : string, title : string, client_email : string, star:any, post:any){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
+
+    console.log('save_send')
+    console.log(post)
     star.article_id = post._id
     star.star_rate_ts_user_id = post.article_select
     if (star.star_rate_score == '') {
@@ -394,7 +399,7 @@
       // this.send_money(this.send_data)
     }
 
-    this.successParams.to_email = to_email,
+    // this.successParams.to_email = to_email,
     this.successParams.client_email = client_email,
     this.successParams.title = title
     this.successParams.money = egg

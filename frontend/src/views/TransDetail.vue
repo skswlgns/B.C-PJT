@@ -85,7 +85,34 @@
                 </div>
                 <v-spacer></v-spacer>
                 <div v-if="article.user_id.user_email == my_email && article.article_select != user_profile._id" class="notselect">
-                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+                  <v-dialog
+                    v-model="dialog4"
+                    persistent
+                    max-width="400"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn v-bind="attrs" v-on="on" class="notbtn">
+                        <v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <v-card-text>
+                        <input v-model="contractData.passWord" type="text" placeholder="비밀번호">
+                        {{ post }}
+                        <v-btn @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg)">입력하기</v-btn>
+                      </v-card-text>
+                      <v-spacer></v-spacer>
+                      <v-card-actions>
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog4 = false"
+                        >
+                          close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
@@ -301,6 +328,7 @@
     private dialog: boolean = false;
     private dialog2: boolean = false;
     private dialog3: boolean = false;
+    private dialog4: boolean = false;
  
     private templateParams = {
       to_email: "",
@@ -321,7 +349,8 @@
       _selectedPerson : "",
       article : "",
       _selectedArticle : "",
-      _point : 0
+      _point : 0,
+      passWord : ""
     }
 
     // methods 
@@ -451,6 +480,7 @@
 
     @TransDetailModule.Action('saveContract')
     private saveContract!: (contractData : any) => void;
+
     @TransDetailModule.Action('get_myinfo')
     private get_myinfo!: () => void;
 
@@ -464,6 +494,10 @@
     private clickData : any = {
       article_id: this.id,
       user_id: ""
+    }
+
+    private passData : any = {
+      
     }
 
     async created() {
