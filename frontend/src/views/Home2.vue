@@ -90,10 +90,10 @@
             <div class="picture">
               <div class="picture-top">
                 <div class="pic-position">
-                  <img src='../assets/images/picture-top.png'>
+                  <img src='../assets/images/translate.png'>
                 </div>
                 <div class="pic-position2">
-                  <img src="../assets/images/women.png">
+                  <img src="../assets/images/translation.png">
                 </div>  
               </div>
             </div>

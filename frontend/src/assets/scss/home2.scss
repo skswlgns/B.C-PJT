@@ -316,8 +316,9 @@
                 left: 50px;
                 position: absolute;
                 img {
-                  width: 270px;
-                  height: 320px;
+                  z-index: 1;
+                  width: 256px;
+                  height: 256px;
                   vertical-align: middle;
                   border: 0;
                 }
@@ -328,7 +329,8 @@
                 left: -164px;
                 position: absolute;
                 img {
-                  width: 360px;
+                  z-index: -1;
+                  width: 256px;
                   border: 0;
                   vertical-align: middle;
                 }
