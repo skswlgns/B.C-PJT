@@ -1,8 +1,7 @@
 <template>
   <div>
-    {{ article}}
-    <hr>
     {{ article.article_candidate }}
+    <!-- {{ article.article_candidate }} -->
     <hr>
     {{ user }}
 
@@ -63,124 +62,113 @@
         <h3>통역가 지원하기</h3>
         <v-row class="row">
           <input v-model="applyData.candidate_content" class="applybox" type="text"/>
-          <v-btn class="applybtn" @click="applypreview(applyData, myinfo)">지원하기</v-btn>
+          <v-btn class="applybtn" @click="apply(applyData)">지원하기</v-btn>
         </v-row>
       </div>
 
       <div class="applyList">
-        <ul>
-          <li v-for="(user_profile, index) in user" :key="index">
-            <div v-for="(content, index) in article.article_candidate" :key="index">
-              
-              <div v-if="user_profile._id == content.user_id" class="applyCard_select">
-                <div class="profile">
-                  <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                  <div class="applyUser">
-                    <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
-                    <div class="native_lang">
-                      <p class="user_lang">{{user_profile.user_lang}}</p>
-                      <p class="badge">모국어</p>
-                    </div>
-                    <div class="native_lang">
-                      <p class="user_lang">{{user_profile.user_good_lang}}</p>
-                      <p class="badge">잘하는 언어</p>
-                    </div>
+        <li v-for="(user_profile, index) in user" :key="index">
+          <ol v-for="(content, index) in article.article_candidate" :key="index">
+            
+            <div v-if="user_profile._id == content.user_id" class="applyCard_select">
+              <div class="profile">
+                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                <div class="applyUser">
+                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_lang}}</p>
+                    <p class="badge">모국어</p>
                   </div>
-                  <v-spacer></v-spacer>
-                  <div v-if="article.user_id.user_email == my_email && article.article_select != user_profile._id" class="notselect">
-                    <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-                  </div>
-                  <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
-                  <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select"></div>   
-                    <v-dialog
-                      v-model="dialog3"
-                      persistent
-                      max-width="350"
-                      class="modal"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn v-bind="attrs" v-on="on"   
-                          class="cancel_btn_2">
-                          <v-icon class="select_icon">mdi-close-thick</v-icon>
-                          통역사 취소하기 
-                        </v-btn>
-                      </template>
-                      <v-card class="modal_body">
-                        <v-card-title class="headline">
-                          취소 사유를 작성해주세요. 
-                        </v-card-title>
-                        <v-card-text class="modal_text">
-                          <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                          <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
-                          </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            color="green darken-1"
-                            text
-                            @click="dialog3 = false"
-                          >
-                            close
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog> 
+                  <div class="native_lang">
+                    <p class="user_lang">{{user_profile.user_good_lang}}</p>
+                    <p class="badge">잘하는 언어</p>
                   </div>
                 </div>
                 <v-spacer></v-spacer>
                 <div v-if="article.user_id.user_email == my_email && article.article_select != user_profile._id" class="notselect">
-                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg )">
-                    <v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기
-                  </v-btn>
+                  <v-btn class="notbtn" @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
                 </div>
                 <div v-if="article.user_id.user_email != my_email && article.article_select == user_profile._id" class="div_select"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</div>
                 <div v-if="article.user_id.user_email == my_email && article.article_select == user_profile._id && !money_success" class="select">              
-                  <v-row class="contents">
-                    <div class="content">
-                      {{content.candidate_content}}
-                    </div>
-                    <v-spacer></v-spacer>
-                    <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
-                    <v-dialog
-                      v-model="dialog"
-                      persistent
-                      max-width="350"
-                      class="modal"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn v-bind="attrs" v-on="on" 
-                          v-if="user_profile.user_email == my_email && article.article_select == user_profile._id" 
-                          class="cancel_btn_2">
-                          취소하기
+                  <v-dialog
+                    v-model="dialog3"
+                    persistent
+                    max-width="350"
+                    class="modal"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn v-bind="attrs" v-on="on"   
+                        class="cancel_btn_2">
+                        <v-icon class="select_icon">mdi-close-thick</v-icon>
+                        통역사 취소하기 
+                      </v-btn>
+                    </template>
+                    <v-card class="modal_body">
+                      <v-card-title class="headline">
+                        취소 사유를 작성해주세요. 
+                      </v-card-title>
+                      <v-card-text class="modal_text">
+                        <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                        <v-btn @click="cancel_save(user_profile.user_email ,article.article_title)">전송하기</v-btn>
+                        </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog3 = false"
+                        >
+                          close
                         </v-btn>
-                      </template>
-                      <v-card class="modal_body">
-                        <v-card-title class="headline">
-                          취소 사유를 작성해주세요. 
-                        </v-card-title>
-                        <v-card-text class="modal_text">
-                          <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
-                          <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
-                          </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            color="green darken-1"
-                            text
-                            @click="dialog = false"
-                          >
-                            close
-                          </v-btn>
-                        </v-card-actions> 
-                      </v-card>
-                    </v-dialog> 
-                  </v-row>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog> 
                 </div>
               </div>
-            </li>
-          </ul>
-        </div>
-
+              <v-row class="contents">
+                <div class="content">
+                  {{content.candidate_content}}
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn v-if="user_profile.user_email == my_email && article.article_select != user_profile._id" @click="apply_cancel(applyData)" class="cancel_btn">취소하기</v-btn>
+                <v-dialog
+                  v-model="dialog"
+                  persistent
+                  max-width="350"
+                  class="modal"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" v-on="on" 
+                      v-if="user_profile.user_email == my_email && article.article_select == user_profile._id" 
+                      class="cancel_btn_2">
+                      취소하기
+                    </v-btn>
+                  </template>
+                  <v-card class="modal_body">
+                    <v-card-title class="headline">
+                      취소 사유를 작성해주세요. 
+                    </v-card-title>
+                    <v-card-text class="modal_text">
+                      <input v-model="cancelParams.reason" type="text" placeholder="취소 사유">
+                      <v-btn @click="cancel_save(article.user_id.user_email ,article.article_title)">전송하기</v-btn>
+                      </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="dialog = false"
+                      >
+                        close
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog> 
+              </v-row>
+            </div>
+          </ol>
+        </li>
+      </div>
     </div>
 
     <!--Mobile -->
@@ -239,62 +227,62 @@
       </div>
 
       <div class="applyList">
-        <ul>
-          <li v-for="list in applyList" :key="list.user_name">
-            <div v-if="list.select" class="applyCard_select">
-              <v-row class="select_btns">
-                <v-spacer></v-spacer>
-                <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-              </v-row>
-              <div class="profile">
-                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                <div class="applyUser">
-                  <h4 class="center">{{ list.user_name }}  |</h4>
-                  <div class="native_lang">
-                    <p class="user_lang">{{list.user_lang}}</p>
-                    <p class="badge">모국어</p>
-                  </div>
-                  <div class="native_lang">
-                    <p class="user_lang">{{list.good_lang}}</p>
-                    <p class="badge">고급</p>
-                  </div>
+        <li v-for="list in applyList" :key="list.user_name">
+          <div v-if="list.select" class="applyCard_select">
+            <v-row class="select_btns">
+              <v-spacer></v-spacer>
+              <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
+            </v-row>
+            <div class="profile">
+              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+              <div class="applyUser">
+                <h4 class="center">{{ list.user_name }}  |</h4>
+                <div class="native_lang">
+                  <p class="user_lang">{{list.user_lang}}</p>
+                  <p class="badge">모국어</p>
+                </div>
+                <div class="native_lang">
+                  <p class="user_lang">{{list.good_lang}}</p>
+                  <p class="badge">고급</p>
                 </div>
               </div>
-              <div class="content">
-                {{list.apply_content}}
-              </div>
             </div>
+            <div class="content">
+              {{list.apply_content}}
+            </div>
+          </div>
 
-            <div v-if="!list.select" class="applyCard_notselect">
-              <v-row class="select_btns">
-                <v-spacer></v-spacer>
-                <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-                <v-btn v-if="!list.select" class="notselect" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-              </v-row>
-              <div class="profile">
-                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                <div class="applyUser">
-                  <h4 class="center">{{ list.user_name }}  |</h4>
-                  <div class="native_lang">
-                    <p class="user_lang">{{list.user_lang}}</p>
-                    <p class="badge">모국어</p>
-                  </div>
-                  <div class="native_lang">
-                    <p class="user_lang">{{list.good_lang}}</p>
-                    <p class="badge">고급</p>
-                  </div>
+          <div v-if="!list.select" class="applyCard_notselect">
+            <v-row class="select_btns">
+              <v-spacer></v-spacer>
+              <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
+              <v-btn v-if="!list.select" class="notselect" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
+            </v-row>
+            <div class="profile">
+              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+              <div class="applyUser">
+                <h4 class="center">{{ list.user_name }}  |</h4>
+                <div class="native_lang">
+                  <p class="user_lang">{{list.user_lang}}</p>
+                  <p class="badge">모국어</p>
+                </div>
+                <div class="native_lang">
+                  <p class="user_lang">{{list.good_lang}}</p>
+                  <p class="badge">고급</p>
                 </div>
               </div>
-              <div class="content">
-                {{list.apply_content}}
-              </div>
             </div>
-          </li>
-        </ul>
+            <div class="content">
+              {{list.apply_content}}
+            </div>
+          </div>
+        </li>
       </div>
     </div> -->
   </div>
 </template>
+
+
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
@@ -479,6 +467,7 @@
     }
 
     async created() {
+      console.log('created')
       await this.get_article_1(this.id)
       if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)
