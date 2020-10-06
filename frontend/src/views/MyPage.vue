@@ -1,5 +1,7 @@
 <template>
   <div>
+    {{ myinfo }}
+    <hr>
     {{ myarticle }}
     {{ myinfo }}
     <hr>
@@ -58,6 +60,7 @@
         <!--요청한거부터 처리하자-->
         <div>
           <li class="no_style" v-for="(post, index) in myarticle" :key="index">
+            {{post}}
             <v-card
               class="my-3 two_box"
               max-width="1600"
@@ -411,7 +414,7 @@
     this.finish = true
     this.dialog2 = false
     star.article_id = post._id
-    star.star_rate_ts_user_id = post.user_id
+    star.star_rate_ts_user_id = post.article_select
     if (star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
