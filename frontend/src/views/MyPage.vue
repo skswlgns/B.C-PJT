@@ -14,7 +14,7 @@
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt">
           <span class="nick-size">{{ myinfo.user_nickname }}<span v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></span></span>
-          <p>{{ myinfo.user_nickname }}<span>모국어</span></p>
+          <p>{{ myinfo.user_lang }}<span>모국어</span></p>
           <span v-if="myinfo.user_good_lang != ''">잘하는 언어 | 
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-1"> 
               <v-btn rounded color="primary" dark small v-if="lang.slice(-1) == 1">{{ lang.slice(0,-1) }}</v-btn>
