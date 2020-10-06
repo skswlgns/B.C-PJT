@@ -139,7 +139,7 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star)">송금하기</v-btn>
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star, post)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
 
@@ -370,6 +370,9 @@
   @myPageModule.Action('send_money')
   private send_money!: (send_data : any) => any;
 
+  @myPageModule.Action('send_rate')
+  private send_rate!: (star: any) => void;
+
   private send_data = {
     fromEgg : "",
     toEgg : "",
@@ -395,14 +398,21 @@
       );
   }
 
-  save_send(address : string, egg : number, toegg : string, star:any){
+  save_send(address : string, egg : number, toegg : string, star:any, post:any){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
-    console.log(star)
-    // this.send_money(this.send_data)
+    star.article_id = post._id
+    star.star_rate_ts_user_id = post.user_id
+    if (star.star_rate_score == '') {
+      alert('평점을 입력해주세요.')
+    } else {
+      this.send_rate(star)
+      // this.send_money(this.send_data)
+    }
+    
   }
 
   // 돈 성공적으로 전송되었을 때, 이메일 알림 

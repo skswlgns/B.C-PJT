@@ -122,4 +122,17 @@ export default class MyPage extends VuexModule {
     .catch(err => console.log(err))
 
   }
+
+  @Action
+  public async send_rate(star: any) {
+    const config = {
+      headers: {
+        email: Vue.cookies.get("email"),
+        token: Vue.cookies.get("token"),
+      },
+    }
+    console.log(star)
+    const res = await axios.post(`${SERVER_URL}/rate`, star, config)
+    console.log(res)
+  }
 }
