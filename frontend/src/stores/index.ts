@@ -8,6 +8,8 @@ import UserPage from './UserPage'
 import TransDetail from './TransDetail'
 import EditProfile from './EditProfile'
 import RegistTrans from './RegistTrans'
+import Edittrans from './Edittrans'
+import AddCareer from './AddCareer'
 
 Vue.use(Vuex);
 
@@ -21,5 +23,7 @@ export default new Vuex.Store({
     TransDetail,
     EditProfile,
     RegistTrans,
+    Edittrans,
+    AddCareer,
   }
 })

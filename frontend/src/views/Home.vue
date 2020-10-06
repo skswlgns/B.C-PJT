@@ -1,317 +1,23 @@
 <template>
   <div id="home">
+    <!-- {{ article }} -->
     <!-- WEB -->
     <div id="WEB" v-if="windowWidth > 380" >
       <!-- <h1 class="trans_h1">통역 리스트</h1> -->
       <div class="selection">
         <div class="selection_lang">
-          <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1" >
-        <option>{{ searchData.lang_1 }}</option>
-        <option ></option>
-        <option>한국어</option>
-        <option>English</option>
-        <option>Deutsch</option>
-        <option>español</option>
-        <option>español (Latinoamérica)</option>
-        <option>français</option>
-        <option>hrvatski</option>
-        <option>italiano</option>
-        <option>Nederlands</option>
-        <option>polski</option>
-        <option>português (Brasil)</option>
-        <option>português (Portugal)</option>
-        <option>Tiếng Việt</option>
-        <option>Türkçe</option>
-        <option>русский</option>
-        <option>العربية</option>
-        <option>ไทย</option>
-        <option>中文 (简体)</option>
-        <option>中文 (繁體)</option>
-        <option>日本語</option>
-        <option>Acoli</option>
-        <option>Afrikaans</option>
-        <option>Akan</option>
-        <option>Asụsụ Igbo</option>
-        <option>azərbaycan</option>
-        <option>Balinese</option>
-        <option>Basa Sunda</option>
-        <option>Binisaya</option>
-        <option>Bork, bork, bork!</option>
-        <option>bosanski</option>
-        <option>brezhoneg</option>
-        <option>català</option>
-        <option>čeština</option>
-        <option>chiShona</option>
-        <option>Corsican</option>
-        <option>Cymraeg</option>
-        <option>dansk</option>
-        <option>Èdè Yorùbá</option>
-        <option>eesti</option>
-        <option>Elmer Fudd</option>
-        <option>esperanto</option>
-        <option>euskara</option>
-        <option>Eʋegbe</option>
-        <option>Filipino</option>
-        <option>Filipino</option>
-        <option>føroyskt</option>
-        <option>Frysk</option>
-        <option>Ga</option>
-        <option>Gaeilge</option>
-        <option>Gàidhlig</option>
-        <option>galego</option>
-        <option>Guarani</option>
-        <option>Hacker</option>
-        <option>Haitian Creole</option>
-        <option>Hausa</option>
-        <option>ʻŌlelo Hawaiʻi</option>
-        <option>Ichibemba</option>
-        <option>Ikirundi</option>
-        <option>Indonesia</option>
-        <option>interlingua</option>
-        <option>isiXhosa</option>
-        <option>isiZulu</option>
-        <option>íslenska</option>
-        <option>Jawa</option>
-        <option>Kinyarwanda</option>
-        <option>Kiswahili</option>
-        <option>Klingon</option>
-        <option>Kongo</option>
-        <option>kreol morisien</option>
-        <option>Krio (Sierra Leone)</option>
-        <option>Latin</option>
-        <option>latviešu</option>
-        <option>lea fakatonga</option>
-        <option>lietuvių</option>
-        <option>lingála</option>
-        <option>Lozi</option>
-        <option>Luba-Lulua</option>
-        <option>Luganda</option>
-        <option>magyar</option>
-        <option>Malagasy</option>
-        <option>Malti</option>
-        <option>Māori</option>
-        <option>Melayu</option>
-        <option>Nigerian Pidgin</option>
-        <option>norsk</option>
-        <option>Northern Sotho</option>
-        <option>Nyanja</option>
-        <option>nynorsk</option>
-        <option>ozbek</option>
-        <option>Occitan</option>
-        <option>Oromoo</option>
-        <option>Pirate</option>
-        <option>română</option>
-        <option>rumantsch</option>
-        <option>Runasimi</option>
-        <option>nRunyankore</option>
-        <option>Seychellois Creole</option>
-        <option>shqip</option>
-        <option>slovenčina</option>
-        <option>slovenščina</option>
-        <option>Soomaali</option>
-        <option>Southern Sotho</option>
-        <option>srpski (Crna Gora)</option>
-        <option>srpski (latinica)</option>
-        <option>suomi</option>
-        <option>svenska</option>
-        <option>Tswana</option>
-        <option>Tumbuka</option>
-        <option>türkmen dili</option>
-        <option>Twi</option>
-        <option>Wolof</option>
-        <option>Ελληνικά</option>
-        <option>беларуская</option>
-        <option>български</option>
-        <option>кыргызча</option>
-        <option>қазақ тілі</option>
-        <option>македонски</option>
-        <option>монгол</option>
-        <option>српски</option>
-        <option>татар</option>
-        <option>тоҷикӣ</option>
-        <option>українська</option>
-        <option>ქართული</option>
-        <option>հայերեն</option>
-        <option>ייִדיש</option>
-        <option>עברית</option>
-        <option>ئۇيغۇرچە</option>
-        <option>اردو</option>
-        <option>پښتو</option>
-        <option>سنڌي</option>
-        <option>فارسی</option>
-        <option>کوردیی ناوەندی</option>
-        <option>ትግርኛ</option>
-        <option>አማርኛ</option>
-        <option>नेपाली</option>
-        <option>मराठी</option>
-        <option>हिन्दी</option>
-        <option>বাংলা</option>
-        <option>ਪੰਜਾਬੀ</option>
-        <option>ગુજરાતી</option>
-        <option>ଓଡ଼ିଆ</option>
-        <option>தமிழ்</option>
-        <option>తెలుగు</option>
-        <option>ಕನ್ನಡ</option>
-        <option>മലയാളം</option>
-        <option>සිංහල</option>
-        <option>ລາວ</option>
-        <option>မြန်မာ</option>
-        <option>ខ្មែរ</option>
-        <option>ᏣᎳᎩ</option>
+          <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1">
+            <option value="" disabled>통역받을 언어</option>
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
+              {{ option.text }}
+            </option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
           <select v-model="searchData.lang_2" name="searchData.lang_2" id="searchData.lang_2" >
-            <option>{{ searchData.lang_2 }}</option>
-            <option>한국어</option>
-            <option>English</option>
-            <option>Deutsch</option>
-            <option>español</option>
-            <option>español (Latinoamérica)</option>
-            <option>français</option>
-            <option>hrvatski</option>
-            <option>italiano</option>
-            <option>Nederlands</option>
-            <option>polski</option>
-            <option>português (Brasil)</option>
-            <option>português (Portugal)</option>
-            <option>Tiếng Việt</option>
-            <option>Türkçe</option>
-            <option>русский</option>
-            <option>العربية</option>
-            <option>ไทย</option>
-            <option>中文 (简体)</option>
-            <option>中文 (繁體)</option>
-            <option>日本語</option>
-            <option>Acoli</option>
-            <option>Afrikaans</option>
-            <option>Akan</option>
-            <option>Asụsụ Igbo</option>
-            <option>azərbaycan</option>
-            <option>Balinese</option>
-            <option>Basa Sunda</option>
-            <option>Binisaya</option>
-            <option>Bork, bork, bork!</option>
-            <option>bosanski</option>
-            <option>brezhoneg</option>
-            <option>català</option>
-            <option>čeština</option>
-            <option>chiShona</option>
-            <option>Corsican</option>
-            <option>Cymraeg</option>
-            <option>dansk</option>
-            <option>Èdè Yorùbá</option>
-            <option>eesti</option>
-            <option>Elmer Fudd</option>
-            <option>esperanto</option>
-            <option>euskara</option>
-            <option>Eʋegbe</option>
-            <option>Filipino</option>
-            <option>Filipino</option>
-            <option>føroyskt</option>
-            <option>Frysk</option>
-            <option>Ga</option>
-            <option>Gaeilge</option>
-            <option>Gàidhlig</option>
-            <option>galego</option>
-            <option>Guarani</option>
-            <option>Hacker</option>
-            <option>Haitian Creole</option>
-            <option>Hausa</option>
-            <option>ʻŌlelo Hawaiʻi</option>
-            <option>Ichibemba</option>
-            <option>Ikirundi</option>
-            <option>Indonesia</option>
-            <option>interlingua</option>
-            <option>isiXhosa</option>
-            <option>isiZulu</option>
-            <option>íslenska</option>
-            <option>Jawa</option>
-            <option>Kinyarwanda</option>
-            <option>Kiswahili</option>
-            <option>Klingon</option>
-            <option>Kongo</option>
-            <option>kreol morisien</option>
-            <option>Krio (Sierra Leone)</option>
-            <option>Latin</option>
-            <option>latviešu</option>
-            <option>lea fakatonga</option>
-            <option>lietuvių</option>
-            <option>lingála</option>
-            <option>Lozi</option>
-            <option>Luba-Lulua</option>
-            <option>Luganda</option>
-            <option>magyar</option>
-            <option>Malagasy</option>
-            <option>Malti</option>
-            <option>Māori</option>
-            <option>Melayu</option>
-            <option>Nigerian Pidgin</option>
-            <option>norsk</option>
-            <option>Northern Sotho</option>
-            <option>Nyanja</option>
-            <option>nynorsk</option>
-            <option>ozbek</option>
-            <option>Occitan</option>
-            <option>Oromoo</option>
-            <option>Pirate</option>
-            <option>română</option>
-            <option>rumantsch</option>
-            <option>Runasimi</option>
-            <option>nRunyankore</option>
-            <option>Seychellois Creole</option>
-            <option>shqip</option>
-            <option>slovenčina</option>
-            <option>slovenščina</option>
-            <option>Soomaali</option>
-            <option>Southern Sotho</option>
-            <option>srpski (Crna Gora)</option>
-            <option>srpski (latinica)</option>
-            <option>suomi</option>
-            <option>svenska</option>
-            <option>Tswana</option>
-            <option>Tumbuka</option>
-            <option>türkmen dili</option>
-            <option>Twi</option>
-            <option>Wolof</option>
-            <option>Ελληνικά</option>
-            <option>беларуская</option>
-            <option>български</option>
-            <option>кыргызча</option>
-            <option>қазақ тілі</option>
-            <option>македонски</option>
-            <option>монгол</option>
-            <option>српски</option>
-            <option>татар</option>
-            <option>тоҷикӣ</option>
-            <option>українська</option>
-            <option>ქართული</option>
-            <option>հայերեն</option>
-            <option>ייִדיש</option>
-            <option>עברית</option>
-            <option>ئۇيغۇرچە</option>
-            <option>اردو</option>
-            <option>پښتو</option>
-            <option>سنڌي</option>
-            <option>فارسی</option>
-            <option>کوردیی ناوەندی</option>
-            <option>ትግርኛ</option>
-            <option>አማርኛ</option>
-            <option>नेपाली</option>
-            <option>मराठी</option>
-            <option>हिन्दी</option>
-            <option>বাংলা</option>
-            <option>ਪੰਜਾਬੀ</option>
-            <option>ગુજરાતી</option>
-            <option>ଓଡ଼ିଆ</option>
-            <option>தமிழ்</option>
-            <option>తెలుగు</option>
-            <option>ಕನ್ನಡ</option>
-            <option>മലയാളം</option>
-            <option>සිංහල</option>
-            <option>ລາວ</option>
-            <option>မြန်မာ</option>
-            <option>ខ្មែរ</option>
-            <option>ᏣᎳᎩ</option>
+            <option value="" disabled>통역할 언어</option>
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
+              {{ option.text }}
+            </option>
           </select>
         </div>
         <v-menu offset-y>
@@ -353,14 +59,14 @@
           <div class="cardList">
             <!-- <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading> -->
             <li v-for="(list, index) in searching" :key="index">
-                <div class="card"> 
+                <div class="card router" @click="goDetailpage(list._id)"> 
                   <div class="profile">
-                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image" @click="goUserpage(list.user_id._id)">
-                    <h6 class="center" @click="goUserpage(list.user_id._id)">{{ list.user_id.user_nickname }}</h6>
+                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                    <h6 class="center">{{ list.user_id.user_nickname }}</h6>
                     <v-spacer></v-spacer>
                     <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                   </div> 
-                  <div @click="goDetailpage(list._id)" class="router"> 
+                  <div> 
                   <h2 class="card_content">{{ list.article_title }}</h2></div>
                   <div class="">
                     <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
@@ -389,311 +95,17 @@
       <div class="selection">
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
-        <option>{{ searchData.lang_1 }}</option>
-        <option>한국어</option>
-        <option>English</option>
-        <option>Deutsch</option>
-        <option>español</option>
-        <option>español (Latinoamérica)</option>
-        <option>français</option>
-        <option>hrvatski</option>
-        <option>italiano</option>
-        <option>Nederlands</option>
-        <option>polski</option>
-        <option>português (Brasil)</option>
-        <option>português (Portugal)</option>
-        <option>Tiếng Việt</option>
-        <option>Türkçe</option>
-        <option>русский</option>
-        <option>العربية</option>
-        <option>ไทย</option>
-        <option>中文 (简体)</option>
-        <option>中文 (繁體)</option>
-        <option>日本語</option>
-        <option>Acoli</option>
-        <option>Afrikaans</option>
-        <option>Akan</option>
-        <option>Asụsụ Igbo</option>
-        <option>azərbaycan</option>
-        <option>Balinese</option>
-        <option>Basa Sunda</option>
-        <option>Binisaya</option>
-        <option>Bork, bork, bork!</option>
-        <option>bosanski</option>
-        <option>brezhoneg</option>
-        <option>català</option>
-        <option>čeština</option>
-        <option>chiShona</option>
-        <option>Corsican</option>
-        <option>Cymraeg</option>
-        <option>dansk</option>
-        <option>Èdè Yorùbá</option>
-        <option>eesti</option>
-        <option>Elmer Fudd</option>
-        <option>esperanto</option>
-        <option>euskara</option>
-        <option>Eʋegbe</option>
-        <option>Filipino</option>
-        <option>Filipino</option>
-        <option>føroyskt</option>
-        <option>Frysk</option>
-        <option>Ga</option>
-        <option>Gaeilge</option>
-        <option>Gàidhlig</option>
-        <option>galego</option>
-        <option>Guarani</option>
-        <option>Hacker</option>
-        <option>Haitian Creole</option>
-        <option>Hausa</option>
-        <option>ʻŌlelo Hawaiʻi</option>
-        <option>Ichibemba</option>
-        <option>Ikirundi</option>
-        <option>Indonesia</option>
-        <option>interlingua</option>
-        <option>isiXhosa</option>
-        <option>isiZulu</option>
-        <option>íslenska</option>
-        <option>Jawa</option>
-        <option>Kinyarwanda</option>
-        <option>Kiswahili</option>
-        <option>Klingon</option>
-        <option>Kongo</option>
-        <option>kreol morisien</option>
-        <option>Krio (Sierra Leone)</option>
-        <option>Latin</option>
-        <option>latviešu</option>
-        <option>lea fakatonga</option>
-        <option>lietuvių</option>
-        <option>lingála</option>
-        <option>Lozi</option>
-        <option>Luba-Lulua</option>
-        <option>Luganda</option>
-        <option>magyar</option>
-        <option>Malagasy</option>
-        <option>Malti</option>
-        <option>Māori</option>
-        <option>Melayu</option>
-        <option>Nigerian Pidgin</option>
-        <option>norsk</option>
-        <option>Northern Sotho</option>
-        <option>Nyanja</option>
-        <option>nynorsk</option>
-        <option>ozbek</option>
-        <option>Occitan</option>
-        <option>Oromoo</option>
-        <option>Pirate</option>
-        <option>română</option>
-        <option>rumantsch</option>
-        <option>Runasimi</option>
-        <option>nRunyankore</option>
-        <option>Seychellois Creole</option>
-        <option>shqip</option>
-        <option>slovenčina</option>
-        <option>slovenščina</option>
-        <option>Soomaali</option>
-        <option>Southern Sotho</option>
-        <option>srpski (Crna Gora)</option>
-        <option>srpski (latinica)</option>
-        <option>suomi</option>
-        <option>svenska</option>
-        <option>Tswana</option>
-        <option>Tumbuka</option>
-        <option>türkmen dili</option>
-        <option>Twi</option>
-        <option>Wolof</option>
-        <option>Ελληνικά</option>
-        <option>беларуская</option>
-        <option>български</option>
-        <option>кыргызча</option>
-        <option>қазақ тілі</option>
-        <option>македонски</option>
-        <option>монгол</option>
-        <option>српски</option>
-        <option>татар</option>
-        <option>тоҷикӣ</option>
-        <option>українська</option>
-        <option>ქართული</option>
-        <option>հայերեն</option>
-        <option>ייִדיש</option>
-        <option>עברית</option>
-        <option>ئۇيغۇرچە</option>
-        <option>اردو</option>
-        <option>پښتو</option>
-        <option>سنڌي</option>
-        <option>فارسی</option>
-        <option>کوردیی ناوەندی</option>
-        <option>ትግርኛ</option>
-        <option>አማርኛ</option>
-        <option>नेपाली</option>
-        <option>मराठी</option>
-        <option>हिन्दी</option>
-        <option>বাংলা</option>
-        <option>ਪੰਜਾਬੀ</option>
-        <option>ગુજરાતી</option>
-        <option>ଓଡ଼ିଆ</option>
-        <option>தமிழ்</option>
-        <option>తెలుగు</option>
-        <option>ಕನ್ನಡ</option>
-        <option>മലയാളം</option>
-        <option>සිංහල</option>
-        <option>ລາວ</option>
-        <option>မြန်မာ</option>
-        <option>ខ្មែរ</option>
-        <option>ᏣᎳᎩ</option>
+            <option value="" disabled>통역받을 언어</option>
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
+              {{ option.text }}
+            </option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
           <select v-model="searchData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
-            <option>{{ searchData.lang_2 }}</option>
-            <option>한국어</option>
-            <option>English</option>
-            <option>Deutsch</option>
-            <option>español</option>
-            <option>español (Latinoamérica)</option>
-            <option>français</option>
-            <option>hrvatski</option>
-            <option>italiano</option>
-            <option>Nederlands</option>
-            <option>polski</option>
-            <option>português (Brasil)</option>
-            <option>português (Portugal)</option>
-            <option>Tiếng Việt</option>
-            <option>Türkçe</option>
-            <option>русский</option>
-            <option>العربية</option>
-            <option>ไทย</option>
-            <option>中文 (简体)</option>
-            <option>中文 (繁體)</option>
-            <option>日本語</option>
-            <option>Acoli</option>
-            <option>Afrikaans</option>
-            <option>Akan</option>
-            <option>Asụsụ Igbo</option>
-            <option>azərbaycan</option>
-            <option>Balinese</option>
-            <option>Basa Sunda</option>
-            <option>Binisaya</option>
-            <option>Bork, bork, bork!</option>
-            <option>bosanski</option>
-            <option>brezhoneg</option>
-            <option>català</option>
-            <option>čeština</option>
-            <option>chiShona</option>
-            <option>Corsican</option>
-            <option>Cymraeg</option>
-            <option>dansk</option>
-            <option>Èdè Yorùbá</option>
-            <option>eesti</option>
-            <option>Elmer Fudd</option>
-            <option>esperanto</option>
-            <option>euskara</option>
-            <option>Eʋegbe</option>
-            <option>Filipino</option>
-            <option>Filipino</option>
-            <option>føroyskt</option>
-            <option>Frysk</option>
-            <option>Ga</option>
-            <option>Gaeilge</option>
-            <option>Gàidhlig</option>
-            <option>galego</option>
-            <option>Guarani</option>
-            <option>Hacker</option>
-            <option>Haitian Creole</option>
-            <option>Hausa</option>
-            <option>ʻŌlelo Hawaiʻi</option>
-            <option>Ichibemba</option>
-            <option>Ikirundi</option>
-            <option>Indonesia</option>
-            <option>interlingua</option>
-            <option>isiXhosa</option>
-            <option>isiZulu</option>
-            <option>íslenska</option>
-            <option>Jawa</option>
-            <option>Kinyarwanda</option>
-            <option>Kiswahili</option>
-            <option>Klingon</option>
-            <option>Kongo</option>
-            <option>kreol morisien</option>
-            <option>Krio (Sierra Leone)</option>
-            <option>Latin</option>
-            <option>latviešu</option>
-            <option>lea fakatonga</option>
-            <option>lietuvių</option>
-            <option>lingála</option>
-            <option>Lozi</option>
-            <option>Luba-Lulua</option>
-            <option>Luganda</option>
-            <option>magyar</option>
-            <option>Malagasy</option>
-            <option>Malti</option>
-            <option>Māori</option>
-            <option>Melayu</option>
-            <option>Nigerian Pidgin</option>
-            <option>norsk</option>
-            <option>Northern Sotho</option>
-            <option>Nyanja</option>
-            <option>nynorsk</option>
-            <option>ozbek</option>
-            <option>Occitan</option>
-            <option>Oromoo</option>
-            <option>Pirate</option>
-            <option>română</option>
-            <option>rumantsch</option>
-            <option>Runasimi</option>
-            <option>nRunyankore</option>
-            <option>Seychellois Creole</option>
-            <option>shqip</option>
-            <option>slovenčina</option>
-            <option>slovenščina</option>
-            <option>Soomaali</option>
-            <option>Southern Sotho</option>
-            <option>srpski (Crna Gora)</option>
-            <option>srpski (latinica)</option>
-            <option>suomi</option>
-            <option>svenska</option>
-            <option>Tswana</option>
-            <option>Tumbuka</option>
-            <option>türkmen dili</option>
-            <option>Twi</option>
-            <option>Wolof</option>
-            <option>Ελληνικά</option>
-            <option>беларуская</option>
-            <option>български</option>
-            <option>кыргызча</option>
-            <option>қазақ тілі</option>
-            <option>македонски</option>
-            <option>монгол</option>
-            <option>српски</option>
-            <option>татар</option>
-            <option>тоҷикӣ</option>
-            <option>українська</option>
-            <option>ქართული</option>
-            <option>հայերեն</option>
-            <option>ייִדיש</option>
-            <option>עברית</option>
-            <option>ئۇيغۇرچە</option>
-            <option>اردو</option>
-            <option>پښتو</option>
-            <option>سنڌي</option>
-            <option>فارسی</option>
-            <option>کوردیی ناوەندی</option>
-            <option>ትግርኛ</option>
-            <option>አማርኛ</option>
-            <option>नेपाली</option>
-            <option>मराठी</option>
-            <option>हिन्दी</option>
-            <option>বাংলা</option>
-            <option>ਪੰਜਾਬੀ</option>
-            <option>ગુજરાતી</option>
-            <option>ଓଡ଼ିଆ</option>
-            <option>தமிழ்</option>
-            <option>తెలుగు</option>
-            <option>ಕನ್ನಡ</option>
-            <option>മലയാളം</option>
-            <option>සිංහල</option>
-            <option>ລາວ</option>
-            <option>မြန်မာ</option>
-            <option>ខ្មែរ</option>
-            <option>ᏣᎳᎩ</option>
+            <option value="" disabled>통역할 언어</option>
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
+              {{ option.text }}
+            </option>
           </select>
         </div>
         <v-menu offset-y>
@@ -761,18 +173,130 @@
 <script lang="ts">
   import { Component, Vue} from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
-  // import InfiniteLoading from 'vue-infinite-loading'
 
   const HomeModule = namespace('Home');
 
   @Component({
     components: {
-      // InfiniteLoading,
     }
   })
   export default class Home extends Vue {
 
     private articleData: any = []
+
+    private options: any =[
+      { text: 'Deutsch', value: 'Deutsch' },
+      { text: 'English', value: 'English' },
+      { text: 'español', value: 'español' },
+      { text: 'español (Latinoamérica)', value: 'español (Latinoamérica)' },
+      { text: 'français', value: 'français' },
+      { text: 'hrvatski', value: 'hrvatski' },
+      { text: 'italiano', value: 'italiano' },
+      { text: 'Nederlands', value: 'Nederlands' },
+      { text: 'polski', value: 'polski' },
+      { text: 'português (Brasil)', value: 'português (Brasil)' },
+      { text: 'português (Portugal)', value: 'português (Portugal)' },
+      { text: 'Tiếng Việt', value: 'Tiếng Việt' },
+      { text: 'Türkçe', value: 'Türkçe' },
+      { text: 'русский', value: 'русский' },
+      { text: 'العربية', value: 'العربية' },
+      { text: 'ไทย', value: 'ไทย' },
+      { text: '한국어', value: '한국어' },
+      { text: '中文 (简体)', value: '中文 (简体)' },
+      { text: '中文 (繁體)', value: '中文 (繁體)' },
+      { text: '日本語', value: '日本語' },
+      { text: 'Acoli', value: 'Acoli' },
+      { text: 'Afrikaans', value: 'Afrikaans' },
+      { text: 'Akan', value: 'Akan' },
+      { text: 'Asụsụ Igbo', value: 'Asụsụ Igbo' },
+      { text: 'azərbaycan', value: 'azərbaycan' },
+      { text: 'Balinese', value: 'Balinese' },
+      { text: 'Basa Sunda', value: 'Basa Sunda' },
+      { text: 'Binisaya', value: 'Binisaya' },
+      { text: 'Bork, bork, bork!', value: 'Bork, bork, bork!' },
+      { text: 'bosanski', value: 'bosanski' },
+      { text: 'brezhoneg', value: 'brezhoneg' },
+      { text: 'català', value: 'català' },
+      { text: 'čeština', value: 'čeština' },
+      { text: 'chiShona', value: 'chiShona' },
+      { text: 'Corsican', value: 'Corsican' },
+      { text: 'Cymraeg', value: 'Cymraeg' },
+      { text: 'dansk', value: 'dansk' },
+      { text: 'Èdè Yorùbá', value: 'Èdè Yorùbá' },
+      { text: 'eesti', value: 'eesti' },
+      { text: 'Elmer Fudd', value: 'Elmer Fudd' },
+      { text: 'esperanto', value: 'esperanto' },
+      { text: 'euskara', value: 'euskara' },
+      { text: 'Eʋegbe', value: 'Eʋegbe' },
+      { text: 'Filipino', value: 'Filipino' },
+      { text: 'Filipino', value: 'Filipino' },
+      { text: 'føroyskt', value: 'føroyskt' },
+      { text: 'Frysk', value: 'Frysk' },
+      { text: 'Ga', value: 'Ga' },
+      { text: 'Gaeilge', value: 'Gaeilge' },
+      { text: 'Gàidhlig', value: 'Gàidhlig' },
+      { text: 'galego', value: 'galego' },
+      { text: 'Guarani', value: 'Guarani' },
+      { text: 'Hacker', value: 'Hacker' },
+      { text: 'Haitian Creole', value: 'Haitian Creole' },
+      { text: 'Hausa', value: 'Hausa' },
+      { text: 'ʻŌlelo Hawaiʻi', value: 'ʻŌlelo Hawaiʻi' },
+      { text: 'Ichibemba', value: 'Ichibemba' },
+      { text: 'Ikirundi', value: 'Ikirundi' },
+      { text: 'Indonesia', value: 'Indonesia' },
+      { text: 'interlingua', value: 'interlingua' },
+      { text: 'isiXhosa', value: 'isiXhosa' },
+      { text: 'isiZulu', value: 'isiZulu' },
+      { text: 'íslenska', value: 'íslenska' },
+      { text: 'Jawa', value: 'Jawa' },
+      { text: 'Kinyarwanda', value: 'Kinyarwanda' },
+      { text: 'Kiswahili', value: 'Kiswahili' },
+      { text: 'Klingon', value: 'Klingon' },
+      { text: 'Kongo', value: 'Kongo' },
+      { text: 'kreol morisien', value: 'kreol morisien' },
+      { text: 'Krio (Sierra Leone)', value: 'Krio (Sierra Leone)' },
+      { text: 'Latin', value: 'Latin' },
+      { text: 'latviešu', value: 'latviešu' },
+      { text: 'lea fakatonga', value: 'lea fakatonga' },
+      { text: 'lietuvių', value: 'lietuvių' },
+      { text: 'lingála', value: 'lingála' },
+      { text: 'Lozi', value: 'Lozi' },
+      { text: 'Luba-Lulua', value: 'Luba-Lulua' },
+      { text: 'Luganda', value: 'Luganda' },
+      { text: 'magyar', value: 'magyar' },
+      { text: 'Malagasy', value: 'Malagasy' },
+      { text: 'Malti', value: 'Malti' },
+      { text: 'Māori', value: 'Māori' },
+      { text: 'Melayu', value: 'Melayu' },
+      { text: 'Nigerian Pidgin', value: 'Nigerian Pidgin' },
+      { text: 'norsk', value: 'norsk' },
+      { text: 'Northern Sotho', value: 'Northern Sotho' },
+      { text: 'Nyanja', value: 'Nyanja' },
+      { text: 'nynorsk', value: 'nynorsk' },
+      { text: 'ozbek', value: 'ozbek' },
+      { text: 'Occitan', value: 'Occitan' },
+      { text: 'Oromoo', value: 'Oromoo' },
+      { text: 'Pirate', value: 'Pirate' },
+      { text: 'română', value: 'română' },
+      { text: 'rumantsch', value: 'rumantsch' },
+      { text: 'Runasimi', value: 'Runasimi' },
+      { text: 'Runyankore', value: 'Runyankore' },
+      { text: 'Seychellois Creole', value: 'Seychellois Creole' },
+      { text: 'shqip', value: 'shqip' },
+      { text: 'slovenčina', value: 'slovenčina' },
+      { text: 'slovenščina', value: 'slovenščina' },
+      { text: 'Soomaali', value: 'Soomaali' },
+      { text: 'Southern Sotho', value: 'Southern Sotho' },
+      { text: 'srpski (Crna Gora)', value: 'srpski (Crna Gora)' },
+      { text: 'srpski (latinica)', value: 'srpski (latinica)' },
+      { text: 'suomi', value: 'suomi' },
+      { text: 'svenska', value: 'svenska' },
+      { text: 'Tswana', value: 'Tswana' },
+      { text: 'Tumbuka', value: 'Tumbuka' },
+      { text: 'türkmen dili', value: 'türkmen dili' },
+      { text: 'Twi', value: 'Twi' },
+      { text: 'Wolof', value: 'Wolof' },
+    ]
 
     private searchData : any = {
       lang_1 : "",

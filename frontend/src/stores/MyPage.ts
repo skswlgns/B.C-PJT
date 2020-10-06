@@ -31,7 +31,7 @@ export default class MyPage extends VuexModule {
 
   @Mutation
   public async save_apply(temp_data: any) {
-    this.applyarticle = temp_data
+    this.applyarticle = temp_data.reverse()
   }
 
   // 계좌 잔액 저장
