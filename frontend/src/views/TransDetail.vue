@@ -1,16 +1,9 @@
 <template>
   <div>
-    {{ article.user_id.user_email}}
-    <!-- {{article}} -->
-    {{ article.user_id._id }}
     <hr>
     <hr>
-
     <hr>
-    {{ article.article_candidate }}
-    <!-- {{ article.article_candidate }} -->
     <hr>
-    {{ user }}
 
     <!--WEB-->
     <div id="WEB" v-if="windowWidth > 380">
@@ -80,7 +73,7 @@
               <div class="profile">
                 <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
                 <div class="applyUser">
-                  <h3 class="center">{{ user_profile.user_nickname }}  |</h3>
+                  <h3 class="center">{{ user_profile }}  |</h3>
                   <div class="native_lang">
                     <p class="user_lang">{{user_profile.user_lang}}</p>
                     <p class="badge">모국어</p>
@@ -441,9 +434,10 @@
     }
 
     async created() {
+      console.log(this.article)
       await this.get_article_1(this.id)
       await console.log('created' , this.article.article_candidate)
-      console.log(this.article.user_id)
+      console.log(this.article)
       if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)
       }

@@ -15,14 +15,14 @@ export default class TransDetail extends VuexModule {
 
   @Mutation
   public async save_article(temp: any) {
-    console.log('article_저장했냐')
-    console.log(temp)
+    // console.log('article_저장했냐')
+    // console.log(temp)
     this.article = temp
   }
 
   @Mutation
   public async save_user(temp: any) {
-    console.log('save_user')
+    // console.log('save_user')
     this.user = temp
   }
 
@@ -33,7 +33,7 @@ export default class TransDetail extends VuexModule {
 
   @Mutation
   public async save_from(temp: string) {
-    console.log("toegg 저장", temp)
+    // console.log("toegg 저장", temp)
     this.toegg = temp
   }
 
@@ -55,15 +55,15 @@ export default class TransDetail extends VuexModule {
 
   @Action({ commit: "save_article" })
   public async get_article_1(id: string) {
-    console.log('article_왓냐')
+    // console.log('article_왓냐')
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)
     return res.data
   }
 
   @Action
   public async apply(applyData: any) {
-    console.log('apply')
-    console.log(applyData)
+    // console.log('apply')
+    // console.log(applyData)
     let config = {
       headers: {
         token: Vue.cookies.get("token"),
@@ -97,7 +97,7 @@ export default class TransDetail extends VuexModule {
     console.log('get_candidate')
     const users : any = []
     for (let candi in candi_list) {
-      console.log('candi' + candi)  
+      // console.log('candi' + candi)  
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
       users.push(res.data)
     }
