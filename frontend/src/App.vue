@@ -12,10 +12,6 @@
         <span>
           <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
         </span>
-        <!-- 알림 -->
-        <span>
-          <i class="far fa-bell fa-2x nav_icon"></i>
-        </span>
         <!-- 로구아웃 -->
         <span>
           <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogout()"></i> 
@@ -40,10 +36,6 @@
           <!-- 마이페이지 -->
           <div class="mr-2 nav">
             <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
-          </div>
-          <!-- 알림 -->
-          <div class="mr-2 nav">
-            <i class="far fa-bell fa-2x nav_icon"></i>
           </div>
           <!-- 로구아웃 -->
           <div class="mr-2 nav">

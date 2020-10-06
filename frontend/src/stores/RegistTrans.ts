@@ -49,10 +49,10 @@ export default class RegistTrans extends VuexModule {
 			user_gender: myinfo.user_gender,
 			user_good_lang: myinfo.user_good_lang,
 			user_intro: myinfo.user_intro,
-		}
-
-		console.log(trans_data)
-
-		await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
+    }
+    
+    await axios.put(`${SERVER_URL}/users/${myinfo._id}`, trans_data, config)
+    
+    router.push('/addcareer')
   }
 }
