@@ -2,6 +2,7 @@ import express from "express"
 import { UserModel } from "../model/UserModel"
 import { ArticleModel } from "../model/ArticleModel"
 import { CandidateModel } from "../model/CandidateModel"
+import { ResumeModel } from "../model/ResumeModel"
 
 const authRoutes = express.Router()
 const crypto = require("crypto")
@@ -21,7 +22,7 @@ const upload = multer({
   storage: multer.diskStorage({
     // set a localstorage destination
     destination: (req: any, file: any, cb: any) => {
-      cb(null, "image/")
+      cb(null, `../../image`)
     },
     // convert a file name
     filename: (req: any, file: any, cb: any) => {
@@ -184,6 +185,7 @@ authRoutes.delete("/", async (req: express.Request, res: express.Response) => {
         await UserModel.deleteOne({ user_email: user._id })
         await ArticleModel.deleteMany({ user_id: user._id })
         await CandidateModel.deleteMany({ user_id: user._id })
+        await ResumeModel.deleteMany({ user_id: user._id })
         res.status(200).send({ message: "회원 탈퇴 되었습니다." })
       }
     }
