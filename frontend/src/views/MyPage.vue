@@ -58,7 +58,6 @@
         <!--요청한거부터 처리하자-->
         <div>
           <li class="no_style" v-for="(post, index) in myarticle" :key="index">
-            {{post}}
             <v-card
               class="my-3 two_box"
               max-width="1600"

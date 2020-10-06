@@ -158,7 +158,7 @@ authRoutes.put("/", upload.single("user_image"), async (req: express.Request, re
       } else {
         // image file 있는지 확인
         // const imageFile = req.files
-        console.log(req.file)
+        // console.log(req.file)
         // 회원정보가 존재하면 수정
         await UserModel.findOneAndUpdate(
           { _id: user._id },
