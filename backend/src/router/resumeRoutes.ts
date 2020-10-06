@@ -1,8 +1,5 @@
 import express from "express"
 import { UserModel } from "../model/UserModel"
-import { ArticleModel } from "../model/ArticleModel"
-import { CandidateModel } from "../model/CandidateModel"
-import { StarRateModel } from "../model/StarRateModel"
 import { ResumeModel } from "../model/ResumeModel"
 
 const resumeRoutes = express.Router()
@@ -34,7 +31,7 @@ const upload = multer({
 // 유저의 경력정보 목록 조회: GET
 resumeRoutes.get("/:user_id", async (req: express.Request, res: express.Response) => {
   const user_id = req.params["user_id"]
-  await StarRateModel.find({ user_id: user_id }).exec((err: Error, resume: any) => {
+  await ResumeModel.find({ user_id: user_id }).exec((err: Error, resume: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -88,7 +85,7 @@ resumeRoutes.delete("/", async (req: express.Request, res: express.Response) => 
         res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
       } else {
         // 회원정보가 존재하면 수정
-        await ResumeModel.deleteMany({ user_id: user._id })
+        await ResumeModel.deleteOne({ _id: req.body._id })
         res.status(200).send({ message: "경력 정보가 삭제 되었습니다." })
       }
     }
