@@ -115,13 +115,13 @@
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                     </div>
-                    <div v-else-if="trans_value == '4'">
+                    <div v-else-if="star.star_rate_score == '4'">
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                     </div>
-                    <div v-else-if="trans_value == '5'">
+                    <div v-else-if="star.star_rate_score == '5'">
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
@@ -131,7 +131,7 @@
                   </v-card-text>
                   <v-row class="text-center">
                     <v-col cols="12">
-                      <textarea type="text" placeholder="왜 그러한 평점을 주셨나요?(선택)" v-model="trans_evaluate" v-if="trans_value != ''"/>
+                      <textarea type="text" placeholder="왜 그러한 평점을 주셨나요?(선택)" v-model="star.star_rate_content" v-if="star.star_rate_score != ''"/>
                     </v-col>
                   </v-row>
                   <v-card-title class="headline">
@@ -139,7 +139,7 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, trans_value, trans_evaluate)">송금하기</v-btn>
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
 
@@ -395,13 +395,14 @@
       );
   }
 
-  save_send(address : string, egg : number, toegg : string){
+  save_send(address : string, egg : number, toegg : string, star:any){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
-    this.send_money(this.send_data)
+    console.log(star)
+    // this.send_money(this.send_data)
   }
 
   // 돈 성공적으로 전송되었을 때, 이메일 알림 
