@@ -49,10 +49,8 @@ ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Respon
 	let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
   // const data = req
   let wallet_address : String = ""
-	console.log(req.body)
   await web3.eth.personal.newAccount(req.body['wallet_password'])
   .then(response => {
-    console.log(response)
     wallet_address = response
     res.status(200).send(wallet_address)
   });
@@ -61,8 +59,6 @@ ChoiceRoutes.post("/newBalance",async (req: express.Request, res: express.Respon
 // 계좌확인
 ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Response) => {
     let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-    console.log('getBalance')
-    console.log(req.body)
     let my_money : String = ""
     await web3.eth.getBalance(req.body['address'])
     .then( response => {
@@ -76,7 +72,6 @@ ChoiceRoutes.post("/getBalance",async (req: express.Request, res: express.Respon
 // 상대방 계좌 저장 
 ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Response) => {
   const user_id = req.body["user_id"]
-  console.log(user_id)
 	await UserModel.findOne({ _id: user_id })
     .exec((err: Error, user:any) => {
       console.log(err,"에러")
@@ -92,12 +87,10 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
 // 계좌송금
 ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Response) => {
   let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-  console.log('send money....')
-  console.log(req.body)
-  let fromEgg : string = req.body['fromEgg']
-  let toEgg : string = req.body['toEgg']
-  let PassWord : string = req.body['Password']
-  let Egg : number = req.body['Egg']
+  let fromEgg = req.body['fromEgg']
+  let toEgg  = req.body['toEgg']
+  let PassWord  = req.body['Password']
+  let Egg = req.body['Egg']
   
   let success : boolean = false
 
@@ -131,15 +124,15 @@ ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Resp
   console.log('컨트랙트 저장 되냐')
 ​  console.log(req.body)
   console.log(TokenContract.methods)
-​ 
+
   let _selectPerson : string = req.body['_selectPerson']
   let _selectedPerson : string = req.body['_selectedPerson']
-  let article : string = req.body['article']
-  let _selectedArticle : string = req.body['_selectedArticle']
+  // let article : string = req.body['article']
+  // let _selectedArticle : string = req.body['_selectedArticle']
   let _point : number = req.body['_point']
 
   // selectPerson, selectedPerson, 
-  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, article, _selectedArticle, _point)
+  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, 100, 100, _point)
   .send({from: _selectPerson})
   .on('transactionHash', function(hash:any){
       console.log('해쉬야');
