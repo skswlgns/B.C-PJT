@@ -31,7 +31,7 @@ export default class MyPage extends VuexModule {
 
   @Mutation
   public async save_apply(temp_data: any) {
-    this.applyarticle = temp_data
+    this.applyarticle = temp_data.reverse()
   }
 
   // 계좌 잔액 저장
@@ -42,9 +42,10 @@ export default class MyPage extends VuexModule {
   }
 
   @Mutation
-  public async save_success(temp_data: String) {
-    console.log(temp_data)
+  public async save_success(temp_data: boolean) {
     this.success_money = true
+    // console.log(temp_data)
+    // console.log(this.success_money)
   }
 
   // actions
@@ -109,17 +110,16 @@ export default class MyPage extends VuexModule {
     window.location.href = `${CAHT_URL}`;
   }
 
-  @Action({ commit: "save_success" })
+  @Action({ commit: "save_success"})
   public async send_money(send_data: any) {
     console.log("돈 전송 action")
     console.log(send_data)
-    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
-    if (res.data) {
-      console.log('돈이 안가쓔')
-      console.log(res.data)
-    } else {
-      console.log('돈 송금 성공')
-      return "success"
-    }
+    await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
+    .then(res => {
+      console.log('김용욱 개천사', res.data)
+      // return res.data
+    })
+    .catch(err => console.log(err))
+
   }
 }

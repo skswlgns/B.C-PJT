@@ -41,6 +41,17 @@ export default class TransDetail extends VuexModule {
     this.money_success = true
   }
 
+  @Mutation
+  public async goUserpage(userid: any) {
+    if (userid.user_email === Vue.cookies.get('email')) {
+      router.push('/mypage')
+    }
+    else {
+      router.push({name: 'UserPage', params: { id : userid._id }}).catch(()=>{})
+    }
+    
+  }
+
   @Action({ commit: "save_article" })
   public async get_article_1(id: string) {
     const res = await axios.get(`${SERVER_URL}/articles/${id}`)

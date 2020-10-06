@@ -39,6 +39,18 @@ export default class UserPage extends VuexModule {
     }
   }
 
-  @Action
-  public async get_article() {}
+  // 유저가 지원한 article 받아오기
+  @Action({ commit: "save_apply" })
+  public async get_applyarticle() {
+    const config = {
+      headers: {
+        token: Vue.cookies.get("token"),
+        email: Vue.cookies.get("email"),
+      },
+    }
+    const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
+    // console.log('here')
+    console.log(res.data)
+    return res.data
+  }
 }

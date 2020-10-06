@@ -317,12 +317,17 @@
         <h1>포인트</h1>
         <div class='point_fr'>
           <select v-model.number="transData.article_egg" name="point" class="point" type="number"  >
-            <option>50000</option>
-            <option>100000</option>
-            <option>150000</option>
-            <option>200000</option>
-            <option>250000</option>
-            <option>300000</option>
+            <option>10</option>
+            <option>15</option>
+            <option>20</option>
+            <option>25</option>
+            <option>30</option>
+            <option>35</option>
+            <option>40</option>
+            <option>45</option>
+            <option>50</option>
+            <option>55</option>
+            <option>60</option>
           </select>
           <input type="text" class="point_input" v-model.number="transData.article_egg" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
           <div class='space'></div>

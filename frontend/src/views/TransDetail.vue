@@ -1,6 +1,8 @@
 <template>
   <div>
     {{ article.user_id.user_email}}
+    <!-- {{article}} -->
+    {{ article.user_id._id }}
     <hr>
     <hr>
 
@@ -10,8 +12,8 @@
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">
-          <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-          <!-- <h4 class="center">{{ article.user_id.user_nickname }}</h4> -->
+          <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image"  @click="goUserpage(article.user_id)">
+          <h4 class="center"  @click="goUserpage(article.user_id)">{{ article.user_id.user_nickname }}</h4>
           <v-spacer></v-spacer>
           <span v-if="!article.article_select" class="ing">진행중</span>
           <span v-if="article.article_select" class="end">마감</span>
@@ -422,6 +424,9 @@
     @TransDetailModule.Action('send_money')
     private send_money!: (send_data : any) => void;
 
+    @TransDetailModule.Mutation('goUserpage')
+    private goUserpage !: any;
+
 
     private candi_complete : boolean = false ;
 
@@ -437,8 +442,11 @@
 
     async mounted() {
       await this.get_article_1(this.id)
-      await this.get_candidate(this.article.article_candidate)
-      window.scrollTo(0, 0) 
+      if (this.article.article_candidate != '') {
+        await this.get_candidate(this.article.article_candidate)
+      }
+      
+      window.scrollTo(0, 0)
     }   
   }
 </script>
