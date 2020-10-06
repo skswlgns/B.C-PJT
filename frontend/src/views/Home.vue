@@ -58,21 +58,23 @@
         <v-col lg="8">
           <div class="cardList">
             <!-- <infinite-loading @infinite="infiniteHandler" spinner="waveDots"></infinite-loading> -->
-            <li v-for="(list, index) in searching" :key="index">
-                <div class="card router" @click="goDetailpage(list._id)"> 
-                  <div class="profile">
-                    <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-                    <h6 class="center">{{ list.user_id.user_nickname }}</h6>
-                    <v-spacer></v-spacer>
-                    <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+            <ul>
+              <li v-for="(list, index) in searching" :key="index">
+                  <div class="card router" @click="goDetailpage(list._id)"> 
+                    <div class="profile">
+                      <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                      <h6 class="center">{{ list.user_id.user_nickname }}</h6>
+                      <v-spacer></v-spacer>
+                      <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                    </div> 
+                    <div> 
+                    <h2 class="card_content">{{ list.article_title }}</h2></div>
+                    <div class="">
+                      <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
+                    </div>
                   </div> 
-                  <div> 
-                  <h2 class="card_content">{{ list.article_title }}</h2></div>
-                  <div class="">
-                    <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
-                  </div>
-                </div> 
-            </li>
+              </li>
+            </ul>
           </div>
           <div v-if="articleData.length === 0">
             <img src="../assets/images/텅.png" class="searchImg">
@@ -149,20 +151,22 @@
       </div>
 
       <div class="cardList" @click="goDetail()">
-        <li v-for="(list, index) in searching" :key="index">
-          <div class="card"> 
-            <div class="profile">
-              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <h6 class="center">{{ list.user_id.user_nickname }}</h6>
-              <v-spacer></v-spacer>
-              <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+        <ul>
+          <li v-for="(list, index) in searching" :key="index">
+            <div class="card"> 
+              <div class="profile">
+                <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
+                <h6 class="center">{{ list.user_id.user_nickname }}</h6>
+                <v-spacer></v-spacer>
+                <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+              </div> 
+              <h4 class="card_content">{{ list.article_title.slice(0, 20)}}...</h4>
+              <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p>
+              <br>
+              <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
             </div> 
-            <h4 class="card_content">{{ list.article_title.slice(0, 20)}}...</h4>
-            <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p>
-            <br>
-            <p class="inline">{{list.article_date}} {{list.article_start}}</p> ~ <p class="inline"> {{list.article_enddate}} {{list.article_end}} </p>
-          </div> 
-        </li>
+          </li>
+        </ul>
         <div v-if="articleData.length === 0">
           <img src="../assets/images/텅.png" class="searchImg" style="width: 100%">
         </div>
@@ -329,16 +333,16 @@
     private get_article!: () => void;
 
     async created()  {
-      const scrollHeight = document.body.offsetHeight;
+      // const scrollHeight = document.body.offsetHeight;
       // const scrollTop = document.documentElement.scrollTop;
       // const clientHeight = document.documentElement.clientHeight;
-      function scrollHandler() {
-        if (scrollY > scrollHeight) {
-          console.log('얍')
-        }
-      }
+      // function scrollHandler() {
+      //   if (scrollY > scrollHeight) {
+      //     console.log('얍')
+      //   }
+      // }
 
-      window.addEventListener('scroll', function(){scrollHandler()} );
+      // window.addEventListener('scroll', function(){scrollHandler()} );
 
       await this.get_article()
       this.articleData = this.article

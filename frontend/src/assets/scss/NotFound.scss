@@ -12,7 +12,6 @@ html, body {
 	width: 100%;
 	min-height: 100vh;
 	background-color: $gb;
-	font-family: 'Open Sans';
 }
 
 *, *:before, *:after {
@@ -164,7 +163,6 @@ h1 {
 }
 
 .btn {
-	font-family: "Open Sans";
 	font-weight: 400;
 	padding: 20px;
 	background-color: rgba($blue,1.0);

@@ -18,7 +18,6 @@ export default class Home extends VuexModule {
   // mutations
   @Mutation
   public async savearticle(temp_data:any) {    
-    // console.log('mutation', temp_data)
     this.article = temp_data
   }
 
