@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{userinfo}}
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <h1>유저페이지</h1>
