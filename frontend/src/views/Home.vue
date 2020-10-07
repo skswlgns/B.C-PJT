@@ -44,7 +44,7 @@
                       <div class="point"> <span>{{list.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                     </div> 
                     <div> 
-                    <h2 class="card_content">{{ list.article_title }}</h2></div>
+                    <h3 class="card_content">{{ list.article_title }}</h3></div>
                     <div class="">
                       <p class="inline">{{list.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{list.article_to}}</p> | <p class="inline">{{list.article_start_date}} {{list.article_start_time}}</p> ~ <p class="inline"> {{list.article_end_date}} {{list.article_end_time}} </p>
                     </div>

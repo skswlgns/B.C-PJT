@@ -8,39 +8,39 @@ const ChoiceRoutes = express.Router()
 
 // contract_select
 const ABI = [
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_selectPerson",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_selectedPerson",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "article",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_selectedArticle",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_point",
-        type: "uint256",
-      },
-    ],
-    name: "RewardLogic",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_selectPerson",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_selectedPerson",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_article",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_selectedArticle",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_point",
+				"type": "uint256"
+			}
+		],
+		"name": "RewardLogic",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	}
 ]
 
 //계좌생성
@@ -149,27 +149,29 @@ ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Resp
   let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
   let selectTokenAbi: any = ABI
   let TokenContract = new web3.eth.Contract(selectTokenAbi, address)
-  let _selectPerson: string = req.body["_selectPerson"]
-  let _selectedPerson: string = req.body["_selectedPerson"]
-  let _point: number = req.body["_point"]
+  let _selectPerson : string = req.body['_selectPerson']
+  let _selectedPerson : string = req.body['_selectedPerson']
+  let article : string = req.body['article']
+  let _selectedArticle : string = req.body['_selectedArticle']
+  let _point : number = req.body['_point']
+  let passWord : string = req.body['passWord']
 
-  await web3.eth.personal.unlockAccount(_selectPerson, "1234", 600).then(() => console.log("Account unlocked!1"))
-  await web3.eth.personal.unlockAccount(_selectPerson, "1234", 600).then(() => console.log("Account unlocked!2"))
+  await web3.eth.personal.unlockAccount(_selectPerson, passWord, 600).then(() => console.log('Account unlocked!1'));
+  await web3.eth.personal.unlockAccount(_selectPerson, passWord, 600).then(() => console.log('Account unlocked!2'));
 
-  // selectPerson, selectedPerson,
-  TokenContract.methods
-    .RewardLogic(_selectPerson, _selectedPerson, 100, 100, _point)
-    .send({ from: _selectPerson })
-    .on("transactionHash", function (hash: any) {
-      console.log("해쉬야")
-      console.log(hash)
+  // selectPerson, selectedPerson, 
+  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, article, _selectedArticle, _point)
+  .send({from: _selectPerson})
+  .on('transactionHash', function(hash:any){
+      console.log('해쉬야');
+      console.log(hash);
       res.status(200)
-    })
-    .on("error", function (error: any) {
-      console.log("에러야")
-      console.log(error)
+  })
+  .on('error', function(error:any) {
+      console.log('에러야');
+      console.log(error);
       res.status(500)
-    })
+  });  
 })
 
 export { ChoiceRoutes }

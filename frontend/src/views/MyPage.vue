@@ -2,7 +2,7 @@
   <div>
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
-      <h1>마이페이지</h1>
+      <h2>마이페이지</h2>
       <div class="user-box d-flex">
         <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
@@ -50,6 +50,40 @@
               class="my-2 mr-10">
               프로필 수정하기
             </v-btn>
+            
+            <v-dialog
+              v-model="dialog3"
+              persistent
+              max-width="350"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  충전하기
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title class="headline">
+                  금액을 입력해주세요.
+                </v-card-title>
+                  <input v-model="chargeData.Egg" class="ml-6" placeholder="금액을 입력해주세요."/>
+                  <v-btn @click="save_charge(myinfo.user_wallet)">충전하기</v-btn>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog3 = false"
+                  >
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -85,7 +119,7 @@
         </div>
       </div>
       
-      <h1>진행 중</h1>
+      <h2>진행 중</h2>
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
         <div>
@@ -94,8 +128,9 @@
               class="my-3 two_box"
               max-width="1600"
               outlined
-              v-if="post.article_select"
-            >
+              v-if="post.article_select && !post.article_complete"
+            > 
+              {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
@@ -167,8 +202,8 @@
                       </v-card-title>
                       <v-card-text>
                         <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                        <!-- {{ post }} -->
-                        <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>
                       <v-spacer></v-spacer>
                     </v-card>
@@ -222,7 +257,7 @@
       </div>
 
       <div>
-        <h1>내역</h1>
+        <h2>내역</h2>
         <div class="user-box">
           <v-row class="ma-4">
             <v-col>
@@ -338,7 +373,15 @@
   private myinfo!: any;
   private temp_wallet : String = ""
   private dialog2 : boolean = false
+  private dialog3 : boolean = false
   private finish : boolean = false
+
+  private chargeData : any = {
+    Egg : 0,
+    toEgg : "",
+    fromEgg : "0x379b140fb8af53a0291c775e4091020c5dd14d6b",
+    PassWord : ""
+  }
 
   private star: any = {
     star_rate_ts_user_id: '',
@@ -349,6 +392,13 @@
 
   set_address(address : String){
     this.temp_wallet = address
+  }
+
+  save_charge(user_wallet: string){
+    this.chargeData.toEgg = user_wallet
+
+    console.log(this.chargeData)
+    this.charge_money(this.chargeData)
   }
 
    private successParams = {
@@ -377,6 +427,12 @@
   @myPageModule.State('resume')
   private resume!: any;
 
+  @myPageModule.State('is_loading')
+  private is_loading!: boolean;
+
+  @myPageModule.Mutation('loading')
+  private loading!: any;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
@@ -394,6 +450,9 @@
 
   @myPageModule.Action('send_money')
   private send_money!: (temp : any) => any;
+
+  @myPageModule.Action('charge_money')
+  private charge_money!: (temp : any) => any;
 
   @myPageModule.Action('successTest')
   private successTest!: (successParams : any) => any;
@@ -424,25 +483,28 @@
     this.get_toEmail(post.article_select)
   }
 
-  save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+  async save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+
     console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
+    
 
     if (this.star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
-      console.log(this.star)
-      this.send_rate(this.star)
+      await this.loading()
       this.successParams.to_email = this.to_email,
       this.successParams.client_email = client_email,
       this.successParams.title = title
       this.successParams.money = egg
       const temp = [this.send_data, this.successParams]
-      this.send_money(temp)
+      await this.send_money(temp)
+      await this.send_rate(this.star)
+
     }
   }
 
