@@ -1,9 +1,5 @@
 <template>
   <div>
-    이름{{name}}
-    설명{{desc}}
-    파일{{file}}
-    {{user_resume}}
     <div v-if="windowWidth > 375">
       <h1>경력 증명</h1>
       <div class="user-box">

@@ -4,7 +4,7 @@
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <div class="user-box d-flex">
-        <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
+        <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt"> 
           <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
@@ -88,7 +88,7 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
+                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(post)">통역사 송금하기</v-btn>
                   </template>
                 <v-card>
                   <v-card-title class="headline">
@@ -139,7 +139,7 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star, post)">송금하기</v-btn>
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
 
@@ -320,7 +320,6 @@
   private temp_wallet : String = ""
   private dialog2 : boolean = false
   private finish : boolean = false
-  private imgurl: string = ''
 
   private star: any = {
     star_rate_ts_user_id: '',
@@ -384,18 +383,22 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string, star:any, post:any){
+  change(post:any) {
+    this.star.article_id = post._id
+    this.star.star_rate_ts_user_id = post.article_select
+  }
+
+  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
-    star.article_id = post._id
-    star.star_rate_ts_user_id = post.article_select
-    if (star.star_rate_score == '') {
+    if (this.star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
-      this.send_rate(star)
+      console.log(this.star)
+      // this.send_rate(this.star)
       // this.send_money(this.send_data)
     }
 
@@ -411,7 +414,6 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
-    this.imgurl = `https://j3b103.p.ssafy.io/image/${this.myinfo.user_image}`
   }
 
   async mounted(){

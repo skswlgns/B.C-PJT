@@ -4,8 +4,8 @@
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">
-          <img :src="'https://j3b103.p.ssafy.io/image/' + article.user_id.user_image" alt="프로필이미지" class="profile_image"  @click="goUserpage(article.user_id)" v-if="article.user_id.user_image != ''">
-          <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else>
+          <img :src="'https://j3b103.p.ssafy.io/image/' + article.user_id.user_image" alt="프로필이미지" class="profile_image"  @click="goUserpage(article.user_id)" v-if="article.user_id.user_image">
+          <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image">
           <h4 class="center"  @click="goUserpage(article.user_id)">{{ article.user_id.user_nickname }}</h4>
           <v-spacer></v-spacer>
           <span v-if="!article.article_select" class="ing">진행중</span>
@@ -54,11 +54,11 @@
         </v-row>
       </div>
 
-      <div class="apply" v-if="article.user_id.user_email !== my_email">
-        <h1>통역가 지원하기</h1>
+      <div class="apply"  v-if="myinfo">
+        <h3>통역가 지원하기</h3>
         <v-row class="row">
-          <input v-model="applyData.candidate_content" class="applybox" type="text"/>
-          <v-btn class="applybtn" @click="apply(applyData)">지원하기</v-btn>
+          <input v-model="applyData2.candidate_content" class="applybox" type="text"/>
+          <v-btn class="applybtn" @click="apply(applyData2)">지원하기</v-btn>
         </v-row>
       </div>
 
@@ -70,17 +70,20 @@
               
               <div v-if="user_profile._id == content.user_id" class="applyCard_select">
                 <div class="profile">
-                  <img :src="'https://j3b103.p.ssafy.io/image/' + user_profile.user_image" alt="프로필 이미지" class="profile_image" v-if="user_profile.user_image">
-                  <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image">
+                    <img :src="'https://j3b103.p.ssafy.io/image/' + user_profile.user_image"  @click="goUserpage(user_profile)" alt="프로필 이미지" class="profile_image" v-if="user_profile.user_image" >
+                    <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image" @click="goUserpage(user_profile)">
+                    <p @click="goUserpage(user_profile)">{{user_profile.user_nickname}}</p>
+
                   <div class="applyUser">
                     <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
                     <div class="native_lang">
                       <p class="user_lang">{{user_profile.user_lang}}</p>
                       <p class="badge">모국어</p>
                   </div>
-                  <div class="native_lang">
-                    <p class="user_lang">{{user_profile.user_good_lang}}</p>
-                    <p class="badge">잘하는 언어</p>
+                  <div class="native_lang" v-for="(li, index) in user_profile.user_good_lang" :key="index">
+                    <p class="user_lang">{{li.slice(0, -1)}}</p>
+                    <p class="badge" v-if="li.slice(-1) == '1'">네이티브</p>
+                    <p class="badge" v-if="li.slice(-1) == '2'">고급</p>
                   </div>
                 </div>
                 <v-spacer></v-spacer>
@@ -301,6 +304,7 @@
     private dialog: boolean = false;
     private dialog2: boolean = false;
     private dialog3: boolean = false;
+    private is_true: boolean = false;
  
     private templateParams = {
       to_email: "",
@@ -461,6 +465,12 @@
       article_id: this.id,
     }
 
+    private applyData2: any = {
+      candidate_content: '',
+      article_id: this.id,
+      is_ts: false
+    }
+
     private clickData : any = {
       article_id: this.id,
       user_id: ""
@@ -473,6 +483,10 @@
         await this.get_candidate(this.article.article_candidate)
       }
       await this.get_myinfo()
+
+      if (this.myinfo.user_is_ts === true) {
+        this.applyData2.is_ts = true;
+      }
     }
 
     async mounted() {
