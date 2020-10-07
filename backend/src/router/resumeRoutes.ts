@@ -1,6 +1,6 @@
 import express from "express"
-import { UserModel } from "../model/UserModel"
-import { ResumeModel } from "../model/ResumeModel"
+import {UserModel} from "../model/UserModel"
+import {ResumeModel} from "../model/ResumeModel"
 
 const resumeRoutes = express.Router()
 
@@ -31,7 +31,7 @@ const upload = multer({
 // 유저의 경력정보 목록 조회: GET
 resumeRoutes.get("/:user_id", async (req: express.Request, res: express.Response) => {
   const user_id = req.params["user_id"]
-  await ResumeModel.find({ user_id: user_id }).exec((err: Error, resume: any) => {
+  await ResumeModel.find({user_id: user_id}).exec((err: Error, resume: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -43,13 +43,13 @@ resumeRoutes.get("/:user_id", async (req: express.Request, res: express.Response
 // 유저의 경력정보 추가: POST
 // resumeRoutes.post("/", verificationMiddleware)
 resumeRoutes.post("/", upload.single("resume_file"), async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
+  await UserModel.findOne({user_email: req.headers.email}, async (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
-        res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
+        res.status(403).send({message: "존재하지 않는 아이디 입니다."})
       } else {
         const user_id = user._id
         const resume_file = req.file.filename
@@ -76,20 +76,25 @@ resumeRoutes.post("/", upload.single("resume_file"), async (req: express.Request
 // 유저의 경력정보 삭제: DELETE
 resumeRoutes.delete("/", verificationMiddleware)
 resumeRoutes.delete("/", async (req: express.Request, res: express.Response) => {
-  await UserModel.findOne({ user_email: req.headers.email }, async (err: Error, user: any) => {
+  await UserModel.findOne({user_email: req.headers.email}, async (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
       if (user === null) {
         // 회원정보가 존재하지 않으면 오류반환
-        res.status(403).send({ message: "존재하지 않는 아이디 입니다." })
+        res.status(403).send({message: "존재하지 않는 아이디 입니다."})
       } else {
         // 회원정보가 존재하면 수정
-        await ResumeModel.deleteOne({ _id: req.body._id })
-        res.status(200).send({ message: "경력 정보가 삭제 되었습니다." })
+        await ResumeModel.deleteOne({_id: req.headers.resume_id}).exec((err: Error, _) => {
+          if (err) {
+            res.status(500).send(err)
+          } else {
+            res.status(200).send({message: "경력 정보가 삭제 되었습니다."})
+          }
+        })
       }
     }
   })
 })
 
-export { resumeRoutes }
+export {resumeRoutes}
