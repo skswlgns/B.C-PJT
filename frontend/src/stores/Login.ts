@@ -82,7 +82,6 @@ export default class Login extends VuexModule {
     }
     await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
     .then(res => {
-      location.reload()
       return res.data
     })
     .catch(err => {
