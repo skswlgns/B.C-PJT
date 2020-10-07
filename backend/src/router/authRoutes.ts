@@ -96,46 +96,46 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
   if (req.headers.token) {
     res.status(403).json({ message: "이미 로그인 되어있습니다." })
   } else {
-    const user_email = req.body.user_email
-    const user_pwd = req.body.user_pwd
-    const user_nickname = req.body.user_nickname
-    const user_phone = req.body.user_phone
-    const user_wallet = req.body.user_wallet
-    const user_lang = req.body.user_lang
+    const userEmail = req.body.user_email
+    const userPwd = req.body.user_pwd
+    const userNickname = req.body.user_nickname
+    const userPhone = req.body.user_phone
+    const userWallet = req.body.user_wallet
+    const userLang = req.body.user_lang
 
     // 빈 아이딩 및 비밀번호 검증
     if (
-      user_email !== "" &&
-      user_email !== undefined &&
-      user_pwd !== "" &&
-      user_pwd !== undefined &&
-      user_wallet !== "" &&
-      user_wallet !== undefined &&
-      user_nickname !== "" &&
-      user_nickname !== undefined &&
-      user_phone !== "" &&
-      user_phone !== undefined &&
-      user_lang !== "" &&
-      user_lang !== undefined
+      userEmail !== "" &&
+      userEmail !== undefined &&
+      userPwd !== "" &&
+      userPwd !== undefined &&
+      userWallet !== "" &&
+      userWallet !== undefined &&
+      userNickname !== "" &&
+      userNickname !== undefined &&
+      userPhone !== "" &&
+      userPhone !== undefined &&
+      userLang !== "" &&
+      userLang !== undefined
     ) {
       // email 중복 확인
-      await UserModel.findOne({ user_email: user_email }).then(async (user: any) => {
+      await UserModel.findOne({ user_email: userEmail }).then(async (user: any) => {
         // 이메일이 중복이면 중복 메세지 보내기
         if (user) {
           res.status(403).send({ message: "이미 존재하는 아이디입니다." })
         } else {
           // DB에 저장하기
           const item = new UserModel({
-            user_email: user_email,
-            user_pwd: hashPassword(user_pwd),
-            user_nickname: user_nickname,
-            user_phone: user_phone,
-            user_wallet: user_wallet,
-            user_lang: user_lang,
+            user_email: userEmail,
+            user_pwd: hashPassword(userPwd),
+            user_nickname: userNickname,
+            user_phone: userPhone,
+            user_wallet: userWallet,
+            user_lang: userLang,
           })
           await item.save()
           res.status(200).send({
-            message: `${user_email} 회원가입이 완료되었습니다.`,
+            message: `${userEmail} 회원가입이 완료되었습니다.`,
           })
         }
       })
