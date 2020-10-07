@@ -201,7 +201,7 @@
                         계좌 비밀번호를 입력해주세요. 
                       </v-card-title>
                       <v-card-text>
-                        <input v-model="send_data.Password" type="text" placeholder="비밀번호">
+                        <input v-model="send_data.Password" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
                         <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
                         <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>

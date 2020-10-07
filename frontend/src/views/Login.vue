@@ -6,15 +6,15 @@
           <div class="form_pure">
             <h1>회원가입</h1>
             <input v-model="signupData.user_email" type="email" placeholder="이메일" />
-            <input @change="pwd_check()" v-model="signupData.user_pwd" type="password" placeholder="비밀번호" />
-            <input @change="pwd_check()" v-model="conf_pwd" type="password" placeholder="비밀번호 확인" />
+            <input @change="pwd_check()" v-model="signupData.user_pwd" type="password" placeholder="비밀번호" style="font-family: Noto Sans"/>
+            <input @change="pwd_check()" v-model="conf_pwd" type="password" placeholder="비밀번호 확인" style="font-family: Noto Sans"/>
             <span class="check" v-if="this.pwd_bool">비밀번호가 일치하지 않습니다.</span>
             <input v-model="signupData.user_nickname" type="text" placeholder="닉네임" />
             <input v-model="signupData.user_phone" type="text" placeholder="전화번호" />
             <select v-model="signupData.user_lang" name="signupData.user_lang" id="signupData.user_lang">
               모국어
               <option value="" disabled>모국어</option>
-              <option v-for="(option, index) in options" :value="option.value" :key="index">
+              <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
                 {{ option.text }}
               </option>
             </select>
@@ -34,7 +34,7 @@
                   지갑 비밀번호를 입력해주세요.
                 </v-card-title>
                 <v-card-text class="modal_text">
-                  <input v-model="wallet_password" type="text" placeholder="비밀번호">
+                  <input v-model="wallet_password" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
                   <v-btn v-if="!wallet_complete && !is_loading" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
                   <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                   <h3>{{ my_wallet }}</h3>
@@ -62,7 +62,7 @@
           <div class="form_pure">
             <h1>LOGIN</h1>
             <input v-model="loginData.user_email" type="email" placeholder="Email" />
-            <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)"/>
+            <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)" style="font-family: Noto Sans"/>
             <button @click="login(loginData)">Login</button>
           </div>
         </div>
