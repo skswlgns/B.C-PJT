@@ -65,7 +65,6 @@
             <h3>{{ user_token }}</h3>
             <input v-model="loginData.user_email" type="email" placeholder="Email" />
             <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)"/>
-            <a href="#">Forgot your password?</a>
             <button @click="login(loginData)">Login</button>
           </div>
         </div>
