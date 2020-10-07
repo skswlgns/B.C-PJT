@@ -1,7 +1,7 @@
 import express from "express"
-import {UserModel} from "../model/UserModel"
-import {ArticleModel} from "../model/ArticleModel"
-import {CandidateModel} from "../model/CandidateModel"
+import { UserModel } from "../model/UserModel"
+import { ArticleModel } from "../model/ArticleModel"
+import { CandidateModel } from "../model/CandidateModel"
 
 const articleRoutes = express.Router()
 
@@ -15,9 +15,9 @@ const verificationMiddleware = require("../middleware/verification")
 // 전체 Article 조회: GET
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
-  await ArticleModel.find({article_complete: false})
+  await ArticleModel.find({ article_complete: false })
     .populate("user_id", "user_nickname user_email user_image")
-    .sort({article_created_at: -1})
+    .sort({ article_created_at: -1 })
     .exec((err: Error, articles: any) => {
       if (err) {
         res.status(500).send(err)
@@ -29,8 +29,8 @@ articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
 
 // Article 1개 조회: GET
 articleRoutes.get("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
-  await ArticleModel.findOne({_id: article_id})
+  const articleId = req.params["article_id"]
+  await ArticleModel.findOne({ _id: articleId })
     .populate("user_id")
     .populate("article_candidate")
     .exec((err: Error, article: any) => {
@@ -38,7 +38,7 @@ articleRoutes.get("/:article_id", async (req: express.Request, res: express.Resp
         res.status(500).send(err)
       } else {
         if (article === null) {
-          res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+          res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
         } else {
           res.status(200).send(article)
         }
@@ -50,9 +50,9 @@ articleRoutes.get("/:article_id", async (req: express.Request, res: express.Resp
 articleRoutes.post("/", verificationMiddleware)
 articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
   const requestBody = req.body
-  const user_id = await UserModel.findOne({user_email: req.headers.email})
+  const userId = await UserModel.findOne({ user_email: req.headers.email })
   const article = new ArticleModel({
-    user_id: user_id,
+    user_id: userId,
     article_title: requestBody.article_title,
     article_content: requestBody.article_content,
     article_from: requestBody.article_from,
@@ -68,7 +68,7 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      res.status(200).json({article_id: newArticle._id})
+      res.status(200).json({ article_id: newArticle._id })
     }
   })
 })
@@ -76,17 +76,17 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
 // Article 수정 (id는 hash값): PUT
 articleRoutes.put("/:article_id", verificationMiddleware)
 articleRoutes.put("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   const requestBody = req.body
-  ArticleModel.findOne({_id: article_id}, async (err: Error, article: any) => {
+  ArticleModel.findOne({ _id: articleId }, async (err: Error, article: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
       if (article === null) {
-        res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
         await ArticleModel.findOneAndUpdate(
-          {_id: article_id},
+          { _id: articleId },
           {
             article_title: requestBody.article_title,
             article_content: requestBody.article_content,
@@ -100,7 +100,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
             article_egg: requestBody.article_egg,
           }
         )
-        res.status(200).send({message: `${article_id} article이 수정되었습니다.`})
+        res.status(200).send({ message: `${articleId} article이 수정되었습니다.` })
       }
     }
   })
@@ -109,18 +109,18 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
 // Article 삭제 (id는 hash값): DELETE
 articleRoutes.delete("/:article_id", verificationMiddleware)
 articleRoutes.delete("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   const requestBody = req.body
-  ArticleModel.findOne({_id: article_id}, async (err: Error, article: any) => {
+  ArticleModel.findOne({ _id: articleId }, async (err: Error, article: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
       if (article === null) {
-        res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
-        await ArticleModel.deleteOne({_id: article_id})
-        await CandidateModel.deleteMany({article_id: article_id})
-        res.status(200).send({message: `${article_id} article이 삭제되었습니다.`})
+        await ArticleModel.deleteOne({ _id: articleId })
+        await CandidateModel.deleteMany({ article_id: articleId })
+        res.status(200).send({ message: `${articleId} article이 삭제되었습니다.` })
       }
     }
   })
@@ -133,20 +133,20 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
 // 특정 Article의 통역 후보자 등록: POST
 articleRoutes.post("/:article_id/candidates", verificationMiddleware)
 articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   // user_id 가져오기
-  await UserModel.findOne({user_email: req.headers.email}, (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      ArticleModel.findOne({_id: article_id})
+      ArticleModel.findOne({ _id: articleId })
         .populate("article_candidate")
         .exec((err: Error, article: any) => {
           if (err) {
             res.status(500).send(err)
           } else {
             if (article === null) {
-              res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+              res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
             } else {
               // 현재 user가 article의 cadidate로 등록되어 있는지 확인하기
               const articleCandidateList: any = article.article_candidate
@@ -156,12 +156,12 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
 
               if (isCandidate) {
                 // 이미 등록되어 있다면 오류 메세지 반환
-                res.status(403).send({message: "이미 등록된 통역사입니다."})
+                res.status(403).send({ message: "이미 등록된 통역사입니다." })
               } else {
                 // 등록되어 있지 않다면 새로운 candidate 만들기
                 const item = new CandidateModel({
                   user_id: user._id,
-                  article_id: article_id,
+                  article_id: articleId,
                   candidate_content: req.body.candidate_content,
                 })
                 item.save(async (err, candidate) => {
@@ -171,10 +171,10 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
                     // candidate_id 값을 article.article_candidate에 추가하기
                     const candidateId = candidate._id
                     articleCandidateList.push(candidateId)
-                    await ArticleModel.update({_id: article_id}, {article_candidate: articleCandidateList}).then(
+                    await ArticleModel.update({ _id: articleId }, { article_candidate: articleCandidateList }).then(
                       (_: any) => {
                         res.status(200).send({
-                          message: `${article_id} article에 ${user._id} candidate를 추가하였습니다.`,
+                          message: `${articleId} article에 ${user._id} candidate를 추가하였습니다.`,
                         })
                       }
                     )
@@ -193,19 +193,17 @@ articleRoutes.delete("/:article_id/candidates", verificationMiddleware)
 articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
   const article_id = req.params["article_id"]
   // user_id 가져오기
-  await UserModel.findOne({user_email: req.headers.email}, (err: Error, user: any) => {
+  await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      ArticleModel.findOne({_id: article_id}).exec(async (err: Error, article: any) => {
+      ArticleModel.findOne({ _id: article_id }).exec(async (err: Error, article: any) => {
         if (err) {
           res.status(500).send(err)
         } else {
           if (article === null) {
-            res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+            res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
           } else {
-            // console.log(article)
-
             // 현재 user가 article의 cadidate 목록 가져오기
             const articleCandidatesIdArray: string[] = []
             for (const candidateOrder in article.article_candidate) {
@@ -233,7 +231,7 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
                   const indexNumber = candidateIndex(candidates)
                   if (indexNumber === candidates.length) {
                     // 등록되어있지 않다면 오류 메세지 반환
-                    res.status(403).send({message: "등록되지 않은 통역사입니다."})
+                    res.status(403).send({ message: "등록되지 않은 통역사입니다." })
                   } else {
                     // 등록되어 있는 candidate 없애기
 
@@ -242,12 +240,12 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
                     })
                     articleCandidatesIdArray.splice(indexNumber, 1)
                     await ArticleModel.findOneAndUpdate(
-                      {_id: article_id},
+                      { _id: article_id },
                       {
                         article_candidate: articleCandidatesIdArray,
                       }
                     )
-                    res.status(200).send({message: `통역사 지원이 취소되었습니다.`})
+                    res.status(200).send({ message: `통역사 지원이 취소되었습니다.` })
                   }
                 }
               })
@@ -269,22 +267,22 @@ articleRoutes.post(
       _id: candidateUserId,
     })
     // user_id 가져오기
-    await UserModel.findOne({user_email: req.headers.email}, (err: Error, user: any) => {
+    await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
       if (err) {
         res.status(500).send(err)
       } else {
-        ArticleModel.findOne({_id: articleId})
+        ArticleModel.findOne({ _id: articleId })
           .populate("article_candidate")
           .exec(async (err: Error, article: any) => {
             if (err) {
               res.status(500).send(err)
             } else {
               if (article === null) {
-                res.status(403).send({message: "존재하지 않는 게시글 입니다."})
+                res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
               } else if (article.user_id.toString() !== user._id.toString()) {
                 // 해당 article의 작성자 id와 user의 id가 다르면 수행하지 않음
 
-                res.status(403).send({message: "본인이 작성한 게시글이 아닙니다."})
+                res.status(403).send({ message: "본인이 작성한 게시글이 아닙니다." })
               } else {
                 // 해당 article의 작성자 id와 user의 id가 같으면 수행
 
@@ -292,7 +290,7 @@ articleRoutes.post(
                   // 만일 채택이 완료된 article이 아니라면 채택
 
                   await ArticleModel.findOneAndUpdate(
-                    {_id: articleId},
+                    { _id: articleId },
                     {
                       article_select: candidateUserId,
                       article_to_egg: candidateUser.user_wallet,
@@ -313,7 +311,7 @@ articleRoutes.post(
                   // 다른 통역사로 채택이 완료된 article이라면, candidate_user_id로 대체하기
 
                   await ArticleModel.findOneAndUpdate(
-                    {_id: articleId},
+                    { _id: articleId },
                     {
                       article_select: candidateUserId,
                       article_to_egg: candidateUser.user_wallet,
@@ -334,7 +332,7 @@ articleRoutes.post(
                   // 같은 통역사로 채택이 완료된 article이라면, 채택을 취소하기
 
                   await ArticleModel.findOneAndUpdate(
-                    {_id: articleId},
+                    { _id: articleId },
                     {
                       article_select: "",
                       article_to_egg: "",
@@ -360,4 +358,27 @@ articleRoutes.post(
   }
 )
 
-export {articleRoutes}
+// Article 마감하기 (id는 hash값): PUT
+articleRoutes.put("/:article_id/completion", verificationMiddleware)
+articleRoutes.put("/:article_id/completion", async (req: express.Request, res: express.Response) => {
+  const articleId = req.params["article_id"]
+  const user: any = await UserModel.findOne({ user_email: req.headers.email })
+  ArticleModel.findOne({ _id: articleId }, async (err: Error, article: any) => {
+    if (err) {
+      res.status(500).send(err)
+    } else {
+      if (article === null) {
+        res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
+      } else {
+        if (article.user_id.toString() !== user._id.toString()) {
+          res.status(403).send({ message: "본인이 작성한 게시글이 아닙니다." })
+        } else {
+          await ArticleModel.findOneAndUpdate({ _id: articleId }, { article_complete: true })
+          res.status(200).send({ message: `${articleId} article이 마감되었습니다.` })
+        }
+      }
+    }
+  })
+})
+
+export { articleRoutes }
