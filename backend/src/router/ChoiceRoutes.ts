@@ -102,6 +102,7 @@ ChoiceRoutes.post("/transcoin", async (req: express.Request, res: express.Respon
     let Egg = req.body["Egg"]
     let success: boolean = false
 
+    console.log(req.body)
     await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!1"))
     await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!2"))
     //계좌가 unlock됫다면 이제 돈보내면된다
