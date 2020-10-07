@@ -3,7 +3,7 @@ import axios from "axios"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import router from "@/router"
 import emailjs from "emailjs-com";
-import Axios from 'axios';
+import Swal from 'sweetalert2'
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER_URL = "http://localhost:8080/api"
@@ -126,10 +126,20 @@ export default class MyPage extends VuexModule {
     console.log("돈 전송 action")
     console.log('send_data', temp[0])
     console.log('successParams', temp[1])
-    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
-      console.log('김용욱 개천사', res.data)
-      this.context.dispatch("successTest",  temp[1])
-      return res.data 
+    await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
+      .then( async res => {
+        console.log('김용욱 개천사', res.data)
+        await this.context.dispatch("successTest",  temp[1])
+        return res.data 
+      })
+      .catch( err => {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: '송금에 실패했습니다.',
+          text: '다시 시도해주세요!'
+        })
+      })
   }
 
   @Action
