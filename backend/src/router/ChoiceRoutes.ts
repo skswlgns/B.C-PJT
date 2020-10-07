@@ -22,14 +22,14 @@ const ABI = [
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "article",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "_article",
+				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_selectedArticle",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "uint256",
@@ -127,15 +127,16 @@ ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Resp
 
   let _selectPerson : string = req.body['_selectPerson']
   let _selectedPerson : string = req.body['_selectedPerson']
-  // let article : string = req.body['article']
-  // let _selectedArticle : string = req.body['_selectedArticle']
+  let article : string = req.body['article']
+  let _selectedArticle : string = req.body['_selectedArticle']
   let _point : number = req.body['_point']
+  let passWord : string = req.body['passWord']
 
-  await web3.eth.personal.unlockAccount(_selectPerson, '1234', 600).then(() => console.log('Account unlocked!1'));
-  await web3.eth.personal.unlockAccount(_selectPerson, '1234', 600).then(() => console.log('Account unlocked!2'));
+  await web3.eth.personal.unlockAccount(_selectPerson, passWord, 600).then(() => console.log('Account unlocked!1'));
+  await web3.eth.personal.unlockAccount(_selectPerson, passWord, 600).then(() => console.log('Account unlocked!2'));
 
   // selectPerson, selectedPerson, 
-  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, 100, 100, _point)
+  TokenContract.methods.RewardLogic(_selectPerson, _selectedPerson, article, _selectedArticle, _point)
   .send({from: _selectPerson})
   .on('transactionHash', function(hash:any){
       console.log('해쉬야');

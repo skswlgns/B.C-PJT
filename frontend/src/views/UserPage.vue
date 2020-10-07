@@ -1,9 +1,6 @@
 <template>
   <div>
-<<<<<<< HEAD
     {{ candarticle }}
-=======
->>>>>>> 4757dbf89763391ffa7bc93a4e31c7d23e5f39b7
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <div class="user-box d-flex">

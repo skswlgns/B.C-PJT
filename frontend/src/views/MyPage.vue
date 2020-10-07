@@ -3,7 +3,7 @@
     {{ myinfo }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
-      <h1>마이페이지</h1>
+      <h2>마이페이지</h2>
       <div class="user-box d-flex">
         <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
@@ -86,7 +86,7 @@
         </div>
       </div>
       
-      <h1>진행 중</h1>
+      <h2>진행 중</h2>
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
         <div>
@@ -114,11 +114,8 @@
               <div class="btn_box">
                 <b-button  @click="goChat()" variant="primary" class="chat_btn">화상 채팅</b-button>
                 <b-button id="show-btn" v-b-modal="`modal-${index}`" @click="change(post)" variant="success" class="send_btn">통역사 송금하기</b-button>
-                <b-modal :id="'modal-'+index" hide-footer>
-                  <template v-slot:modal-title>
-                    Using $bvModal Methods
-                  </template>
-                  <div class="d-block text-center">
+                <b-modal :id="'modal-'+index" centered hide-footer>
+                  <div class=" text-center">
                     <v-card>
                       <v-card-title class="headline">
                         이번 통역가는 어떠셨나요?
@@ -168,13 +165,13 @@
                       </v-card-title>
                       <v-card-text>
                         <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                        {{ post }}
-                        <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <v-btn v-if="!this.is_lodaing" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <b-spinner v-if="this.is_lodaing" label="Loading..."></b-spinner>
                       </v-card-text>
                       <v-spacer></v-spacer>
                     </v-card>
                   </div>
-                  <b-button class="mt-3" block @click="$bvModal.hide(`modal-${index}`)">Close Me</b-button>
+                  <b-button class="mt-3" block @click="$bvModal.hide(`modal-${index}`)">Close </b-button>
                 </b-modal>
               </div>
               <div class="chat_box">  
@@ -223,7 +220,7 @@
       </div>
 
       <div>
-        <h1>내역</h1>
+        <h2>내역</h2>
         <div class="user-box">
           <v-row class="ma-4">
             <v-col>
@@ -378,6 +375,9 @@
   @myPageModule.State('resume')
   private resume!: any;
 
+  @myPageModule.Mutation('loading')
+  private loading!: any;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
@@ -421,11 +421,11 @@
   change(post:any) {
     this.star.article_id = post._id
     this.star.star_rate_ts_user_id = post.article_select
-
     this.get_toEmail(post.article_select)
   }
 
   save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+    this.loading()
     console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
@@ -456,12 +456,7 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
-
     await this.get_resume(this.myinfo._id)
-  }
-
-  async mounted(){
-    
   }
 }
 </script>

@@ -19,6 +19,7 @@ export default class MyPage extends VuexModule {
   public success_money : boolean = false
   public to_email : string = ""
   public resume: any = {};  
+  public is_lodaing: boolean = false 
 
   // mutations
   // 유저정보 저장
@@ -48,9 +49,11 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_success(temp_data: boolean) {
     this.success_money = temp_data
+    if(temp_data == null){
+      this.is_lodaing = false
+    }
   }
 
-  
   @Mutation
   public async save_email(temp_data: string) {
     this.to_email = temp_data
@@ -59,6 +62,11 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_resume(resumeData: any) {
     this.resume = resumeData
+  }
+
+  @Mutation
+  public loading(){
+    this.is_lodaing = true
   }
   // actions
   // 유저 정보입니다.
