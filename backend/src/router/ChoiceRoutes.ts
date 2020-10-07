@@ -93,7 +93,6 @@ ChoiceRoutes.post("/transcoin", async (req: express.Request, res: express.Respon
   let toEgg = req.body["toEgg"]
   let PassWord = req.body["Password"]
   let Egg = req.body["Egg"]
-  let success: boolean = false
 
   // 비밀번호 검사하기
   if (!PassWord) {
@@ -123,15 +122,10 @@ ChoiceRoutes.post("/transcoin", async (req: express.Request, res: express.Respon
       to: toEgg, // 입금 계좌 (통역가)
       value: (Egg / 41.7) * 10 ** 18, // 통역 대가
     })
-    .then((response) => {
-      console.log("success")
-      console.log(response)
-      success = true
-      res.status(200).send(success)
+    .then(() => {
+      res.status(200).send({ success: true })
     })
     .catch((err) => {
-      console.log("fail")
-      console.log(err)
       res.status(403).send(err)
     })
 })
