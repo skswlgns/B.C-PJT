@@ -87,7 +87,7 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
+                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(post)">통역사 송금하기</v-btn>
                   </template>
                 <v-card>
                   <v-card-title class="headline">
@@ -138,7 +138,7 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, star, post)">송금하기</v-btn>
+                    <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
 
@@ -383,18 +383,22 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string, star:any, post:any){
+  change(post:any) {
+    this.star.article_id = post._id
+    this.star.star_rate_ts_user_id = post.article_select
+  }
+
+  save_send(address : string, egg : number, toegg : string, to_email : string, title : string, client_email : string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
-    star.article_id = post._id
-    star.star_rate_ts_user_id = post.article_select
-    if (star.star_rate_score == '') {
+    if (this.star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
-      this.send_rate(star)
+      console.log(this.star)
+      // this.send_rate(this.star)
       // this.send_money(this.send_data)
     }
 
