@@ -8,7 +8,7 @@
           <img src="@/assets/images/user_basic.png"  alt="profile_image" class="box" v-else>
           <div class="pure-mt">
             <span class="nick-size">{{ myinfo.user_nickname }}</span>
-            <p>모국어 | {{myinfo.user_lang}}</p>
+            <p style="font-family: Noto Sans">모국어 | {{myinfo.user_lang}}</p>
           </div>
         </div>
         <div class="mt-15">

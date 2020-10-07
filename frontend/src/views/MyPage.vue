@@ -12,7 +12,7 @@
             <p>{{ myinfo.user_lang }}</p>
             <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
           </div>
-          <span class="ability" v-if="myinfo.user_good_lang != ''">
+          <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
                 <span class="abilities">{{ lang.slice(0,-1) }}</span>
@@ -349,10 +349,14 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
+  import pdf from 'vue-pdf'
 
   const myPageModule = namespace('MyPage');
 
   @Component({
+    components: {
+      pdf,
+    },
     methods: {
       goRegist() {
         this.$router.push('/registtrans')
