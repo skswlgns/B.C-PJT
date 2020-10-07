@@ -168,6 +168,14 @@ export default class MyPage extends VuexModule {
     return res.data
   }
 
+  
+  @Action({ commit : 'save_email'})
+  public async get_toEmail(_id:string){
+    const res = await axios.get(`${SERVER_URL}/users/${_id}`)
+    console.log(res.data.user_email)
+    return res.data.user_email  
+  }
+  
   @Action
   public async del_resume(resume_list: any) {
     const config = {
@@ -177,15 +185,8 @@ export default class MyPage extends VuexModule {
         resume_id: resume_list._id
       },
     }
-    console.log(resume_list._id)
+    console.log(config)
     const res = await axios.delete(`${SERVER_URL}/resume`, config)
     console.log(res)
-  }
-
-  @Action({ commit : 'save_email'})
-  public async get_toEmail(_id:string){
-    const res = await axios.get(`${SERVER_URL}/users/${_id}`)
-    console.log(res.data.user_email)
-    return res.data.user_email  
   }
 }

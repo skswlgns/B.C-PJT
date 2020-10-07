@@ -1,10 +1,8 @@
 <template>
   <div>
     <!-- #브라우저# -->
-    {{ resume }}
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
-      {{ myinfo }}
       <div class="user-box d-flex">
         <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
@@ -82,6 +80,9 @@
             </v-card>
           </v-col>
         </v-row>
+        <div class="d-flex">
+          <v-btn color="error" class="ml-auto mr-2 my-2" @click="goaddcar()">추가하기</v-btn>
+        </div>
       </div>
       
       <h1>진행 중</h1>
@@ -458,6 +459,10 @@
     const temp = [this.send_data, this.successParams]
 
     this.send_money(temp)
+  }
+
+  goaddcar() {
+    this.$router.push('/addcareer')
   }
 
   async created() {
