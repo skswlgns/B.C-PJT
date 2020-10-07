@@ -16,6 +16,7 @@ export default class MyPage extends VuexModule {
   public mymoney: String = ""
   public applyarticle: any = {}
   public success_money : boolean = false
+  public resume: any = {};
   
   // mutations
   // 유저정보 저장
@@ -46,6 +47,12 @@ export default class MyPage extends VuexModule {
   public async save_success(temp_data: boolean) {
     this.success_money = temp_data
   }
+
+  @Mutation
+  public async save_resume(resumeData: any) {
+    this.resume = resumeData
+  }
+
 
   // actions
   // 유저 정보입니다.
@@ -145,8 +152,26 @@ export default class MyPage extends VuexModule {
         token: Vue.cookies.get("token"),
       },
     }
-    console.log(star)
-    const res = await axios.post(`${SERVER_URL}/rate`, star, config)
+    await axios.post(`${SERVER_URL}/rate`, star, config)
+  }
+
+  @Action({commit: 'save_resume'})
+  public async get_resume(id:string) {
+    const res = await axios.get(`${SERVER_URL}/resume/${id}`)
+    return res.data
+  }
+
+  @Action
+  public async del_resume(resume_list: any) {
+    const config = {
+      headers: {
+        email: Vue.cookies.get("email"),
+        token: Vue.cookies.get("token"),
+        resume_id: resume_list._id
+      },
+    }
+    console.log(resume_list._id)
+    const res = await axios.delete(`${SERVER_URL}/resume`, config)
     console.log(res)
   }
 }

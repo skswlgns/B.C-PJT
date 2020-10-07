@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- #브라우저# -->
+    {{ resume }}
     <div v-if="windowWidth > 375">
       <div class="user-box d-flex">
         <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
@@ -51,6 +52,34 @@
             </v-btn>
           </div>
         </div>
+      </div>
+
+      <div class="user-box" v-if="resume != ''">
+        <br>
+        <div class="d-flex">
+          <h2 class="mx-4">경력</h2>
+        </div>
+        <v-row class="mx-2">
+          <v-col v-for="(li, index) in resume" :key="index" cols="6">
+            <v-card
+              class="my-3"
+              outlined                
+            >
+              <v-list-item>
+                <v-list-item-content>
+
+                  <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
+                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>                  
+                  
+                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                </v-list-item-content>
+              </v-list-item>
+              <div class="d-flex">
+                <v-btn color="error" class="ml-auto mr-2 my-2" @click="del_resume(li)">삭제하기</v-btn>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
       </div>
       
       <h1>진행 중</h1>
@@ -351,6 +380,9 @@
   @myPageModule.State('success_money')
   private success_money!: boolean;
 
+  @myPageModule.State('resume')
+  private resume!: any;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
@@ -374,6 +406,12 @@
 
   @myPageModule.Action('send_rate')
   private send_rate!: (star: any) => void;
+
+  @myPageModule.Action('get_resume')
+  private get_resume!: (id: string) => void;
+
+  @myPageModule.Action('del_resume')
+  private del_resume!: (resume_list: any) => void;
 
   private send_data = {
     fromEgg : "",
@@ -413,6 +451,8 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
+
+    await this.get_resume(this.myinfo._id)
   }
 
   async mounted(){
