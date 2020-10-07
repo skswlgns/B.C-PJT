@@ -119,10 +119,11 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(myarticle[index])">통역사 송금하기</v-btn>
+                     {{post }}
+                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(myarticle[index])">통역사 송금하기{{ index }}</v-btn>
                   </template>
                   <v-card>
-                    {{ myarticle[index] }}
+                    {{ myarticle[index] }} {{index}}
                     <v-card-title class="headline">
                       이번 통역가는 어떠셨나요?
                     </v-card-title>

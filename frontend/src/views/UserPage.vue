@@ -1,9 +1,5 @@
 <template>
   <div>
-<<<<<<< HEAD
-    {{ candarticle }}
-=======
->>>>>>> 4757dbf89763391ffa7bc93a4e31c7d23e5f39b7
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <div class="user-box d-flex">
@@ -106,6 +102,7 @@
                   <v-list-item-content>
                     <div class="point">{{ li.article_id.article_egg }}<v-icon class="egg_icon">mdi-egg-easter</v-icon></div> 
                     <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
+                    <v-list-item-subtitle class="my-2">{{  li.article_id.article_from }} -> {{ li.article_id.article_to }}</v-list-item-subtitle>
                     <v-list-item-subtitle class="my-2">{{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
