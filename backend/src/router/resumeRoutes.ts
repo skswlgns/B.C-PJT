@@ -85,8 +85,13 @@ resumeRoutes.delete("/", async (req: express.Request, res: express.Response) => 
         res.status(403).send({message: "존재하지 않는 아이디 입니다."})
       } else {
         // 회원정보가 존재하면 수정
-        await ResumeModel.deleteOne({_id: req.headers.resume_id})
-        res.status(200).send({message: "경력 정보가 삭제 되었습니다."})
+        await ResumeModel.deleteOne({_id: req.headers.resume_id}).exec((err: Error, _) => {
+          if (err) {
+            res.status(500).send(err)
+          } else {
+            res.status(200).send({message: "경력 정보가 삭제 되었습니다."})
+          }
+        })
       }
     }
   })
