@@ -86,16 +86,24 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
 
 // 계좌송금
 ChoiceRoutes.post("/transcoin",async (req: express.Request, res: express.Response) => {
+  console.log('들어왔니')
   let web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
   let fromEgg = req.body['fromEgg']
   let toEgg  = req.body['toEgg']
   let PassWord  = req.body['Password']
   let Egg = req.body['Egg']
-  
   let success : boolean = false
 
-  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
-  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
+  console.log('충전한다잉')
+  console.log(req.body)
+  if(!PassWord){
+    await web3.eth.personal.unlockAccount(fromEgg, "1234", 600).then(() => console.log('Account unlocked!1'));
+    await web3.eth.personal.unlockAccount(fromEgg, "1234", 600).then(() => console.log('Account unlocked!2'));
+  }
+  else{
+    await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!1'));
+    await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log('Account unlocked!2'));
+  }
     //계좌가 unlock됫다면 이제 돈보내면된다
   await web3.eth.sendTransaction({
       from: fromEgg, // 출금 계좌(통역 의뢰인)

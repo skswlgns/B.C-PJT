@@ -51,6 +51,40 @@
               class="my-2 mr-10">
               프로필 수정하기
             </v-btn>
+            
+            <v-dialog
+              v-model="dialog3"
+              persistent
+              max-width="350"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  충전하기
+                </v-btn>
+              </template>
+              <v-card>
+                <v-card-title class="headline">
+                  금액을 입력해주세요.
+                </v-card-title>
+                  <input v-model="chargeData.Egg" class="ml-6" placeholder="금액을 입력해주세요."/>
+                  <v-btn @click="save_charge(myinfo.user_wallet)">충전하기</v-btn>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="green darken-1"
+                    text
+                    @click="dialog3 = false"
+                  >
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -95,8 +129,9 @@
               class="my-3 two_box"
               max-width="1600"
               outlined
-              v-if="post.article_select"
-            >
+              v-if="post.article_select && !post.article_complete"
+            > 
+              {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
@@ -114,8 +149,8 @@
               <div class="btn_box">
                 <b-button  @click="goChat()" variant="primary" class="chat_btn">화상 채팅</b-button>
                 <b-button id="show-btn" v-b-modal="`modal-${index}`" @click="change(post)" variant="success" class="send_btn">통역사 송금하기</b-button>
-                <b-modal :id="'modal-'+index" centered hide-footer>
-                  <div class=" text-center">
+                <b-modal :id="'modal-'+index" hide-footer>
+                  <div class="d-block text-center">
                     <v-card>
                       <v-card-title class="headline">
                         이번 통역가는 어떠셨나요?
@@ -165,13 +200,13 @@
                       </v-card-title>
                       <v-card-text>
                         <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                        <v-btn v-if="!this.is_lodaing" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
-                        <b-spinner v-if="this.is_lodaing" label="Loading..."></b-spinner>
+                        <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>
                       <v-spacer></v-spacer>
                     </v-card>
                   </div>
-                  <b-button class="mt-3" block @click="$bvModal.hide(`modal-${index}`)">Close </b-button>
+                  <b-button class="mt-3" block @click="$bvModal.hide(`modal-${index}`)">Close Me</b-button>
                 </b-modal>
               </div>
               <div class="chat_box">  
@@ -336,7 +371,15 @@
   private myinfo!: any;
   private temp_wallet : String = ""
   private dialog2 : boolean = false
+  private dialog3 : boolean = false
   private finish : boolean = false
+
+  private chargeData : any = {
+    Egg : 0,
+    toEgg : "",
+    fromEgg : "0x379b140fb8af53a0291c775e4091020c5dd14d6b",
+    PassWord : ""
+  }
 
   private star: any = {
     star_rate_ts_user_id: '',
@@ -347,6 +390,13 @@
 
   set_address(address : String){
     this.temp_wallet = address
+  }
+
+  save_charge(user_wallet: string){
+    this.chargeData.toEgg = user_wallet
+
+    console.log(this.chargeData)
+    this.charge_money(this.chargeData)
   }
 
    private successParams = {
@@ -375,6 +425,9 @@
   @myPageModule.State('resume')
   private resume!: any;
 
+  @myPageModule.State('is_loading')
+  private is_loading!: boolean;
+
   @myPageModule.Mutation('loading')
   private loading!: any;
 
@@ -395,6 +448,9 @@
 
   @myPageModule.Action('send_money')
   private send_money!: (temp : any) => any;
+
+  @myPageModule.Action('charge_money')
+  private charge_money!: (temp : any) => any;
 
   @myPageModule.Action('successTest')
   private successTest!: (successParams : any) => any;
@@ -421,29 +477,32 @@
   change(post:any) {
     this.star.article_id = post._id
     this.star.star_rate_ts_user_id = post.article_select
+
     this.get_toEmail(post.article_select)
   }
 
-  save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
-    this.loading()
+  async save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+
     console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
+    
 
     if (this.star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
-      console.log(this.star)
-      this.send_rate(this.star)
+      await this.loading()
       this.successParams.to_email = this.to_email,
       this.successParams.client_email = client_email,
       this.successParams.title = title
       this.successParams.money = egg
       const temp = [this.send_data, this.successParams]
-      this.send_money(temp)
+      await this.send_money(temp)
+      await this.send_rate(this.star)
+
     }
   }
 
@@ -456,7 +515,12 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
+
     await this.get_resume(this.myinfo._id)
+  }
+
+  async mounted(){
+    
   }
 }
 </script>

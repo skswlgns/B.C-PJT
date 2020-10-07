@@ -19,7 +19,7 @@ export default class MyPage extends VuexModule {
   public success_money : boolean = false
   public to_email : string = ""
   public resume: any = {};  
-  public is_lodaing: boolean = false 
+  public is_loading: boolean = false 
 
   // mutations
   // 유저정보 저장
@@ -48,9 +48,11 @@ export default class MyPage extends VuexModule {
 
   @Mutation
   public async save_success(temp_data: boolean) {
-    this.success_money = temp_data
     if(temp_data == null){
-      this.is_lodaing = false
+      this.is_loading = false
+    }
+    else {
+      this.success_money = temp_data
     }
   }
 
@@ -66,7 +68,7 @@ export default class MyPage extends VuexModule {
 
   @Mutation
   public loading(){
-    this.is_lodaing = true
+    this.is_loading = true
   }
   // actions
   // 유저 정보입니다.
@@ -150,6 +152,27 @@ export default class MyPage extends VuexModule {
       })
   }
 
+  @Action({ commit: "save_success"})
+  public async charge_money(temp: any) {
+    console.log("돈 충전 action")
+    console.log('send_data', temp)
+    console.log(!temp.PassWord)
+    await axios.post(`${SERVER_URL}/eth/transcoin`, temp)
+      .then( async res => {
+        console.log('김용욱 개개개개개천사', res.data)
+        return res.data 
+      })
+      .catch( err => {
+        console.log(err)
+        Swal.fire({
+          icon: 'error',
+          title: '충전에 실패했습니다.',
+          text: '다시 시도해주세요!'
+        })
+      })
+  }
+
+
   @Action
   public async successTest(successParams : any){
     emailjs
@@ -191,7 +214,7 @@ export default class MyPage extends VuexModule {
   public async get_toEmail(_id:string){
     const res = await axios.get(`${SERVER_URL}/users/${_id}`)
     console.log(res.data.user_email)
-    return res.data.user_email  
+    return res.data.user_email    
   }
   
   @Action
