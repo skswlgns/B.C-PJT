@@ -121,7 +121,7 @@
         </div>
       </div>
       
-      <h2>진행 중</h2>
+      <h2>진행중인 통역</h2>
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
         <div>
@@ -258,11 +258,10 @@
       </div>
 
       <div>
-        <h2>내역</h2>
+        <h2>나의 통역 내역</h2>
         <div class="user-box">
           <v-row class="ma-4">
             <v-col>
-              <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     요청 ({{myarticle.length }})
@@ -295,11 +294,9 @@
                     </v-card>
                   </v-col>
                 </v-row>
-              </v-card>
             </v-col>
 
             <v-col>
-              <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     참여 ({{ applyarticle.length}})
@@ -337,7 +334,6 @@
                     </v-card>
                   </v-col>
                 </v-row>
-              </v-card>
             </v-col>
           </v-row>
         </div>

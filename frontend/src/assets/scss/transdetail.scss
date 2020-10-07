@@ -6,6 +6,7 @@
     margin-bottom: 3rem;
     .profile {
       display: flex;
+      
       .profile_image {
         width: 100px;
         height: 100px;
@@ -145,6 +146,7 @@
     padding: 2rem;
     margin-bottom: 2rem;
     list-style: none;
+
     h1 {
       font-size: 2rem;
       font-weight: bold;
@@ -158,6 +160,9 @@
       
       .profile {
         display: flex;
+        .nick{
+          width: 100px;
+        }
         .profile_image {
           width: 6%;
           height: 6%;
