@@ -10,16 +10,16 @@
           <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
           <div class="badge_fr">
             <p>{{ myinfo.user_lang }}</p>
-            <div class="secondary text-no-wrap rounded-pill badge d-flex"><span class="badge_font">모국어</span></div>
+            <div class="secondary text-no-wrap rounded-pill badge d-flex" style="font-family: Noto Sans"><span class="badge_font">모국어</span></div>
           </div>
           <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
-                <span class="abilities">{{ lang.slice(0,-1) }}</span>
-                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges">네이티브</span></div>
+                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
+                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges" >네이티브</span></div>
               </span>
               <span v-else class="ability_fr">
-                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
                 <div class="deep-purple darken-1 text-no-wrap rounded-pill ab"><span class="badges">고급</span></div>  
               </span>
             </span>
