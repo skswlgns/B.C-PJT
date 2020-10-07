@@ -1,7 +1,5 @@
 import express from "express"
 import { UserModel } from "../model/UserModel"
-import { ArticleModel } from "../model/ArticleModel"
-import { CandidateModel } from "../model/CandidateModel"
 import { StarRateModel } from "../model/StarRateModel"
 
 const starRateRoutes = express.Router()
@@ -35,7 +33,6 @@ starRateRoutes.get("/:user_id/score", async (req: express.Request, res: express.
       if (starRate === null) {
         res.status(200).send({ messege: "평가가 없습니다." })
       } else {
-        console.log(starRate)
         let scoreSum: any = 0
         starRate.forEach((rate: any) => {
           scoreSum += rate.star_rate_score
@@ -47,7 +44,7 @@ starRateRoutes.get("/:user_id/score", async (req: express.Request, res: express.
 })
 
 // 유저 평가: POST
-// starRateRoutes.post("/", verificationMiddleware)
+starRateRoutes.post("/", verificationMiddleware)
 starRateRoutes.post("/", async (req: express.Request, res: express.Response) => {
   await UserModel.findOne({ user_email: req.headers.email }).exec(async (err: any, user: any) => {
     if (err) {

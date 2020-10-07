@@ -1,13 +1,17 @@
 import express from "express"
 import cors from "cors"
-import requestLogger from "./middleware/requestLogger"
 import Web3 from "web3"
+
+// Routers
 import { authRoutes } from "./router/authRoutes"
 import { userRoutes } from "./router/userRoutes"
 import { articleRoutes } from "./router/articleRoutes"
 import { ChoiceRoutes } from "./router/ChoiceRoutes"
 import { starRateRoutes } from "./router/starRateRoutes"
 import { resumeRoutes } from "./router/resumeRoutes"
+
+// MiddleWare
+import requestLogger from "./middleware/requestLogger"
 
 const app = express()
 app.use(cors())
