@@ -13,7 +13,7 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 export default class Login extends VuexModule {
   // states
   public my_wallet: String = ""
-  public is_lodaing: boolean = false 
+  public is_loading: boolean = false 
   public wallet_complete: boolean = false
 
   // mutations
@@ -26,7 +26,7 @@ export default class Login extends VuexModule {
   @Mutation
   public SET_Wallet(wallet: String) {
     this.my_wallet = wallet
-    this.is_lodaing = false
+    this.is_loading = false
 
     if (wallet == null){
       this.wallet_complete = false
@@ -35,7 +35,7 @@ export default class Login extends VuexModule {
 
   @Mutation
   public loading(){
-    this.is_lodaing = true
+    this.is_loading = true
   }
 
   @Mutation
@@ -82,6 +82,7 @@ export default class Login extends VuexModule {
     }
     await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
     .then(res => {
+      location.reload()
       return res.data
     })
     .catch(err => {

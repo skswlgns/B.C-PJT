@@ -14,7 +14,7 @@
             display: flex;
             .input {
                 // background-color: red;
-                box-shadow: 2px 2px 3px 2px grey;
+                box-shadow: 2px 2px 3px 2px #eee;
                 background: white;
                 border: #{$input-box};
                 flex: 2;
@@ -265,7 +265,7 @@
                 flex: 1;
                 // animation: move 3s ease-in;
                 .memo {
-                    box-shadow: 2px 2px 3px 2px grey;
+                    box-shadow: 2px 2px 3px 2px #eee;
                     position: absolute;
                     width: 100%;
                     border: #{$input-box};
