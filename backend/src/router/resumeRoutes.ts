@@ -84,7 +84,7 @@ resumeRoutes.delete("/", async (req: express.Request, res: express.Response) => 
         // 회원정보가 존재하지 않으면 오류반환
         res.status(403).send({message: "존재하지 않는 아이디 입니다."})
       } else {
-        // 회원정보가 존재하면 수정
+        // 회원정보가 존재하면 삭제
         await ResumeModel.deleteOne({_id: req.headers.resume_id}).exec((err: Error, _) => {
           if (err) {
             res.status(500).send(err)
