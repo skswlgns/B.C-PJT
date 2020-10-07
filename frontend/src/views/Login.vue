@@ -35,9 +35,8 @@
                 </v-card-title>
                 <v-card-text class="modal_text">
                   <input v-model="wallet_password" type="text" placeholder="비밀번호">
-                  <v-btn v-if="!wallet_complete && !this.is_lodaing" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
-                  {{ this.is_lodaing }}
-                  <b-spinner v-if="this.is_lodaing" label="Loading..."></b-spinner>
+                  <v-btn v-if="!wallet_complete && !is_loading" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
+                  <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                   <h3>{{ my_wallet }}</h3>
                   <p>위의 지갑 주소를 복사해서 작성해주세요 : )</p>
                 </v-card-text>
@@ -45,7 +44,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
-                    v-if="!this.is_lodaing"
+                    v-if="!this.is_loading"
                     color="green darken-1"
                     text
                     @click="dialog = false"
@@ -62,7 +61,6 @@
         <div class="form-container sign-in-container">
           <div class="form_pure">
             <h1>LOGIN</h1>
-            <h3>{{ user_token }}</h3>
             <input v-model="loginData.user_email" type="email" placeholder="Email" />
             <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)"/>
             <button @click="login(loginData)">Login</button>
@@ -312,8 +310,8 @@
     @LoginModule.State('my_wallet')
     private my_wallet!: string;
 
-    @LoginModule.State('is_lodaing')
-    private is_lodaing!: boolean;
+    @LoginModule.State('is_loading')
+    private is_loading!: boolean;
 
     @LoginModule.State('wallet_complete')
     private wallet_complete!: boolean;

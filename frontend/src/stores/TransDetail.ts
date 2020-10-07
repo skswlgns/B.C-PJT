@@ -4,7 +4,7 @@ import router from "@/router"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
-const SERVER = 'http://localhost:8080/api'
+// const SERVER = 'http://localhost:8080/api'
 
 @Module({ namespaced: true })
 export default class TransDetail extends VuexModule {
@@ -99,7 +99,6 @@ export default class TransDetail extends VuexModule {
   public async get_candidate(candi_list: any) {
     const users : any = []
     for (let candi in candi_list) {
-      // console.log('candi' + candi)  
       const res = await axios.get(`${SERVER_URL}/users/${candi_list[candi].user_id}`)
       users.push(res.data)
     }
@@ -162,7 +161,6 @@ export default class TransDetail extends VuexModule {
 
   @Action
   public async saveContract(contractData: any) {
-    console.log('contract action', contractData)
     const res = await axios.post(`${SERVER_URL}/eth/contracting`, contractData)
   }
 }
