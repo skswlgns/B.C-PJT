@@ -3,6 +3,8 @@ import axios from "axios"
 import router from "@/router"
 // import VueRouter from 'vue-router'
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
+import Swal from 'sweetalert2'
+
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER = "http://localhost:8080"
@@ -11,6 +13,8 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 export default class Login extends VuexModule {
   // states
   public my_wallet: String = ""
+  public is_lodaing: boolean = false 
+  public wallet_complete: boolean = false
 
   // mutations
   @Mutation
@@ -22,6 +26,21 @@ export default class Login extends VuexModule {
   @Mutation
   public SET_Wallet(wallet: String) {
     this.my_wallet = wallet
+    this.is_lodaing = false
+
+    if (wallet == null){
+      this.wallet_complete = false
+    }
+  }
+
+  @Mutation
+  public loading(){
+    this.is_lodaing = true
+  }
+
+  @Mutation
+  public wallet_success(){
+    this.wallet_complete = true
   }
 
   // actions
@@ -50,7 +69,17 @@ export default class Login extends VuexModule {
     const wallet_data: any = {
       wallet_password: wallet_password,
     }
-    const res = await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
-    return res.data
+    await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
+    .then(res => {
+      return res.data
+    })
+    .catch(err => {
+      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: '지갑 생성에 실패했습니다.',
+        text: '다시 시도해주세요!'
+      })
+    })
   }
 }

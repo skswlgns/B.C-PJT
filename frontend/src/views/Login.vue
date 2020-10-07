@@ -29,18 +29,23 @@
                 <a v-bind="attrs" v-on="on">지갑이 없으신가요 ? ? </a>
               </template>
               <v-card>
+
                 <v-card-title class="headline">
                   지갑 비밀번호를 입력해주세요.
                 </v-card-title>
                 <v-card-text class="modal_text">
                   <input v-model="wallet_password" type="text" placeholder="비밀번호">
-                  <v-btn v-if="!wallet_complete" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
+                  <v-btn v-if="!wallet_complete && !this.is_lodaing" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
+                  {{ this.is_lodaing }}
+                  <b-spinner v-if="this.is_lodaing" label="Loading..."></b-spinner>
                   <h3>{{ my_wallet }}</h3>
                   <p>위의 지갑 주소를 복사해서 작성해주세요 : )</p>
                 </v-card-text>
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
+                    v-if="!this.is_lodaing"
                     color="green darken-1"
                     text
                     @click="dialog = false"
@@ -160,7 +165,6 @@
     // 데이터 영역
     private dialog: boolean = false;
     private wallet_password: String = '';
-    private wallet_complete : boolean = false;
 
     private options: any =[
       { text: 'Deutsch', value: 'Deutsch' },
@@ -309,6 +313,18 @@
     @LoginModule.State('my_wallet')
     private my_wallet!: string;
 
+    @LoginModule.State('is_lodaing')
+    private is_lodaing!: boolean;
+
+    @LoginModule.State('wallet_complete')
+    private wallet_complete!: boolean;
+
+    @LoginModule.Mutation('loading')
+    private loading!: any;
+
+    @LoginModule.Mutation('wallet_success')
+    private wallet_success!: any;
+
     @LoginModule.Action('signup')
     private signup!: (signupData: object) => void;
 
@@ -319,7 +335,8 @@
     private create_wallet!: (wallet_password: String) => void;
 
     wallet_create(wallet_password: String){
-      this.wallet_complete = true
+      this.wallet_success()
+      this.loading()
       this.create_wallet(wallet_password)
     }
     
