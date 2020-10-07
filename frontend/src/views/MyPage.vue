@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ myinfo }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
@@ -116,7 +115,7 @@
                 <b-button id="show-btn" v-b-modal="`modal-${index}`" @click="change(post)" variant="success" class="send_btn">통역사 송금하기</b-button>
                 <b-modal :id="'modal-'+index" hide-footer>
                   <template v-slot:modal-title>
-                    Using $bvModal Methods
+                    송금하기
                   </template>
                   <div class="d-block text-center">
                     <v-card>
@@ -168,7 +167,7 @@
                       </v-card-title>
                       <v-card-text>
                         <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                        {{ post }}
+                        <!-- {{ post }} -->
                         <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
                       </v-card-text>
                       <v-spacer></v-spacer>
