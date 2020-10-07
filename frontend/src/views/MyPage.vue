@@ -12,7 +12,7 @@
             <p>{{ myinfo.user_lang }}</p>
             <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
           </div>
-          <span class="ability" v-if="myinfo.user_good_lang != ''">
+          <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
                 <span class="abilities">{{ lang.slice(0,-1) }}</span>
@@ -58,10 +58,11 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="#AB47BC"
                   dark
                   v-bind="attrs"
                   v-on="on"
+                  class="my-2 mr-10"
                 >
                   충전하기
                 </v-btn>
@@ -71,7 +72,8 @@
                   금액을 입력해주세요.
                 </v-card-title>
                   <input v-model="chargeData.Egg" class="ml-6" placeholder="금액을 입력해주세요."/>
-                  <v-btn @click="save_charge(myinfo.user_wallet)">충전하기</v-btn>
+                  <v-btn v-if="!is_loading" @click="save_charge(myinfo.user_wallet)" class="charge_btn">충전하기</v-btn>
+                  <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
@@ -130,7 +132,6 @@
               outlined
               v-if="post.article_select && !post.article_complete"
             > 
-              {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
@@ -201,7 +202,7 @@
                         계좌 비밀번호를 입력해주세요. 
                       </v-card-title>
                       <v-card-text>
-                        <input v-model="send_data.Password" type="text" placeholder="비밀번호">
+                        <input v-model="send_data.Password" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
                         <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
                         <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>
@@ -348,10 +349,14 @@
 <script lang="ts">
   import { Component, Vue } from 'vue-property-decorator';
   import { namespace } from 'vuex-class';
+  import pdf from 'vue-pdf'
 
   const myPageModule = namespace('MyPage');
 
   @Component({
+    components: {
+      pdf,
+    },
     methods: {
       goRegist() {
         this.$router.push('/registtrans')
@@ -379,7 +384,7 @@
   private chargeData : any = {
     Egg : 0,
     toEgg : "",
-    fromEgg : "0x379b140fb8af53a0291c775e4091020c5dd14d6b",
+    fromEgg : "0x780302a8faf66688a66fe71d86656f4ef5a81a73",
     PassWord : ""
   }
 
@@ -396,8 +401,8 @@
 
   save_charge(user_wallet: string){
     this.chargeData.toEgg = user_wallet
-
     console.log(this.chargeData)
+    this.loading()
     this.charge_money(this.chargeData)
   }
 

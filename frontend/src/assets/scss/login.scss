@@ -163,11 +163,12 @@
 	}
 	.modal_text{
 		input {
-			background-color: #eee;
+			background-color: black;
 			border: none;
 			padding: 12px 15px;
 			margin: 8px 0;
 			width: 80%;
+			color: black !important;
 		}
 		.create_wal{
 			background-color: #FF4B2B;

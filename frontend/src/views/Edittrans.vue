@@ -8,7 +8,7 @@
           <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-else>
           <div class="pure-mt">
             <span class="nick-size">{{ myinfo.user_nickname }}</span>
-            <p>모국어 | {{myinfo.user_lang}}</p>
+            <p style="font-family: Noto Sans">모국어 | {{myinfo.user_lang}}</p>
           </div>
         </div>
         <div class="mt-15">
@@ -20,7 +20,7 @@
               <label class="custom-select" for="styledSelect1">
                 <select id="styledSelect1" name="options" @change="onChange($event)">
                   <option value="" disabled>Please select</option>
-                  <option v-for="(option, index) in options" :value="option.value" :key="index">
+                  <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
                     {{ option.text }}
                   </option>
                 </select>
@@ -51,14 +51,6 @@
               <textarea type="text" placeholder="자신을 소개해주세요" v-model="myinfo.user_intro"/>
             </v-col>
           </v-row>
-          <!-- <v-row class="text-center">
-            <v-col cols="3">
-              <h3 class="ml-10 mt-3">경력증명</h3>
-            </v-col>
-            <v-col cols="9">
-              <input type="file">
-            </v-col>
-          </v-row> -->
           <v-row>
             <v-col cols="3"></v-col>
             <v-col cols="9">
