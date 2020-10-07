@@ -92,7 +92,8 @@ export default class TransDetail extends VuexModule {
       },
     }
     const res = await axios.delete(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, config)
-    location.reload()
+    alert('취소 완료되었습니다!')
+    await location.reload()
   }
 
   @Action({ commit: "save_user" })
