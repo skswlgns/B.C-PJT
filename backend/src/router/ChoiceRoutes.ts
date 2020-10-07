@@ -89,33 +89,40 @@ ChoiceRoutes.post("/userAccount", async (req: express.Request, res: express.Resp
 
 // 계좌송금
 ChoiceRoutes.post("/transcoin", async (req: express.Request, res: express.Response) => {
-  let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
-  let fromEgg = req.body["fromEgg"]
-  let toEgg = req.body["toEgg"]
-  let PassWord = req.body["Password"]
-  let Egg = req.body["Egg"]
-  let success: boolean = false
+  console.log("들어왔니")
+  let web3 = await new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
+  if (!web3) {
+    console.log("web3 없음")
+    res.status(500).send({ messege: "RPC 연결 실패" })
+  } else {
+    console.log("web3 있음")
+    let fromEgg = req.body["fromEgg"]
+    let toEgg = req.body["toEgg"]
+    let PassWord = req.body["Password"]
+    let Egg = req.body["Egg"]
+    let success: boolean = false
 
-  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!1"))
-  await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!2"))
-  //계좌가 unlock됫다면 이제 돈보내면된다
-  await web3.eth
-    .sendTransaction({
-      from: fromEgg, // 출금 계좌(통역 의뢰인)
-      to: toEgg, // 입금 계좌 (통역가)
-      value: (Egg / 41.7) * 10 ** 18, // 통역 대가
-    })
-    .then((response) => {
-      console.log("success")
-      console.log(response)
-      success = true
-      res.status(200).send(success)
-    })
-    .catch((err) => {
-      console.log("fail")
-      console.log(err)
-      res.status(403).send(err)
-    })
+    await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!1"))
+    await web3.eth.personal.unlockAccount(fromEgg, PassWord, 600).then(() => console.log("Account unlocked!2"))
+    //계좌가 unlock됫다면 이제 돈보내면된다
+    await web3.eth
+      .sendTransaction({
+        from: fromEgg, // 출금 계좌(통역 의뢰인)
+        to: toEgg, // 입금 계좌 (통역가)
+        value: (Egg / 41.7) * 10 ** 18, // 통역 대가
+      })
+      .then((response) => {
+        console.log("success")
+        console.log(response)
+        success = true
+        res.status(200).send(success)
+      })
+      .catch((err) => {
+        console.log("fail")
+        console.log(err)
+        res.status(403).send(err)
+      })
+  }
 })
 
 ChoiceRoutes.post("/contracting", async (req: express.Request, res: express.Response) => {
