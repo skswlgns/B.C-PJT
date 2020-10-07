@@ -107,7 +107,37 @@
                   <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
                   <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>                  
                   
-                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                  
+                  <v-dialog
+                    v-model="dialog4"
+                    persistent
+                    max-width="350"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        color="#AB47BC"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                        class="my-2 mr-10"
+                      >
+                        자세히보기
+                      </v-btn>
+                    </template>
+                    <v-card>
+                      <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog4 = false"
+                        >
+                          Close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>                  
                 </v-list-item-content>
               </v-list-item>
               <div class="d-flex">
@@ -379,6 +409,7 @@
   private temp_wallet : String = ""
   private dialog2 : boolean = false
   private dialog3 : boolean = false
+  private dialog4 : boolean = false
   private finish : boolean = false
 
   private chargeData : any = {

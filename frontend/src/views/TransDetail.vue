@@ -79,7 +79,7 @@
                       <p class="user_lang">{{user_profile.user_lang}}</p>
                       <p class="badge">모국어</p>
                   </div>
-                  <div class="native_lang" v-for="(li, index) in user_profile.user_good_lang" :key="index">
+                  <div class="native_lang" v-for="(li, index) in user_profile.user_good_lang" :key="index" style="font-family: Noto Sans">
                     <p class="user_lang">{{li.slice(0, -1)}}</p>
                     <p class="badge" v-if="li.slice(-1) == '1'">네이티브</p>
                     <p class="badge" v-if="li.slice(-1) == '2'">고급</p>
