@@ -88,69 +88,31 @@
       </div>
       <div class="user-box" v-if="candarticle != ''">
         <br>
-        <div class="d-flex" style="font-size: 22px ">
-          <h2 class="mx-4">통역내역</h2>
+        <div class="d-flex">
+          <h2 class="mx-4 trans_fr">통역내역</h2>
         </div>
         <div class="user-box">
-          <v-row class="ma-4">
-            <v-col>
-              <v-card>
-                <div class="d-flex">
-                  <div class="ml-2 my-2">
-                    요청 ({{myarticle.length }})
-                  </div>
-                </div>
-                <v-row>
-                  <v-col col="12">
-                    <v-card
-                      class="mx-auto my-3"
-                      max-width="500"
-                      outlined
-                      v-for="(post, index) in candarticle" :key="index"
-                    >
-                    <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
-                      <v-list-item>
-                        <v-list-item-content>
-                          <div class="card_header">
-                            <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
-                            <!-- <span v-if="!post.article_select && !success_money" class="ing">진행중</span>
-                            <span v-if="post.article_select && !success_money" class="end">마감</span> -->
-                            <!-- <span v-if="success_money" class="complete">완료</span> -->
-                            <v-spacer></v-spacer>
-                            <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
-                          </div>
-                          <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
-                          <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
-                             {{ post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </router-link>
-                    </v-card>
-                  </v-col>
-                </v-row>
+          <v-row class="mx-2">
+            <v-col v-for="(li, index) in candarticle" :key="index" cols="6">
+              <v-card
+                v-if="li.article_id.article_select === userinfo._id"
+                class="my-3"
+                outlined                
+              >
+                <v-list-item>
+                  <v-list-item-content>
+                    <div class="point">{{ li.article_id.article_egg }}<v-icon class="egg_icon">mdi-egg-easter</v-icon></div> 
+                    <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
+                    <v-list-item-subtitle class="my-2">{{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
               </v-card>
             </v-col>
           </v-row>
         </div>
-        <!-- <v-row class="mx-2">
-          <v-col v-for="(li, index) in candarticle" :key="index" cols="6">
-            <v-card
-              v-if="li.article_id.article_select === userinfo._id"
-              class="my-3"
-              outlined                
-            >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
-                  <div>{{ li.article_id.article_egg }}<v-icon class="egg_icon">mdi-egg-easter</v-icon></div> 
-                </v-list-item-content>
-              </v-list-item>
-            </v-card>
-          </v-col>
-        </v-row> -->
       </div>
     </div>
+  
 
     <!-- ########################   모바일    ##################################3-->
 
