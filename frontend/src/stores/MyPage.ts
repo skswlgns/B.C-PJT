@@ -54,6 +54,7 @@ export default class MyPage extends VuexModule {
     else {
       this.success_money = temp_data
     }
+    location.reload()
   }
 
   @Mutation
