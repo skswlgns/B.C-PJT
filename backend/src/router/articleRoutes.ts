@@ -29,8 +29,8 @@ articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
 
 // Article 1개 조회: GET
 articleRoutes.get("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
-  await ArticleModel.findOne({ _id: article_id })
+  const articleId = req.params["article_id"]
+  await ArticleModel.findOne({ _id: articleId })
     .populate("user_id")
     .populate("article_candidate")
     .exec((err: Error, article: any) => {
@@ -50,9 +50,9 @@ articleRoutes.get("/:article_id", async (req: express.Request, res: express.Resp
 articleRoutes.post("/", verificationMiddleware)
 articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
   const requestBody = req.body
-  const user_id = await UserModel.findOne({ user_email: req.headers.email })
+  const userId = await UserModel.findOne({ user_email: req.headers.email })
   const article = new ArticleModel({
-    user_id: user_id,
+    user_id: userId,
     article_title: requestBody.article_title,
     article_content: requestBody.article_content,
     article_from: requestBody.article_from,
@@ -76,9 +76,9 @@ articleRoutes.post("/", async (req: express.Request, res: express.Response) => {
 // Article 수정 (id는 hash값): PUT
 articleRoutes.put("/:article_id", verificationMiddleware)
 articleRoutes.put("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   const requestBody = req.body
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
+  ArticleModel.findOne({ _id: articleId }, async (err: Error, article: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -86,7 +86,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
         await ArticleModel.findOneAndUpdate(
-          { _id: article_id },
+          { _id: articleId },
           {
             article_title: requestBody.article_title,
             article_content: requestBody.article_content,
@@ -100,7 +100,7 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
             article_egg: requestBody.article_egg,
           }
         )
-        res.status(200).send({ message: `${article_id} article이 수정되었습니다.` })
+        res.status(200).send({ message: `${articleId} article이 수정되었습니다.` })
       }
     }
   })
@@ -109,18 +109,18 @@ articleRoutes.put("/:article_id", async (req: express.Request, res: express.Resp
 // Article 삭제 (id는 hash값): DELETE
 articleRoutes.delete("/:article_id", verificationMiddleware)
 articleRoutes.delete("/:article_id", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   const requestBody = req.body
-  ArticleModel.findOne({ _id: article_id }, async (err: Error, article: any) => {
+  ArticleModel.findOne({ _id: articleId }, async (err: Error, article: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
       if (article === null) {
         res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
       } else {
-        await ArticleModel.deleteOne({ _id: article_id })
-        await CandidateModel.deleteMany({ article_id: article_id })
-        res.status(200).send({ message: `${article_id} article이 삭제되었습니다.` })
+        await ArticleModel.deleteOne({ _id: articleId })
+        await CandidateModel.deleteMany({ article_id: articleId })
+        res.status(200).send({ message: `${articleId} article이 삭제되었습니다.` })
       }
     }
   })
@@ -133,13 +133,13 @@ articleRoutes.delete("/:article_id", async (req: express.Request, res: express.R
 // 특정 Article의 통역 후보자 등록: POST
 articleRoutes.post("/:article_id/candidates", verificationMiddleware)
 articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: express.Response) => {
-  const article_id = req.params["article_id"]
+  const articleId = req.params["article_id"]
   // user_id 가져오기
   await UserModel.findOne({ user_email: req.headers.email }, (err: Error, user: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
-      ArticleModel.findOne({ _id: article_id })
+      ArticleModel.findOne({ _id: articleId })
         .populate("article_candidate")
         .exec((err: Error, article: any) => {
           if (err) {
@@ -161,7 +161,7 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
                 // 등록되어 있지 않다면 새로운 candidate 만들기
                 const item = new CandidateModel({
                   user_id: user._id,
-                  article_id: article_id,
+                  article_id: articleId,
                   candidate_content: req.body.candidate_content,
                 })
                 item.save(async (err, candidate) => {
@@ -171,10 +171,10 @@ articleRoutes.post("/:article_id/candidates", async (req: express.Request, res: 
                     // candidate_id 값을 article.article_candidate에 추가하기
                     const candidateId = candidate._id
                     articleCandidateList.push(candidateId)
-                    await ArticleModel.update({ _id: article_id }, { article_candidate: articleCandidateList }).then(
+                    await ArticleModel.update({ _id: articleId }, { article_candidate: articleCandidateList }).then(
                       (_: any) => {
                         res.status(200).send({
-                          message: `${article_id} article에 ${user._id} candidate를 추가하였습니다.`,
+                          message: `${articleId} article에 ${user._id} candidate를 추가하였습니다.`,
                         })
                       }
                     )
@@ -204,8 +204,6 @@ articleRoutes.delete("/:article_id/candidates", async (req: express.Request, res
           if (article === null) {
             res.status(403).send({ message: "존재하지 않는 게시글 입니다." })
           } else {
-            // console.log(article)
-
             // 현재 user가 article의 cadidate 목록 가져오기
             const articleCandidatesIdArray: string[] = []
             for (const candidateOrder in article.article_candidate) {

@@ -47,13 +47,13 @@ authRoutes.post("/signin", async (req: express.Request, res: express.Response) =
   if (req.headers.token) {
     res.status(403).json({ message: "이미 로그인 되어있습니다." })
   } else {
-    const user_email = req.body.user_email
-    const user_pwd = hashPassword(req.body.user_pwd)
+    const userEmail = req.body.user_email
+    const userPwd = hashPassword(req.body.user_pwd)
     //이메일 값으로 아이디가 존재하는지 확인
-    await UserModel.findOne({ user_email: user_email })
+    await UserModel.findOne({ user_email: userEmail })
       .then((user: any) => {
         // 비밀번호 일치 여부 확인
-        if (user.user_pwd !== user_pwd) {
+        if (user.user_pwd !== userPwd) {
           res.status(403).send({ message: "비밀번호가 다릅니다." })
         } else {
           // 아아디, 비밀번호 일치
@@ -102,7 +102,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
     const user_phone = req.body.user_phone
     const user_wallet = req.body.user_wallet
     const user_lang = req.body.user_lang
-    
+
     // 빈 아이딩 및 비밀번호 검증
     if (
       user_email !== "" &&
@@ -131,7 +131,7 @@ authRoutes.post("/signup", async (req: express.Request, res: express.Response) =
             user_nickname: user_nickname,
             user_phone: user_phone,
             user_wallet: user_wallet,
-            user_lang: user_lang
+            user_lang: user_lang,
           })
           await item.save()
           res.status(200).send({
