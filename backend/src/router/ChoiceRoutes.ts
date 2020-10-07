@@ -1,4 +1,4 @@
-import express, { response } from "express"
+import express from "express"
 import Web3 from "web3"
 import { UserModel } from "../model/UserModel"
 

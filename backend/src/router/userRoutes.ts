@@ -1,15 +1,12 @@
 import express from "express"
 import { UserModel } from "../model/UserModel"
 import { ArticleModel } from "../model/ArticleModel"
-import { GoodLangModel } from "../model/GoodLangModel"
-import { ResumeModel } from "../model/ResumeModel"
 import { CandidateModel } from "../model/CandidateModel"
 
 const userRoutes = express.Router()
 
 // jwt middleware
 const verificationMiddleware = require("../middleware/verification")
-const verificationAdminMiddleware = require("../middleware/verificationAdmin")
 
 /*
 본인의 정보를 요청하거나 정보를 수정하는 작업을 위한 router
