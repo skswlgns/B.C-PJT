@@ -54,8 +54,8 @@
         </v-row>
       </div>
 
-      <div class="apply">
-        <h3>통역가 지원하기</h3>
+      <div class="apply" v-if="article.user_id.user_email !== my_email">
+        <h1>통역가 지원하기</h1>
         <v-row class="row">
           <input v-model="applyData.candidate_content" class="applybox" type="text"/>
           <v-btn class="applybtn" @click="apply(applyData)">지원하기</v-btn>
@@ -63,7 +63,7 @@
       </div>
 
       <div class="applyList">
-
+        <h1>지원현황</h1>
         <ul>
           <li v-for="(user_profile, index) in user" :key="index">
             <div v-for="(content, index) in article.article_candidate" :key="index">

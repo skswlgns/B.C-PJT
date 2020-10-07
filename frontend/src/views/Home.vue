@@ -27,34 +27,11 @@
             <v-date-picker v-model="searchData.date_picker" color="green lighten-1" ></v-date-picker>
           </v-list>
         </v-menu>
-        <v-menu
-          ref="menu"
-          v-model="menu2"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <input
-              v-model="searchData.time_picker"
-              class="selection_time"
-              placeholder="통역 시간"
-              v-bind="attrs"
-              v-on="on"
-            />
-          </template>
-          <v-time-picker
-            v-if="menu2"
-            v-model="searchData.time_picker"
-            full-width
-            @click:minute="$refs.menu.save(searchData.time_picker)"
-          ></v-time-picker>
-        </v-menu>
         <input type="text" class="selection_egg" v-model.number="searchData.egg" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
       </div>
 
       <v-row class="home_main">
-        <v-col lg="8">
+        <v-col lg="8" class="px-0">
           <div class="cardList">
             <ul>
               <li v-for="(list, index) in searching" :key="index">

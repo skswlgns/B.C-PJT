@@ -4,7 +4,8 @@
 			margin: 2rem 1rem;
 		}
 		.selection{
-			margin: 0 1rem;
+			margin: 0 auto;
+			display: flex;
 			.mag_icon {
 				margin: 0 0.5rem;
 				font-size: 2.5rem;
@@ -14,13 +15,18 @@
 				}
 			}
 			.selection_lang {
-				display: inline;
+				// display: inline;
 				margin: 0 0.3rem;
+				flex: 1;
+				display: flex;
 				.swap_icon {
-					margin: 0 0.3	rem;
+					margin: 0 0.3rem;
+					flex: 0.03;
 				}
 				select{
-					width: 18%;
+					// width: 18%;
+					flex: 1;
+					min-width: 260px; 
 					font-size: 1rem;
 					padding: 1rem;
 					border : 1px solid lightgrey;
@@ -38,27 +44,30 @@
 				border : 1px solid lightgrey;
 				background-color: white;
 				padding: 1rem;
-				width: 18%;
+				// width: 18%;
+				flex: 0.5;
 				font-size: 1rem;
-				margin: 0 0.3rem;
+				margin-right: 0.3rem;
 			}
-			.selection_time {
-				display: inline;
-				border : 1px solid lightgrey;
-				background-color: white;
-				padding: 1rem;
-				width: 18%;
-				font-size: 1rem;
-				margin: 0 0.3rem;
-			}
+			// .selection_time {
+			// 	display: inline;
+			// 	border : 1px solid lightgrey;
+			// 	background-color: white;
+			// 	padding: 1rem;
+			// 	// width: 18%;
+			// 	flex: 0.5;
+			// 	font-size: 1rem;
+			// 	margin: 0 0.3rem;
+			// }
 			.selection_egg {
 				display: inline;
 				border : 1px solid lightgrey;
 				background-color: white;
 				padding: 1rem;
-				width: 18%;
+				// width: 18%;
+				flex: 0.5;
 				font-size: 1rem;
-				margin: 0 0.3rem;
+				// margin: 0 0.3rem;
 			}
 		}	
 	
@@ -67,6 +76,9 @@
 			.cardList {
 				margin: 2rem 1rem;
 				list-style: none;
+				ul {
+					padding-left: 0;
+				}
 				.router{
 					text-decoration:none;
 					color: black;
@@ -81,8 +93,8 @@
 					.profile {
 						display: flex;
 						.profile_image {
-							width: 8%;
-							height: 8%;
+							width: 50px;
+							height: 50px;
 							border-radius: 5rem;
 						}
 						.center {
@@ -124,7 +136,7 @@
 			.applyTrans{
 				border: 1px solid lightgray;
 				margin-top: 2rem;
-				margin-right: 4rem;
+				// margin-right: 4rem;
 				height: 140px;
 				padding: 1rem 1rem;
 				background-color: white;
@@ -175,7 +187,7 @@
 		}
 
 		.selection{
-			margin: 1rem;
+			margin: 1rem ;
 			.selection_lang {
 				display: inline;
 				.swap_icon {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ myinfo }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <div class="user-box d-flex">

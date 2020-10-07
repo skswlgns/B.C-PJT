@@ -1,8 +1,8 @@
 <template>
   <div>
+    {{ candarticle }}
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
-      <h1>유저페이지</h1>
       <div class="user-box d-flex">
         <img 
           v-if="userinfo.user_image === ''"
@@ -15,11 +15,25 @@
           alt="profile_image" 
           class="box"> 
         <div class="pure-mt">
-          <span class="nick-size">{{ userinfo.user_nickname }}</span>          
-          <p>ㅁ 모국어 | {{ userinfo.user_lang }}</p>
-          <span>ㅁ 잘하는 언어 | {{ userinfo.user_good_lang }} </span>
-          <p v-if="userinfo.user_is_ts === true">
-            ㅁ 신뢰도 |
+          <div class="nick-size">{{ userinfo.user_nickname }}<div v-if="userinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>          
+          <div class="badge_fr">
+            <p>{{ userinfo.user_lang }}</p>
+            <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
+          </div>
+          <span class="ability" v-if="userinfo.user_good_lang != ''">
+            <span v-for="(lang, index) in userinfo.user_good_lang" :key="index" class="abil"> 
+              <span class="ability_fr" v-if="lang.slice(-1) == 1">
+                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges">네이티브</span></div>
+              </span>
+              <span v-else class="ability_fr">
+                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <div class="deep-purple darken-1 text-no-wrap rounded-pill ab"><span class="badges">고급</span></div>  
+              </span>
+            </span>
+          </span>
+          <div class="mt-3 reli" v-if="userinfo.user_is_ts === true">
+            <span>신뢰도 | </span>
             <span v-if="starrate === 1">
               <i class="fas fa-star" style="color: red"></i>
             </span>
@@ -45,7 +59,7 @@
               <i class="fas fa-star" style="color: red"></i>
               <i class="fas fa-star" style="color: red"></i>
             </span>
-          </p>
+          </div>
         </div>
         <div class="ml-auto my-auto mr-3">
           <v-btn
@@ -57,10 +71,51 @@
       </div>
       <div class="user-box">
         <br>
-        <div class="d-flex">
+        <div class="d-flex" style="font-size: 22px ">
           <h2 class="mx-4">통역내역</h2>
         </div>
-        <v-row class="mx-2">
+        <div class="user-box">
+          <v-row class="ma-4">
+            <v-col>
+              <v-card>
+                <div class="d-flex">
+                  <div class="ml-2 my-2">
+                    요청 ({{myarticle.length }})
+                  </div>
+                </div>
+                <v-row>
+                  <v-col col="12">
+                    <v-card
+                      class="mx-auto my-3"
+                      max-width="500"
+                      outlined
+                      v-for="(post, index) in candarticle" :key="index"
+                    >
+                    <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
+                      <v-list-item>
+                        <v-list-item-content>
+                          <div class="card_header">
+                            <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
+                            <!-- <span v-if="!post.article_select && !success_money" class="ing">진행중</span>
+                            <span v-if="post.article_select && !success_money" class="end">마감</span> -->
+                            <!-- <span v-if="success_money" class="complete">완료</span> -->
+                            <v-spacer></v-spacer>
+                            <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                          </div>
+                          <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
+                          <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
+                             {{ post.article_from }} -> {{ post.article_to }} </v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </router-link>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
+        <!-- <v-row class="mx-2">
           <v-col v-for="(li, index) in candarticle" :key="index" cols="6">
             <v-card
               v-if="li.article_id.article_select === userinfo._id"
@@ -70,12 +125,13 @@
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="headline mb-1">{{ li.article_id.article_title }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{ li.article_id.article_egg }} | {{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
+                  <v-list-item-subtitle class="my-2">{{  li.article_id.article_start_date }} -> {{ li.article_id.article_end_date }}</v-list-item-subtitle>
+                  <div>{{ li.article_id.article_egg }}<v-icon class="egg_icon">mdi-egg-easter</v-icon></div> 
                 </v-list-item-content>
               </v-list-item>
             </v-card>
           </v-col>
-        </v-row>
+        </v-row> -->
       </div>
     </div>
 
