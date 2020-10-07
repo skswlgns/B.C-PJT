@@ -74,14 +74,14 @@
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
             <option value="" disabled>통역받을 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index">
+            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
               {{ option.text }}
             </option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
           <select v-model="searchData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
             <option value="" disabled>통역할 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index">
+            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
               {{ option.text }}
             </option>
           </select>

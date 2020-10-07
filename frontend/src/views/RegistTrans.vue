@@ -42,7 +42,7 @@
               <label class="custom-select" for="styledSelect1">
                 <select id="styledSelect1" name="options" @change="onChange($event)">
                   <option value="" disabled>Please select</option>
-                  <option v-for="(option, index) in options" :value="option.value" :key="index">
+                  <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
                     {{ option.text }}
                   </option>
                 </select>
@@ -73,14 +73,6 @@
               <textarea type="text" placeholder="자신을 소개해주세요" v-model="myinfo.user_intro"/>
             </v-col>
           </v-row>
-          <!-- <v-row class="text-center">
-            <v-col cols="3">
-              <h3 class="ml-10 mt-3">경력증명</h3>
-            </v-col>
-            <v-col cols="9">
-              <input type="file">
-            </v-col>
-          </v-row> -->
           <v-row>
             <v-col cols="3"></v-col>
             <v-col cols="9">
@@ -89,33 +81,6 @@
           </v-row>
         </div>
       </div>
-    </div>
-
-    <!--                                                모바일 ################################################ -->
-    <div v-else>
-      <form>  
-        <div class="segment">
-          <h1>통역가 신청</h1>
-        </div>
-        
-        <label>
-          <input type="text" placeholder="실명"/>
-        </label>
-        <label class="custom-select" for="styledSelect1">
-          <select id="styledSelect1" name="options">
-            <option value="">성별</option>
-            <option value="남">남자</option>
-            <option value="여">여자</option>
-          </select>
-        </label>
-        <label>
-          <textarea type="text" placeholder="자신을 소개해주세요"/>
-        </label>
-
-        <h4>경력증명</h4>
-        <input type="file">
-        <button class="red mt-3" type="button" @click="first_trans(myinfo)">다음단계</button>
-      </form>
     </div>
   </div>
 </template>
