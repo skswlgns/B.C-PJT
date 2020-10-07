@@ -3,6 +3,7 @@ import axios from "axios"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import router from "@/router"
 import emailjs from "emailjs-com";
+import Axios from 'axios';
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER_URL = "http://localhost:8080/api"
@@ -16,7 +17,9 @@ export default class MyPage extends VuexModule {
   public mymoney: String = ""
   public applyarticle: any = {}
   public success_money : boolean = false
-  
+  public to_email : string = ""
+  public resume: any = {};  
+
   // mutations
   // 유저정보 저장
   @Mutation
@@ -47,6 +50,16 @@ export default class MyPage extends VuexModule {
     this.success_money = temp_data
   }
 
+  
+  @Mutation
+  public async save_email(temp_data: string) {
+    this.to_email = temp_data
+  }
+  
+  @Mutation
+  public async save_resume(resumeData: any) {
+    this.resume = resumeData
+  }
   // actions
   // 유저 정보입니다.
   @Action({ commit: "savemyinfo" })
@@ -109,13 +122,14 @@ export default class MyPage extends VuexModule {
   }
 
   @Action({ commit: "save_success"})
-  public async send_money(send_data: any, successParams : any) {
+  public async send_money(temp: any) {
     console.log("돈 전송 action")
-    console.log(send_data)
-    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
+    console.log('send_data', temp[0])
+    console.log('successParams', temp[1])
+    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
       console.log('김용욱 개천사', res.data)
-      this.context.dispatch("successTest", successParams)
-      return res.data
+      this.context.dispatch("successTest",  temp[1])
+      return res.data 
   }
 
   @Action
@@ -145,8 +159,34 @@ export default class MyPage extends VuexModule {
         token: Vue.cookies.get("token"),
       },
     }
-    console.log(star)
-    const res = await axios.post(`${SERVER_URL}/rate`, star, config)
+    await axios.post(`${SERVER_URL}/rate`, star, config)
+  }
+
+  @Action({commit: 'save_resume'})
+  public async get_resume(id:string) {
+    const res = await axios.get(`${SERVER_URL}/resume/${id}`)
+    return res.data
+  }
+
+  
+  @Action({ commit : 'save_email'})
+  public async get_toEmail(_id:string){
+    const res = await axios.get(`${SERVER_URL}/users/${_id}`)
+    console.log(res.data.user_email)
+    return res.data.user_email  
+  }
+  
+  @Action
+  public async del_resume(resume_list: any) {
+    const config = {
+      headers: {
+        email: Vue.cookies.get("email"),
+        token: Vue.cookies.get("token"),
+        resume_id: resume_list._id
+      },
+    }
+    console.log(config)
+    const res = await axios.delete(`${SERVER_URL}/resume`, config)
     console.log(res)
   }
 }

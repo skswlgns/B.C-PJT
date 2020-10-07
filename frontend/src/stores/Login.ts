@@ -28,13 +28,25 @@ export default class Login extends VuexModule {
   @Action
   public async signup(signupData: any) {
     console.log(signupData)
-    await axios.post(`${SERVER_URL}/auth/signup`, signupData).then((res) => {
-      const loginInfo: any = {
-        user_email: signupData.user_email,
-        user_pwd: signupData.user_pwd,
-      }
-      this.context.dispatch("login", loginInfo)
-    })
+    if (signupData.user_email == '') {
+      alert('이메일은 필수 값입니다.')
+    } else if (signupData.user_pwd == '') {
+      alert('비밀번호를 입력해주세요.')
+    } else if (signupData.user_lang =='') {
+      alert('모국어는 필수 값입니다.')
+    } else if (signupData.user_nickname == '') {
+      alert('닉네임은 필수 값입니다.')
+    } else if (signupData.user_wallet == '') {
+      alert('지갑은 필수 값입니다. 지갑이 없으시다면 아래의 버튼을 클릭해주세요. ')
+    } else {
+      await axios.post(`${SERVER_URL}/auth/signup`, signupData).then((res) => {
+        const loginInfo: any = {
+          user_email: signupData.user_email,
+          user_pwd: signupData.user_pwd,
+        }
+        this.context.dispatch("login", loginInfo)
+      })
+    }    
   }
 
   @Action({ commit: "SET_TOKEN" })
