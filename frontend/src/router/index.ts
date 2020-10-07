@@ -12,7 +12,10 @@ import RegistTrans from '@/views/RegistTrans.vue'
 import EditProfile from '@/views/EditProfile.vue'
 import Edittrans from '@/views/Edittrans.vue'
 import AddCareer from '@/views/AddCareer.vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.use(VueRouter)
 
 const routes = [
