@@ -46,7 +46,6 @@ export default class Edittrans extends VuexModule {
       }
 
       for (let i in user_resume) {
-        console.log('하히후헤호', user_resume[i])
 
         const addData: any = new FormData();
         addData.append('resume_name', user_resume[i].resume_name)

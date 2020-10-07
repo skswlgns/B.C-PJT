@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ myinfo }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h2>마이페이지</h2>
@@ -150,6 +149,9 @@
                 <b-button  @click="goChat()" variant="primary" class="chat_btn">화상 채팅</b-button>
                 <b-button id="show-btn" v-b-modal="`modal-${index}`" @click="change(post)" variant="success" class="send_btn">통역사 송금하기</b-button>
                 <b-modal :id="'modal-'+index" hide-footer>
+                  <template v-slot:modal-title>
+                    송금하기
+                  </template>
                   <div class="d-block text-center">
                     <v-card>
                       <v-card-title class="headline">

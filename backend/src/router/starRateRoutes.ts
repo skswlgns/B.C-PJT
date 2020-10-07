@@ -15,8 +15,8 @@ const verificationMiddleware = require("../middleware/verification")
 
 // 유저의 평가 목록 조회: GET
 starRateRoutes.get("/:user_id", async (req: express.Request, res: express.Response) => {
-  const user_id = req.params["user_id"]
-  await StarRateModel.find({ star_rate_ts_user_id: user_id }).exec((err: Error, starRate: any) => {
+  const userId = req.params["user_id"]
+  await StarRateModel.find({ star_rate_ts_user_id: userId }).exec((err: Error, starRate: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -27,8 +27,8 @@ starRateRoutes.get("/:user_id", async (req: express.Request, res: express.Respon
 
 // 유저의 별점 조회: GET
 starRateRoutes.get("/:user_id/score", async (req: express.Request, res: express.Response) => {
-  const user_id = req.params["user_id"]
-  await StarRateModel.find({ star_rate_ts_user_id: user_id }).exec((err: Error, starRate: any) => {
+  const userId = req.params["user_id"]
+  await StarRateModel.find({ star_rate_ts_user_id: userId }).exec((err: Error, starRate: any) => {
     if (err) {
       res.status(500).send(err)
     } else {
@@ -53,17 +53,17 @@ starRateRoutes.post("/", async (req: express.Request, res: express.Response) => 
     if (err) {
       res.status(500).send(err)
     } else {
-      const star_rate_rq_user_id = user._id
-      const star_rate_ts_user_id = req.body.star_rate_ts_user_id
-      const article_id = req.body.article_id
-      const star_rate_score = req.body.star_rate_score
-      const star_rate_content = req.body.star_rate_content
+      const starRateRqUserId = user._id
+      const starRateTsUserId = req.body.star_rate_ts_user_id
+      const articleId = req.body.article_id
+      const starRateScore = req.body.star_rate_score
+      const starRateContent = req.body.star_rate_content
       const starRate = new StarRateModel({
-        star_rate_ts_user_id: star_rate_ts_user_id,
-        star_rate_rq_user_id: star_rate_rq_user_id,
-        article_id: article_id,
-        star_rate_score: star_rate_score,
-        star_rate_content: star_rate_content,
+        star_rate_ts_user_id: starRateTsUserId,
+        star_rate_rq_user_id: starRateRqUserId,
+        article_id: articleId,
+        star_rate_score: starRateScore,
+        star_rate_content: starRateContent,
       })
       await starRate.save((err, newStarRate) => {
         if (err) {

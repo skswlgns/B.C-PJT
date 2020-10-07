@@ -61,7 +61,6 @@
         <div class="form-container sign-in-container">
           <div class="form_pure">
             <h1>LOGIN</h1>
-            <h3>{{ user_token }}</h3>
             <input v-model="loginData.user_email" type="email" placeholder="Email" />
             <input v-model="loginData.user_pwd" type="password" placeholder="Password" @keypress.enter="login(loginData)"/>
             <button @click="login(loginData)">Login</button>

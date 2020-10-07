@@ -14,11 +14,6 @@ export default class UserPage extends VuexModule {
   public my_article: any = {};
   public resume: any = {};
 
-  // getters
-  // get doubledCount() {
-  //   return this.article
-  // }
-
   // mutations
   @Mutation
   public async saveuserinfo(temp_data: any = {}) {

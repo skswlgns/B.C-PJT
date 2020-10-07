@@ -1,7 +1,6 @@
 <template>
   <div>
     <!--WEB-->
-    {{ article.article_candidate}}
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">
@@ -76,7 +75,6 @@
                     <p @click="goUserpage(user_profile)">{{user_profile.user_nickname}}</p>
 
                   <div class="applyUser">
-                    <!-- <h3 class="center">{{ user_profile.user_nickname }}  |</h3> -->
                     <div class="native_lang">
                       <p class="user_lang">{{user_profile.user_lang}}</p>
                       <p class="badge">모국어</p>
@@ -102,7 +100,6 @@
                     <v-card>
                       <v-card-text>
                         <input v-model="contractData.passWord" type="text" placeholder="비밀번호">
-                        {{ post }}
                         <v-btn @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg)">입력하기</v-btn>
                       </v-card-text>
                       <v-spacer></v-spacer>
@@ -201,115 +198,6 @@
         </ul>
       </div>
     </div>
-
-    <!--Mobile -->
-    <!-- <div id="Mobile" v-if="windowWidth <= 380">
-      <div class="detail_body">
-        <div class="profile">
-          <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-          <h4 class="center">{{ article.user_id.user_nickname}}</h4>
-          <v-spacer></v-spacer>
-          <span class="ing">진행중</span>
-        </div>
-        <div class="title">
-          <h4 class="detail_title">{{ article.article_title }}</h4>
-        </div>
-        <hr>
-        <div class="content">
-          <p class="detail_content">{{ article.article_content}}</p>
-        </div>
-        <div class="requests"> 
-          <v-icon class="check_icon">mdi-check-bold</v-icon>
-          <h3 class="check">요청사항</h3>
-          <div class="request" v-for="i in article.article_request" :key="i.id">
-            <p> {{ i.id }}) {{ i.content }}</p>
-          </div>
-        </div>
-        <div class="requests"> 
-          <v-icon class="check_icon">mdi-check-bold</v-icon>
-          <h3 class="check">언어</h3>
-          <div class="request">
-            <p>{{article.article_from}} <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon> {{article.article_to}}</p>
-          </div>
-        </div>
-        <div class="requests"> 
-          <v-icon class="check_icon">mdi-check-bold</v-icon>
-          <h3 class="check">날짜 / 예상시간</h3>
-          <div class="request">
-            <p class="inline">{{article.article_date}} {{article.article_start}}</p> ~ <p class="inline"> {{article.article_enddate}} {{article.article_end}} </p>
-          </div>
-        </div>
-        <div class="requests"> 
-          <v-icon class="check_icon">mdi-check-bold</v-icon>
-          <h3 class="check">금액</h3>
-          <div class="request">
-            <span class="point inline">{{article.article_egg}} <v-icon class="egg_icon">mdi-egg-easter</v-icon></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="apply">
-        <h4>통역가 지원하기</h4>
-        <input class="applybox" type="text"/>
-        <v-row>
-          <v-spacer></v-spacer>
-          <v-btn class="applybtn">지원하기</v-btn>
-        </v-row>
-      </div>
-
-      <div class="applyList">
-        <li v-for="list in applyList" :key="list.user_name">
-          <div v-if="list.select" class="applyCard_select">
-            <v-row class="select_btns">
-              <v-spacer></v-spacer>
-              <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-            </v-row>
-            <div class="profile">
-              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <div class="applyUser">
-                <h4 class="center">{{ list.user_name }}  |</h4>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.user_lang}}</p>
-                  <p class="badge">모국어</p>
-                </div>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.good_lang}}</p>
-                  <p class="badge">고급</p>
-                </div>
-              </div>
-            </div>
-            <div class="content">
-              {{list.apply_content}}
-            </div>
-          </div>
-
-          <div v-if="!list.select" class="applyCard_notselect">
-            <v-row class="select_btns">
-              <v-spacer></v-spacer>
-              <v-btn v-if="list.select" class="select" @click="translator_cancel(list)"><v-icon class="select_icon">mdi-account-tie-voice</v-icon>선택된 통역가</v-btn>
-              <v-btn v-if="!list.select" class="notselect" @click="translator_select(list)"><v-icon class="select_icon">mdi-check-all</v-icon>통역가 선택하기</v-btn>
-            </v-row>
-            <div class="profile">
-              <img src="@/assets/images/지창욱.jpg" alt="창욱" class="profile_image">
-              <div class="applyUser">
-                <h4 class="center">{{ list.user_name }}  |</h4>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.user_lang}}</p>
-                  <p class="badge">모국어</p>
-                </div>
-                <div class="native_lang">
-                  <p class="user_lang">{{list.good_lang}}</p>
-                  <p class="badge">고급</p>
-                </div>
-              </div>
-            </div>
-            <div class="content">
-              {{list.apply_content}}
-            </div>
-          </div>
-        </li>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -374,14 +262,12 @@
           this.templateParams,
           "user_vsSYzgaTl8akZR9vLj921",
         )
-        .then(
-          function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function(error) {
-            console.log("FAILED...", error);
-          }
-        );
+        // .then(
+        //   function(response) {
+        //   },
+        //   function(error) {
+        //   }
+        // );
     }
 
     btn_click(user_id : string, to_email: string, client_email: string, title: string, _selectPerson: string, _selectedPerson: string, article: string, _selectedArticle: string, _point: number) {
@@ -410,14 +296,14 @@
           this.cancelParams,
           "user_vsSYzgaTl8akZR9vLj921",
         )
-        .then(
-          function(response) {
-            console.log("SUCCESS!", response.status, response.text);
-          },
-          function(error) {
-            console.log("FAILED...", error);
-          }
-        );
+        // .then(
+        //   function(response) {
+            // console.log("SUCCESS!", response.status, response.text);
+          // },
+          // function(error) {
+            // console.log("FAILED...", error);
+          // }
+        // );
     }
     cancel_save(to_email: string, title: string){
       // this.cancelParams.to_email = to_email,
@@ -512,7 +398,6 @@
     }
 
     async created() {
-      console.log('created')
       await this.get_article_1(this.id)
       if (this.article.article_candidate){
         await this.get_candidate(this.article.article_candidate)

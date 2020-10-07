@@ -46,7 +46,6 @@ export default class Login extends VuexModule {
   // actions
   @Action
   public async signup(signupData: any) {
-    console.log(signupData)
     if (signupData.user_email == '') {
       alert('이메일은 필수 값입니다.')
     } else if (signupData.user_pwd == '') {
