@@ -96,7 +96,6 @@
               outlined
               v-if="post.article_select"
             >
-            {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
@@ -113,7 +112,6 @@
               </router-link>
               <div class="btn_box">
                 <v-btn @click="goChat()" color="#0288D1" class="mt-1 chat_btn">화상 채팅</v-btn>
-                {{ index }}
                 <v-dialog
                   v-model="dialog2"
                   persistent
