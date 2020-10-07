@@ -105,24 +105,27 @@
                 <v-list-item-content>
 
                   <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>                  
-                  
-                  
+                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>    
                   <v-dialog
                     v-model="dialog4"
                     persistent
                     max-width="350"
                   >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="#AB47BC"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        class="my-2 mr-10"
-                      >
-                        자세히보기
-                      </v-btn>
+                    <template v-slot:activator="{ on, attrs }" >
+                      <div class="d-flex justify-end">
+                        <v-btn
+                          color="#AB47BC"
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                          class="mr-2"
+                        >                      
+                          자세히보기
+                        </v-btn>
+                        <div class="d-flex justify-end">
+                          <v-btn color="error" class="mr-4" @click="del_resume(li)">삭제하기</v-btn>
+                        </div>   
+                      </div>
                     </template>
                     <v-card>
                       <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
@@ -137,12 +140,9 @@
                         </v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog>                  
+                  </v-dialog>               
                 </v-list-item-content>
               </v-list-item>
-              <div class="d-flex">
-                <v-btn color="error" class="ml-auto mr-2 my-2" @click="del_resume(li)">삭제하기</v-btn>
-              </div>
             </v-card>
           </v-col>
         </v-row>
