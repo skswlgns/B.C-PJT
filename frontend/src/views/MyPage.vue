@@ -5,7 +5,7 @@
       <h1>마이페이지</h1>
       {{ myinfo }}
       <div class="user-box d-flex">
-        <img :src="imgurl" alt="profile_image" class="box" v-if="myinfo.user_image">
+        <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt"> 
           <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
@@ -323,7 +323,6 @@
   private temp_wallet : String = ""
   private dialog2 : boolean = false
   private finish : boolean = false
-  private imgurl: string = ''
 
   private star: any = {
     star_rate_ts_user_id: '',
@@ -428,7 +427,6 @@
     await this.get_myarticle()
     await this.get_applyarticle()
     await this.get_balance(this.myinfo.user_wallet)
-    this.imgurl = `https://j3b103.p.ssafy.io/image/${this.myinfo.user_image}`
   }
 
   async mounted(){

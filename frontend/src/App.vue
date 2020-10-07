@@ -21,7 +21,7 @@
       <!-- 로그인이 안되어 있을 경우 -->
       <div v-else class="right">
         <span>
-          <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i> 
+          <i class="fas fa-sign-in-alt fa-2x nav_icon" @click="goLogin()"></i> 
         </span>
       </div>
     </div>

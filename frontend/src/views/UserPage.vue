@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{resume}}
+    {{userinfo}}
     <!-- #                    브라우저                       # -->
     <div v-if="windowWidth > 375">
       <h1>유저페이지</h1>
@@ -49,7 +49,7 @@
           </p>
         </div>
       </div>
-      <div class="user-box">
+      <div class="user-box" v-if="resume != ''">
         <br>
         <div class="d-flex">
           <h2 class="mx-4">경력</h2>
@@ -73,7 +73,7 @@
           </v-col>
         </v-row>
       </div>
-      <div class="user-box">
+      <div class="user-box" v-if="candarticle != ''">
         <br>
         <div class="d-flex">
           <h2 class="mx-4">통역내역</h2>
