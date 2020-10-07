@@ -14,12 +14,13 @@
             display: flex;
             .input {
                 // background-color: red;
+                box-shadow: 2px 2px 3px 2px grey;
                 background: white;
                 border: #{$input-box};
                 flex: 2;
                 padding: 3% 3%; 
                 h1 {
-                    font-family: #{$Gugi};
+                    // font-family: #{$Gugi};
                     font-size: 2rem;
                     text-align: center;
                 }
@@ -264,6 +265,7 @@
                 flex: 1;
                 // animation: move 3s ease-in;
                 .memo {
+                    box-shadow: 2px 2px 3px 2px grey;
                     position: absolute;
                     width: 100%;
                     border: #{$input-box};
@@ -271,11 +273,13 @@
                     flex-direction: column;
                     text-align: center;
                     h2 {
-                        font-family: #{$Gugi};
+                        // font-family: #{$Gugi};
+                        font-weight: bold;
                         margin: 3% auto;
                     }
                     h3 {
-                        font-family: #{$Gugi};
+                        // font-family: #{$Gugi};
+                        font-weight: bold;
                         margin: 3% auto;
                     }
                     .language {

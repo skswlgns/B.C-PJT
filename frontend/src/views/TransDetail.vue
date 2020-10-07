@@ -64,7 +64,7 @@
       </div>
 
       <div class="applyList">
-
+        <h1>지원현황</h1>
         <ul>
           <li v-for="(user_profile, index) in user" :key="index">
             <div v-for="(content, index) in article.article_candidate" :key="index">

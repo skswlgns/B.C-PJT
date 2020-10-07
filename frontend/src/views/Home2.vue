@@ -53,7 +53,7 @@
                     <!-- <a href="/home">전문통역 견적받기</a> -->
                   </td>
                   <td>
-                    <a href="/home">Go Translate</a>
+                    <a href="/home">Go Mamago </a>
                   </td>
                 </tr>
               </tbody>
@@ -83,7 +83,7 @@
                 <p>블록체인 Resume<br>
                   Egg를 통한 송금 서비스로 신뢰 구축</p> 
               </div>
-              <a href="/home">회원가입</a>
+              <a href="/login">회원가입</a>
             </div>
 
             </div>
