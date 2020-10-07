@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ myinfo }}
     <!-- #브라우저# -->
     <div v-if="windowWidth > 375">
       <h1>마이페이지</h1>
