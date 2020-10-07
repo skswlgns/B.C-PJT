@@ -58,10 +58,11 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
-                  color="primary"
+                  color="#AB47BC"
                   dark
                   v-bind="attrs"
                   v-on="on"
+                  class="my-2 mr-10"
                 >
                   충전하기
                 </v-btn>
@@ -71,7 +72,8 @@
                   금액을 입력해주세요.
                 </v-card-title>
                   <input v-model="chargeData.Egg" class="ml-6" placeholder="금액을 입력해주세요."/>
-                  <v-btn @click="save_charge(myinfo.user_wallet)">충전하기</v-btn>
+                  <v-btn v-if="!is_loading" @click="save_charge(myinfo.user_wallet)" class="charge_btn">충전하기</v-btn>
+                  <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
@@ -382,7 +384,7 @@
   private chargeData : any = {
     Egg : 0,
     toEgg : "",
-    fromEgg : "0x379b140fb8af53a0291c775e4091020c5dd14d6b",
+    fromEgg : "0x780302a8faf66688a66fe71d86656f4ef5a81a73",
     PassWord : ""
   }
 
@@ -399,8 +401,8 @@
 
   save_charge(user_wallet: string){
     this.chargeData.toEgg = user_wallet
-
     console.log(this.chargeData)
+    this.loading()
     this.charge_money(this.chargeData)
   }
 
