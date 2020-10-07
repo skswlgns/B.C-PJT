@@ -64,19 +64,23 @@ export default class TransDetail extends VuexModule {
 
   @Action
   public async apply(applyData: any) {
-    let config = {
-      headers: {
-        token: Vue.cookies.get("token"),
-        email: Vue.cookies.get("email"),
-      },
+    if (applyData.is_ts === true) {
+      let config = {
+        headers: {
+          token: Vue.cookies.get("token"),
+          email: Vue.cookies.get("email"),
+        },
+      }  
+      await axios
+        .post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)
+        .then(async (res) => {
+          location.reload()
+        })
+        .catch((err) => console.log(err))
+    } else {
+      alert('통역가를 등록하여야지 통역지원이 가능합니다.')
+      await router.push('/registtrans')
     }
-
-    await axios
-      .post(`${SERVER_URL}/articles/${applyData.article_id}/candidates`, applyData, config)
-      .then(async (res) => {
-        location.reload()
-      })
-      .catch((err) => console.log(err))
   }
 
   @Action
