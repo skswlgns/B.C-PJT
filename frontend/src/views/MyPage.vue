@@ -131,7 +131,7 @@
                         <v-btn
                           color="green darken-1"
                           text
-                          @click="dialog3 = false"
+                          @click="dialog4 = false"
                         >
                           Close
                         </v-btn>
