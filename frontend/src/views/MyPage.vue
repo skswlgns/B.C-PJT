@@ -66,14 +66,13 @@
               outlined
               v-if="post.article_select"
             >
-              {{ post }}
               <router-link :to="{name: 'TransDetail', params : {id:post._id}}" class="router">
                 <v-list-item >
                   <v-list-item-content>
                     <div class="card_header">
                       <div class="overline mb-4 request">요청</div>
                       <v-spacer></v-spacer>
-                      <div class="point"> <span>{{post.article_egg}} </span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
+                      <div class="point"><span>{{post.article_egg}}</span><v-icon class="egg_icon">mdi-egg-easter</v-icon></div>
                     </div>
                     <v-list-item-title class="headline mb-1">{{ post.article_title }}</v-list-item-title>
                     <v-list-item-subtitle class="my-2">{{ post.article_start_date }} ~ {{ post.article_end_date }} |
@@ -90,7 +89,7 @@
                   max-width="400"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn">통역사 송금하기</v-btn>
+                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(post)">통역사 송금하기</v-btn>
                   </template>
                 <v-card>
                   <v-card-title class="headline">
@@ -141,7 +140,6 @@
                   </v-card-title>
                   <v-card-text>
                     <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                    {{ post }}
                     <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email, star, post)">송금하기</v-btn>
                   </v-card-text>
                     <v-spacer></v-spacer>
@@ -355,6 +353,9 @@
   @myPageModule.State('success_money')
   private success_money!: boolean;
 
+  @myPageModule.State('to_email')
+  private to_email!: string;
+
   @myPageModule.Action('get_mypage')
   private get_mypage!: () => void;
 
@@ -379,6 +380,9 @@
   @myPageModule.Action('send_rate')
   private send_rate!: (star: any) => void;
 
+  @myPageModule.Action('get_toEmail')
+  private get_toEmail!: (_id: string) => void;
+
   private send_data = {
     fromEgg : "",
     toEgg : "",
@@ -386,28 +390,31 @@
     Egg : 0
   }
 
-  save_send(address : string, egg : number, toegg : string, title : string, client_email : string, star:any, post:any){
+  change(post:any) {
+    this.star.article_id = post._id
+    this.star.star_rate_ts_user_id = post.article_select
+
+    this.get_toEmail(post.article_select)
+  }
+
+  save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
     this.finish = true
     this.dialog2 = false
 
-    console.log('save_send')
-    console.log(post)
-    star.article_id = post._id
-    star.star_rate_ts_user_id = post.article_select
-    if (star.star_rate_score == '') {
+    if (this.star.star_rate_score == '') {
       alert('평점을 입력해주세요.')
     } else {
-      this.send_rate(star)
-      // this.send_money(this.send_data)
+      console.log(this.star)
     }
 
-    // this.successParams.to_email = to_email,
+    this.successParams.to_email = this.to_email,
     this.successParams.client_email = client_email,
     this.successParams.title = title
     this.successParams.money = egg
+    console.log('여기는 뷰', this.successParams)
     this.send_money(this.send_data, this.successParams)
   }
 

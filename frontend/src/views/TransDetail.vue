@@ -1,6 +1,7 @@
 <template>
   <div>
     <!--WEB-->
+    {{ article.article_candidate}}
     <div id="WEB" v-if="windowWidth > 380">
       <div class="detail_body">
         <div class="profile">

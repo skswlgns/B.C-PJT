@@ -3,6 +3,7 @@ import axios from "axios"
 import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
 import router from "@/router"
 import emailjs from "emailjs-com";
+import Axios from 'axios';
 
 const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 // const SERVER_URL = "http://localhost:8080/api"
@@ -16,7 +17,8 @@ export default class MyPage extends VuexModule {
   public mymoney: String = ""
   public applyarticle: any = {}
   public success_money : boolean = false
-  
+  public to_email : string = ""
+
   // mutations
   // 유저정보 저장
   @Mutation
@@ -45,6 +47,11 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_success(temp_data: boolean) {
     this.success_money = temp_data
+  }
+
+  @Mutation
+  public async save_email(temp_data: string) {
+    this.to_email = temp_data
   }
 
   // actions
@@ -109,9 +116,10 @@ export default class MyPage extends VuexModule {
   }
 
   @Action({ commit: "save_success"})
-  public async send_money(send_data: any, successParams : any) {
+  public async send_money(send_data: any, successParams: any) {
     console.log("돈 전송 action")
-    console.log(send_data)
+    console.log('send_data', send_data)
+    console.log('successParams', successParams)
     const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
       console.log('김용욱 개천사', res.data)
       this.context.dispatch("successTest", successParams)
@@ -148,5 +156,12 @@ export default class MyPage extends VuexModule {
     console.log(star)
     const res = await axios.post(`${SERVER_URL}/rate`, star, config)
     console.log(res)
+  }
+
+  @Action({ commit : 'save_email'})
+  public async get_toEmail(_id:string){
+    const res = await axios.get(`${SERVER_URL}/users/${_id}`)
+    console.log(res.data.user_email)
+    return res.data.user_email  
   }
 }
