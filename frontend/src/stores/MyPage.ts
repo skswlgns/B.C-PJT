@@ -116,14 +116,14 @@ export default class MyPage extends VuexModule {
   }
 
   @Action({ commit: "save_success"})
-  public async send_money(send_data: any, successParams: any) {
+  public async send_money(temp: any) {
     console.log("돈 전송 action")
-    console.log('send_data', send_data)
-    console.log('successParams', successParams)
-    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, send_data)
+    console.log('send_data', temp[0])
+    console.log('successParams', temp[1])
+    const res = await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
       console.log('김용욱 개천사', res.data)
-      this.context.dispatch("successTest", successParams)
-      return res.data
+      this.context.dispatch("successTest",  temp[1])
+      return res.data 
   }
 
   @Action
