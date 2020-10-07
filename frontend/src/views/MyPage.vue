@@ -10,7 +10,7 @@
           <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
           <div class="badge_fr">
             <p>{{ myinfo.user_lang }}</p>
-            <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
+            <div class="secondary text-no-wrap rounded-pill badge d-flex"><span class="badge_font">모국어</span></div>
           </div>
           <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
@@ -541,7 +541,7 @@
       await this.send_money(temp)
       await this.send_rate(this.star)
 
-    }
+      }
   }
 
   goaddcar() {
