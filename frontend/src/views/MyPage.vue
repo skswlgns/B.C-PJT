@@ -111,83 +111,72 @@
                 </v-list-item>
               </router-link>
               <div class="btn_box">
-                <v-btn @click="goChat()" color="#0288D1" class="mt-1 chat_btn">화상 채팅</v-btn>
-                <v-dialog
-                  v-model="dialog2"
-                  persistent
-                  max-width="400"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" v-on="on" color="#388E3C" class="send_btn" @click="change(myarticle[index])">통역사 송금하기</v-btn>
+                <b-button  @click="goChat()" variant="primary" class="chat_btn">화상 채팅</b-button>
+                <b-button id="show-btn" v-b-modal="`modal-${index}`" @click="change(post)" variant="success" class="send_btn">통역사 송금하기</b-button>
+                <b-modal :id="'modal-'+index" hide-footer>
+                  <template v-slot:modal-title>
+                    Using $bvModal Methods
                   </template>
-                  <v-card>
-                    {{ myarticle[index] }}
-                    <v-card-title class="headline">
-                      이번 통역가는 어떠셨나요?
-                    </v-card-title>
-                    <v-card-text>                    
-                      <input type="radio" id="one" value="1" v-model="star.star_rate_score" class="ml-1">
-                      <label for="one">1</label>
-                      <input type="radio" id="two" value="2" v-model="star.star_rate_score" class="ml-1">
-                      <label for="two">2</label>
-                      <input type="radio" id="three" value="3" v-model="star.star_rate_score" class="ml-1">
-                      <label for="three">3</label>
-                      <input type="radio" id="four" value="4" v-model="star.star_rate_score" class="ml-1">
-                      <label for="four">4</label>
-                      <input type="radio" id="five" value="5" v-model="star.star_rate_score" class="ml-1">
-                      <label for="five">5</label>
-                      <div v-if="star.star_rate_score == '1'"><i class="fas fa-star"></i></div>
-                      <div v-else-if="star.star_rate_score == '2'">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                      <div v-else-if="star.star_rate_score == '3'">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                      <div v-else-if="star.star_rate_score == '4'">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                      <div v-else-if="star.star_rate_score == '5'">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>                    
-                    </v-card-text>
-                    <v-row class="text-center">
-                      <v-col cols="12">
-                        <textarea type="text" placeholder="왜 그러한 평점을 주셨나요?(선택)" v-model="star.star_rate_content" v-if="star.star_rate_score != ''"/>
-                      </v-col>
-                    </v-row>
-                    <v-card-title class="headline">
-                      계좌 비밀번호를 입력해주세요. 
-                    </v-card-title>
-                    <v-card-text>
-                      <input v-model="send_data.Password" type="text" placeholder="비밀번호">
-                      
-                      <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
-                    </v-card-text>
+                  <div class="d-block text-center">
+                    <v-card>
+                      <v-card-title class="headline">
+                        이번 통역가는 어떠셨나요?
+                      </v-card-title>
+                      <v-card-text>                    
+                        <input type="radio" id="one" value="1" v-model="star.star_rate_score" class="ml-1">
+                        <label for="one">1</label>
+                        <input type="radio" id="two" value="2" v-model="star.star_rate_score" class="ml-1">
+                        <label for="two">2</label>
+                        <input type="radio" id="three" value="3" v-model="star.star_rate_score" class="ml-1">
+                        <label for="three">3</label>
+                        <input type="radio" id="four" value="4" v-model="star.star_rate_score" class="ml-1">
+                        <label for="four">4</label>
+                        <input type="radio" id="five" value="5" v-model="star.star_rate_score" class="ml-1">
+                        <label for="five">5</label>
+                        <div v-if="star.star_rate_score == '1'"><i class="fas fa-star"></i></div>
+                        <div v-else-if="star.star_rate_score == '2'">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div v-else-if="star.star_rate_score == '3'">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div v-else-if="star.star_rate_score == '4'">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div v-else-if="star.star_rate_score == '5'">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                        </div>                    
+                      </v-card-text>
+                      <v-row class="text-center">
+                        <v-col cols="12">
+                          <textarea type="text" placeholder="왜 그러한 평점을 주셨나요?(선택)" v-model="star.star_rate_content" v-if="star.star_rate_score != ''"/>
+                        </v-col>
+                      </v-row>
+                      <v-card-title class="headline">
+                        계좌 비밀번호를 입력해주세요. 
+                      </v-card-title>
+                      <v-card-text>
+                        <input v-model="send_data.Password" type="text" placeholder="비밀번호">
+                        {{ post }}
+                        <v-btn @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                      </v-card-text>
                       <v-spacer></v-spacer>
-
-                    <v-card-actions>
-                      <v-btn
-                        color="green darken-1"
-                        text
-                        @click="dialog2 = false"
-                      >
-                        close
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
+                    </v-card>
+                  </div>
+                  <b-button class="mt-3" block @click="$bvModal.hide(`modal-${index}`)">Close Me</b-button>
+                </b-modal>
               </div>
-              <div class="chat_box">
+              <div class="chat_box">  
                 <p>! 화상 채팅 입력 방법 !</p>
                 <p>nickname : 이름 작성</p>
                 <p>Room : <span class="room">{{post._id.substr(0, 7)}}</span></p>
@@ -255,7 +244,6 @@
                       <v-list-item>
                         <v-list-item-content>
                           <div class="card_header">
-                            <!--여기도 진행중, 마감, 완료 나누기 ㅠㅠㅠㅠㅠㅠㅠㅠ-->
                             <span v-if="!post.article_select && !success_money" class="ing">진행중</span>
                             <span v-if="post.article_select && !success_money" class="end">마감</span>
                             <span v-if="success_money" class="complete">완료</span>
@@ -437,6 +425,7 @@
   }
 
   save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+    console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
@@ -447,16 +436,14 @@
       alert('평점을 입력해주세요.')
     } else {
       console.log(this.star)
+      this.send_rate(this.star)
+      this.successParams.to_email = this.to_email,
+      this.successParams.client_email = client_email,
+      this.successParams.title = title
+      this.successParams.money = egg
+      const temp = [this.send_data, this.successParams]
+      this.send_money(temp)
     }
-    console.log(this.send_data)
-    this.successParams.to_email = this.to_email,
-    this.successParams.client_email = client_email,
-    this.successParams.title = title
-    this.successParams.money = egg
-    console.log('여기는 뷰', this.successParams)
-    const temp = [this.send_data, this.successParams]
-
-    this.send_money(temp)
   }
 
   goaddcar() {
