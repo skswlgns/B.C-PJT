@@ -505,7 +505,7 @@
       await this.send_money(temp)
       await this.send_rate(this.star)
 
-    }
+      }
   }
 
   goaddcar() {

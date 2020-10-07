@@ -34,7 +34,7 @@
                   지갑 비밀번호를 입력해주세요.
                 </v-card-title>
                 <v-card-text class="modal_text">
-                  <input v-model="wallet_password" type="text" placeholder="비밀번호">
+                  <input v-model="wallet_password" placeholder="비밀번호">
                   <v-btn v-if="!wallet_complete && !is_loading" class="create_wal" @click="wallet_create(wallet_password)">지갑 생성</v-btn>
                   <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                   <h3>{{ my_wallet }}</h3>
