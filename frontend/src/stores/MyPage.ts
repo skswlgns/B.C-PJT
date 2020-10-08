@@ -141,7 +141,7 @@ export default class MyPage extends VuexModule {
       .then( async res => {
         console.log('김용욱 개천사', res.data)
         await this.context.dispatch("successTest", temp[1])
-        // await this.context.dispatch('article_complete', temp[2])
+        await this.context.dispatch('article_complete', temp[2])
         return res.data 
       })
       .catch( err => {
