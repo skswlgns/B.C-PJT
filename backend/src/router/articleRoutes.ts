@@ -15,7 +15,7 @@ const verificationMiddleware = require("../middleware/verification")
 // 전체 Article 조회: GET
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
-  await ArticleModel.find({ article_complete: false })
+  await ArticleModel.find({ article_select: { $not: "" } })
     .populate("user_id", "user_nickname user_email user_image")
     .sort({ article_created_at: -1 })
     .exec((err: Error, articles: any) => {
@@ -373,8 +373,13 @@ articleRoutes.put("/:article_id/completion", async (req: express.Request, res: e
         if (article.user_id.toString() !== user._id.toString()) {
           res.status(403).send({ message: "본인이 작성한 게시글이 아닙니다." })
         } else {
-          await ArticleModel.findOneAndUpdate({ _id: articleId }, { article_complete: true })
-          res.status(200).send({ message: `${articleId} article이 마감되었습니다.` })
+          await ArticleModel.findOneAndUpdate({ _id: articleId }, { article_complete: true }).exec((err, _) => {
+            if (err) {
+              res.status(500).send(err)
+            } else {
+              res.status(200).send({ message: `${articleId} article이 마감되었습니다.` })
+            }
+          })
         }
       }
     }
