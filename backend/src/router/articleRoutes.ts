@@ -373,8 +373,13 @@ articleRoutes.put("/:article_id/completion", async (req: express.Request, res: e
         if (article.user_id.toString() !== user._id.toString()) {
           res.status(403).send({ message: "본인이 작성한 게시글이 아닙니다." })
         } else {
-          await ArticleModel.findOneAndUpdate({ _id: articleId }, { article_complete: true })
-          res.status(200).send({ message: `${articleId} article이 마감되었습니다.` })
+          await ArticleModel.findOneAndUpdate({ _id: articleId }, { article_complete: true }).exec((err, _) => {
+            if (err) {
+              res.status(500).send(err)
+            } else {
+              res.status(200).send({ message: `${articleId} article이 마감되었습니다.` })
+            }
+          })
         }
       }
     }

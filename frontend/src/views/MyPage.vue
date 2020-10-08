@@ -151,7 +151,7 @@
         </div>
       </div>
       
-      <h2>진행 중</h2>
+      <h2>진행중인 통역</h2>
       <div class="ing-box">
         <!--요청한거부터 처리하자-->
         <div>
@@ -233,7 +233,7 @@
                       </v-card-title>
                       <v-card-text>
                         <input v-model="send_data.Password" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
-                        <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email)">송금하기</v-btn>
+                        <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email, post._id)">송금하기</v-btn>
                         <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>
                       <v-spacer></v-spacer>
@@ -288,11 +288,10 @@
       </div>
 
       <div>
-        <h2>내역</h2>
+        <h2>나의 통역 내역</h2>
         <div class="user-box">
           <v-row class="ma-4">
             <v-col>
-              <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     요청 ({{myarticle.length }})
@@ -325,11 +324,9 @@
                     </v-card>
                   </v-col>
                 </v-row>
-              </v-card>
             </v-col>
 
             <v-col>
-              <v-card>
                 <div class="d-flex">
                   <div class="ml-2 my-2">
                     참여 ({{ applyarticle.length}})
@@ -367,7 +364,6 @@
                     </v-card>
                   </v-col>
                 </v-row>
-              </v-card>
             </v-col>
           </v-row>
         </div>
@@ -519,7 +515,7 @@
     this.get_toEmail(post.article_select)
   }
 
-  async save_send(address : string, egg : number, toegg : string, title : string, client_email : string){
+  async save_send(address : string, egg : number, toegg : string, title : string, client_email : string, article_id:string){
 
     console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
@@ -537,7 +533,7 @@
       this.successParams.client_email = client_email,
       this.successParams.title = title
       this.successParams.money = egg
-      const temp = [this.send_data, this.successParams]
+      const temp = [this.send_data, this.successParams, article_id]
       await this.send_money(temp)
       await this.send_rate(this.star)
 

@@ -140,7 +140,8 @@ export default class MyPage extends VuexModule {
     await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
       .then( async res => {
         console.log('김용욱 개천사', res.data)
-        await this.context.dispatch("successTest",  temp[1])
+        await this.context.dispatch("successTest", temp[1])
+        await this.context.dispatch('article_complete', temp[2])
         return res.data 
       })
       .catch( err => {
@@ -151,6 +152,18 @@ export default class MyPage extends VuexModule {
           text: '다시 시도해주세요!'
         })
       })
+  }
+
+  @Action 
+  public async article_complete(article_id:string){
+    await axios.put(`${SERVER_URL}/articles/${article_id}/completion`)
+    .then(res => {
+      console.log(res.data)
+      location.reload()
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   @Action({ commit: "save_success"})
