@@ -12,7 +12,7 @@ const SERVER_URL = "https://j3b103.p.ssafy.io/api"
 @Module({ namespaced: true })
 export default class Login extends VuexModule {
   // states
-  public my_wallet: String = ""
+  public my_wallet: string = ""
   public is_loading: boolean = false 
   public wallet_complete: boolean = false
 
@@ -24,11 +24,12 @@ export default class Login extends VuexModule {
   }
 
   @Mutation
-  public SET_Wallet(wallet: String) {
-    this.my_wallet = wallet
+  public SET_Wallet(temp: any) {
+    console.log(temp, '오어ㅏ롬이너ㅣ란어마ㅣ런ㅇ마ㅣ')
+    this.my_wallet = temp
     this.is_loading = false
 
-    if (wallet == null){
+    if (temp == null){
       this.wallet_complete = false
     }
   }
@@ -75,22 +76,20 @@ export default class Login extends VuexModule {
     })
   }
 
-  @Action({ commit: "SET_Wallet" })
+  @Action({commit: "SET_Wallet"})
   public async create_wallet(wallet_password: String) {
     const wallet_data: any = {
       wallet_password: wallet_password,
     }
-    await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
-    .then(res => {
+    const res = await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
+    if (res.status === 200) {
       return res.data
-    })
-    .catch(err => {
-      console.log(err)
+    } else {
       Swal.fire({
         icon: 'error',
         title: '지갑 생성에 실패했습니다.',
         text: '다시 시도해주세요!'
       })
-    })
+    }
   }
 }
