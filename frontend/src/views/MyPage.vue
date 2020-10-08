@@ -69,7 +69,7 @@
               </template>
               <v-card>
                 <v-card-title class="headline">
-                  금액을 입력해주세요.
+                  금액을 입력해주세요.(1알 = 1만원)
                 </v-card-title>
                   <input v-model="chargeData.Egg" class="ml-6" placeholder="금액을 입력해주세요."/>
                   <v-btn v-if="!is_loading" @click="save_charge(myinfo.user_wallet)" class="charge_btn">충전하기</v-btn>
