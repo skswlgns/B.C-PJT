@@ -72,7 +72,7 @@
                 <div class="profile">
                     <img :src="'https://j3b103.p.ssafy.io/image/' + user_profile.user_image"  @click="goUserpage(user_profile)" alt="프로필 이미지" class="profile_image" v-if="user_profile.user_image" >
                     <img src="@/assets/images/user_basic.png" alt="프로필 이미지" v-else class="profile_image" @click="goUserpage(user_profile)">
-                    <div class="profile_nick" @click="goUserpage(user_profile)">{{user_profile.user_nickname}}</div>
+                    <div class="profile_nick"><p @click="goUserpage(user_profile)">{{user_profile.user_nickname}}</p></div>
 
                   <div class="applyUser">
                     <div class="native_lang">
