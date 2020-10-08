@@ -79,10 +79,10 @@
                       <p class="user_lang">{{user_profile.user_lang}}</p>
                       <p class="badge">모국어</p>
                   </div>
-                  <div class="native_lang" v-for="(li, index) in user_profile.user_good_lang" :key="index" style="font-family: Noto Sans">
-                    <p class="user_lang">{{li.slice(0, -1)}}</p>
-                    <p class="badge" v-if="li.slice(-1) == '1'">네이티브</p>
-                    <p class="badge" v-if="li.slice(-1) == '2'">고급</p>
+                  <div class="native_lang" v-for="(li, index) in user_profile.user_good_lang" :key="index">
+                    <p class="user_lang" style="font-family: Noto Sans">{{li.slice(0, -1)}}</p>
+                    <p class="badge" v-if="li.slice(-1) == '1'" style="font-family: Noto Sans">네이티브</p>
+                    <p class="badge" v-if="li.slice(-1) == '2'" style="font-family: Noto Sans">고급</p>
                   </div>
                 </div>
                 <v-spacer></v-spacer>
@@ -99,7 +99,7 @@
                     </template>
                     <v-card>
                       <v-card-text>
-                        <input v-model="contractData.passWord" type="text" placeholder="비밀번호">
+                        <input v-model="contractData.passWord" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
                         <v-btn @click="btn_click(user_profile._id, user_profile.user_email, article.user_id.user_email, article.article_title, article.user_id.user_wallet, user_profile.user_wallet, article._id, content._id, article.article_egg)">입력하기</v-btn>
                       </v-card-text>
                       <v-spacer></v-spacer>
