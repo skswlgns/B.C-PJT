@@ -25,7 +25,7 @@
                   </option>
                 </select>
                 <div>
-                  <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-2 mt-2">{{lang.slice(0,-1)}}
+                  <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="mx-2 mt-2" style="font-family: Noto Sans">{{lang.slice(0,-1)}}
                     <v-btn
                       class="mx-2"
                       fab
