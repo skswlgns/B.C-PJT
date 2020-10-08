@@ -10,16 +10,16 @@
           <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
           <div class="badge_fr">
             <p>{{ myinfo.user_lang }}</p>
-            <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
+            <div class="secondary text-no-wrap rounded-pill badge d-flex" style="font-family: Noto Sans"><span class="badge_font">모국어</span></div>
           </div>
           <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
-                <span class="abilities">{{ lang.slice(0,-1) }}</span>
-                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges">네이티브</span></div>
+                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
+                <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges" >네이티브</span></div>
               </span>
               <span v-else class="ability_fr">
-                <span class="abilities">{{ lang.slice(0,-1) }}</span>
+                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
                 <div class="deep-purple darken-1 text-no-wrap rounded-pill ab"><span class="badges">고급</span></div>  
               </span>
             </span>
@@ -105,24 +105,27 @@
                 <v-list-item-content>
 
                   <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
-                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>                  
-                  
-                  
+                  <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>    
                   <v-dialog
                     v-model="dialog4"
                     persistent
                     max-width="350"
                   >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="#AB47BC"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                        class="my-2 mr-10"
-                      >
-                        자세히보기
-                      </v-btn>
+                    <template v-slot:activator="{ on, attrs }" >
+                      <div class="d-flex justify-end">
+                        <v-btn
+                          color="#AB47BC"
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                          class="mr-2"
+                        >                      
+                          자세히보기
+                        </v-btn>
+                        <div class="d-flex justify-end">
+                          <v-btn color="error" class="mr-4" @click="del_resume(li)">삭제하기</v-btn>
+                        </div>   
+                      </div>
                     </template>
                     <v-card>
                       <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
@@ -137,12 +140,9 @@
                         </v-btn>
                       </v-card-actions>
                     </v-card>
-                  </v-dialog>                  
+                  </v-dialog>               
                 </v-list-item-content>
               </v-list-item>
-              <div class="d-flex">
-                <v-btn color="error" class="ml-auto mr-2 my-2" @click="del_resume(li)">삭제하기</v-btn>
-              </div>
             </v-card>
           </v-col>
         </v-row>
@@ -537,7 +537,7 @@
       await this.send_money(temp)
       await this.send_rate(this.star)
 
-    }
+      }
   }
 
   goaddcar() {

@@ -17,9 +17,9 @@
           <div class="nick-size">{{ userinfo.user_nickname }}<div v-if="userinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>          
           <div class="badge_fr">
             <p>{{ userinfo.user_lang }}</p>
-            <div class="secondary text-no-wrap rounded-pill badge"><span class="badge_font">모국어</span></div>
+            <div class="secondary text-no-wrap rounded-pill badge" style="font-family: Noto Sans"><span class="badge_font">모국어</span></div>
           </div>
-          <span class="ability" v-if="userinfo.user_good_lang != ''">
+          <span class="ability" v-if="userinfo.user_good_lang != ''" style="font-family: Noto Sans">
             <span v-for="(lang, index) in userinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
                 <span class="abilities">{{ lang.slice(0,-1) }}</span>
@@ -78,7 +78,38 @@
                   <v-list-item-title class="headline mb-1">{{ li.resume_name }}</v-list-item-title>
                   <v-list-item-subtitle class="my-2">{{li.resume_desc}}</v-list-item-subtitle>                  
                   
-                  <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                  <v-dialog
+                    v-model="dialog4"
+                    persistent
+                    max-width="350"
+                  >
+                    <template v-slot:activator="{ on, attrs }" >
+                      <div class="d-flex justify-end">
+                        <v-btn
+                          color="#AB47BC"
+                          dark
+                          v-bind="attrs"
+                          v-on="on"
+                          class="mr-2"
+                        >                      
+                          자세히보기
+                        </v-btn>
+                      </div>
+                    </template>
+                    <v-card>
+                      <pdf :src="'https://j3b103.p.ssafy.io/static/' + li.resume_file"></pdf>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="green darken-1"
+                          text
+                          @click="dialog4 = false"
+                        >
+                          Close
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-list-item-content>
               </v-list-item>
             </v-card>
@@ -133,6 +164,7 @@ import pdf from 'vue-pdf'
   export default class UserPage extends Vue {
     private imgurl: string = '';
     private candarticle : any = [];
+    private dialog4 : boolean = false
     
 
     @UserModule.State('userinfo')

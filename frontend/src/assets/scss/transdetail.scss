@@ -164,10 +164,14 @@
           width: 100px;
         }
         .profile_image {
-          width: 6%;
-          height: 6%;
+          width: 80px;
+          height: 80px;
           border-radius: 5rem;
           margin-right: 1rem;
+        }
+        .profile_nick {
+          min-width: 90px;
+
         }
         .applyUser{
           margin-top: 1%;

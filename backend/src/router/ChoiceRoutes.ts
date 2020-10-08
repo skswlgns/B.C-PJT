@@ -46,12 +46,10 @@ const ABI = [
 //계좌생성
 ChoiceRoutes.post("/newBalance", async (req: express.Request, res: express.Response) => {
   let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"))
-  let wallet_address: String = ""
   await web3.eth.personal
     .newAccount(req.body["wallet_password"])
     .then((response) => {
-      wallet_address = response
-      res.status(200).send(wallet_address)
+      res.status(200).send(response)
     })
     .catch((err) => {
       res.status(500).send(err)
