@@ -43,7 +43,6 @@ export default class MyPage extends VuexModule {
   @Mutation
   public async save_money(temp_data: String) {
     this.mymoney = temp_data
-    console.log(this.mymoney)
   }
 
   @Mutation
@@ -112,7 +111,6 @@ export default class MyPage extends VuexModule {
       },
     }
     const res = await axios.get(`${SERVER_URL}/users/my/candidates`, config)
-    console.log(res.data)
     return res.data
   }
 
@@ -122,8 +120,6 @@ export default class MyPage extends VuexModule {
       address: address,
     }
     const res = await axios.post(`${SERVER_URL}/eth/getBalance`, balance_data)
-    console.log('돈 확인 action')
-    console.log(res.data)
     return res.data
   }
 
@@ -134,18 +130,13 @@ export default class MyPage extends VuexModule {
 
   @Action({ commit: "save_success"})
   public async send_money(temp: any) {
-    console.log("돈 전송 action")
-    console.log('send_data', temp[0])
-    console.log('successParams', temp[1])
     await axios.post(`${SERVER_URL}/eth/transcoin`, temp[0])
       .then( async res => {
-        console.log('김용욱 개천사', res.data)
         await this.context.dispatch("successTest", temp[1])
         await this.context.dispatch('article_complete', temp[2])
         return res.data 
       })
-      .catch( err => {
-        console.log(err)
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: '송금에 실패했습니다.',
@@ -157,31 +148,25 @@ export default class MyPage extends VuexModule {
   @Action 
   public async article_complete(article_id:string){
     await axios.put(`${SERVER_URL}/articles/${article_id}/completion`)
-    .then(res => {
-      console.log(res.data)
+    .then(() => {
       location.reload()
     })
-    .catch(err => {
-      console.log(err)
+    .catch(() => {
+
     })
   }
 
   @Action({ commit: "save_success"})
   public async charge_money(temp: any) {
-    console.log("돈 충전 action")
-    console.log('send_data', temp)
-    console.log(!temp.PassWord)
     await axios.post(`${SERVER_URL}/eth/transcoin`, temp)
       .then( async res => {
-        console.log('김용욱 개개개개개천사', res.data)
         return res.data 
       })
-      .catch( err => {
-        console.log(err)
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: '충전에 실패했습니다.',
-          text: '다시 시도해주세요!'
+          text: '다시 시도해주세요!'          
         })
       })
   }
@@ -195,14 +180,6 @@ export default class MyPage extends VuexModule {
         "template_346dwuw",
         successParams,
         "user_3x0V5QZyfdtMPvYN4YMOC",
-      )
-      .then(
-        function(response) {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        function(error) {
-          console.log("FAILED...", error);
-        }
       );
   }
 
@@ -227,7 +204,6 @@ export default class MyPage extends VuexModule {
   @Action({ commit : 'save_email'})
   public async get_toEmail(_id:string){
     const res = await axios.get(`${SERVER_URL}/users/${_id}`)
-    console.log(res.data.user_email)
     return res.data.user_email    
   }
   
@@ -240,8 +216,6 @@ export default class MyPage extends VuexModule {
         resume_id: resume_list._id
       },
     }
-    console.log(config)
     const res = await axios.delete(`${SERVER_URL}/resume`, config)
-    console.log(res)
   }
 }

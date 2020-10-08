@@ -428,7 +428,6 @@
 
   save_charge(user_wallet: string){
     this.chargeData.toEgg = user_wallet
-    console.log(this.chargeData)
     this.loading()
     this.charge_money(this.chargeData)
   }
@@ -516,8 +515,6 @@
   }
 
   async save_send(address : string, egg : number, toegg : string, title : string, client_email : string, article_id:string){
-
-    console.log(address, egg, toegg, title, client_email)
     this.send_data.fromEgg = address
     this.send_data.Egg = egg
     this.send_data.toEgg = toegg
