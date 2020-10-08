@@ -15,7 +15,7 @@ const verificationMiddleware = require("../middleware/verification")
 // 전체 Article 조회: GET
 articleRoutes.get("/", async (req: express.Request, res: express.Response) => {
   // const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0
-  await ArticleModel.find({ article_select: { $not: "" } })
+  await ArticleModel.find({ article_complete: false })
     .populate("user_id", "user_nickname user_email user_image")
     .sort({ article_created_at: -1 })
     .exec((err: Error, articles: any) => {
