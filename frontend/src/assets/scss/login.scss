@@ -7,7 +7,7 @@
 		color: #FFFFFF;
 		font-size: 16px;
 		font-weight: bold;
-		padding: 20px 60px;
+		padding: 10px 40px;
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		margin-top: 1rem;
@@ -17,6 +17,7 @@
 		}
 		&:focus {
 			outline: none;
+
 		}
 	}
 	button.ghost {
@@ -30,7 +31,7 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		padding: 0 50px;
+		padding: 2rem 50px;
 		height: 100%;
 		text-align: center;
 	}
@@ -160,7 +161,20 @@
 			font-size: 1rem;
 		}
 	}
-	
+	.modal_text{
+		input {
+			background-color: black;
+			border: none;
+			padding: 12px 15px;
+			margin: 8px 0;
+			width: 80%;
+			color: black !important;
+		}
+		.create_wal{
+			background-color: #FF4B2B;
+			color: #FFFFFF;
+		}
+	}
 	.check {
 		color: red;
 	}
@@ -200,10 +214,10 @@
 			right: 0;
 			bottom: 0;
 			left: 0;
+			background: linear-gradient(to right, #FF4B2B, #FF416C);
 			background-repeat: no-repeat;
 			background-position: left bottom;
 			background-size: 500px;
-			background: linear-gradient(to right, #FF4B2B, #FF416C);
 		}
 
 		.signup {
@@ -391,7 +405,7 @@
 				}
 
 				.submit-btn {
-					background: linear-gradient(to right, #FF4B2B, #FF416C);;
+					background: linear-gradient(to right, #FF4B2B, #FF416C);
 					color: rgba(256, 256, 256, 0.7);
 					border: 0;
 					border-radius: 15px;

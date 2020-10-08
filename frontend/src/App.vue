@@ -7,14 +7,10 @@
         'img_logo_600 curs': windowWidth < 1000}]" @click="goHome()">
       </div>
       <!-- 로그인 되어 있을 경우 -->
-      <div class="right" v-if="this.$cookies.isKey('auth-token')">
+      <div class="right" v-if="this.$cookies.isKey('token')">
         <!-- 마이페이지 -->
         <span>
           <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
-        </span>
-        <!-- 알림 -->
-        <span>
-          <i class="far fa-bell fa-2x nav_icon"></i>
         </span>
         <!-- 로구아웃 -->
         <span>
@@ -25,7 +21,7 @@
       <!-- 로그인이 안되어 있을 경우 -->
       <div v-else class="right">
         <span>
-          <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i> 
+          <i class="fas fa-sign-in-alt fa-2x nav_icon" @click="goLogin()"></i> 
         </span>
       </div>
     </div>
@@ -36,17 +32,19 @@
         <div class="ml-2 ">
           <img src="@/assets/images/logo_mobile.png" alt="로고!" class="img_mobile" @click="goHome()">
         </div>
-        <div class="mr-2 nav">
-          <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
+        <div class="d-flex" v-if="this.$cookies.isKey('token')">
+          <!-- 마이페이지 -->
+          <div class="mr-2 nav">
+            <i class="fas fa-user-circle fa-2x nav_icon" @click="goMypage()"></i>
+          </div>
+          <!-- 로구아웃 -->
+          <div class="mr-2 nav">
+            <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogout()"></i>
+          </div>
         </div>
-        <!-- 알림 -->
-        <div class="mr-2 nav">
-          <i class="far fa-bell fa-2x nav_icon"></i>
-        </div>
-        <!-- 로구아웃 -->
-        <div class="mr-2 nav">
+        <div class="mr-2 nav" v-else>
           <i class="fas fa-sign-out-alt fa-2x nav_icon" @click="goLogin()"></i>
-        </div>
+        </div>        
       </div>
     </div>
     <router-view/>
@@ -72,7 +70,8 @@
         this.$router.push('/login').catch(()=>{})
       },
       goLogout() {
-        this.$cookies.remove('auth-token')
+        this.$cookies.remove('token')
+        this.$cookies.remove('email')
         this.$router.push('/home').catch(()=>{})
         location.reload()
         alert('로그아웃 되었습니다.')
@@ -95,4 +94,5 @@
 
 <style lang="scss">
   @import '@/assets/scss/nav.scss';
+  @import '@/assets/scss/reset.scss';
 </style>

@@ -2,32 +2,80 @@
     box-sizing: border-box;
   }
   
-  .user-box {
-    background-color: white;
-    margin: 3vh 0;
-      
-    .box{
-      width: 10vw;
-      height: 10vw; 
-      border-radius: 70%;
-      overflow: hidden;
-      margin: 1.3vh 4vw;
-    }
-    .pure-mt {
-      margin-top: 1.8vw;
-  
-      .nick-size {
-        font-size: 1.8vw;
-        font-weight: bold;
-      }
-  
-      p, span {
-        font-size: 1.2vw;
-      }
-    }  
-  }
+.user-box {
+	background-color: white;
+	margin: 3vh 0;
+	.box{
+		width: 10vw;
+		height: 10vw; 
+		border-radius: 70%;
+		overflow: hidden;
+		margin: 1.3vh 4vw;
+	}
+	.pure-mt {
+		margin-top: 1.8vw;
+		.nick-size {
+			font-size: 1.8vw;
+			font-weight: bold;
+		}
+		p, span {
+			font-size: 1.2vw;
+		}
+		.badge_fr {
+			display: flex;
+			p {
+				display: inline;
+				margin: auto 2%;
+				margin-left: 0;
+			}
+			.badge {
+				min-width: 60px;
+				height: 28px;
+				text-align: center;
+				.badge_font {
+					font-size: 10px;
+					color: white;
+				}
+			}	
+		}
+		.ability {
+			display: flex;
+			margin-top: 3%;
+			flex-wrap: wrap;
+			.abil {
+				display: flex;
+				margin-left: 0;
+				margin-right: 5%;
+				.ability_fr {
+					margin-top: 5%;
+					display: flex;
+					// display: inline-block;
+					.abilities {
+						display: flex;
+						margin-right: 5%;
+					}
+					.ab {
+						display: flex;
+						min-width: 60px;
+						height: 28px;
+						justify-content: center;
+						align-items: center;	
+						.badges {
+							font-size: 10px;
+							color: white;
+						}
+					}	
+				}
+			}
+		}
+	}
+	&:nth-of-type(3) {
+		color: blue;
+	}
+}
 
-  .card-container {
+
+	.card-container {
 	background-color: #FFFFFF;
 	border-radius: 5px;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
@@ -97,3 +145,4 @@ button.primary_pure.ghost {
 	width: 350px;
 	max-width: 100%;
 }
+

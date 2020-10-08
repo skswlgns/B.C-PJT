@@ -1,31 +1,233 @@
+	
 * {
   box-sizing: border-box;
 }
 
+@keyframes textclip {
+	to {
+		background-position: 200% center;
+	}
+}
 .user-box {
   background-color: white;
-  margin: 3vh 0;
-    
-  .box{
-    width: 10vw;
-    height: 10vw; 
-    border-radius: 70%;
-    overflow: hidden;
-    margin: 1.3vh 4vw;
+  margin-bottom: 50px;
+  box-shadow: 2px 2px 3px 2px #eee;
+  img {
+	  margin: auto 5%;
   }
-  .pure-mt {
-    margin-top: 1.8vw;
 
-    .nick-size {
-      font-size: 1.8vw;
-      font-weight: bold;
-    }
-
-    p, span {
-      font-size: 1.2vw;
-    }
-  }  
 }
+.ing-box {
+	box-shadow: 2px 2px 3px 2px  #eee;
+	margin-bottom: 50px;
+}
+
+.no_style{
+	list-style: none;
+}
+
+.two_box{
+	display: flex;
+	.btn_box{
+		width: 400px;
+		padding: 1.5rem 0;
+		border-left: 1px solid #eee;
+		.chat_btn{
+			color: white;
+			font-weight: bold;
+			border-radius: 0.5rem;
+			padding: 0.5rem 1rem;
+			width: 150px;
+			margin: 0 25%;
+			margin-bottom: 1rem;
+		}
+		.send_btn{
+			color: white;
+			font-weight: bold;
+			font-size: 16px;
+			border-radius: 0.5rem;
+			width: 150px;
+			padding: 0.5rem 1rem;	
+			margin: 0 25%;	
+		}
+	}
+	.chat_box{
+		width: 400px;
+		padding: 1rem ;
+		border-left: 1px solid #eee;
+		text-align: center;
+		p{
+			font-weight: bold;
+		}
+		.room{
+			color: red;
+		}
+	}
+}
+
+.router{
+	padding: 0 1rem;
+	width: 700px;
+	.card_header{
+		display: flex;
+		margin: auto;
+		.ing{
+			border: 2px solid #43A047;
+			height: 50%;
+			padding: 0.3rem 0.7rem;
+			color: #43A047;
+			font-weight: bold;
+			border-radius: 3rem;
+			margin-bottom: 1rem;
+		}
+		.end{
+			border: 2px solid #0288D1;
+			height: 50%;
+			padding: 0.3rem 0.7rem;
+			color: #0288D1;
+			font-weight: bold;
+			border-radius: 3rem;
+			margin-bottom: 1rem;
+		}
+		.complete{
+			border: 2px solid #FF3D00;
+			height: 50%;
+			padding: 0.3rem 0.7rem;
+			color: #FF3D00;
+			font-weight: bold;
+			border-radius: 3rem;
+			margin-bottom: 1rem;
+		}
+		.request{
+			border: 2px solid #FB8C00;
+			color:	#FB8C00;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.apply{
+			border: 2px solid #D500F9;
+			color: #D500F9;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.complete{
+			border: 2px solid red;
+			color: red;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.nocomplete{
+			border: 2px solid green;
+			color: green;
+			font-weight: bold;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
+		}
+		.point {
+			border: 1px solid lightgray;
+			border-radius: 1rem;
+			padding: 0.3rem 0.5rem;
+			background-color: white;
+			margin-right: 0.5rem;
+			font-weight: bold;
+			height: 6%;
+			.egg_icon{
+				color: #FFAB00;
+			}
+		}
+	}
+}
+
+.box{
+	width: 10vw;
+	height: 10vw; 
+	border-radius: 70%;
+	overflow: hidden;
+	margin: 1.3vh 4vw;
+}
+.pure-mt {
+	margin-top: 1.8vw;
+	.egg_icon{
+		color: #FFAB00;
+		font-size: x-large;
+	}
+
+	.nick-size {
+		min-width: 350px;
+		display: flex;
+		font-size: 1.8vw;
+		font-weight: bold;
+		div {
+			margin-left: 2%;
+		}
+	}
+
+	p, span {
+		font-size: 1.2vw;
+	}
+	.badge_fr {
+		display: flex;
+		p {
+			display: inline;
+			margin: auto 2%;
+			margin-left: 0;
+		}
+		.badge {
+			min-width: 60px;
+			height: 28px;
+			text-align: center;
+			justify-content: center;
+			align-items: center;
+			.badge_font {
+				font-size: 10px;
+				color: white;
+			}
+		}
+	}
+	.ability {
+		display: flex;
+		margin-top: 3%;
+		flex-wrap: wrap;
+		.abil {
+			display: flex;
+			margin-left: 0;
+			margin-right: 5%;
+			.ability_fr {
+				margin-top: 5%;
+				display: flex;
+				// display: inline-block;
+				.abilities {
+					display: flex;
+					margin-right: 5%;
+				}
+				.ab {
+					display: flex;
+					min-width: 60px;
+					height: 28px;
+					justify-content: center;
+					align-items: center;	
+					.badges {
+						font-size: 10px;
+						color: white;
+	
+					}
+	
+				}
+	
+			}
+		}
+
+	}
+	.egg {
+		margin-top: 2rem;
+		font-weight: bold;
+	}
+
+}  
+
 
 .card-container {
 	background-color: #FFFFFF;
@@ -96,4 +298,9 @@ button.primary_pure.ghost {
   position: relative;
 	width: 350px;
 	max-width: 100%;
+}
+
+.router{
+	text-decoration:none;
+	color: black;
 }

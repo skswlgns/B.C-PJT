@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
 import Home2 from '@/views/Home2.vue'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import NotFound from '@/views/NotFound.vue'
 import MyPage from '@/views/MyPage.vue'
 import TransDetail from '@/views/TransDetail.vue'
+import TranslateRegist from '@/views/TranslateRegist.vue'
 import UserPage from '@/views/UserPage.vue'
 import RegistTrans from '@/views/RegistTrans.vue'
+import EditProfile from '@/views/EditProfile.vue'
+import Edittrans from '@/views/Edittrans.vue'
+import AddCareer from '@/views/AddCareer.vue'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 Vue.use(VueRouter)
 
 const routes = [
@@ -22,12 +28,22 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next('/home')
+      }
+      else {
+        next()
+      }
+    }
+
   },
   {
-    path: '/transdetail',
+    path: '/transdetail/:id',
     name: 'TransDetail',
-    component: TransDetail
+    component: TransDetail,
+    props: true,
   },
 
   // 지훈
@@ -43,23 +59,67 @@ const routes = [
   {
     path: '/mypage',
     name: 'MyPage',
-    component: MyPage
+    component: MyPage,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next()
+      }
+      else {
+        next('/login')
+      }
+    }
   },
   {
-    path: '/userpage',
+    path: '/userpage/:id',
     name: 'UserPage',
     component: UserPage,
+    props: true,
   },
   {
     path: '/registtrans',
     name: "RegistTrans",
     component: RegistTrans
   },
+  {
+    path: '/editprofile',
+    name: 'EditProfile',
+    component: EditProfile,
+    props: true,
+  },
+  {
+    path: '/edittrans',
+    name: 'Edittrans',
+    component: Edittrans,
+  },
+  {
+    path: '/addcareer',
+    name: 'AddCareer',
+    component: AddCareer,
+  },
   // 도희
   {
     path: '/',
     name: 'Home2',
     component: Home2
+  },
+  {
+    path: '/regist',
+    name: 'TranslateRegist',
+    component: TranslateRegist,
+    beforeEnter(to:any, from:any, next:any) {
+      if (Vue.cookies.isKey('token')) {
+        next()
+      }
+      else {
+        next('/login')
+      }
+    }
+  },
+  {
+    path: '/transdetail/revise/:id',
+    name: 'TransRevise',
+    component: TranslateRegist,
+    props: true,
   },
 ]
 
