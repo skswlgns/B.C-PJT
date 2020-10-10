@@ -6,11 +6,6 @@
         <div class="top-landing">
           <div class="top-inner">
             <div class="slide"> 
-              <img src="../assets/images/peo1.png" class="item" alt="mian model">
-              <img src="../assets/images/peo2.png" class="item" alt="mian model">
-              <img src="../assets/images/peo3.png" class="item" alt="mian model">
-              <img src="../assets/images/peo4.png" class="item" alt="mian model">
-              <img src="../assets/images/peo5.png" class="item" alt="mian model">
             </div>
             <table class="table-center">
               <th id="home-table">
