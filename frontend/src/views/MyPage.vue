@@ -7,19 +7,19 @@
         <img :src="'https://j3b103.p.ssafy.io/image/' + myinfo.user_image" alt="profile_image" class="box" v-if="myinfo.user_image">
         <img src="@/assets/images/user_basic.png" alt="profile_image" class="box" v-else>
         <div class="pure-mt"> 
-          <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png"></div></div>
+          <div class="nick-size">{{ myinfo.user_nickname }}<div v-if="myinfo.user_is_ts === true"><img src="../assets/images/crown.png" alt="badge"></div></div>
           <div class="badge_fr">
             <p>{{ myinfo.user_lang }}</p>
-            <div class="secondary text-no-wrap rounded-pill badge d-flex" style="font-family: Noto Sans"><span class="badge_font">모국어</span></div>
+            <div class="secondary text-no-wrap rounded-pill badge d-flex" ><span class="badge_font">모국어</span></div>
           </div>
-          <span class="ability" v-if="myinfo.user_good_lang != ''" style="font-family: Noto Sans">
+          <span class="ability" v-if="myinfo.user_good_lang != ''" >
             <span v-for="(lang, index) in myinfo.user_good_lang" :key="index" class="abil"> 
               <span class="ability_fr" v-if="lang.slice(-1) == 1">
-                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
+                <span class="abilities" >{{ lang.slice(0,-1) }}</span>
                 <div class="green darken-4 text-no-wrap rounded-pill ab"><span class="badges" >네이티브</span></div>
               </span>
               <span v-else class="ability_fr">
-                <span class="abilities" style="font-family: Noto Sans">{{ lang.slice(0,-1) }}</span>
+                <span class="abilities" >{{ lang.slice(0,-1) }}</span>
                 <div class="deep-purple darken-1 text-no-wrap rounded-pill ab"><span class="badges">고급</span></div>  
               </span>
             </span>
@@ -232,7 +232,7 @@
                         계좌 비밀번호를 입력해주세요. 
                       </v-card-title>
                       <v-card-text>
-                        <input v-model="send_data.Password" type="password" placeholder="비밀번호" style="font-family: Noto Sans">
+                        <input v-model="send_data.Password" type="password" placeholder="비밀번호" >
                         <v-btn v-if="!is_loading" @click="save_send(myinfo.user_wallet, post.article_egg, post.article_to_egg, post.article_title, myinfo.user_email, post._id)">송금하기</v-btn>
                         <b-spinner v-if="is_loading" label="Loading..."></b-spinner>
                       </v-card-text>
@@ -253,7 +253,7 @@
 
         <!--지원한거-->
         <div>
-          <li class="no_style" v-for="(post, index) in applyarticle" :key="index">
+          <div class="no_style" v-for="(post, index) in applyarticle" :key="index">
             <v-card
               class="my-3 two_box"
               max-width="1600"
@@ -283,7 +283,7 @@
                 <p>Room : <span class="room">{{post.article_id._id.substr(0, 7)}}</span></p>
               </div>
             </v-card>
-          </li>
+          </div>
         </div>
       </div>
 

@@ -13,7 +13,7 @@
               <img src="../assets/images/peo5.png" class="item" alt="mian model">
             </div>
             <table class="table-center">
-              <th>
+              <th id="home-table">
                 <tr>
                   <td></td>
                   <td></td>
