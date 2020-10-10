@@ -7,14 +7,14 @@
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="searchData.lang_1" id="searchData.lang_1">
             <option value="" disabled>통역받을 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
               {{ option.text }}
             </option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
           <select v-model="searchData.lang_2" name="searchData.lang_2" id="searchData.lang_2" >
             <option value="" disabled>통역할 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
+            <option v-for="(option, index) in options" :value="option.value" :key="index">
               {{ option.text }}
             </option>
           </select>
@@ -53,7 +53,7 @@
             </ul>
           </div>
           <div v-if="articleData.length === 0">
-            <img src="../assets/images/텅.png" class="searchImg">
+            <img src="../assets/images/텅.png" class="searchImg" alt="텅 이미지">
           </div>
         </v-col>
 
@@ -74,14 +74,14 @@
         <div class="selection_lang">
           <select v-model="searchData.lang_1" name="serachData.lang_1" id="serachData.lang_1">
             <option value="" disabled>통역받을 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
+            <option v-for="(option, index) in options" :value="option.value" :key="index"  >
               {{ option.text }}
             </option>
           </select>
           <v-icon class="swap_icon">mdi-swap-horizontal-bold</v-icon>
           <select v-model="searchData.lang_2" name="serachData.lang_2" id="serachData.lang_2">
             <option value="" disabled>통역할 언어</option>
-            <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
+            <option v-for="(option, index) in options" :value="option.value" :key="index"  >
               {{ option.text }}
             </option>
           </select>
@@ -144,7 +144,7 @@
           </li>
         </ul>
         <div v-if="articleData.length === 0">
-          <img src="../assets/images/텅.png" class="searchImg" style="width: 100%">
+          <img src="../assets/images/텅.png" class="searchImg" style="width: 100%" alt="텅 이미지">
         </div>
       </div>
     </div>

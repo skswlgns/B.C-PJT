@@ -8,7 +8,7 @@
           <img src="@/assets/images/user_basic.png"  alt="profile_image" class="box" v-else>
           <div class="pure-mt">
             <span class="nick-size">{{ myinfo.user_nickname }}</span>
-            <p style="font-family: Noto Sans">모국어 | {{myinfo.user_lang}}</p>
+            <p >모국어 | {{myinfo.user_lang}}</p>
           </div>
         </div>
         <div class="mt-15">
@@ -42,7 +42,7 @@
               <label class="custom-select" for="styledSelect1">
                 <select id="styledSelect1" name="options" @change="onChange($event)">
                   <option value="" disabled>Please select</option>
-                  <option v-for="(option, index) in options" :value="option.value" :key="index" style="font-family: Noto Sans">
+                  <option v-for="(option, index) in options" :value="option.value" :key="index" >
                     {{ option.text }}
                   </option>
                 </select>
