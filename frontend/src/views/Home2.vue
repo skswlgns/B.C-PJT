@@ -41,12 +41,6 @@
                 </tr>
                 <tr class="space"></tr>
                 <tr>
-                  <td> 
-                    <!-- <a href='/home'>빠르게 통역하기</a> -->
-                  </td>
-                  <td>
-                    <!-- <a href="/home">전문통역 견적받기</a> -->
-                  </td>
                   <td>
                     <a href="/home">Go Mamago </a>
                   </td>
@@ -70,7 +64,6 @@
                   <p>시·공간 제약 X</p>
                   <p>언제, 어디서든 원할 때 통역을 할 수 있습니다.</p> 
                 </div>
-                <!-- <a href="/home">통역 참여하기</a> -->
               </div>
             <div class="text-content2">
               <div class="interval">

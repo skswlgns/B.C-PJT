@@ -68,6 +68,8 @@
 .router{
 	padding: 0 1rem;
 	width: 700px;
+	text-decoration:none;
+	color: black;
 	.card_header{
 		display: flex;
 		margin: auto;
@@ -95,8 +97,9 @@
 			padding: 0.3rem 0.7rem;
 			color: #FF3D00;
 			font-weight: bold;
-			border-radius: 3rem;
 			margin-bottom: 1rem;
+			border-radius: 1rem;
+			padding: 0 0.5rem;	
 		}
 		.request{
 			border: 2px solid #FB8C00;
@@ -108,13 +111,6 @@
 		.apply{
 			border: 2px solid #D500F9;
 			color: #D500F9;
-			font-weight: bold;
-			border-radius: 1rem;
-			padding: 0 0.5rem;	
-		}
-		.complete{
-			border: 2px solid red;
-			color: red;
 			font-weight: bold;
 			border-radius: 1rem;
 			padding: 0 0.5rem;	
@@ -298,9 +294,4 @@ button.primary_pure.ghost {
   position: relative;
 	width: 350px;
 	max-width: 100%;
-}
-
-.router{
-	text-decoration:none;
-	color: black;
 }
