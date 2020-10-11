@@ -26,7 +26,6 @@
         </div>
 
         <div>
-          <!-- <h3 class="ml-4"> 프로필 이미지 </h3> -->
           <v-col xs="6" md="11" class="mx-auto">
             <v-file-input
               :rules="rules"
@@ -90,6 +89,3 @@ export default class EditProfile extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
