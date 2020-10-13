@@ -1,0 +1,595 @@
+@import "./mixin";
+
+@keyframes move {
+    to {
+        transform: translateY(150%);
+    }
+}
+@include desktop {
+    .frame {
+        width: 100%;
+        .frame2 {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            .input {
+                // background-color: red;
+                box-shadow: 2px 2px 3px 2px #eee;
+                background: white;
+                border: #{$input-box};
+                flex: 2;
+                padding: 3% 3%; 
+                h1 {
+                    // font-family: #{$Gugi};
+                    font-size: 2rem;
+                    text-align: center;
+                }
+                .lang_input {
+                    margin: 5% auto;
+                    text-align-last: center;
+                    option {
+                        font-family: #{$Sunflower};
+                        font-size: 1.2rem;
+                    }
+                    .select_lang {
+                        height: 100px;
+                        border: #{$input-box};
+                        display: flex;
+                        font-family: #{$Sunflower};
+                        .lang_1 {
+                            flex: 2;
+                        }
+                        .swap_icon {    
+                            flex: 1
+                        }
+                        .lang_2 {
+                            flex: 2;
+                        }
+                    }
+                }
+            }
+            .point_fr {
+                display: flex;
+                text-align-last: center;
+                .point {
+                    margin: 5% auto;
+                    border: #{$input-box};
+                    height: 50px;
+                    flex: 3;
+                }
+                input {
+                    width: 0;
+                }
+                .space {
+                    flex: 1;
+                }
+                .btn_fr {
+                    flex: 1;
+                    color: #313131;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    font-family: 'Raleway', sans-serif;
+                    .btn {
+                        margin-top: 25%;
+                        width: 100%;
+                        text-decoration: none;
+                        display: block;
+                        height: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        position: relative;
+                        // position: absolute;
+                        transform: translate(-52%);
+                        transition: all .3s ease-out;  
+                        .flip-front, 
+                        .flip-back {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            transform-style: flat;
+                            transition: transform .3s ease-out;
+                        }
+                        .flip-front {
+                            color: #313131;
+                            border: 2px solid #313131;
+                            background-color: transparent;
+                            transform: rotateX(0deg) translateZ(25px);
+                        }
+                        
+                        .flip-back {
+                          color: #fff;
+                          background-color: #313131;
+                          border: 2px solid #313131;
+                          transform: rotateX(90deg) translateZ(25px);
+                        }
+                        
+                    }
+                    .btn:hover .flip-front {
+                        cursor: pointer;
+                        transform: rotateX(-90deg) translateZ(25px);
+                    }
+                    
+                    .btn:hover .flip-back {
+                        cursor: pointer;
+                        transform: rotateX(0deg) translateZ(25px);
+                    }
+                }
+            }
+            .date_fr {
+                display: flex;
+                margin: 5% auto;
+                text-align-last: center;
+                .v-text-field input {
+                    padding: 18% 0 8px;
+                }
+                .v-input {
+                    margin-top: 2%;
+                }
+                .v-input__slot:before {
+                    border-style: none;
+                }
+                .start_date, .start_time, .end_date, .end_time {
+                    flex: 1;
+                    border: #{$input-box};
+                    margin-right: 2%;
+                }
+                .end_time {
+                    margin-right: 0;
+                }
+            }
+            .title_fr, .content_fr, .request_fr {
+                border: #{$input-box};
+                margin: 5% 0;
+                .main-hr {
+                    width: 30%;
+                    border: none;
+                    border-top: 1px solid #c3c3c3;
+                  }
+                .icon-btn {
+                    width: 50px;
+                    height: 50px;
+                    border: 1px solid #cdcdcd;
+                    background: white;
+                    border-radius: 25px;
+                    overflow: hidden;
+                    position: relative;
+                    transition: width 0.2s ease-in-out;
+                  }
+                .add-btn:hover {
+                    width: 100px;
+                  }
+                .add-btn::before,
+                .add-btn::after {
+                    transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+                    content: "";
+                    position: absolute;
+                    height: 4px;
+                    width: 10px;
+                    top: calc(50% - 2px);
+                    background: red;
+                  }
+                .add-btn::after {
+                    right: 14px;
+                    overflow: hidden;
+                    border-top-right-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                  }
+                .add-btn::before {
+                    left: 14px;
+                    border-top-left-radius: 2px;
+                    border-bottom-left-radius: 2px;
+                  }
+                .icon-btn:focus {
+                    outline: none;
+                  }
+                .btn-txt {
+                    opacity: 0;
+                    transition: opacity 0.2s;
+                  }
+                .add-btn:hover::before,
+                .add-btn:hover::after {
+                    width: 4px;
+                    border-radius: 2px;
+                  }
+                .add-btn:hover .btn-txt {
+                    opacity: 1;
+                  }
+                .add-icon::after,
+                .add-icon::before {
+                    transition: all 0.2s ease-in-out;
+                    content: "";
+                    position: absolute;
+                    height: 20px;
+                    width: 2px;
+                    top: calc(50% - 10px);
+                    background: red;
+                    overflow: hidden;
+                  }
+                .add-icon::before {
+                    left: 22px;
+                    border-top-left-radius: 2px;
+                    border-bottom-left-radius: 2px;
+                  }
+                .add-icon::after {
+                    right: 22px;
+                    border-top-right-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                  }
+                .add-btn:hover .add-icon::before {
+                    left: 15px;
+                    height: 4px;
+                    top: calc(50% - 2px);
+                  }
+                .add-btn:hover .add-icon::after {
+                    right: 15px;
+                    height: 4px;
+                    top: calc(50% - 2px);
+                  }
+                    
+                .text, .content, .request {
+                    width: 100%;
+                }
+                .content {
+                    height: 100px;
+                }
+                .request_stage {
+                    height: 100%;
+                    padding: 5% 5%;
+                    .first_request {
+                        display: flex;
+                        margin : 3% auto;
+                        .request {
+                            flex: 3;
+                            border: #{$input-box};
+                            height: 50px;
+                        }
+                        .plus_btn {
+                            text-align: center;
+                            flex: 1.3;
+                        }
+                    }
+                }
+            }
+            .file_input {
+                margin: 3% auto;
+            }
+            .space {
+                flex: 0.05;
+            }
+            .regist {
+                min-width: 250px;
+                position: relative;     
+                flex: 1;
+                // animation: move 3s ease-in;
+                .memo {
+                    box-shadow: 2px 2px 3px 2px #eee;
+                    position: absolute;
+                    width: 100%;
+                    border: #{$input-box};
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    h2 {
+                        // font-family: #{$Gugi};
+                        font-weight: bold;
+                        margin: 3% auto;
+                    }
+                    h3 {
+                        // font-family: #{$Gugi};
+                        font-weight: bold;
+                        margin: 3% auto;
+                    }
+                    .language {
+                        display : flex;
+                        div {
+                            &:nth-child(1) {
+                                flex: 2
+                            }
+                            &:nth-child(2) {
+                                flex: 1
+                            }
+                            &:nth-child(3) {
+                                flex: 2
+                            }
+                        }
+                    }
+                    .request_btn {
+                        margin: 5% 5%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@include mobile {
+    .frame {
+        width: 100%;
+        .frame2 {
+            width: 100%;
+            text-align: center;
+            .input {
+                border: #{$input-box};
+                h1 {
+                    font-family: #{$Gugi};
+                    font-size: 1rem;
+                }
+                .lang_input {
+                    width: 100%;
+                    margin: 5% auto;
+                    text-align-last: center;
+                    option {
+                        font-family: #{$Sunflower};
+                        font-size: 0.5rem;
+                    }
+                    .select_lang {
+                        height: 100px;
+                        border: #{$input-box};
+                        display: flex;
+                        font-family: #{$Sunflower};
+                        .lang_1 {
+                            min-width: 100px;
+                            flex: 2;
+                        }
+                        .swap_icon {    
+                            flex: 1;
+                        }
+                        .lang_2 {
+                            min-width: 100px;
+                            flex: 2;
+                        }
+                    }
+                }
+            }
+            .point_fr {
+                display: flex;
+                text-align-last: center;
+                .point {
+                    margin: 5% auto;
+                    border: #{$input-box};
+                    height: 50px;
+                    flex: 3;
+                }
+                input {
+                    width: 0;
+                }
+                .space {
+                    flex: 1;
+                }
+                .btn_fr {
+                    flex: 1;
+                    color: #313131;
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    font-family: 'Raleway', sans-serif;
+                    .btn {
+                        margin-top: 25%;
+                        width: 100%;
+                        text-decoration: none;
+                        display: block;
+                        height: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        position: relative;
+                        // position: absolute;
+                        transform: translate(-52%);
+                        transition: all .3s ease-out;  
+                        .flip-front, 
+                        .flip-back {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            transform-style: flat;
+                            transition: transform .3s ease-out;
+                        }
+                        .flip-front {
+                            color: #313131;
+                            border: 2px solid #313131;
+                            background-color: transparent;
+                            transform: rotateX(0deg) translateZ(25px);
+                        }
+                        
+                        .flip-back {
+                          color: #fff;
+                          background-color: #313131;
+                          border: 2px solid #313131;
+                          transform: rotateX(90deg) translateZ(25px);
+                        }
+                        
+                    }
+                    .btn:hover .flip-front {
+                        cursor: pointer;
+                        transform: rotateX(-90deg) translateZ(25px);
+                    }
+                    
+                    .btn:hover .flip-back {
+                        cursor: pointer;
+                        transform: rotateX(0deg) translateZ(25px);
+                    }
+                }
+            }
+            .date_fr {
+                display: flex;
+                margin: 5% auto;
+                text-align-last: center;
+                .v-text-field input {
+                    padding: 18% 0 8px;
+                }
+                .v-input {
+                    margin-top: 2%;
+                }
+                .v-input__slot:before {
+                    border-style: none;
+                }
+                .start_date, .start_time, .end_date, .end_time {
+                    flex: 1;
+                    border: #{$input-box};
+                    margin-right: 2%;
+                }
+                .end_time {
+                    margin-right: 0;
+                }
+            }
+            .title_fr, .content_fr, .request_fr {
+                border: #{$input-box};
+                margin: 5% 0;
+                .main-hr {
+                    width: 30%;
+                    border: none;
+                    border-top: 1px solid #c3c3c3;
+                  }
+                .icon-btn {
+                    width: 50px;
+                    height: 50px;
+                    border: 1px solid #cdcdcd;
+                    background: white;
+                    border-radius: 25px;
+                    overflow: hidden;
+                    position: relative;
+                    transition: width 0.2s ease-in-out;
+                  }
+                .add-btn:hover {
+                    width: 100px;
+                  }
+                .add-btn::before,
+                .add-btn::after {
+                    transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+                    content: "";
+                    position: absolute;
+                    height: 4px;
+                    width: 10px;
+                    top: calc(50% - 2px);
+                    background: red;
+                  }
+                .add-btn::after {
+                    right: 14px;
+                    overflow: hidden;
+                    border-top-right-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                  }
+                .add-btn::before {
+                    left: 14px;
+                    border-top-left-radius: 2px;
+                    border-bottom-left-radius: 2px;
+                  }
+                .icon-btn:focus {
+                    outline: none;
+                  }
+                .btn-txt {
+                    opacity: 0;
+                    transition: opacity 0.2s;
+                  }
+                .add-btn:hover::before,
+                .add-btn:hover::after {
+                    width: 4px;
+                    border-radius: 2px;
+                  }
+                .add-btn:hover .btn-txt {
+                    opacity: 1;
+                  }
+                .add-icon::after,
+                .add-icon::before {
+                    transition: all 0.2s ease-in-out;
+                    content: "";
+                    position: absolute;
+                    height: 20px;
+                    width: 2px;
+                    top: calc(50% - 10px);
+                    background: red;
+                    overflow: hidden;
+                  }
+                .add-icon::before {
+                    left: 22px;
+                    border-top-left-radius: 2px;
+                    border-bottom-left-radius: 2px;
+                  }
+                .add-icon::after {
+                    right: 22px;
+                    border-top-right-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                  }
+                .add-btn:hover .add-icon::before {
+                    left: 15px;
+                    height: 4px;
+                    top: calc(50% - 2px);
+                  }
+                .add-btn:hover .add-icon::after {
+                    right: 15px;
+                    height: 4px;
+                    top: calc(50% - 2px);
+                  }
+                    
+                .text, .content, .request {
+                    width: 100%;
+                }
+                .content {
+                    height: 100px;
+                }
+                .request_stage {
+                    height: 100%;
+                    padding: 5% 5%;
+                    .first_request {
+                        display: flex;
+                        margin : 3% auto;
+                        .request {
+                            flex: 3;
+                            border: #{$input-box};
+                            height: 50px;
+                        }
+                        .plus_btn {
+                            text-align: center;
+                            flex: 1.3;
+                        }
+                    }
+                }
+            }
+            .space {
+                margin: 3% 0;
+            }
+            .regist {
+                .memo {
+                    position: absolute;
+                    width: 100%;
+                    border: #{$input-box};
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    h2 {
+                        font-family: #{$Gugi};
+                        margin: 3% auto;
+                    }
+                    h3 {
+                        font-family: #{$Gugi};
+                        margin: 3% auto;
+                    }
+                    .language {
+                        display : flex;
+                        div {
+                            &:nth-child(1) {
+                                flex: 2
+                            }
+                            &:nth-child(2) {
+                                flex: 1
+                            }
+                            &:nth-child(3) {
+                                flex: 2
+                            }
+                        }
+                    }
+                    .request_btn {
+                        margin: 5% 5%;
+                    }
+                }
+                .regist_btn {
+                    margin: 5% 5%;
+                }
+            }
+        }
+    }
+}

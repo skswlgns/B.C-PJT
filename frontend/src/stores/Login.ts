@@ -1,50 +1,95 @@
-import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators';
-import axios from 'axios'
-import router from '@/router'
-import { setEmitFlags } from 'typescript';
+import Vue from "vue"
+import axios from "axios"
+import router from "@/router"
+// import VueRouter from 'vue-router'
+import { Module, VuexModule, Mutation, Action } from "vuex-module-decorators"
+import Swal from 'sweetalert2'
 
-const SERVER_URL = 'http://localhost:5000'
 
-@Module({namespaced: true})
+const SERVER_URL = "https://j3b103.p.ssafy.io/api"
+// const SERVER = "http://localhost:8080"
+
+@Module({ namespaced: true })
 export default class Login extends VuexModule {
-  
   // states
-  public user_token: string = "";
-  // getters
-  // get doubledCount() {
-  //   return this.count * 2;
-  // }
+  public my_wallet: string = ""
+  public is_loading: boolean = false 
+  public wallet_complete: boolean = false
 
   // mutations
   @Mutation
-  public getToken(temp_token: string) {
-    this.user_token = temp_token
-    console.log(this.user_token)
+  public SET_TOKEN() {
+    router.push("/home")
+    location.reload()
+  }
+
+  @Mutation
+  public SET_Wallet(temp: any) {
+    console.log(temp, '오어ㅏ롬이너ㅣ란어마ㅣ런ㅇ마ㅣ')
+    this.my_wallet = temp
+    this.is_loading = false
+
+    if (temp == null){
+      this.wallet_complete = false
+    }
+  }
+
+  @Mutation
+  public loading(){
+    this.is_loading = true
+  }
+
+  @Mutation
+  public wallet_success(){
+    this.wallet_complete = true
   }
 
   // actions
   @Action
   public async signup(signupData: any) {
-    await axios.post(`${SERVER_URL}/auth/signup`, signupData)
-    .then(res => {
-      const loginInfo: any = {
-        user_email : signupData.user_email,
-        user_pwd : signupData.user_pwd
-      }
-      this.context.dispatch('login', loginInfo)
-      // console.log(res)
+    if (signupData.user_email == '') {
+      alert('이메일은 필수 값입니다.')
+    } else if (signupData.user_pwd == '') {
+      alert('비밀번호를 입력해주세요.')
+    } else if (signupData.user_lang =='') {
+      alert('모국어는 필수 값입니다.')
+    } else if (signupData.user_nickname == '') {
+      alert('닉네임은 필수 값입니다.')
+    } else if (signupData.user_wallet == '') {
+      alert('지갑은 필수 값입니다. 지갑이 없으시다면 아래의 버튼을 클릭해주세요. ')
+    } else {
+      await axios.post(`${SERVER_URL}/auth/signup`, signupData).then((res) => {
+        const loginInfo: any = {
+          user_email: signupData.user_email,
+          user_pwd: signupData.user_pwd,
+        }
+        this.context.dispatch("login", loginInfo)
+      })
+    }    
+  }
+
+  @Action({ commit: "SET_TOKEN" })
+  public async login(loginData: any) {
+    await axios.post(`${SERVER_URL}/auth/signin`, loginData).then((res) => {
+      Vue.cookies.set("token", res.data.token)
+      Vue.cookies.set("email", res.data.user_email)
     })
   }
 
-  @Action({commit : "getToken"})
-  public async login(loginData: any){
-    try{
-      const res = await axios.post(`${SERVER_URL}/auth/signin`, loginData)
-      router.push({name: "Home"})
-      // console.log(loginData)
-      return res.data.token
-    } catch(err) {
-      console.log(err)
+  @Action({commit: "SET_Wallet"})
+  public async create_wallet(wallet_password: String) {
+    const wallet_data: any = {
+      wallet_password: wallet_password,
+    }
+    const res = await axios.post(`${SERVER_URL}/eth/newBalance`, wallet_data)
+    if (res.status === 200) {
+      return res.data
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '지갑 생성에 실패했습니다.',
+        text: '다시 시도해주세요!'
+      })
     }
   }
 }

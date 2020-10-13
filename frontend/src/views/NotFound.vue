@@ -1,106 +1,42 @@
 <template>
   <div>
-    <main class='container'>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>4</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <span class='particle'>0</span>
-      <article class='content'>
-        <p>Damnit stranger,</p>
-        <p>You got lost in the <strong>404</strong> galaxy.</p>
-        <p>
-          <button>Go back to earth.</button>
-        </p>
-      </article>
-    </main>
+    <div class="face">
+      <div class="band">
+        <div class="red"></div>
+        <div class="white"></div>
+        <div class="blue"></div>
+      </div>
+      <div class="eyes"></div>
+      <div class="dimples"></div>
+      <div class="mouth"></div>
+    </div>
+
+    <h1>404 Page Not Found</h1>
+    <h1>요청하신 페이지를 찾을 수 없습니다.</h1>
+    <div class="btn" @click="goHome()">Return to Home</div>
   </div>
 </template>
 
+
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import '@/assets/scss/login.scss';
-
-@Component({
-    
-})
-
-export default class NotFound extends Vue {
+  import { Component, Vue } from 'vue-property-decorator';
   
-}
+  @Component({
+    components: {
+    },
+    methods: {
+      goHome() {
+        this.$router.push('/home')
+      }
+    }
+
+  })
+
+  export default class NotFound extends Vue {
+
+  }
 </script>
+
+<style lang="scss" scoped>
+ @import '@/assets/scss/NotFound.scss';
+</style>
